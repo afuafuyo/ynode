@@ -22,25 +22,25 @@ app 项目目录
     |
     |--- user 用户组目录
     |   |
-    |   |--- IndexController.php 用户组下的控制器
-    |   |--- OtherController.php
+    |   |--- IndexController.js 用户组下的控制器
+    |   |--- OtherController.js
     |
     |--- goods 商品组目录
     |   |
-    |   |--- IndexController.php
-    |   |--- OtherController.php
+    |   |--- IndexController.js
+    |   |--- OtherController.js
     |
   --- views 普通控制器模板目录
     |
     |--- user 用户组模板 对应上面用户组
     |   |
-    |   |--- index.php
-    |   |--- other.php
+    |   |--- index.js
+    |   |--- other.js
     |
     --- goods 商品组模板
     |   |
-    |   |--- index.php
-    |   |--- other.php
+    |   |--- index.js
+    |   |--- other.js
     |
   --- modules 模块
     |
@@ -48,11 +48,11 @@ app 项目目录
     |   |
     |   |--- controllers 模块控制器目录 其下无子目录
     |   |   |
-    |   |   |--- IndexController.php
+    |   |   |--- IndexController.js
     |   |
     |   |--- views 模块模板目录
     |   |   |
-    |   |   |--- index.php
+    |   |   |--- index.js
     |   |
     |   |--- 其他目录
     |
