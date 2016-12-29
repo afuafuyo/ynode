@@ -1,0 +1,39 @@
+/**
+ * 资源
+ */
+'use strict';
+
+var fs = require('fs');
+
+var CoreResource = require('../core/Resource');
+var Request = require('./Request');
+
+class Resource extends CoreResource {
+    
+    /**
+     * @inheritdoc
+     */
+    static handler(request, response) {
+        var pathname = Request.getInstance().parse(request).pathname;
+        fs.stat(pathname, (err, stats) => {
+            if(null !== err) {
+                response.writeHead(404, {'Content-Type': 'text/plain'});
+                response.end();
+                return;
+            }
+            
+            if(stats.isDirectory()) {
+                response.writeHead(403, {'Content-Type': 'text/plain'});
+                response.end();
+                return;
+            }
+            
+            let rs = fs.createReadStream(pathname);
+            response.writeHead(200);
+            rs.pipe(response);
+        });
+    }
+    
+}
+
+module.exports = Resource;
