@@ -6,6 +6,8 @@
 var url = require('url');
 var path = require('path');
 
+var Y = require('../Y');
+
 class Resource {
     
     /**
@@ -16,7 +18,8 @@ class Resource {
     static isStatic(pathName) {
         var ret = false;
         var ext = path.extname(pathName);
-        for(let key in Resource.Mime) {
+        var mime = null === Y.app.mime ? Resource.Mime : Object.assign({}, Resource.Mime, Y.app.mime);
+        for(let key in mime) {
             if(ext === '.' + key) {
                 ret = true;
                 break;

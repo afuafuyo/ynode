@@ -58,16 +58,12 @@ class Application extends CoreApp {
         var controllerId = '';
         var routePrefix = '';  // 前缀目录
         
-        var resolveRoute = this.resolveUserRoute(route, request);
+        var userRoute = this.resolveUserRoute(route, request);
         // 有用户自定义路由 优先解析自定义路由
-        if('' !== resolveRoute.moduleId || '' !== resolveRoute.controllerId) {
-            moduleId = resolveRoute.moduleId;
-            controllerId = resolveRoute.controllerId;
-            routePrefix = resolveRoute.routePrefix;
-            
-            if('' !== moduleId && (null === this.modules || undefined === this.modules[moduleId])) {
-                throw new ReferenceError('The module ' + moduleId + ' not found');
-            }
+        if(null !== userRoute) {
+            moduleId = userRoute.moduleId;
+            controllerId = userRoute.controllerId;
+            routePrefix = userRoute.routePrefix;
             
         } else {
             // 解析路由
@@ -77,7 +73,6 @@ class Application extends CoreApp {
                 controllerId = route.substring(pos + 1);
             } else {
                 moduleId = route;
-                controllerId = '';
             }
             
             // 解析前缀目录和控制器 id
@@ -115,12 +110,11 @@ class Application extends CoreApp {
      * @param Object request 请求对象
      */
     resolveUserRoute(route, request) {
-        var moduleId = '';
-        var controllerId = '';
-        var routePrefix = '';
-        
-        // 自定义路由
         if(null !== this.routes) {
+            var moduleId = '';
+            var controllerId = '';
+            var routePrefix = '';
+            
             var mapping = null;
             var matches = null;
             var requestInstance = Request.getInstance();
@@ -165,13 +159,15 @@ class Application extends CoreApp {
                     break;
                 }
             }
+            
+            return ('' !== moduleId || '' !== controllerId) ? {
+                moduleId: moduleId,
+                controllerId: controllerId,
+                routePrefix: routePrefix
+            } : null;
         }
         
-        return {
-            moduleId: moduleId,
-            controllerId: controllerId,
-            routePrefix: routePrefix
-        };
+        return null;
     }
     
 }
