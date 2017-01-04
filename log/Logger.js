@@ -127,6 +127,8 @@ class Logger {
     
     /**
      * 获取日志级别描述
+     *
+     * @param integer level 级别
      */
     static getLevelName(level) {
         var name = 'unknown';
