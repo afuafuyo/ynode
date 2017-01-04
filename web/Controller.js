@@ -12,10 +12,14 @@ var View = require('./View');
 class Controller {
     
     /**
+     * 获取视图文件路径
+     */
+    getTemplateFilePath(view) {
+        return View.getTemplateFilePath(view);
+    }
+    
+    /**
      * 得到模板文件
-     *
-     * @param String view 视图文件名
-     * @param Function callback 回调函数
      */
     getTemplate(view, callback) {
         // todo

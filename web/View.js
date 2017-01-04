@@ -17,7 +17,7 @@ class View extends CoreView {
     /**
      * @inheritdoc
      */
-    static getTemplate(view, callback) {
+    static getTemplateFilePath(view) {
         var app = Y.app;
         var path = '';
         
@@ -31,6 +31,15 @@ class View extends CoreView {
         // 模块无子目录 普通控制器有子目录
         path = path + '/views/' + ('' === app.routePrefix ? '.' : app.routePrefix) +
             '/' + view + View.defaultViewExtension;
+        
+        return path;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    static getTemplate(view, callback) {
+        var path = View.getTemplateFilePath(view);
         
         fs.readFile(path, 'utf8', callback);
     }

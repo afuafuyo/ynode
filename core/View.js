@@ -10,6 +10,13 @@
 class View {
     
     /**
+     * 获取视图文件路径
+     *
+     * @param String view 视图文件名
+     */
+    static getTemplateFilePath(view) {}
+    
+    /**
      * 查找视图文件
      *
      * @param String view 视图文件名
