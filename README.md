@@ -67,6 +67,13 @@ http://xxx.com/{ROUTE}
 ```
 
 ```javascript
+约定
+
+所有系统类路径都以 y 开头 eg. y/log/file/Target
+所有应用类路径都以 app 开头 eg. app/controllers/index/IndexController
+```
+
+```javascript
 index.js
 
 var YNode = require('YNode');
