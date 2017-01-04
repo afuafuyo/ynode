@@ -1,4 +1,4 @@
-# A node mvc web framework
+# A small node.js mvc web framework
 
 # 注意 开发中 未完成
 
@@ -74,7 +74,24 @@ var YNode = require('YNode');
 new YNode({
     'id': 1,
     'debug': true,
-    'appPath': __dirname + '/app'
+    'appPath': __dirname + '/app',
+    
+    'log': {
+        'targets': {
+            'file': {
+                'class': 'y/log/file/Target'
+            }
+        }
+    },
+    'modules': {
+        'bbs': 'app/modules/bbs'
+    },
+    'routes': {
+        // 访问此正则路径跳转到 bbs 模块
+        '/userdefineroute/(\\d+)': {
+            'moduleId': 'bbs'
+        }
+    }
     
 }).listen(8080, function(){
     console.log('listen on 8080');
@@ -93,9 +110,12 @@ class IndexController extends YNode.WebController {
     run(req, res) {
         this.getTemplate('index', (err, str) => {
             res.end(str);
+            
+            YNode.Logger.getLogger().error('this is a error log');
+            YNode.Logger.getLogger().flush();
         });
-        
     }
+    
 }
 
 module.exports = IndexController;
