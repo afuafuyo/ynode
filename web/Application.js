@@ -121,11 +121,10 @@ class Application extends CoreApp {
             
             for(let reg in this.routes) {
                 mapping = this.routes[reg];
-                // reg: /abc/(\d) -> abc\/(\\d)
+                // reg: /abc/(\d+) -> abc\/(\d+)
                 matches = route.match( new RegExp(StringHelper.trimChar(reg, '/')
-                    .replace('/', '\\/')
-                    .replace('\\', '\\\\')) );
-                
+                    .replace('/', '\\/')) );
+                    
                 if(null !== matches) {
                     if(undefined !== mapping.moduleId) {
                         moduleId = mapping.moduleId;

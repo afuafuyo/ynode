@@ -48,7 +48,7 @@ class Target extends BaseTarget {
         var msg = this.formatMessage(messages);
         var file = this.logPath + '/' + this.logFile;
         
-        fs.writeFile(file, msg, 'utf8', (err) => {});
+        fs.appendFile(file, msg, 'utf8', (err) => {});
     }
     
     /**
