@@ -28,14 +28,12 @@ class YNode {
     
     // 中间层
     requestListener(req, res) {
-        //try {
+        try {
             this.app.requestListener(req, res);
             
-        //} catch(e) {
-        //    if(Y.app.debug) {
-        //        res.end(e.message);
-        //    }
-        //}
+        } catch(e) {
+            res.end(Y.app.debug ? e.message : '');
+        }
     }
     
     /**
