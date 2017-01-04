@@ -1,3 +1,7 @@
+/**
+ * @author yu
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ */
 'use strict';
 
 var Event = require('../core/Event');
@@ -14,7 +18,7 @@ class BaseTarget extends Event {
         super();
         
         /**
-         * 事件
+         * @var String 事件
          */
         this.EVENT_FLUSH = 'flush';
     }
@@ -27,7 +31,7 @@ class BaseTarget extends Event {
     flush(messages) {}
     
     /**
-     * 事件
+     * 触发事件
      */
     trigger(eventName, param) {
         if(undefined !== this.handlers[eventName]) {
