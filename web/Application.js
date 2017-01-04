@@ -1,6 +1,3 @@
-/**
- * web 应用
- */
 'use strict';
 
 var Y = require('../Y');
@@ -9,6 +6,9 @@ var Request = require('./Request');
 var Resource = require('./Resource');
 var StringHelper = require('../helpers/StringHelper');
 
+/**
+ * web 应用
+ */
 class Application extends CoreApp {
     
     /**

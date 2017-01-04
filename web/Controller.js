@@ -1,10 +1,10 @@
-/**
- * 控制器
- */
 'use strict';
 
 var View = require('./View');
 
+/**
+ * 控制器
+ */
 class Controller {
     
     /**

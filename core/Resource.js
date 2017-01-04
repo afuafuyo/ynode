@@ -1,6 +1,3 @@
-/**
- * 资源
- */
 'use strict';
 
 var url = require('url');
@@ -8,6 +5,9 @@ var path = require('path');
 
 var Y = require('../Y');
 
+/**
+ * 静态资源处理
+ */
 class Resource {
     
     /**

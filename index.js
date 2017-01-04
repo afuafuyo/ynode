@@ -1,14 +1,15 @@
-/**
- * ynode
- */
 'use strict';
 
 var http = require('http');
 
 var Y = require('./Y');
 var WebApp = require('./web/Application');
+var Logger = require('./log/Logger');
 var WebController = require('./web/Controller');
 
+/**
+ * 入口
+ */
 class YNode {
     
     /**
@@ -27,14 +28,14 @@ class YNode {
     
     // 中间层
     requestListener(req, res) {
-        try {
+        //try {
             this.app.requestListener(req, res);
             
-        } catch(e) {
-            if(Y.app.debug) {
-                res.end(e.message);
-            }
-        }
+        //} catch(e) {
+        //    if(Y.app.debug) {
+        //        res.end(e.message);
+        //    }
+        //}
     }
     
     /**
@@ -61,5 +62,10 @@ YNode.Y = Y;
  * WebController handler
  */
 YNode.WebController = WebController;
+
+/**
+ * Logger
+ */
+YNode.Logger = Logger;
 
 module.exports = YNode;

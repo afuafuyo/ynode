@@ -12,7 +12,7 @@
 ###### 系统内置别名
 * @y  系统目录
 * @app  项目目录 由 appPath 指定
-* @runtime  缓存目录 指向 @app/runtime
+* @runtime  缓存目录 默认指向 @app/runtime
 
 ###### 项目目录示例
 <pre>
@@ -69,7 +69,7 @@ http://xxx.com/{ROUTE}
 ```javascript
 index.js
 
-var YNode = require('ynode');
+var YNode = require('YNode');
 
 new YNode({
     'id': 1,
@@ -86,9 +86,9 @@ app\controllers\index\IndexController.js
 
 'use strict';
 
-var ynode = require('ynode');
+var YNode = require('YNode');
 
-class IndexController extends ynode.WebController {
+class IndexController extends YNode.WebController {
     
     run(req, res) {
         this.getTemplate('index', (err, str) => {
@@ -100,4 +100,3 @@ class IndexController extends ynode.WebController {
 
 module.exports = IndexController;
 ```
-

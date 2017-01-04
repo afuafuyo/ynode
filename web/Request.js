@@ -1,6 +1,3 @@
-/**
- * 请求
- */
 'use strict';
 
 var url = require('url');
@@ -8,6 +5,9 @@ var querystring = require('querystring');
 
 var CoreRequest = require('../core/Request');
 
+/**
+ * 请求
+ */
 class Request extends CoreRequest {
     
     /**

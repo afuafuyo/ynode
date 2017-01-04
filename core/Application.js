@@ -1,10 +1,10 @@
-/**
- * 应用
- */
 'use strict';
 
 var Y = require('../Y');
 
+/**
+ * 应用基类
+ */
 class Application {
     
     /**

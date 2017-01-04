@@ -1,11 +1,11 @@
-/**
- * 辅助类
- */
 'use strict';
 
 var fs = require('fs');
 var path = require('path');
 
+/**
+ * 辅助类
+ */
 class Y {
     
     /**
@@ -51,13 +51,13 @@ class Y {
     }
     
     /**
-     * 创建 app 对象
+     * 创建 app 对象 项目类路径约定以项目目录名开头
      *
      * @param String clazz 类全名 eg. app/controllers/index/IndexController
-     * @param Array params 参数
+     * @param Object params 参数
      * @return Object 类实例
      */
-    static createAppObject(clazz) {
+    static createAppObject(clazz, params) {
         var appPath = Y.app.getAppPath();
         var realPath = path.dirname(appPath) + '/' + clazz;
         
@@ -66,7 +66,26 @@ class Y {
         
         var Obj = require(realPath);
         
-        return new Obj();
+        return new Obj(params);
+    }
+    
+    /**
+     * 创建系统对象 系统类路径约定以 y 开头
+     *
+     * @param String clazz 类全名 eg. y/log/file/Target
+     * @param Object params 参数
+     * @return Object 类实例
+     */
+    static createSysObject(clazz, params) {
+        var appPath = Y.getPathAlias('@y');
+        var realPath = appPath + '/' + clazz.substring(2);
+        
+        // 文件不存在抛出异常
+        fs.accessSync(realPath + Y.app.fileExtention, fs.F_OK);
+        
+        var Obj = require(realPath);
+        
+        return new Obj(params);
     }
     
     /**

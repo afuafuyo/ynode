@@ -1,8 +1,8 @@
+'use strict';
+
 /**
  * String Helper
  */
-'use strict';
-
 class StringHelper {
     
     /**

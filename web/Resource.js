@@ -1,6 +1,3 @@
-/**
- * 资源
- */
 'use strict';
 
 var fs = require('fs');
@@ -8,6 +5,9 @@ var fs = require('fs');
 var CoreResource = require('../core/Resource');
 var Request = require('./Request');
 
+/**
+ * web 静态资源
+ */
 class Resource extends CoreResource {
     
     /**

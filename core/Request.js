@@ -1,8 +1,8 @@
+'use strict';
+
 /**
  * 请求
  */
-'use strict';
-
 class Request {
 
     /**

@@ -1,8 +1,8 @@
+'use strict';
+
 /**
  * 视图
  */
-'use strict';
-
 class View {
     
     /**
@@ -18,6 +18,6 @@ class View {
 /**
  * @var String 默认视图文件后缀
  */
-View.defaultExtension = '.js';
+View.defaultViewExtension = '.js';
 
 module.exports = View;
