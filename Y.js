@@ -4,8 +4,7 @@
  */
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
+var StringHelper = require('./helpers/StringHelper');
 
 /**
  * 辅助类
@@ -50,44 +49,25 @@ class Y {
             delete Y.pathAliases[alias];
 
         } else {
-            Y.pathAliases[alias] = path;
+            Y.pathAliases[alias] = StringHelper.rTrimChar(path, '/');
         }
     }
     
     /**
-     * 创建 app 对象 项目类路径约定以项目目录名开头
+     * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
      *
-     * @param String clazz 类全名 eg. app/controllers/index/IndexController
+     * @param String clazz 类全名 eg. y/log/file/Target, app/controllers/index/IndexController
      * @param Object params 参数
      * @return Object 类实例
      */
-    static createAppObject(clazz, params) {
-        var appPath = Y.app.getAppPath();
-        var realPath = path.dirname(appPath) + '/' + clazz;
-        
+    static createObject(clazz, params) {
+        var isSysClass = Y.sysClassPrefix === clazz.substring(0, Y.sysClassPrefix.length) ? true : false;
+        var classPath = isSysClass ?
+            Y.getPathAlias('@y') + '/' + clazz.substring(Y.sysClassPrefix.length) :
+            Y.app.getAppPath() + '/' + clazz.substring(clazz.indexOf('/') + 1);
+            
         // 文件不存在抛出异常
-        fs.accessSync(realPath + Y.app.fileExtention, fs.F_OK);
-        
-        var Obj = require(realPath);
-        
-        return new Obj(params);
-    }
-    
-    /**
-     * 创建系统对象 系统类路径约定以 y 开头
-     *
-     * @param String clazz 类全名 eg. y/log/file/Target
-     * @param Object params 参数
-     * @return Object 类实例
-     */
-    static createSysObject(clazz, params) {
-        var appPath = Y.getPathAlias('@y');
-        var realPath = appPath + '/' + clazz.substring(2);
-        
-        // 文件不存在抛出异常
-        fs.accessSync(realPath + Y.app.fileExtention, fs.F_OK);
-        
-        var Obj = require(realPath);
+        var Obj = require(classPath + Y.app.fileExtention);
         
         return new Obj(params);
     }
@@ -118,5 +98,10 @@ Y.app = null;
  * @var JSON 路径别名
  */
 Y.pathAliases = {'@y': __dirname};
+
+/**
+ * @var String 系统类路径前缀
+ */
+Y.sysClassPrefix = 'y/';
 
 module.exports = Y;

@@ -46,7 +46,7 @@ class Logger {
         
         for(let target in Y.app.log.targets) {
             if(undefined !== Y.app.log.targets[target]['class']) {
-                let clazz = Y.createSysObject(Y.app.log.targets[target]['class'],
+                let clazz = Y.createObject(Y.app.log.targets[target]['class'],
                     Y.app.log.targets[target]);
                 clazz.on(clazz.EVENT_FLUSH, clazz);
                 

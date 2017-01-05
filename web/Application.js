@@ -97,13 +97,13 @@ class Application extends CoreApp {
                 StringHelper.ucFirst(this.controllerId) + 'Controller';
             this.moduleId = moduleId;
             
-            return Y.createAppObject(clazz);
+            return Y.createObject(clazz);
         }
         
         // 普通控制器有前缀目录
         this.routePrefix = '' === routePrefix ? this.controllerId : routePrefix;
 
-        return Y.createAppObject( this.defaultControllerNamespace + '/' +
+        return Y.createObject( this.defaultControllerNamespace + '/' +
             this.routePrefix + '/' + StringHelper.ucFirst(this.controllerId) + 'Controller' );
     }
     

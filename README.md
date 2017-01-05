@@ -74,7 +74,7 @@ http://xxx.com/{ROUTE}
 约定
 
 所有系统类路径都以 y 开头 eg. y/log/file/Target
-所有应用类路径都以 app 开头 eg. app/controllers/index/IndexController
+所有应用类路径都以项目目录名开头 如 app  eg. app/controllers/index/IndexController
 ```
 
 ```javascript
