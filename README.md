@@ -67,7 +67,7 @@ app 项目目录
 ```javascript
 路由格式
 
-http://xxx.com/{ROUTE}
+http://xxx.com/[:route_prefix]/[:controllerId]
 ```
 
 ```javascript
@@ -117,7 +117,7 @@ app\controllers\index\IndexController.js
 var YNode = require('YNode');
 
 class IndexController extends YNode.WebController {
-    
+    // 控制器单入口
     run(req, res) {
         this.getTemplate('index', (err, str) => {
             res.end(str);
