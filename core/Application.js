@@ -123,6 +123,14 @@ class Application {
             // set "app/runtime"
             this.setRuntimePath( this.getAppPath() + '/runtime');
         }
+        
+        if(undefined !== config.rootPath) {
+            this.setRootPath(config.rootPath);
+            delete config.rootPath;
+            
+        } else {
+            this.setRootPath(process.env.pwd);
+        }
     }
     
     /**
@@ -159,6 +167,24 @@ class Application {
      */
     getRuntimePath() {
         return Y.getPathAlias('@runtime');
+    }
+    
+    /**
+     * 设置 root 路径
+     *
+     * @param String path 路径
+     */
+    setRootPath(path) {
+        Y.setPathAlias('@root', path);
+    }
+    
+    /**
+     * 得到 root 目录
+     *
+     * @return String 路径
+     */
+    getRootPath() {
+        return Y.getPathAlias('@root');
     }
     
     /**

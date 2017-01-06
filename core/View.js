@@ -29,6 +29,6 @@ class View {
 /**
  * @var String 默认视图文件后缀
  */
-View.defaultViewExtension = '.js';
+View.defaultViewExtension = '.html';
 
 module.exports = View;

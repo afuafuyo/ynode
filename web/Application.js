@@ -26,7 +26,7 @@ class Application extends CoreApp {
      * @inheritdoc
      */
     requestListener(request, response) {
-        var pathname = Request.getInstance().parse(request).pathname;
+        var pathname = Request.parse(request).pathname;
         if(Resource.isStatic(pathname)) {
             Resource.handler(request, response);
             return;
@@ -45,7 +45,7 @@ class Application extends CoreApp {
      * @inheritdoc
      */
     createController(request) {
-        var route = Request.getInstance().parse(request).pathname;
+        var route = Request.parse(request).pathname;
         route = StringHelper.lTrimChar(route, '/');
         
         // route eg. index/index
@@ -121,7 +121,6 @@ class Application extends CoreApp {
             
             var mapping = null;
             var matches = null;
-            var requestInstance = Request.getInstance();
             
             for(let reg in this.routes) {
                 mapping = this.routes[reg];
@@ -146,13 +145,13 @@ class Application extends CoreApp {
                             
                             if(Array.isArray(mapping.params.key)) {
                                 for(let j=0,len=mapping.params.key.length; j<len; j++) {
-                                    requestInstance.setGetParam(request,
+                                    Request.setGetParam(request,
                                         mapping.params.key[j],
                                         matches[mapping.params.segment[j]]);
                                 }
                             
                             } else {
-                                requestInstance.setGetParam(request,
+                                Request.setGetParam(request,
                                     mapping.params.key,
                                     matches[mapping.params.segment]);
                             }

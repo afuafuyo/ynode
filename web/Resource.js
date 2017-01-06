@@ -6,6 +6,7 @@
 
 var fs = require('fs');
 
+var Y = require('../Y');
 var CoreResource = require('../core/Resource');
 var Request = require('./Request');
 
@@ -18,16 +19,26 @@ class Resource extends CoreResource {
      * @inheritdoc
      */
     static handler(request, response) {
-        var pathname = Request.getInstance().parse(request).pathname;
+        if(undefined === Y.app.assets) {
+            response.writeHead(404, {'Content-Type': 'text/plain'});
+            response.end();
+            return;
+        }
+        
+        var pathname = Request.parse(request).pathname;
+        var mimeType = Resource.getMimeType(pathname);
+        pathname = (Y.app.getRootPath() + '/' + Y.app.assets + pathname).replace(/\.\.\//g, '');
+        
         fs.stat(pathname, (err, stats) => {
+            response.setHeader('Content-Type', '' === mimeType ? 'text/plain' : mimeType);
             if(null !== err) {
-                response.writeHead(404, {'Content-Type': 'text/plain'});
+                response.writeHead(404);
                 response.end();
                 return;
             }
             
             if(stats.isDirectory()) {
-                response.writeHead(403, {'Content-Type': 'text/plain'});
+                response.writeHead(403);
                 response.end();
                 return;
             }

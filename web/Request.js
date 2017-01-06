@@ -15,22 +15,9 @@ var CoreRequest = require('../core/Request');
 class Request extends CoreRequest {
     
     /**
-     * 获得单例对象
-     *
-     * @return Request 对象实例
-     */
-    static getInstance() {
-        if(null === Request._instance) {
-            Request._instance = new Request();
-        }
-        
-        return Request._instance;
-    }
-    
-    /**
      * @inheritdoc
      */
-    parse(request) {
+    static parse(request) {
         var obj = url.parse(request.url);
         
         return {
@@ -50,8 +37,8 @@ class Request extends CoreRequest {
      * @param String routeParam 请求参数名
      * @return String | undefined | ''
      */
-    getGetParam(request, routeParam) {
-        var parsed = this.parse(request);
+    static getGetParam(request, routeParam) {
+        var parsed = Request.parse(request);
         // 查找参数
         if(null !== parsed.query &&
             (0 === parsed.query.indexOf(routeParam) ||
@@ -77,7 +64,7 @@ class Request extends CoreRequest {
      * @param String param 参数名
      * @param String value 参数值
      */
-    setGetParam(request, param, value) {
+    static setGetParam(request, param, value) {
         if(undefined === request.additionalQuery) {
             request.additionalQuery = param + '=' + value;
             
@@ -88,10 +75,5 @@ class Request extends CoreRequest {
     }
     
 }
-
-/**
- * @var Request 对象实例
- */
-Request._instance = null;
 
 module.exports = Request;

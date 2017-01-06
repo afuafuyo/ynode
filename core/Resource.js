@@ -34,6 +34,25 @@ class Resource {
     }
     
     /**
+     * 获取 mimeType
+     *
+     * @param String pathName 访问路径
+     */
+    static getMimeType(pathName) {
+        var ret = '';
+        var ext = path.extname(pathName);
+        var mime = null === Y.app.mime ? Resource.Mime : Object.assign({}, Resource.Mime, Y.app.mime);
+        for(let key in mime) {
+            if(ext === '.' + key) {
+                ret = mime[key];
+                break;
+            }
+        }
+        
+        return ret;
+    }
+    
+    /**
      * 处理静态资源
      *
      * @param Object request

@@ -38,13 +38,13 @@ app 项目目录
     |
     |--- user 用户组模板 对应上面用户组
     |   |
-    |   |--- index.js
-    |   |--- other.js
+    |   |--- index.html
+    |   |--- other.html
     |
     --- goods 商品组模板
     |   |
-    |   |--- index.js
-    |   |--- other.js
+    |   |--- index.html
+    |   |--- other.html
     |
   --- modules 模块
     |
@@ -56,7 +56,7 @@ app 项目目录
     |   |
     |   |--- views 模块模板目录
     |   |   |
-    |   |   |--- index.js
+    |   |   |--- index.html
     |   |
     |   |--- 其他目录
     |
@@ -86,14 +86,6 @@ new YNode({
     'id': 1,
     'debug': true,
     'appPath': __dirname + '/app',
-    
-    'log': {
-        'targets': {
-            'file': {
-                'class': 'y/log/file/Target'
-            }
-        }
-    },
     'modules': {
         'bbs': 'app/modules/bbs'
     },
@@ -101,6 +93,15 @@ new YNode({
         // 访问此正则路径跳转到 bbs 模块
         '/userdefineroute/(\\d+)': {
             'moduleId': 'bbs'
+        }
+    },
+    
+    'assets': 'public',
+    'log': {
+        'targets': {
+            'file': {
+                'class': 'y/log/file/Target'
+            }
         }
     }
     
