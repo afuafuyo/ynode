@@ -32,7 +32,9 @@ class YNode {
             this.app.requestListener(req, res);
             
         } catch(e) {
-            res.end(Y.app.debug ? e.message : '');
+            res.setHeader('Content-Type', 'text/plain');
+            res.writeHead(500);
+            res.end(Y.app.debug ? e.message : 'The server encountered an internal error');
         }
     }
     
