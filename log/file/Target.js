@@ -15,7 +15,7 @@ var BaseTarget = require('../BaseTarget');
  *             'class': 'y/log/file/Target',
  *             'logPath': '@runtime/logs'
  *         },
- *         'db': {...}
+ *         'other': {...}
  *     },
  *     'flushInterval': 10
  * }
