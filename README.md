@@ -133,15 +133,15 @@ class IndexController extends YNode.WebController {
 module.exports = IndexController;
 ```
 
-# 关于模板引擎
+# 模板引擎
 
-本程序不提供模板引擎，您可以使用 ejs 或其他程序。
+使用 ejs 集成
 
 ```javascript
 npm install ejs
 ```
 
-之后在控制器中可以这样做
+在控制器中可以这样做
 
 ```javascript
 'use strict';
