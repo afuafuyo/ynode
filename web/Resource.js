@@ -25,7 +25,7 @@ class Resource extends CoreResource {
             return;
         }
         
-        var pathname = Request.parse(request).pathname;
+        var pathname = Request.parseUrl(request).pathname;
         var mimeType = Resource.getMimeType(pathname);
         pathname = (Y.app.getRootPath() + '/' + Y.app.assets + pathname).replace(/\.\.\//g, '');
         

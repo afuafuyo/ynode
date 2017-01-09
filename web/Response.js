@@ -45,7 +45,7 @@ class Response extends CoreResponse {
         this.headers = {};
         
         /**
-         * @var String|Buffer HTTP content
+         * @var String | Buffer HTTP content
          */
         this.content = '';
         
@@ -92,7 +92,7 @@ class Response extends CoreResponse {
      * 获取 header
      *
      * @param String name header name
-     * @return String|null
+     * @return String | null
      */
     getHeader(name) {
         if(undefined !== this.headers[name]) {
@@ -106,7 +106,7 @@ class Response extends CoreResponse {
      * 设置 header
      *
      * @param String name header name
-     * @param String|Array value of header
+     * @param String | Array value of header
      */
     setHeader(name, value) {
         this.headers[name] = value;
@@ -117,7 +117,7 @@ class Response extends CoreResponse {
     /**
      * 获取实体内容
      *
-     * @return String|Buffer
+     * @return String | Buffer
      */
     getContent() {
         return this.content;
@@ -126,7 +126,7 @@ class Response extends CoreResponse {
     /**
      * 设置实体内容
      *
-     * @param String|Buffer content 实体内容
+     * @param String | Buffer content 实体内容
      */
     setContent(content) {
         this.content = content;
@@ -147,7 +147,7 @@ class Response extends CoreResponse {
         }
         
         var cookie = new Cookie(name,
-            value,
+            encodeURIComponent(value),
             options.expires,
             options.path,
             options.domain,

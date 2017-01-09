@@ -26,7 +26,7 @@ class Application extends CoreApp {
      * @inheritdoc
      */
     requestListener(request, response) {
-        var pathname = Request.parse(request).pathname;
+        var pathname = Request.parseUrl(request).pathname;
         if(Resource.isStatic(pathname)) {
             Resource.handler(request, response);
             return;
@@ -45,7 +45,7 @@ class Application extends CoreApp {
      * @inheritdoc
      */
     createController(request) {
-        var route = Request.parse(request).pathname;
+        var route = Request.parseUrl(request).pathname;
         route = StringHelper.lTrimChar(route, '/');
         
         // route eg. index/index

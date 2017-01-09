@@ -21,7 +21,7 @@ class Response {
     /**
      * sends data to client and end response
      *
-     * @param String|Buffer content
+     * @param String | Buffer content
      */
     send(content) {}
     

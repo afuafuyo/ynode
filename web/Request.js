@@ -22,9 +22,11 @@ class Request extends CoreRequest {
     }
     
     /**
-     * @inheritdoc
+     * 解析 request url
+     *
+     * @param Object request 请求对象
      */
-    static parse(request) {
+    static parseUrl(request) {
         var obj = url.parse(request.url);
         
         return {
@@ -44,7 +46,7 @@ class Request extends CoreRequest {
      * @return String | undefined | ''
      */
     getGetParam(routeParam) {
-        var parsed = Request.parse(this.request);
+        var parsed = Request.parseUrl(this.request);
         // 查找参数
         if(null !== parsed.query &&
             (0 === parsed.query.indexOf(routeParam) ||
@@ -77,6 +79,31 @@ class Request extends CoreRequest {
         }
         
         this.request.additionalQuery = this.request.additionalQuery + '&' + param + '=' + value;
+    }
+    
+    /**
+     * 获取 cookie
+     *
+     * @param name cookie name
+     * @return String | null
+     */
+    getCookie(name) {
+        if(undefined === this.request.headers.cookie) {
+            return null;
+        }
+        
+        var list = this.request.headers.cookie.split('; ');
+        var ret = null, tmp = null;
+        for(let i=0,len=list.length; i<len; i++) {
+			tmp = list[i].split('=');
+			
+			if(name === tmp[0]) {
+				ret = decodeURIComponent(tmp[1]);
+				break;
+			}
+		}
+        
+        return ret;
     }
     
 }

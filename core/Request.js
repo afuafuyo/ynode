@@ -35,13 +35,6 @@ class Request {
         
         return this._scriptFile;
     }
-    
-    /**
-     * 解析 request
-     *
-     * @param Object request 请求对象
-     */
-    static parse(request) {}
 
 }
 
