@@ -168,3 +168,14 @@ class IndexController extends YNode.WebController {
 
 module.exports = IndexController;
 ```
+
+# Response
+
+```javascript
+var r = new YNode.WebResponse(res);
+        
+r.setCookie('name', 'lisi');
+r.setCookie('age', '20');
+
+r.send('out string');  // 会自动结束输出
+```

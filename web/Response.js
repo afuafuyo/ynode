@@ -5,6 +5,7 @@
 'use strict';
 
 var CoreResponse = require('../core/Response');
+var Cookie = require('./Cookie');
 
 /**
  * Web HTTP response
@@ -18,9 +19,14 @@ class Response extends CoreResponse {
         super(response);
         
         /**
+         * @var String 编码
+         */
+        this.encoding = 'utf8';
+        
+        /**
          * @var String HTTP protocol version
          */
-        this.version = '1.1';
+        //this.version = '1.1';
         
         /**
          * @var Integer the HTTP status code
@@ -36,48 +42,23 @@ class Response extends CoreResponse {
         /**
          * @var JSON HTTP headers
          */
-        this.headers = null;
+        this.headers = {};
         
         /**
          * @var String|Buffer HTTP content
          */
         this.content = '';
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    send() {
-        this.sendHeaders();
-        this.sendContent();
         
-        this.response.end();
-        
-        return this;
-    }
-    
-    /**
-     * 发送 header
-     */
-    sendHeaders() {
-        this.response.writeHead(this.statusCode, this.statusText);
-        
-        if(null !== this.headers) {
-            for(let name in this.headers) {
-                this.response.setHeader(name, this.headers[name]);
-            }
-        }
-    }
-    
-    /**
-     * 发送内容
-     */
-    sendContent() {
-        this.response.write(this.content);
+        /**
+         * @var Array HTTP cookies
+         */
+        this.cookies = [];
     }
     
     /**
      * 得到 http status code
+     *
+     * @return Integer
      */
     getStatusCode() {
         return this.statusCode;
@@ -103,7 +84,130 @@ class Response extends CoreResponse {
         } else {
             this.statusText = text;
         }
+        
+        return this;
     }
+    
+    /**
+     * 获取 header
+     *
+     * @param String name header name
+     * @return String|null
+     */
+    getHeader(name) {
+        if(undefined !== this.headers[name]) {
+            return this.headers[name];
+        }
+        
+        return null;
+    }
+    
+    /**
+     * 设置 header
+     *
+     * @param String name header name
+     * @param String|Array value of header
+     */
+    setHeader(name, value) {
+        this.headers[name] = value;
+        
+        return this;
+    }
+    
+    /**
+     * 获取实体内容
+     *
+     * @return String|Buffer
+     */
+    getContent() {
+        return this.content;
+    }
+    
+    /**
+     * 设置实体内容
+     *
+     * @param String|Buffer content 实体内容
+     */
+    setContent(content) {
+        this.content = content;
+        
+        return this;
+    }
+    
+    /**
+     * 设置一条 cookie
+     *
+     * @param String name cookie name
+     * @param String value cookie value
+     * @param JSON options other config
+     */
+    setCookie(name, value, options) {
+        if(undefined === options) {
+            options = {};
+        }
+        
+        var cookie = new Cookie(name,
+            value,
+            options.expires,
+            options.path,
+            options.domain,
+            options.secure,
+            options.httpOnly);
+        
+        this.cookies.push(cookie.toString());
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    send(content) {
+        if(undefined !== content) {
+            this.setContent(content);
+        }
+        
+        this.sendHeaders();
+        this.sendContent();
+        
+        this.response.end();
+    }
+    
+    /**
+     * 发送 header
+     */
+    sendHeaders() {
+        if(this.response.headersSent) {
+            return;
+        }
+        
+        if(null !== this.headers) {
+            for(let name in this.headers) {
+                this.response.setHeader(name, this.headers[name]);
+            }
+        }
+        
+        this.sendCookies();
+        
+        this.response.writeHead(this.statusCode, this.statusText);
+    }
+    
+    /**
+     * 发送 cookies
+     */
+    sendCookies() {
+        if(0 === this.cookies.length) {
+            return;
+        }
+        
+        this.response.setHeader('Set-Cookie', this.cookies);
+    }
+    
+    /**
+     * 发送内容
+     */
+    sendContent() {
+        this.response.write(this.content, this.encoding);
+    }
+    
 }
 
 /**

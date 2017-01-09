@@ -4,7 +4,10 @@ var http = require('http');
 
 var Y = require('./Y');
 var WebApp = require('./web/Application');
+
 var Logger = require('./log/Logger');
+var Cookie = require('./web/Cookie');
+var WebResponse = require('./web/Response');
 var WebController = require('./web/Controller');
 
 /**
@@ -59,13 +62,23 @@ class YNode {
 YNode.Y = Y;
 
 /**
- * WebController handler
- */
-YNode.WebController = WebController;
-
-/**
  * Logger
  */
 YNode.Logger = Logger;
+
+/**
+ * Cookie
+ */
+YNode.Cookie = Cookie;
+
+/**
+ * Web response
+ */
+YNode.WebResponse = WebResponse;
+
+/**
+ * WebController handler
+ */
+YNode.WebController = WebController;
 
 module.exports = YNode;
