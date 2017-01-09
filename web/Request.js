@@ -15,6 +15,13 @@ var CoreRequest = require('../core/Request');
 class Request extends CoreRequest {
     
     /**
+     * constructor
+     */
+    constructor(request) {
+        super(request);
+    }
+    
+    /**
      * @inheritdoc
      */
     static parse(request) {
@@ -33,12 +40,11 @@ class Request extends CoreRequest {
     /**
      * 获取 get 请求参数
      *
-     * @param Object request 请求对象
      * @param String routeParam 请求参数名
      * @return String | undefined | ''
      */
-    static getGetParam(request, routeParam) {
-        var parsed = Request.parse(request);
+    getGetParam(routeParam) {
+        var parsed = Request.parse(this.request);
         // 查找参数
         if(null !== parsed.query &&
             (0 === parsed.query.indexOf(routeParam) ||
@@ -60,18 +66,17 @@ class Request extends CoreRequest {
     /**
      * 设置 get 请求参数
      *
-     * @param Object request 请求对象
      * @param String param 参数名
      * @param String value 参数值
      */
-    static setGetParam(request, param, value) {
-        if(undefined === request.additionalQuery) {
-            request.additionalQuery = param + '=' + value;
+    setGetParam(param, value) {
+        if(undefined === this.request.additionalQuery) {
+            this.request.additionalQuery = param + '=' + value;
             
             return;
         }
         
-        request.additionalQuery = request.additionalQuery + '&' + param + '=' + value;
+        this.request.additionalQuery = this.request.additionalQuery + '&' + param + '=' + value;
     }
     
 }

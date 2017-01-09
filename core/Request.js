@@ -5,9 +5,36 @@
 'use strict';
 
 /**
- * 请求
+ * server request
  */
 class Request {
+    
+    /**
+     * constructor
+     *
+     * @param Object request
+     */
+    constructor(request) {
+        this.request = request;
+        
+        /**
+         * @var String 入口文件名
+         */
+        this._scriptFile = null;
+    }
+    
+    /**
+     * 返回入口文件名
+     *
+     * @return String
+     */
+    getScriptFile() {
+        if (null === this._scriptFile) {
+            this._scriptFile = process.mainModule.filename;
+        }
+        
+        return this._scriptFile;
+    }
     
     /**
      * 解析 request
@@ -16,24 +43,6 @@ class Request {
      */
     static parse(request) {}
 
-    /**
-     * 返回入口文件名
-     *
-     * @return String
-     */
-    static getScriptFile() {
-        if (null === Request._scriptFile) {
-            Request._scriptFile = process.mainModule.filename;
-        }
-        
-        return Request._scriptFile;
-    }
-
 }
-
-/**
- * @var String 入口文件名
- */
-Request._scriptFile = null;
 
 module.exports = Request;

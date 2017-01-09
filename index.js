@@ -7,6 +7,7 @@ var WebApp = require('./web/Application');
 
 var Logger = require('./log/Logger');
 var Cookie = require('./web/Cookie');
+var WebRequest = require('./web/Request');
 var WebResponse = require('./web/Response');
 var WebController = require('./web/Controller');
 
@@ -70,6 +71,11 @@ YNode.Logger = Logger;
  * Cookie
  */
 YNode.Cookie = Cookie;
+
+/**
+ * Web request
+ */
+YNode.WebRequest = WebRequest;
 
 /**
  * Web response

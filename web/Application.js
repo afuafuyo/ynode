@@ -143,16 +143,15 @@ class Application extends CoreApp {
                         if(undefined !== mapping.params.key &&
                             undefined !== mapping.params.segment) {
                             
+                            let requestInstance = new Request(request);
                             if(Array.isArray(mapping.params.key)) {
                                 for(let j=0,len=mapping.params.key.length; j<len; j++) {
-                                    Request.setGetParam(request,
-                                        mapping.params.key[j],
+                                    requestInstance.setGetParam(mapping.params.key[j],
                                         matches[mapping.params.segment[j]]);
                                 }
                             
                             } else {
-                                Request.setGetParam(request,
-                                    mapping.params.key,
+                                requestInstance.setGetParam(mapping.params.key,
                                     matches[mapping.params.segment]);
                             }
                         }
