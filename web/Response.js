@@ -155,6 +155,8 @@ class Response extends CoreResponse {
             options.httpOnly);
         
         this.cookies.push(cookie.toString());
+        
+        return this;
     }
     
     /**
