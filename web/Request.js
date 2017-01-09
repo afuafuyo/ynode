@@ -95,14 +95,14 @@ class Request extends CoreRequest {
         var list = this.request.headers.cookie.split('; ');
         var ret = null, tmp = null;
         for(let i=0,len=list.length; i<len; i++) {
-			tmp = list[i].split('=');
-			
-			if(name === tmp[0]) {
-				ret = decodeURIComponent(tmp[1]);
-				break;
-			}
-		}
-        
+            tmp = list[i].split('=');
+
+            if(name === tmp[0]) {
+                ret = decodeURIComponent(tmp[1]);
+                break;
+            }
+        }
+
         return ret;
     }
     
