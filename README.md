@@ -16,6 +16,7 @@
 * @y  系统目录
 * @app  项目目录 由 appPath 指定
 * @runtime  缓存目录 默认指向 @app/runtime
+* @root  网站根目录
 
 ###### 项目目录示例
 
@@ -179,3 +180,8 @@ r.setCookie('age', '20');
 
 r.send('out string');  // 会自动结束输出
 ```
+
+# 已知问题
+
+* 异步异常没做处理
+
