@@ -5,12 +5,24 @@
 'use strict';
 
 var fs = require('fs');
-var path = require('path');
 
 /**
  * 文件处理
  */
 class FileHelper {
+    
+    /**
+     * 获取 dirname
+     *
+     * @param String dir 目录路径
+     */
+    static getDirname(dir) {
+        if('/' === dir.charAt(dir.length - 1)) {
+            dir = dir.substring(0, dir.length - 1);
+        }
+        
+        return dir.substring(0, dir.lastIndexOf('/'));
+    }
     
     /**
      * 创建文件夹
@@ -26,7 +38,7 @@ class FileHelper {
                 return true;
             }
             
-            let parentDir = path.dirname(dir);
+            let parentDir = FileHelper.getDirname(dir);
             FileHelper.createDirectory(parentDir, mode, () => {
                 fs.mkdir(dir, mode, callback);
             });
@@ -40,7 +52,15 @@ class FileHelper {
      * @param Integer mode 目录权限
      */
     static createDirectorySync(dir, mode /* = 0o777 */) {
+        if(fs.existsSync(dir)) {
+            return true;
+        }
         
+        if(FileHelper.createDirectorySync(FileHelper.getDirname(dir))) {
+            fs.mkdirSync(dir, mode);
+        }
+        
+        return true;
     }
 
 }
