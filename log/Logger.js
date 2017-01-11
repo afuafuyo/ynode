@@ -73,8 +73,7 @@ class Logger {
      * @param Integer level 日志级别
      */
     log(message, level) {
-        var time = new Date().getTime();        
-        this.messages.push([message, level, time]);
+        this.messages.push([message, level, Date.now()]);
         
         if(this.flushInterval > 0 && this.messages.length >= this.flushInterval) {
             this.flush();

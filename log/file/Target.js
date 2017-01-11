@@ -6,6 +6,7 @@ var Y = require('../../Y');
 var Logger = require('../Logger');
 var BaseTarget = require('../BaseTarget');
 var FileHelper = require('../../helpers/FileHelper');
+var TimeHelper = require('../../helpers/TimeHelper');
 
 /**
  * 文件日志
@@ -62,7 +63,7 @@ class Target extends BaseTarget {
      */
     generateTimeLogFile() {
         var date = new Date();
-        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '.log';
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + this.fileExtension;
     }
     
     /**
@@ -71,7 +72,7 @@ class Target extends BaseTarget {
     formatMessage(messages) {
         var msg = '';
         for(let i=0,len=messages.length; i<len; i++) {
-            msg += messages[i][2] + ' -- '
+            msg += TimeHelper.format(messages[i][2]) + ' -- '
                 + Logger.getLevelName(messages[i][1]) + ' -- '
                 + messages[i][0] + '\n';
         }

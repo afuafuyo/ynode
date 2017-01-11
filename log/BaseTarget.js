@@ -18,6 +18,11 @@ class BaseTarget extends Event {
         super();
         
         /**
+         * @var String 文件扩展名
+         */
+        this.fileExtension = '.log';
+        
+        /**
          * @var String 事件
          */
         this.EVENT_FLUSH = 'flush';
