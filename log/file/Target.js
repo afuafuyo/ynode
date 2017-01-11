@@ -5,6 +5,7 @@ var fs = require('fs');
 var Y = require('../../Y');
 var Logger = require('../Logger');
 var BaseTarget = require('../BaseTarget');
+var FileHelper = require('../../helpers/FileHelper');
 
 /**
  * 文件日志
@@ -39,6 +40,11 @@ class Target extends BaseTarget {
          * @var String 日志文件名
          */
         this.logFile = this.generateTimeLogFile();
+        
+        // 目录不存在就创建
+        if(!fs.existsSync(this.logPath)) {
+            FileHelper.createDirectorySync(this.logPath);
+        }
     }
     
     /**

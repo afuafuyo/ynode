@@ -31,10 +31,10 @@ class FileHelper {
      * @param Integer mode 目录权限
      * @param Function callback 回调函数
      */
-    static createDirectory(dir, mode /* = 0o777 */, callback /* = null */) {
-        fs.access(dir, fs.F_OK, (err) => {
+    static createDirectory(dir, mode = 0o777, callback = null) {
+        fs.access(dir, fs.constants.F_OK, (err) => {
             if(null === err) {
-                callback();
+                null !== callback && callback();
                 return true;
             }
             
@@ -51,7 +51,7 @@ class FileHelper {
      * @param String dir 目录路径
      * @param Integer mode 目录权限
      */
-    static createDirectorySync(dir, mode /* = 0o777 */) {
+    static createDirectorySync(dir, mode = 0o777) {
         if(fs.existsSync(dir)) {
             return true;
         }
@@ -62,7 +62,7 @@ class FileHelper {
         
         return true;
     }
-
+    
 }
 
 module.exports = FileHelper;

@@ -60,7 +60,7 @@ class Y {
      * @param Object params 参数
      * @return Object 类实例
      */
-    static createObject(clazz, params) {
+    static createObject(clazz, ...params) {
         var isSysClass = Y.sysClassPrefix === clazz.substring(0, Y.sysClassPrefix.length) ? true : false;
         var classPath = isSysClass ?
             Y.getPathAlias('@y') + '/' + clazz.substring(Y.sysClassPrefix.length) :
@@ -69,7 +69,7 @@ class Y {
         // 文件不存在抛出异常
         var Obj = require(classPath + Y.app.fileExtention);
         
-        return new Obj(params);
+        return new Obj(...params);
     }
     
     /**
