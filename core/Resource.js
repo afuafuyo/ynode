@@ -4,9 +4,6 @@
  */
 'use strict';
 
-var url = require('url');
-var path = require('path');
-
 var Y = require('../Y');
 
 /**
@@ -21,7 +18,7 @@ class Resource {
      */
     static isStatic(pathName) {
         var ret = false;
-        var ext = path.extname(pathName);
+        var ext = Resource.getExtName(pathName);
         var mime = null === Y.app.mime ? Resource.Mime : Object.assign({}, Resource.Mime, Y.app.mime);
         for(let key in mime) {
             if(ext === '.' + key) {
@@ -40,7 +37,7 @@ class Resource {
      */
     static getMimeType(pathName) {
         var ret = '';
-        var ext = path.extname(pathName);
+        var ext = Resource.getExtName(pathName);
         var mime = null === Y.app.mime ? Resource.Mime : Object.assign({}, Resource.Mime, Y.app.mime);
         for(let key in mime) {
             if(ext === '.' + key) {
@@ -50,6 +47,15 @@ class Resource {
         }
         
         return ret;
+    }
+    
+    /**
+     * 获得扩展名
+     *
+     * @param String pathName 访问路径
+     */
+    static getExtName(pathName) {
+        return pathName.substring(pathName.lastIndexOf('.'));
     }
     
     /**

@@ -31,6 +31,8 @@ class Resource extends CoreResource {
         
         fs.stat(pathname, (err, stats) => {
             response.setHeader('Content-Type', '' === mimeType ? 'text/plain' : mimeType);
+            response.setHeader('Last-Modified', stats.mtime.toUTCString());
+            
             if(null !== err) {
                 response.writeHead(404);
                 response.end();
@@ -43,6 +45,22 @@ class Resource extends CoreResource {
                 return;
             }
             
+            // 设置缓存
+            let extName = Resource.getExtName(pathname);
+            let cacheConfig = undefined === Y.app.staticCache ? Resource.cache : Y.app.staticCache;
+            let cacheSecond = cacheConfig.cacheDay * 24 * 60 * 60;
+            if(cacheConfig.regExp.test(extName)) {
+                response.setHeader('Expires', new Date(Date.now() + cacheSecond * 1000).toUTCString());
+                response.setHeader('Cache-Control', 'max-age=' + cacheSecond);
+            }
+            
+            // 有缓存直接返回
+            if(stats.mtime.toUTCString() === request.headers['if-modified-since']) {
+                response.writeHead(304);
+                response.end();
+                return;
+            }
+            
             let rs = fs.createReadStream(pathname);
             response.writeHead(200);
             rs.pipe(response);
@@ -50,5 +68,13 @@ class Resource extends CoreResource {
     }
     
 }
+
+/**
+ * 缓存
+ */
+Resource.cache = {
+    'regExp': /(\.gif|\.jpg|\.jpeg|\.png|\.js|\.css)$/ig,
+    'cacheDay': 30
+};
 
 module.exports = Resource;
