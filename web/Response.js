@@ -187,20 +187,11 @@ class Response extends CoreResponse {
             }
         }
         
-        this.sendCookies();
-        
-        this.response.writeHead(this.statusCode, this.statusText);
-    }
-    
-    /**
-     * 发送 cookies
-     */
-    sendCookies() {
-        if(0 === this.cookies.length) {
-            return;
+        if(this.cookies.length > 0) {
+            this.response.setHeader('Set-Cookie', this.cookies);
         }
         
-        this.response.setHeader('Set-Cookie', this.cookies);
+        this.response.writeHead(this.statusCode, this.statusText);
     }
     
     /**
