@@ -5,6 +5,7 @@
 'use strict';
 
 var Y = require('../Y');
+var InvalidConfigException = require('../core/InvalidConfigException');
 
 /**
  * 日志
@@ -38,7 +39,7 @@ class Logger {
         this.targets = [];
         
         if(undefined === Y.app.log || undefined === Y.app.log.targets) {
-            throw new ReferenceError('No log targets found');
+            throw new InvalidConfigException('No log targets found');
         }
         if(undefined !== Y.app.log.flushInterval) {
             this.flushInterval = Y.app.log.flushInterval;

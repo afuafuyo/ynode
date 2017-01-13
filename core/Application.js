@@ -5,6 +5,7 @@
 'use strict';
 
 var Y = require('../Y');
+var InvalidConfigException = require('../core/InvalidConfigException');
 
 /**
  * 应用基类
@@ -100,11 +101,11 @@ class Application {
      * 初始化应用
      *
      * @param Array config 应用配置
-     * @throws ReferenceError 当丢失必要配置项目时
+     * @throws InvalidConfigException 当丢失必要配置项目时
      */
     init(config) {
         if(undefined === config.id) {
-            throw new ReferenceError('The "id" configuration is required');
+            throw new InvalidConfigException('The "id" configuration is required');
         }
         
         if(undefined !== config.appPath) {
@@ -112,7 +113,7 @@ class Application {
             delete config.appPath;
             
         } else {
-            throw new ReferenceError('The "appPath" configuration is required');
+            throw new InvalidConfigException('The "appPath" configuration is required');
         }
         
         if(undefined !== config.runtimePath) {

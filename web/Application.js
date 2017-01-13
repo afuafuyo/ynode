@@ -9,6 +9,7 @@ var CoreApp = require('../core/Application');
 var Request = require('./Request');
 var Resource = require('./Resource');
 var StringHelper = require('../helpers/StringHelper');
+var InvalidCallException = require('../core/InvalidCallException');
 
 /**
  * web 应用
@@ -35,7 +36,7 @@ class Application extends CoreApp {
         var controller = this.createController(request);
         
         if(null === controller || !'run' in controller) {
-            throw new TypeError('The Controller.run is not a function')
+            throw new InvalidCallException('The Controller.run is not a function')
         }
         
         controller.run(request, response);

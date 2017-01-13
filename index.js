@@ -4,6 +4,7 @@ var http = require('http');
 
 var Y = require('./Y');
 var WebApp = require('./web/Application');
+var InvalidConfigException = require('./core/InvalidConfigException');
 
 var Logger = require('./log/Logger');
 var Cookie = require('./web/Cookie');
@@ -23,7 +24,7 @@ class YNode {
      */
     constructor(config) {
         if(undefined === config) {
-            throw new TypeError('The app config is required');
+            throw new InvalidConfigException('The app config is required');
         }
         
         this.server = null;

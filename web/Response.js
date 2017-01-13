@@ -6,6 +6,7 @@
 
 var CoreResponse = require('../core/Response');
 var Cookie = require('./Cookie');
+var HttpException = require('../core/HttpException');
 
 /**
  * Web HTTP response
@@ -72,7 +73,7 @@ class Response extends CoreResponse {
      */
     setStatusCode(value, text) {
         if(value < 100 || value >= 600) {
-            throw new RangeError('The HTTP status code is invalid');
+            throw new HttpException('The HTTP status code is invalid');
         }
         
         this.statusCode = value;
