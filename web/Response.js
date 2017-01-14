@@ -79,8 +79,8 @@ class Response extends CoreResponse {
         this.statusCode = value;
         
         if(undefined === text) {
-            this.statusText = undefined !== Response.httpStatuses[value] ?
-                Response.httpStatuses[value] : '';
+            this.statusText = undefined !== Response.httpStatuses[String(value)] ?
+                Response.httpStatuses[String(value)] : '';
                 
         } else {
             this.statusText = text;
