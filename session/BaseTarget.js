@@ -10,6 +10,11 @@
 class BaseTarget {
     
     /**
+     * init
+     */
+    init(config) {}
+    
+    /**
      * 打开 session
      */
     open() {}
