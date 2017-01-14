@@ -5,9 +5,9 @@
 'use strict';
 
 /**
- * Session
+ * Session base
  */
-class Session {
+class BaseTarget {
     
     /**
      * 打开 session
@@ -50,4 +50,4 @@ class Session {
     
 }
 
-module.exports = Session;
+module.exports = BaseTarget;
