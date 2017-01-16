@@ -11,26 +11,23 @@ class Session {
     
     /**
      * 获取 Session 类实例
+     *
+     * @param Object request 请求
+     * @param Object response 响应
      */
-    static getSession() {
+    static factory(request, response) {
         if(undefined === Y.app.session) {
             throw new InvalidConfigException('The session configuration is not found');
         }
         
-        if(null === Session._instance) {
-            var clazz = Y.app.session.target['class'];
-            Session._instance = Y.createObject(clazz);
-            Session._instance.init(Y.app.session.target);
-        }
+        var clazz = Y.app.session['class'];
+        var instance = Y.createObject(clazz, request, response);
+        instance.init(Y.app.session);
+        instance.open();
         
-        return Session._instance;
+        return instance;
     }
     
 }
-
-/**
- * 实例
- */
-Session._instance = null;
 
 module.exports = Session;

@@ -15,7 +15,7 @@ var TimeHelper = require('../../helpers/TimeHelper');
  *     'targets': {
  *         'file': {
  *             'class': 'y/log/file/Target',
- *             'logPath': '@runtime/logs'
+ *             'logPath': __dirname + '/logs'
  *         },
  *         'other': {...}
  *     },
@@ -34,8 +34,8 @@ class Target extends BaseTarget {
         /**
          * @var String 日志路径
          */
-        this.logPath = undefined !== config.logPath ? Y.getPathAlias(config.logPath) :
-            Y.getPathAlias('@runtime/logs');
+        this.logPath = undefined === config.logPath ? Y.getPathAlias('@runtime/logs') :
+            config.logPath;
         
         /**
          * @var String 日志文件名

@@ -7,6 +7,7 @@
 var url = require('url');
 var querystring = require('querystring');
 
+var Cookie = require('./Cookie');
 var CoreRequest = require('../core/Request');
 
 /**
@@ -37,6 +38,20 @@ class Request extends CoreRequest {
             additionalQuery: undefined === request.additionalQuery ? null : request.additionalQuery,
             pathname: obj.pathname
         };
+    }
+    
+    /**
+     * 获取客户端 ip
+     *
+     * @param Object request 请求对象
+     */
+    static getClientIp(request) {
+        var forward = request.headers['x-forwarded-for'];
+        if(undefined !== forward) {
+            return forward.substring(0, forward.indexOf(','));
+        }
+        
+        return request.connection.remoteAddress;
     }
     
     /**
@@ -85,25 +100,9 @@ class Request extends CoreRequest {
      * 获取 cookie
      *
      * @param name cookie name
-     * @return String | null
      */
     getCookie(name) {
-        if(undefined === this.request.headers.cookie) {
-            return null;
-        }
-        
-        var list = this.request.headers.cookie.split('; ');
-        var ret = null, tmp = null;
-        for(let i=0,len=list.length; i<len; i++) {
-            tmp = list[i].split('=');
-
-            if(name === tmp[0]) {
-                ret = decodeURIComponent(tmp[1]);
-                break;
-            }
-        }
-
-        return ret;
+        return Cookie.getCookie(this.request, name);
     }
     
 }

@@ -11,6 +11,7 @@ var Cookie = require('./web/Cookie');
 var WebRequest = require('./web/Request');
 var WebResponse = require('./web/Response');
 var WebController = require('./web/Controller');
+var Session = require('./session/Session');
 
 /**
  * 入口
@@ -82,6 +83,11 @@ YNode.WebRequest = WebRequest;
  * Web response
  */
 YNode.WebResponse = WebResponse;
+
+/**
+ * Session
+ */
+YNode.Session = Session;
 
 /**
  * WebController handler

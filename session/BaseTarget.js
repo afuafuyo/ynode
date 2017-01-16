@@ -10,48 +10,46 @@
 class BaseTarget {
     
     /**
-     * init
+     * init 进行一些配置操作
      */
     init(config) {}
     
     /**
-     * 打开 session
+     * 打开 session 前置工作
      */
     open() {}
 	
     /**
-     * 打开 session
+     * 关闭 session
      */
     close() {}
     
     /**
      * 读取
      *
-     * @param String sessionId session id
+     * @param String key
      */
-	read(sessionId) {}
+	read(key) {}
     
     /**
      * 写入
      *
-     * @param String sessionId session id
+     * @param String key
      * @param String data session data
      */
-	write(sessionId, data) {}
+	write(key, data) {}
     
     /**
      * 删除
      *
-     * @param String sessionId session id
+     * @param String key
      */
-	destroy(sessionId) {}
+	destroy(key) {}
     
     /**
      * 回收
-     *
-     * @param Integer maxLifetime 生命周期毫秒数
      */
-	gc(maxLifetime) {}
+	gc() {}
     
 }
 

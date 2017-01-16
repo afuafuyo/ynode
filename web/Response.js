@@ -9,7 +9,7 @@ var Cookie = require('./Cookie');
 var HttpException = require('../core/HttpException');
 
 /**
- * Web HTTP response
+ * 一个与 node api 独立的 Web HTTP response
  */
 class Response extends CoreResponse {
     
@@ -189,7 +189,7 @@ class Response extends CoreResponse {
         }
         
         if(this.cookies.length > 0) {
-            this.response.setHeader('Set-Cookie', this.cookies);
+            Cookie.setCookie(this.response, this.cookies);
         }
         
         this.response.writeHead(this.statusCode, this.statusText);
