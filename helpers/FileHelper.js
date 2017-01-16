@@ -17,11 +17,9 @@ class FileHelper {
      * @param String dir 目录路径
      */
     static getDirname(dir) {
-        if('/' === dir.charAt(dir.length - 1)) {
-            dir = dir.substring(0, dir.length - 1);
-        }
+        dir = dir.replace(/\\/g, '/').replace(/\/[^\/]*\/?$/, '');
         
-        return dir.substring(0, dir.lastIndexOf('/'));
+        return '' === dir ? '/' : dir;
     }
     
     /**

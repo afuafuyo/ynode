@@ -88,7 +88,12 @@ class Target extends BaseTarget {
         /**
          * @var String The location to save sessions to
          */
-        this.sessionSavePath = Y.app.getRootPath() + '/sessions';
+        this.sessionSavePath = '/tmp/sessions';
+        
+        /**
+         * @var String Session file extension name
+         */
+        this.sessionFileExtension = '.bin';
         
         // 目录不存在就创建
         if(!fs.existsSync(this.sessionSavePath)) {
@@ -163,7 +168,7 @@ class Target extends BaseTarget {
      * @inheritdoc
      */
 	read(key) {
-        var file = this.sessionSavePath + '/' + this.sessionId;
+        var file = this.sessionSavePath + '/' + this.sessionId + this.sessionFileExtension;
         
         if(fs.existsSync(file)) {
             var rs = fs.readFileSync(file);
@@ -179,7 +184,7 @@ class Target extends BaseTarget {
      * @inheritdoc
      */
 	write(key, data) {
-        var file = this.sessionSavePath + '/' + this.sessionId;
+        var file = this.sessionSavePath + '/' + this.sessionId + this.sessionFileExtension;
         
         // 已经存在
         if(fs.existsSync(file)) {
@@ -197,7 +202,7 @@ class Target extends BaseTarget {
      * @inheritdoc
      */
 	destroy(key) {
-        var file = this.sessionSavePath + '/' + this.sessionId;
+        var file = this.sessionSavePath + '/' + this.sessionId + this.sessionFileExtension;
         
         if(fs.existsSync(file)) {
             var rs = fs.readFileSync(file);
