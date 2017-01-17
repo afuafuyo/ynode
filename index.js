@@ -10,8 +10,8 @@ var Logger = require('./log/Logger');
 var Cookie = require('./web/Cookie');
 var WebRequest = require('./web/Request');
 var WebResponse = require('./web/Response');
-var WebController = require('./web/Controller');
 var Session = require('./session/Session');
+var WebController = require('./web/Controller');
 
 /**
  * 入口
@@ -40,7 +40,8 @@ class YNode {
         } catch(e) {
             res.setHeader('Content-Type', 'text/plain');
             res.writeHead(500);
-            res.end(Y.app.debug ? e.message : 'The server encountered an internal error');
+            res.end(Y.app.debug ? e.message + '\n' + e.stack :
+                'The server encountered an internal error');
         }
     }
     
