@@ -98,7 +98,7 @@ class Target extends BaseTarget {
         
         // 目录不存在就创建
         if(!fs.existsSync(this.sessionSavePath)) {
-            FileHelper.createDirectorySync(this.sessionSavePath);
+            FileHelper.createDirectorySync(this.sessionSavePath, 0o750);
         }
     }
     
