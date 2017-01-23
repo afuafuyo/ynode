@@ -66,7 +66,6 @@ class Event {
     trigger(eventName, param) {
         if(undefined !== this.handlers[eventName]) {
             for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
-                
                 undefined === param ? this.handlers[eventName][i]() :
                     this.handlers[eventName][i].apply(null, param);
             }
