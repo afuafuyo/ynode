@@ -17,13 +17,13 @@ class Router {
      * @param Object request
      */
     static resolve(app, route, request) {
-        var ret = Route.resolveUserroute(app, route, request);
+        var ret = Router.resolveUserroute(app, route, request);
         
         if(null !== ret) {
             return ret;
         }
         
-        return Route.resolveRoute(route, request);
+        return Router.resolveRoute(route, request);
     }
     
     // 用户自定义路由
