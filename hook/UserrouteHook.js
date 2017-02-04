@@ -11,7 +11,7 @@ class UserrouteHook extends Hook {
     /**
      * 执行
      */
-    run(route, request) {
+    static run(route, request) {
         
     }
     
