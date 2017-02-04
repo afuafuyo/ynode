@@ -37,7 +37,7 @@ class Hook {
      */
     trigger(hookName, ...params) {
         if(undefined !== this.handlers[hookName]) {
-            this.handlers[hookName].run(params);
+            this.handlers[hookName].run(...params);
         }
     }
     

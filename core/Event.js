@@ -81,7 +81,7 @@ class Event {
     triggerWithRestParams(eventName, ...params) {
         if(undefined !== this.handlers[eventName]) {
             for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
-                this.handlers[eventName][i](params);
+                this.handlers[eventName][i](...params);
             }
         }
     }
