@@ -72,6 +72,20 @@ class Event {
         }
     }
     
+    /**
+     * 触发
+     *
+     * @param String eventName 事件名称
+     * @param Any params 参数
+     */
+    triggerWithRestParams(eventName, ...params) {
+        if(undefined !== this.handlers[eventName]) {
+            for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
+                this.handlers[eventName][i](params);
+            }
+        }
+    }
+    
 }
 
 module.exports = Event;

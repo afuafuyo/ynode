@@ -37,6 +37,9 @@ class BaseTarget extends Event {
     
     /**
      * 触发事件
+     *
+     * @param String eventName 事件名称
+     * @param Array param 参数
      */
     trigger(eventName, param) {
         if(undefined !== this.handlers[eventName]) {
