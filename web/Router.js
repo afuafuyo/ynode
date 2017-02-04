@@ -7,17 +7,32 @@
 var Request = require('./Request');
 var StringHelper = require('../helpers/StringHelper');
 
-class Userroute {
+class Router {
     
     /**
-     * 执行
+     * 解析路由
+     *
+     * @param Object app
+     * @param String route
+     * @param Object request
      */
     static resolve(app, route, request) {
-        if(null !== app.routes) {
-            var moduleId = '';
-            var controllerId = '';
-            var routePrefix = '';
-            
+        var ret = Route.resolveUserroute(app, route, request);
+        
+        if(null !== ret) {
+            return ret;
+        }
+        
+        return Route.resolveRoute(route, request);
+    }
+    
+    // 用户自定义路由
+    static resolveUserroute(app, route, request) {
+        var moduleId = '';
+        var controllerId = '';
+        var routePrefix = '';
+        
+        if(null !== app.routes) {            
             var mapping = null;
             var matches = null;
             
@@ -70,6 +85,35 @@ class Userroute {
         return null;
     }
     
+    // 基本路由
+    static resolveRoute(route, request) {
+        var moduleId = '';
+        var controllerId = '';
+        var routePrefix = '';
+        
+        // 解析路由
+        var pos = route.indexOf('/');
+        if(-1 !== pos) {
+            moduleId = route.substring(0, pos);
+            controllerId = route.substring(pos + 1);
+        } else {
+            moduleId = route;
+        }
+        
+        // 解析前缀目录和控制器 id
+        routePrefix = moduleId;
+        if( -1 !== (pos = controllerId.lastIndexOf('/')) ) {
+            routePrefix += '/' + controllerId.substring(0, pos);
+            controllerId = controllerId.substring(pos + 1);
+        }
+        
+        return {
+            moduleId: moduleId,
+            controllerId: controllerId,
+            routePrefix: routePrefix
+        }
+    }
+    
 }
 
-module.exports = Userroute;
+module.exports = Router;
