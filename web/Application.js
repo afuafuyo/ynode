@@ -9,6 +9,7 @@ var CoreApp = require('../core/Application');
 var Request = require('./Request');
 var Resource = require('./Resource');
 var StringHelper = require('../helpers/StringHelper');
+var Userroute = require('./Userroute');
 var InvalidCallException = require('../core/InvalidCallException');
 
 /**
@@ -63,12 +64,12 @@ class Application extends CoreApp {
         var controllerId = '';
         var routePrefix = '';  // 前缀目录
         
-        var userRoute = this.resolveUserRoute(route, request);
+        var userroute = Userroute.resolve(this, route, request);
         // 有用户自定义路由 优先解析自定义路由
-        if(null !== userRoute) {
-            moduleId = userRoute.moduleId;
-            controllerId = userRoute.controllerId;
-            routePrefix = userRoute.routePrefix;
+        if(null !== userroute) {
+            moduleId = userroute.moduleId;
+            controllerId = userroute.controllerId;
+            routePrefix = userroute.routePrefix;
             
         } else {
             // 解析路由
@@ -107,71 +108,7 @@ class Application extends CoreApp {
         return Y.createObject( this.defaultControllerNamespace + '/' +
             this.routePrefix + '/' + StringHelper.ucFirst(this.controllerId) + 'Controller' );
     }
-    
-    /**
-     * 解析自定义路由 自定义路由会明确给出模块或控制器 id
-     *
-     * @param String route 路由
-     * @param Object request 请求对象
-     */
-    resolveUserRoute(route, request) {
-        if(null !== this.routes) {
-            var moduleId = '';
-            var controllerId = '';
-            var routePrefix = '';
-            
-            var mapping = null;
-            var matches = null;
-            
-            for(let reg in this.routes) {
-                mapping = this.routes[reg];
-                // reg: /abc/(\d+) -> abc\/(\d+)
-                matches = route.match( new RegExp(StringHelper.trimChar(reg, '/')
-                    .replace('/', '\\/')) );
-                    
-                if(null !== matches) {
-                    if(undefined !== mapping.moduleId) {
-                        moduleId = mapping.moduleId;
-                    }
-                    if(undefined !== mapping.controllerId) {
-                        controllerId = mapping.controllerId;
-                    }
-                    if(undefined !== mapping.prefix) {
-                        routePrefix = mapping.prefix;
-                    }
-                    // 用户自定义路由需要处理参数
-                    if(undefined !== mapping.params && null !== mapping.params && 'object' === typeof mapping.params) {
-                        if(undefined !== mapping.params.key &&
-                            undefined !== mapping.params.segment) {
-                            
-                            let requestInstance = new Request(request);
-                            if(Array.isArray(mapping.params.key)) {
-                                for(let j=0,len=mapping.params.key.length; j<len; j++) {
-                                    requestInstance.setGetParam(mapping.params.key[j],
-                                        matches[mapping.params.segment[j]]);
-                                }
-                            
-                            } else {
-                                requestInstance.setGetParam(mapping.params.key,
-                                    matches[mapping.params.segment]);
-                            }
-                        }
-                    }
-                    
-                    break;
-                }
-            }
-            
-            return ('' !== moduleId || '' !== controllerId) ? {
-                moduleId: moduleId,
-                controllerId: controllerId,
-                routePrefix: routePrefix
-            } : null;
-        }
-        
-        return null;
-    }
-    
+     
 }
 
 module.exports = Application;
