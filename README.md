@@ -94,6 +94,10 @@ http://xxx.com/[:route_prefix|:moduleId]/[:controllerId]
 
 ```shell
 npm install ynode
+
+或者
+
+通过 github 下载源码放置到 node_modules 目录即可
 ```
 
 ```javascript
