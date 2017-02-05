@@ -1,6 +1,6 @@
 {
   "name": "ynode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small node mvc framework",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,5 @@
   ],
   "author": "yulipu",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/yulipu/YNode-mvc"
+  "homepage": "https://github.com/yulipu/ynode"
 }
