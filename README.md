@@ -89,7 +89,7 @@ http://xxx.com/[:route_prefix|:moduleId]/[:controllerId]
 ```javascript
 index.js
 
-var YNode = require('YNode');
+var YNode = require('ynode');
 
 new YNode({
     'id': 1,
@@ -124,7 +124,7 @@ app\controllers\index\IndexController.js
 
 'use strict';
 
-var YNode = require('YNode');
+var YNode = require('ynode');
 
 class IndexController extends YNode.WebController {
     // 控制器单入口
@@ -155,7 +155,7 @@ npm install ejs
 ```javascript
 'use strict';
 
-var YNode = require('YNode');
+var YNode = require('ynode');
 var ejs = require('ejs');
 
 class IndexController extends YNode.WebController {
