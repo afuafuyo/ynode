@@ -15,7 +15,7 @@ class Session {
      * @param Object request 请求
      * @param Object response 响应
      */
-    static factory(request, response) {
+    static factorySync(request, response) {
         if(undefined === Y.app.session) {
             throw new InvalidConfigException('The session configuration is not found');
         }
