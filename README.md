@@ -68,8 +68,16 @@ app 项目目录
 ```javascript
 路由格式
 
-http://xxx.com/[:route_prefix]/[:controllerId]
+http://xxx.com/[:route_prefix|:moduleId]/[:controllerId]
 ```
+
+###### 控制器查找顺序
+
+模块控制器 --> 普通控制器
+
+###### 路由解析顺序
+
+有用户自定义路由优先解析
 
 ```javascript
 约定
