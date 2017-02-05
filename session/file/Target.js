@@ -168,7 +168,7 @@ class Target extends BaseTarget {
     /**
      * @inheritdoc
      */
-	readSync(key) {
+    readSync(key) {
         var file = this.sessionSavePath + '/' + this.sessionFilePrefix + this.sessionId + this.sessionFileExtension;
         
         if(fs.existsSync(file)) {
@@ -184,7 +184,7 @@ class Target extends BaseTarget {
     /**
      * @inheritdoc
      */
-	writeSync(key, data) {
+    writeSync(key, data) {
         var file = this.sessionSavePath + '/' + this.sessionFilePrefix + this.sessionId + this.sessionFileExtension;
         
         // 已经存在
@@ -202,7 +202,7 @@ class Target extends BaseTarget {
     /**
      * @inheritdoc
      */
-	destroySync(key) {
+    destroySync(key) {
         var file = this.sessionSavePath + '/' + this.sessionFilePrefix + this.sessionId + this.sessionFileExtension;
         
         if(fs.existsSync(file)) {
@@ -217,7 +217,7 @@ class Target extends BaseTarget {
     /**
      * @inheritdoc
      */
-	gc() {}
+    gc() {}
     
 }
 

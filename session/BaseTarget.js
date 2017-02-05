@@ -30,14 +30,14 @@ class BaseTarget {
      * @param String key
      * @param Function callback
      */
-	read(key, callback) {}
+    read(key, callback) {}
     
     /**
      * 同步读取
      *
      * @param String key
      */
-	readSync(key) {}
+    readSync(key) {}
     
     /**
      * 写入
@@ -46,7 +46,7 @@ class BaseTarget {
      * @param String data session data
      * @param Function callback
      */
-	write(key, data, callback) {}
+    write(key, data, callback) {}
     
     /**
      * 同步写入
@@ -54,7 +54,7 @@ class BaseTarget {
      * @param String key
      * @param String data session data
      */
-	writeSync(key, data) {}
+    writeSync(key, data) {}
     
     /**
      * 删除
@@ -62,19 +62,19 @@ class BaseTarget {
      * @param String key
      * @param Function callback
      */
-	destroy(key, callback) {}
+    destroy(key, callback) {}
     
     /**
      * 同步删除
      *
      * @param String key
      */
-	destroySync(key) {}
+    destroySync(key) {}
     
     /**
      * 回收
      */
-	gc() {}
+    gc() {}
     
 }
 
