@@ -21,48 +21,54 @@
 ###### 项目目录示例
 
 <pre>
-app 项目目录
-  |
-  --- controllers 普通控制器目录
-    |
-    |--- user 用户组目录
-    |   |
-    |   |--- IndexController.js 用户组下的控制器
-    |   |--- OtherController.js
-    |
-    |--- goods 商品组目录
-    |   |
-    |   |--- IndexController.js
-    |   |--- OtherController.js
-    |
-  --- views 普通控制器模板目录
-    |
-    |--- user 用户组模板 对应上面用户组
-    |   |
-    |   |--- index.html
-    |   |--- other.html
-    |
-    --- goods 商品组模板
-    |   |
-    |   |--- index.html
-    |   |--- other.html
-    |
-  --- modules 模块
-    |
-    |--- reg
-    |   |
-    |   |--- controllers 模块控制器目录 其下无子目录
-    |   |   |
-    |   |   |--- IndexController.js
-    |   |
-    |   |--- views 模块模板目录
-    |   |   |
-    |   |   |--- index.html
-    |   |
-    |   |--- 其他目录
-    |
-  --- runtime 缓存目录
-    |
+|- index.js
+|
+|- node_modules 目录
+|
+|- public 目录
+|
+|- app 项目目录
+|  |
+|  |-- controllers 普通控制器目录
+|      |
+|      |-- user 用户组目录
+|      |   |
+|      |   |-- IndexController.js 用户组下的控制器
+|      |   |-- OtherController.js
+|      |
+|      |-- goods 商品组目录
+|      |   |
+|      |   |-- IndexController.js
+|      |   |-- OtherController.js
+|      |
+|   -- views 普通控制器模板目录
+|      |
+|      |-- user 用户组模板 对应上面用户组
+|      |   |
+|      |   |-- index.html
+|      |   |-- other.html
+|      |
+|   -- goods 商品组模板
+|      |   |
+|      |   |-- index.html
+|      |   |-- other.html
+|      |
+|   -- modules 模块
+|      |
+|      |-- reg
+|      |   |
+|      |   |-- controllers 模块控制器目录 其下无子目录
+|      |   |   |
+|      |   |   |-- IndexController.js
+|      |   |
+|      |   |-- views 模块模板目录
+|      |   |   |
+|      |   |   |-- index.html
+|      |   |
+|      |   |-- 其他目录
+|      |
+|   -- runtime 缓存目录
+|
 </pre>
 
 ```javascript
@@ -86,8 +92,14 @@ http://xxx.com/[:route_prefix|:moduleId]/[:controllerId]
 所有应用类路径都以项目目录名开头 如 app  eg. app/controllers/index/IndexController
 ```
 
+# 使用
+
+```shell
+npm install ynode
+```
+
 ```javascript
-index.js
+项目入口 index.js
 
 var YNode = require('ynode');
 
