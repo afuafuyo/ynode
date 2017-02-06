@@ -4,6 +4,7 @@
  */
 'use strict';
 
+var StringHelper = require('../helpers/StringHelper');
 var InvalidArgumentException = require('./InvalidArgumentException');
 
 class Router {
@@ -13,10 +14,10 @@ class Router {
      *
      * @param String pattern 路由模式
      *
-     * pattern: /abc/{id:\d+} -> /abc/(\d+) -> abc\/(\d+)
-     * pattern: /abc/{id:} -> /abc/() -> /abc/(\w+)
-     * pattern: /abc/{\d+} -> /abc/(\d+)
-     * pattern: /abc/def
+     * pattern: /abc/{id:\d+} -> /abc/(\d+) -> abc/(\d+)
+     * pattern: /abc/{id:} -> /abc/() -> abc/(\w+)
+     * pattern: /abc/{\d+} -> abc/(\d+)
+     * pattern: /abc/def -> abc/def
      *
      */
     static parse(pattern) {
@@ -28,7 +29,7 @@ class Router {
         pattern = pattern.replace(/\{/g, '(').replace(/\}/g, ')');
         // search key
         var matches = pattern.match(/\(\w+:/g);
-        // replace /abc/(id:\d+) -> /abc/(\d+)
+        // replace
         if(null !== matches) {
             ret = [];
             
@@ -39,6 +40,8 @@ class Router {
                 ret.push( matches[i].substring(1, matches[i].indexOf(':')) );
             } 
         }
+        
+        pattern = StringHelper.trimChar(pattern, '/');
         
         return {
             pattern: pattern,

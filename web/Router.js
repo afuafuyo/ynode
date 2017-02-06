@@ -6,7 +6,6 @@
 
 var Request = require('./Request');
 var CoreRouter = require('../core/Router');
-var StringHelper = require('../helpers/StringHelper');
 
 class Router extends CoreRouter {
     
@@ -43,11 +42,9 @@ class Router extends CoreRouter {
                 
                 parsedRoute = Router.parse(pattern);
                 mapping.params = parsedRoute.params;  // null or array
-                pattern = parsedRoute.pattern;
                 
                 // 路由
-                matches = route.match( new RegExp(StringHelper.trimChar(pattern, '/')
-                    .replace('/', '\\/')) );
+                matches = route.match( new RegExp(parsedRoute.pattern) );
                     
                 if(null !== matches) {
                     if(undefined !== mapping.moduleId) {
