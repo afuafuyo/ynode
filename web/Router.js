@@ -5,9 +5,10 @@
 'use strict';
 
 var Request = require('./Request');
+var CoreRouter = require('../core/Router');
 var StringHelper = require('../helpers/StringHelper');
 
-class Router {
+class Router extends CoreRouter {
     
     /**
      * 解析路由
@@ -34,32 +35,18 @@ class Router {
         
         if(null !== app.routes) {
             var mapping = null;
+            var parsedRoute = null;
             var matches = null;
             
-            for(let reg in app.routes) {
-                mapping = app.routes[reg];
+            for(let pattern in app.routes) {
+                mapping = app.routes[pattern];
                 
-                // reg: /abc/{id:\d+} -> /abc/(\d+) -> abc\/(\d+)
-                // reg: /abc/{id:} -> /abc/() -> /abc/(\w+)
-                // reg: /abc/{\d+} -> /abc/(\d+)
-                // reg: /abc/def
-                reg = reg.replace(/\{/g, '(').replace(/\}/g, ')');
-                // 1. search key
-                matches = reg.match(/\(\w+:/g);
-                // 2. replace /abc/(id:\d+) -> /abc/(\d+)
-                if(null !== matches) {
-                    mapping.params = [];
-                    
-                    for(let i=0,len=matches.length; i<len; i++) {
-                        reg = reg.replace(matches[i], '(');
-                        reg = reg.replace('()', '(\\w+)');
-                        
-                        mapping.params.push( matches[i].substring(1, matches[i].indexOf(':')) );
-                    } 
-                }
+                parsedRoute = Router.parse(pattern);
+                mapping.params = parsedRoute.params;  // null or array
+                pattern = parsedRoute.pattern;
                 
                 // 路由
-                matches = route.match( new RegExp(StringHelper.trimChar(reg, '/')
+                matches = route.match( new RegExp(StringHelper.trimChar(pattern, '/')
                     .replace('/', '\\/')) );
                     
                 if(null !== matches) {
@@ -74,7 +61,7 @@ class Router {
                     }
                     
                     // 用户自定义路由需要处理参数
-                    if(undefined !== mapping.params) {
+                    if(null !== mapping.params) {
                         let requestInstance = new Request(request);
                         
                         for(let i=0,len=mapping.params.length; i<len; i++) {
