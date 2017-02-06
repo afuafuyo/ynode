@@ -32,13 +32,33 @@ class Router {
         var controllerId = '';
         var routePrefix = '';
         
-        if(null !== app.routes) {            
+        if(null !== app.routes) {
             var mapping = null;
             var matches = null;
             
             for(let reg in app.routes) {
                 mapping = app.routes[reg];
-                // reg: /abc/(\d+) -> abc\/(\d+)
+                
+                // reg: /abc/{id:\d+} -> /abc/(\d+) -> abc\/(\d+)
+                // reg: /abc/{id:} -> /abc/() -> /abc/(\w+)
+                // reg: /abc/{\d+} -> /abc/(\d+)
+                // reg: /abc/def
+                reg = reg.replace(/\{/g, '(').replace(/\}/g, ')');
+                // 1. search key
+                matches = reg.match(/\(\w+:/g);
+                // 2. replace /abc/(id:\d+) -> /abc/(\d+)
+                if(null !== matches) {
+                    mapping.params = [];
+                    
+                    for(let i=0,len=matches.length; i<len; i++) {
+                        reg = reg.replace(matches[i], '(');
+                        reg = reg.replace('()', '(\\w+)');
+                        
+                        mapping.params.push( matches[i].substring(1, matches[i].indexOf(':')) );
+                    } 
+                }
+                
+                // 路由
                 matches = route.match( new RegExp(StringHelper.trimChar(reg, '/')
                     .replace('/', '\\/')) );
                     
@@ -49,25 +69,17 @@ class Router {
                     if(undefined !== mapping.controllerId) {
                         controllerId = mapping.controllerId;
                     }
-                    if(undefined !== mapping.prefix) {
-                        routePrefix = mapping.prefix;
+                    if(undefined !== mapping.routePrefix) {
+                        routePrefix = mapping.routePrefix;
                     }
+                    
                     // 用户自定义路由需要处理参数
-                    if(undefined !== mapping.params && null !== mapping.params && 'object' === typeof mapping.params) {
-                        if(undefined !== mapping.params.key &&
-                            undefined !== mapping.params.segment) {
-                            
-                            let requestInstance = new Request(request);
-                            if(Array.isArray(mapping.params.key)) {
-                                for(let j=0,len=mapping.params.key.length; j<len; j++) {
-                                    requestInstance.setGetParam(mapping.params.key[j],
-                                        matches[mapping.params.segment[j]]);
-                                }
-                            
-                            } else {
-                                requestInstance.setGetParam(mapping.params.key,
-                                    matches[mapping.params.segment]);
-                            }
+                    if(undefined !== mapping.params) {
+                        let requestInstance = new Request(request);
+                        
+                        for(let i=0,len=mapping.params.length; i<len; i++) {
+                            requestInstance.setGetParam(mapping.params[i],
+                                matches[i+1]);
                         }
                     }
                     

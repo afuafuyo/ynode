@@ -58,7 +58,7 @@ class Request extends CoreRequest {
      * 获取 get 请求参数
      *
      * @param String routeParam 请求参数名
-     * @return String | undefined | ''
+     * @return String | null | ''
      */
     getGetParam(routeParam) {
         var parsed = Request.parseUrl(this.request);
@@ -77,7 +77,7 @@ class Request extends CoreRequest {
             return querystring.parse(parsed.additionalQuery)[routeParam];
         }
 
-        return undefined;
+        return null;
     }
     
     /**
