@@ -15,19 +15,24 @@ class WebRestful extends CoreRouter {
      * listen request
      */
     static requestListener(request, response) {
-        var pathname = Request.parseUrl(request).pathname;
+        var route = Request.parseUrl(request).pathname;
         var httpMethod = request.method;
         var handlers = WebRestful.methods[httpMethod];
         var matchedHandler = null;
         var parsedRoute = null;
         var matches = null;
         
+        // 检测非法 与 路径中不能有双斜线 '//'
+        if(!/^[\w\-\/]+$/.test(route) || route.indexOf('//') >= 0) {
+            throw new InvalidCallException('The route: '+ route +' is invalid');
+        }
+        
         for(let i=0,len=handlers.length; i<len; i++) {
             parsedRoute = WebRestful.parse(handlers[i]['pattern']);
             handlers[i]['paramKeys'] = parsedRoute.params;  // null or array
             handlers[i]['paramValues'] = null;
             
-            matches = pathname.match( new RegExp(parsedRoute.pattern) );
+            matches = route.match( new RegExp(parsedRoute.pattern) );
             
             // 匹配到路由
             if(null !== matches) {
@@ -52,7 +57,7 @@ class WebRestful extends CoreRouter {
         }
         
         if(null === matchedHandler) {
-            throw new InvalidCallException('The route: ' + pathname + ' not found');
+            throw new InvalidCallException('The route: ' + route + ' not found');
         }
         
         var args = null === matchedHandler.paramValues ? [null] : matchedHandler.paramValues;
