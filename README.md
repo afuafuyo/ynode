@@ -4,6 +4,10 @@
 
 * >= 6.0.0
 
+###### 源码 source code
+
++ https://github.com/yulipu/ynode
+
 ###### 本程序特点
 
 * 采用控制器单一入口执行程序 解决单一文件过大不好维护问题

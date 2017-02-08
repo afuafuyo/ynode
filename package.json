@@ -1,6 +1,6 @@
 {
   "name": "ynode",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A small node mvc framework",
   "main": "index.js",
   "scripts": {
