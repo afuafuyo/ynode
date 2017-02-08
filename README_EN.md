@@ -1,84 +1,77 @@
 # A small node.js mvc and restful api framework
 
-# [English doc](./README_EN.md)
-
-###### Node 版本
+###### Node version
 
 + >= 6.0.0
 
-###### 源码 source code
+###### Source code
 
 + https://github.com/yulipu/ynode
 
-###### 本程序特点
+###### Build in system variable
 
-+ 采用控制器单一入口执行程序 解决单一文件过大不好维护问题
-+ 以控制器目录分组的方式组织代码 结构清晰 支持无限级子目录 (模块控制器除外)
++ @y  system dir
++ @app  app dir
++ @runtime  cache dir default to @app/runtime
++ @root  website root dir
 
-###### 系统内置别名
-
-+ @y  系统目录
-+ @app  项目目录 由 appPath 指定
-+ @runtime  缓存目录 默认指向 @app/runtime
-+ @root  网站根目录
-
-###### 项目目录示例
+###### Application structure demo
 
 <pre>
 |- index.js
 |
-|- node_modules 目录
+|- node_modules
 |
-|- public 目录
+|- public
 |
-|- app 项目目录
+|- app
 |  |
 |  |-- apis
 |  |
-|  |-- controllers 普通控制器目录
+|  |-- controllers
 |      |
-|      |-- user 用户组目录
-|      |   |
-|      |   |-- IndexController.js 用户组下的控制器
-|      |   |-- OtherController.js
-|      |
-|      |-- goods 商品组目录
+|      |-- user
 |      |   |
 |      |   |-- IndexController.js
 |      |   |-- OtherController.js
 |      |
-|   -- views 普通控制器模板目录
+|      |-- goods
+|      |   |
+|      |   |-- IndexController.js
+|      |   |-- OtherController.js
 |      |
-|      |-- user 用户组模板 对应上面用户组
+|   -- views
+|      |
+|      |-- user
 |      |   |
 |      |   |-- index.html
 |      |   |-- other.html
 |      |
-|   -- goods 商品组模板
+|   -- goods
 |      |   |
 |      |   |-- index.html
 |      |   |-- other.html
 |      |
-|   -- modules 模块
+|   -- modules
 |      |
 |      |-- reg
 |      |   |
-|      |   |-- controllers 模块控制器目录 其下无子目录
+|      |   |-- controllers
 |      |   |   |
 |      |   |   |-- IndexController.js
 |      |   |
-|      |   |-- views 模块模板目录
+|      |   |-- views
 |      |   |   |
 |      |   |   |-- index.html
 |      |   |
-|      |   |-- 其他目录
+|      |   |-- otherdir
 |      |
-|   -- runtime 缓存目录
+|   -- runtime
 |
 </pre>
 
 ```javascript
-路由格式
+route example
 
 // mvc
 http://xxx.com/[route_prefix|moduleId]/[controllerId]
@@ -87,31 +80,31 @@ http://xxx.com/[route_prefix|moduleId]/[controllerId]
 http://xxx.com/[pattern]
 ```
 
-###### 控制器查找顺序
+###### Controller search order
 
-模块控制器 --> 普通控制器
+module controller --> general controller
 
-###### 路由解析顺序
+###### Route search order
 
-有用户自定义路由优先解析
+user define route will be given priority
 
-###### 约定
+###### Appointment
 
-+ 所有系统类路径都以 y 开头 eg. y/log/file/Target
-+ 所有应用类路径都以项目目录名开头 eg. app/controllers/index/IndexController
++ all system class begin with 'y' eg. y/log/file/Target
++ all user app class begin with the app dir name eg. app/controllers/index/IndexController
 
-# 按照 mvc 框架使用
+# Use as mvc
 
 ```shell
 npm install ynode
 
-或者
+or
 
-通过 github 下载源码放置到 node_modules 目录即可
+download source code from github and place it into node_modules dir
 ```
 
 ```javascript
-项目入口 index.js
+index.js
 
 var YNode = require('ynode');
 
@@ -123,7 +116,7 @@ new YNode({
         'bbs': 'app/modules/bbs'
     },
     'routes': {
-        // 访问此自定义路径跳转到 bbs 模块 参数为数字 id 及字符串 name
+        // this route redirect to bbs module with a name param
         '/abc/{id:\\d+}/{name:\\w+}': {
             'moduleId': 'bbs'
         }
@@ -151,7 +144,7 @@ app\controllers\index\IndexController.js
 var YNode = require('ynode');
 
 class IndexController extends YNode.WebController {
-    // 控制器单入口
+    // the controller has only one method
     run(req, res) {
         this.getTemplate('index', (err, str) => {
             res.end(str);
@@ -166,15 +159,15 @@ class IndexController extends YNode.WebController {
 module.exports = IndexController;
 ```
 
-# 模板引擎
+# Template engine
 
-使用 ejs 集成
+use ejs
 
 ```javascript
 npm install ejs
 ```
 
-在控制器中可以这样做
+you can use like follow in your controller
 
 ```javascript
 'use strict';
@@ -185,13 +178,13 @@ var ejs = require('ejs');
 class IndexController extends YNode.WebController {
     
     run(req, res) {
-        // 获取 index 模板内容用 ejs 渲染输出
+        // get the content of template file and render with ejs
         this.getTemplate('index', (err, str) => {
             str = ejs.render(str, {user: {name:'张三'}});
             res.end(str);
         });
         
-        // 获取模板全路径使用 ejs 渲染输出
+        // get the path of template file and render with ejs
         //ejs.renderFile(this.getTemplateFilePath('index'), {user: {name:'张三'}}, function(err, str){
         //    res.end(str);
         //});
@@ -202,11 +195,11 @@ class IndexController extends YNode.WebController {
 module.exports = IndexController;
 ```
 
-# 按照 RESTful 框架使用
+# Use as RESTful
 
-###### restful 和 mvc 现在不能同时使用
+###### at this stage restful and mvc can not coexist
 
-###### 可用请求方式
+###### usable method
 
 + get
 + post
@@ -217,7 +210,7 @@ module.exports = IndexController;
 + options
 
 ```javascript
-// 增加 useRestful 参数启用 RESTful
+// add useRestful param start using RESTful
 var app = new YNode({
     'id': 1,
     'debug': true,
@@ -229,7 +222,7 @@ app.listen(8090, function(){
     console.log(8090)
 });
 
-// get 路由 并指定 id 参数必须为数字
+// get request with a id param and id must be a number
 YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
     var r = new YNode.WebRequest(req);
     
@@ -239,15 +232,15 @@ YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
     res.end('api get');
 });
 
-// 多方法路由 id 参数可为字母或数字
+// multiple request with a id param and the id can be number or string
 YNode.WebRestful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
     res.end(id);
 });
 
-// 使用 app/api/User 类的 index 方法处理请求
+// use app/api/User::index method process the request
 YNode.WebRestful.get('/xyz/{id:}', 'app/apis/User@index');
 
-// 其中 User 的定义如下
+// User define like follow
 'use strict';
 class User {
     index(req, res, id) {
