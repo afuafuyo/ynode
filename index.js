@@ -8,6 +8,7 @@ var InvalidConfigException = require('./core/InvalidConfigException');
 
 var Logger = require('./log/Logger');
 var Cookie = require('./web/Cookie');
+var WebRestful = require('./web/Restful');
 var WebRequest = require('./web/Request');
 var WebResponse = require('./web/Response');
 var Session = require('./session/Session');
@@ -45,6 +46,19 @@ class YNode {
         }
     }
     
+    // restful
+    requestListenerRestful(req, res) {
+        try {
+            WebRestful.requestListener(req, res);
+            
+        } catch(e) {
+            res.setHeader('Content-Type', 'text/plain');
+            res.writeHead(500);
+            res.end(Y.app.debug ? e.message + '\n' + e.stack :
+                'The server encountered an internal error');
+        }
+    }
+    
     /**
      * listen
      *
@@ -52,7 +66,8 @@ class YNode {
      * @param Function callback
      */
     listen(port, callback) {
-        this.server = http.createServer(this.requestListener.bind(this));
+        this.server = http.createServer(true === this.app.useRestful ?
+            this.requestListenerRestful.bind(this) : this.requestListener.bind(this));
         this.server.listen(port, callback);
         
         return this.server;
@@ -74,6 +89,11 @@ YNode.Logger = Logger;
  * Cookie
  */
 YNode.Cookie = Cookie;
+
+/**
+ * Web restful
+ */
+YNode.WebRestful = WebRestful;
 
 /**
  * Web request

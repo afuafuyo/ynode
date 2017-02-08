@@ -1,4 +1,4 @@
-# A small node.js mvc web framework
+# A small node.js mvc and restful api framework
 
 ###### node 版本
 
@@ -26,6 +26,8 @@
 |- public 目录
 |
 |- app 项目目录
+|  |
+|  |-- apis
 |  |
 |  |-- controllers 普通控制器目录
 |      |
@@ -72,7 +74,11 @@
 ```javascript
 路由格式
 
+// mvc
 http://xxx.com/[:route_prefix|:moduleId]/[:controllerId]
+
+// restful api
+http://xxx.com/[:pattern]
 ```
 
 ###### 控制器查找顺序
@@ -90,7 +96,7 @@ http://xxx.com/[:route_prefix|:moduleId]/[:controllerId]
 所有应用类路径都以项目目录名开头 如 app  eg. app/controllers/index/IndexController
 ```
 
-# 使用
+# 按照 mvc 框架使用
 
 ```shell
 npm install ynode
@@ -190,6 +196,61 @@ class IndexController extends YNode.WebController {
 }
 
 module.exports = IndexController;
+```
+
+# 按照 RESTful 框架使用
+
+###### restful 和 mvc 现在不能同时使用
+
+###### 可用请求方式
+
++ get
++ post
++ put
++ delete
++ patch
++ head
++ options
+
+```javascript
+// 增加 useRestful 参数启用 RESTful
+var app = new YNode({
+    'id': 1,
+    'debug': true,
+    'appPath': __dirname + '/app',
+    
+    'useRestful': true
+});
+app.listen(8090, function(){
+    console.log(8090)
+});
+
+// get 路由
+YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
+    var r = new YNode.WebRequest(req);
+    
+    console.log(r.getGetParam('id'));
+    console.log(id);
+    
+    res.end('api get');
+});
+
+// 多方法路由
+YNode.WebRestful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
+    res.end(id);
+});
+
+// 使用 app/api/User 类的 index 方法处理请求
+YNode.WebRestful.get('/xyz/{id:}', 'app/apis/User@index');
+
+// 其中 User 的定义如下
+'use strict';
+class User {
+    index(req, res, id) {
+        res.end(id);
+    }
+}
+module.exports = User;
 ```
 
 # 已知问题
