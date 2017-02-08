@@ -14,10 +14,10 @@ class Router {
      *
      * @param String pattern 路由模式
      *
-     * pattern: /abc/{id:\d+} -> /abc/(\d+) -> abc/(\d+)
-     * pattern: /abc/{id:} -> /abc/() -> abc/(\w+)
-     * pattern: /abc/{\d+} -> abc/(\d+)
-     * pattern: /abc/def -> abc/def
+     * pattern: /abc/{id:\d+} -> /abc/(\d+) -> abc\/(\d+)
+     * pattern: /abc/{id:} -> /abc/() -> abc\/(\w+)
+     * pattern: /abc/{\d+} -> abc\/(\d+)
+     * pattern: /abc/def -> abc\/def
      *
      */
     static parse(pattern) {
@@ -41,7 +41,7 @@ class Router {
             } 
         }
         
-        pattern = StringHelper.trimChar(pattern, '/');
+        pattern = StringHelper.trimChar(pattern, '/').replace('/', '\\/');
         
         return {
             pattern: pattern,
