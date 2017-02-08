@@ -75,10 +75,10 @@
 路由格式
 
 // mvc
-http://xxx.com/[:route_prefix|:moduleId]/[:controllerId]
+http://xxx.com/[route_prefix|moduleId]/[controllerId]
 
 // restful api
-http://xxx.com/[:pattern]
+http://xxx.com/[pattern]
 ```
 
 ###### 控制器查找顺序
@@ -225,7 +225,7 @@ app.listen(8090, function(){
     console.log(8090)
 });
 
-// get 路由
+// get 路由 并指定 id 参数必须为数字
 YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
     var r = new YNode.WebRequest(req);
     
@@ -235,7 +235,7 @@ YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
     res.end('api get');
 });
 
-// 多方法路由
+// 多方法路由 id 参数可为字母或数字
 YNode.WebRestful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
     res.end(id);
 });
