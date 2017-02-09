@@ -36,10 +36,8 @@ class LinkedList extends List {
             this.currentIteratorNode = this.currentIteratorNode.next;
         }
         
-        return {
-            done: null === this.currentIteratorNode ? true : false,
-            value: null === this.currentIteratorNode ? null : this.currentIteratorNode.data
-        }
+        return null === this.currentIteratorNode ? {done: true} :
+            {done: false, value: this.currentIteratorNode.data};
     }
     
     /**
