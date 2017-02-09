@@ -87,9 +87,9 @@ class WebRestful extends CoreRouter {
     /**
      * Adds a route to the collection
      *
-     * @param String|Array httpMethod
+     * @param String | Array httpMethod
      * @param String pattern
-     * @param Function|String handler
+     * @param Function | String handler
      */
     static addRoute(httpMethod, pattern, handler) {
         if('string' === typeof httpMethod) {
