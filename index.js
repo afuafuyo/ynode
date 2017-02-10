@@ -34,16 +34,21 @@ class YNode {
         this.app = null;
     }
     
+    // debug
+    debug(res, error) {
+        res.setHeader('Content-Type', 'text/plain');
+        res.writeHead(500);
+        res.end(true === this.config.debug ? error.message + '\n' + error.stack :
+            'The server encountered an internal error');
+    }
+    
     // 中间层
     requestListener(req, res) {
         try {
             this.app.requestListener(req, res);
             
         } catch(e) {
-            res.setHeader('Content-Type', 'text/plain');
-            res.writeHead(500);
-            res.end(true === this.config.debug ? e.message + '\n' + e.stack :
-                'The server encountered an internal error');
+            this.debug(res, e);
         }
     }
     
@@ -53,10 +58,7 @@ class YNode {
             WebRestful.requestListener(req, res);
             
         } catch(e) {
-            res.setHeader('Content-Type', 'text/plain');
-            res.writeHead(500);
-            res.end(true === this.config.debug ? e.message + '\n' + e.stack :
-                'The server encountered an internal error');
+            this.debug(res, e);
         }
     }
     
