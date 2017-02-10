@@ -208,13 +208,13 @@ module.exports = IndexController;
 
 ###### 可用请求方式
 
-+ get
-+ post
-+ put
-+ delete
-+ patch
-+ head
-+ options
++ get(route, handler)
++ post(route, handler)
++ put(route, handler)
++ delete(route, handler)
++ patch(route, handler)
++ head(route, handler)
++ options(route, handler)
 
 ```javascript
 // 增加 useRestful 参数启用 RESTful

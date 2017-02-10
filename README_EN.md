@@ -201,13 +201,13 @@ module.exports = IndexController;
 
 ###### usable method
 
-+ get
-+ post
-+ put
-+ delete
-+ patch
-+ head
-+ options
++ get(route, handler)
++ post(route, handler)
++ put(route, handler)
++ delete(route, handler)
++ patch(route, handler)
++ head(route, handler)
++ options(route, handler)
 
 ```javascript
 // add useRestful param start using RESTful
