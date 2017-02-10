@@ -29,8 +29,9 @@ class YNode {
             throw new InvalidConfigException('The app config is required');
         }
         
+        this.config = config;
         this.server = null;
-        this.app = new WebApp(config);
+        this.app = null;
     }
     
     // 中间层
@@ -41,7 +42,7 @@ class YNode {
         } catch(e) {
             res.setHeader('Content-Type', 'text/plain');
             res.writeHead(500);
-            res.end(Y.app.debug ? e.message + '\n' + e.stack :
+            res.end(true === this.config.debug ? e.message + '\n' + e.stack :
                 'The server encountered an internal error');
         }
     }
@@ -54,7 +55,7 @@ class YNode {
         } catch(e) {
             res.setHeader('Content-Type', 'text/plain');
             res.writeHead(500);
-            res.end(Y.app.debug ? e.message + '\n' + e.stack :
+            res.end(true === this.config.debug ? e.message + '\n' + e.stack :
                 'The server encountered an internal error');
         }
     }
@@ -66,7 +67,11 @@ class YNode {
      * @param Function callback
      */
     listen(port, callback) {
-        this.server = http.createServer(true === this.app.useRestful ?
+        if(true !== this.config.useRestful) {
+            this.app = new WebApp(this.config);
+        }
+        
+        this.server = http.createServer( null === this.app ?
             this.requestListenerRestful.bind(this) : this.requestListener.bind(this));
         this.server.listen(port, callback);
         
