@@ -29,6 +29,8 @@ class WebRestful extends CoreRouter {
         
         for(let i=0,len=handlers.length; i<len; i++) {
             parsedRoute = WebRestful.parse(handlers[i]['pattern']);
+            parsedRoute.pattern = parsedRoute.pattern.replace(/\//g, '\\/') + '$';  // end with pattern
+            
             handlers[i]['paramKeys'] = parsedRoute.params;  // null or array
             handlers[i]['paramValues'] = null;
             

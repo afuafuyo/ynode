@@ -63,21 +63,28 @@ class YNode {
     }
     
     /**
+     * 获取 http server
+     *
+     * @return http server
+     */
+    getServer() {
+        if(true !== this.config.useRestful) {
+            this.app = new WebApp(this.config);
+        }
+        
+        return http.createServer( null === this.app ?
+            this.requestListenerRestful.bind(this) : this.requestListener.bind(this));
+    }
+    
+    /**
      * listen
      *
      * @param int port
      * @param Function callback
      */
     listen(port, callback) {
-        if(true !== this.config.useRestful) {
-            this.app = new WebApp(this.config);
-        }
-        
-        this.server = http.createServer( null === this.app ?
-            this.requestListenerRestful.bind(this) : this.requestListener.bind(this));
+        this.server = this.getServer();
         this.server.listen(port, callback);
-        
-        return this.server;
     }
     
 }
