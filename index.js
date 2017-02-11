@@ -31,7 +31,7 @@ class YNode {
         
         this.config = config;
         this.server = null;
-        this.app = null;
+        this.app = new WebApp(config);
     }
     
     // debug
@@ -68,11 +68,7 @@ class YNode {
      * @return http server
      */
     getServer() {
-        if(true !== this.config.useRestful) {
-            this.app = new WebApp(this.config);
-        }
-        
-        return http.createServer( null === this.app ?
+        return http.createServer( true === this.config.useRestful ?
             this.requestListenerRestful.bind(this) : this.requestListener.bind(this));
     }
     

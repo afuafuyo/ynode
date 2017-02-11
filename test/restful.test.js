@@ -7,6 +7,7 @@ var YNode = require('../index.js');
 
 var app = new YNode({
     'id': 1,
+    'appPath': __dirname + '/app',
     'debug': true,
     'useRestful': true
 });
@@ -22,6 +23,7 @@ YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
 YNode.WebRestful.post('/def', function(req, res){
     res.end('post ok');
 });
+YNode.WebRestful.get('/xyz', 'app/api/Demo@index');
 
 // test restful api
 describe('RESTful api', function() {
@@ -59,6 +61,19 @@ describe('RESTful api', function() {
                 if (err) return done(err);
                 
                 assert.equal(res.text, 'post ok');
+                
+                done();
+            });
+    });
+    
+    it('simple class get', function(done) {
+        request(server)
+            .get('/xyz')
+            .expect(200)
+            .end(function(err, res){
+                if (err) return done(err);
+                
+                assert.equal(res.text, 'restful class ok');
                 
                 done();
             });

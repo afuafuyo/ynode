@@ -64,24 +64,24 @@ class WebRestful extends CoreRouter {
         var args = null === matchedHandler.paramValues ? [null] : matchedHandler.paramValues;
         if('function' === typeof matchedHandler.handler) {
             matchedHandler.handler(request, response, ...args);
-                
+            
+            return;    
+        }
+        
+        var pos = matchedHandler.handler.indexOf('@');
+        var obj = null;
+        var clazz = '';
+        var clazzMethod = '';
+        if(-1 === pos) {
+            obj = Y.createObject(matchedHandler.handler);
+            obj.index(request, response, ...args);
+        
         } else {
-            let pos = matchedHandler.handler.indexOf('@');
-            let obj = null;
-            let clazz = '';
-            let clazzMethod = '';
+            clazz = matchedHandler.handler.substring(0, pos);
+            clazzMethod = matchedHandler.handler.substring(pos + 1);
             
-            if(-1 === pos) {
-                obj = Y.createObject(matchedHandler.handler);
-                obj.index(request, response, ...args);
-            
-            } else {
-                clazz = matchedHandler.handler.substring(0, pos);
-                clazzMethod = matchedHandler.handler.substring(pos + 1);
-                
-                obj = Y.createObject(clazz);
-                obj[ clazzMethod ](request, response, ...args);
-            }
+            obj = Y.createObject(clazz);
+            obj[ clazzMethod ](request, response, ...args);
         }
     }
     
