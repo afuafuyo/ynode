@@ -1,4 +1,4 @@
-# A small node.js mvc and restful api framework
+# A small node.js mvc and REST framework
 
 ###### Node version
 
