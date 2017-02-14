@@ -6,6 +6,7 @@ var Y = require('./Y');
 var WebApp = require('./web/Application');
 var InvalidConfigException = require('./core/InvalidConfigException');
 
+var Hook = require('./core/Hook');
 var Logger = require('./log/Logger');
 var Cookie = require('./web/Cookie');
 var WebRestful = require('./web/Restful');
@@ -42,8 +43,8 @@ class YNode {
             'The server encountered an internal error');
     }
     
-    // 中间层
-    requestListener(req, res) {
+    // web
+    requestListenerWeb(req, res) {
         try {
             this.app.requestListener(req, res);
             
@@ -68,8 +69,8 @@ class YNode {
      * @return http server
      */
     getServer() {
-        return http.createServer( true === this.config.useRestful ?
-            this.requestListenerRestful.bind(this) : this.requestListener.bind(this));
+        return http.createServer(true === this.config.useRestful ?
+            this.requestListenerRestful.bind(this) : this.requestListenerWeb.bind(this));
     }
     
     /**

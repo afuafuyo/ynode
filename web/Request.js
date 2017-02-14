@@ -55,33 +55,33 @@ class Request extends CoreRequest {
     }
     
     /**
-     * 获取 get 请求参数
+     * 获取 get 参数
      *
-     * @param String routeParam 请求参数名
+     * @param String param 参数名
      * @return String | null | ''
      */
-    getGetParam(routeParam) {
+    getGetParam(param) {
         var parsed = Request.parseUrl(this.request);
         // 查找参数
         if(null !== parsed.query &&
-            (0 === parsed.query.indexOf(routeParam) ||
-                parsed.query.indexOf('&'+routeParam) > 0)) {
+            (0 === parsed.query.indexOf(param) ||
+                parsed.query.indexOf('&'+param) > 0)) {
             
-            return querystring.parse(parsed.query)[routeParam];
+            return querystring.parse(parsed.query)[param];
         }
         
         if(null !== parsed.additionalQuery &&
-            (0 === parsed.additionalQuery.indexOf(routeParam) ||
-                parsed.additionalQuery.indexOf('&'+routeParam) > 0)) {
+            (0 === parsed.additionalQuery.indexOf(param) ||
+                parsed.additionalQuery.indexOf('&'+param) > 0)) {
             
-            return querystring.parse(parsed.additionalQuery)[routeParam];
+            return querystring.parse(parsed.additionalQuery)[param];
         }
 
         return null;
     }
     
     /**
-     * 设置 get 请求参数
+     * 设置 get 参数
      *
      * @param String param 参数名
      * @param String value 参数值
@@ -94,6 +94,16 @@ class Request extends CoreRequest {
         }
         
         this.request.additionalQuery = this.request.additionalQuery + '&' + param + '=' + value;
+    }
+    
+    /**
+     * 获取 post 参数
+     *
+     * @param String param 参数名
+     * @return String | null | ''
+     */
+    getPostParam(param) {
+        
     }
     
     /**
