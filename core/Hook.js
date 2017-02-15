@@ -60,7 +60,7 @@ class Hook {
         this.callback = callback;
         
         // 没有插件
-        if(null === first) {
+        if(null === first || 'function' !== typeof first) {
             callback(req, res, null);
             return;
         }
@@ -74,7 +74,7 @@ class Hook {
         next(req, res, () => {
             var nextHandler = _self.takeHook();
             
-            if(null !== nextHandler) {
+            if(null !== nextHandler && 'function' === typeof nextHandler) {
                 _self.triggerHook(req, res, nextHandler);
                 return;
             }
