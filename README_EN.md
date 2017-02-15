@@ -250,6 +250,16 @@ class User {
 module.exports = User;
 ```
 
+# Get the post param
+
+you can use express's body-parser midware
+
+```javascript
+YNode.Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
+
+the result will added to req.body
+```
+
 # 已知问题
 
 + 异步异常没做处理

@@ -103,7 +103,11 @@ class Request extends CoreRequest {
      * @return String | null | ''
      */
     getPostParam(param) {
+        if(undefined === this.request.body) {
+            return null;
+        }
         
+        return this.request.body[param];
     }
     
     /**

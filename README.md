@@ -257,6 +257,16 @@ class User {
 module.exports = User;
 ```
 
+# 获取 post 参数
+
+可以使用 express 的 body-parser 中间件
+
+```javascript
+YNode.Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
+
+结果会存放到 req.body
+```
+
 # 已知问题
 
 + 异步异常没做处理
