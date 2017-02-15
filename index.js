@@ -63,14 +63,25 @@ class YNode {
         }
     }
     
+    // handler
+    handler(req, res) {
+        Hook.getInstance().trigger(req, res, () => {
+            if(true === this.config.useRestful) {
+                this.requestListenerRestful(req, res);
+                return;
+            }
+            
+            this.requestListenerWeb(req, res);
+        });
+    }
+    
     /**
      * 获取 http server
      *
      * @return http server
      */
     getServer() {
-        return http.createServer(true === this.config.useRestful ?
-            this.requestListenerRestful.bind(this) : this.requestListenerWeb.bind(this));
+        return http.createServer(this.handler.bind(this));
     }
     
     /**
@@ -90,6 +101,11 @@ class YNode {
  * handler
  */
 YNode.Y = Y;
+
+/**
+ * Hook
+ */
+YNode.Hook = Hook;
 
 /**
  * Logger

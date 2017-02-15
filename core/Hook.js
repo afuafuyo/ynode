@@ -7,45 +7,88 @@
 class Hook {
     
     /**
+     * constructor
+     */
+    constructor() {
+        this.index = 0;
+        this.handlers = [];
+        this.callback = null;
+    }
+    
+    /**
+     * 获取 Hook 实例
+     */
+    static getInstance() {
+        if(null === Hook._instance) {
+            Hook._instance = new Hook();
+        }
+        
+        return Hook._instance;
+    }
+    
+    /**
      * 注册
      *
-     * @param String hookName
-     * @param Object handler 实现了 run 方法的对象
+     * @param Function handler
      */
-    static on(hookName, handler) {
-        Hook.handlers[hookName] = handler;
+    addHook(handler) {
+        this.handlers.push(handler);
+    }
+    
+    /**
+     * 获取一个 handler
+     */
+    takeHook() {
+        if(this.index === this.handlers.length) {
+            this.index = 0;
+            
+            return null;
+        }
+        
+        var ret = this.handlers[this.index];
+        this.index++;
+        
+        return ret;
     }
     
     /**
      * 触发
-     *
-     * @param String hookName
-     * @param Any params 参数
      */
-    static trigger(hookName, ...params) {
-        if(undefined !== Hook.handlers[hookName]) {
-            Hook.handlers[hookName].run(...params);
+    trigger(req, res, callback) {
+        var first = this.takeHook();
+        
+        this.callback = callback;
+        
+        // 没有插件
+        if(null === first) {
+            callback(req, res, null);
+            return;
         }
+        
+        this.triggerHook(req, res, first);
     }
     
-    /**
-     * 执行
-     */
-    static run(...params) {
-        return null;
+    triggerHook(req, res, next) {
+        var _self = this;
+        
+        next(req, res, () => {
+            var nextHandler = _self.takeHook();
+            
+            if(null !== nextHandler) {
+                _self.triggerHook(req, res, nextHandler);
+                return;
+            }
+            
+            _self.callback(req, res, null);
+            _self = null;
+        });
     }
     
 }
 
 /**
- * Hooks
- *
- * {
- *     'hookName': class
- *     'hookName2': class
- * }
- *
+ * instance
  */
-Hook.handlers = {};
+Hook._instance = null;
 
 module.exports = Hook;
