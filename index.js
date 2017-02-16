@@ -89,6 +89,14 @@ class YNode {
      *
      * @param int port
      * @param Function callback
+     *
+     * If you want to create HTTPS server you can do so as shown here
+     * 
+     * var https = require('https');
+     * var YNode = require('ynode');
+     * var app = new YNode({ ... });
+     * https.createServer({ ... }, app.handler.bind(app)).listen(443);
+     *
      */
     listen(port, callback) {
         this.server = this.getServer();
