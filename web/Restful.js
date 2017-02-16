@@ -58,7 +58,7 @@ class WebRestful extends CoreRouter {
         }
         
         if(null === matchedHandler) {
-            throw new InvalidCallException('The route: ' + route + ' not found');
+            throw new InvalidCallException('The REST route: ' + route + ' not found');
         }
         
         var args = null === matchedHandler.paramValues ? [null] : matchedHandler.paramValues;

@@ -76,6 +76,7 @@ class Hook {
             
             if(null !== nextHandler && 'function' === typeof nextHandler) {
                 _self.triggerHook(req, res, nextHandler);
+                _self = null;
                 return;
             }
             
