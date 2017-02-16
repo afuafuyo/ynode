@@ -9,7 +9,7 @@ var Event = require('../core/Event');
 /**
  * base target
  */
-class BaseTarget extends Event {
+class ITarget extends Event {
     
     /**
      * constructor
@@ -51,4 +51,4 @@ class BaseTarget extends Event {
     
 }
 
-module.exports = BaseTarget;
+module.exports = ITarget;

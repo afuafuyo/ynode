@@ -8,7 +8,7 @@ var fs = require('fs');
 var crypto = require('crypto');
 
 var Y = require('../../Y');
-var BaseTarget = require('../BaseTarget');
+var ITarget = require('../ITarget');
 var Cookie = require('../../web/Cookie');
 var Request = require('../../web/Request');
 var FileHelper = require('../../helpers/FileHelper');
@@ -27,7 +27,7 @@ var FileHelper = require('../../helpers/FileHelper');
  *     'sessionSavePath': '/tmp/sessions'
  * }
  */
-class Target extends BaseTarget {
+class Target extends ITarget {
     
     /**
      * constructor

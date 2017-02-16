@@ -10,7 +10,7 @@
 class View {
     
     /**
-     * 获取视图文件路径
+     * 获取默认视图文件路径
      *
      * @param String view 视图文件名
      */
@@ -23,6 +23,14 @@ class View {
      * @param Function callback 回调函数
      */
     static getTemplate(view, callback) {}
+    
+    /**
+     * 从指定路径读取模板文件
+     *
+     * @param String path 文件路径
+     * @param Function callback 回调函数
+     */
+    static getTemplateFromPath(path, callback) {}
     
 }
 

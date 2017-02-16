@@ -7,7 +7,7 @@
 /**
  * Session base
  */
-class BaseTarget {
+class ITarget {
     
     /**
      * init 进行一些配置操作
@@ -78,4 +78,4 @@ class BaseTarget {
     
 }
 
-module.exports = BaseTarget;
+module.exports = ITarget;

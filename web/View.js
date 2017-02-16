@@ -44,6 +44,13 @@ class View extends CoreView {
         fs.readFile(path, 'utf8', callback);
     }
     
+    /**
+     * @inheritdoc
+     */
+    static getTemplateFromPath(path, callback) {
+        fs.readFile(path, 'utf8', callback);
+    }
+    
 }
 
 module.exports = View;

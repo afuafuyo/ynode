@@ -4,7 +4,7 @@ var fs = require('fs');
 
 var Y = require('../../Y');
 var Logger = require('../Logger');
-var BaseTarget = require('../BaseTarget');
+var ITarget = require('../ITarget');
 var FileHelper = require('../../helpers/FileHelper');
 var TimeHelper = require('../../helpers/TimeHelper');
 
@@ -23,7 +23,7 @@ var TimeHelper = require('../../helpers/TimeHelper');
  * }
  *
  */
-class Target extends BaseTarget {
+class Target extends ITarget {
     
     /**
      * constructor
