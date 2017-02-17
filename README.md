@@ -271,3 +271,6 @@ YNode.Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 
 + 异步异常没做处理
 
+# 思考
+
+关于何时使用 const var 以及 let 一直思考 但一直没定夺
