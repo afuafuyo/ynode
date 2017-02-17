@@ -68,20 +68,19 @@ class WebRestful extends CoreRouter {
             return;    
         }
         
-        var pos = matchedHandler.handler.indexOf('@');
+        // handler is string
+        var pos = matchedHandler.handler.indexOf(WebRestful.separator);
         var obj = null;
-        var clazz = '';
-        var clazzMethod = '';
         if(-1 === pos) {
             obj = Y.createObject(matchedHandler.handler);
             obj.index(request, response, ...args);
-        
-        } else {
-            clazz = matchedHandler.handler.substring(0, pos);
-            clazzMethod = matchedHandler.handler.substring(pos + 1);
             
-            obj = Y.createObject(clazz);
-            obj[ clazzMethod ](request, response, ...args);
+        } else {
+            obj = Y.createObject( matchedHandler.handler.substring(0, pos) );
+            obj[ matchedHandler.handler.substring(pos + 1) ](
+                request,
+                response,
+                ...args);
         }
     }
     
@@ -171,5 +170,10 @@ WebRestful.methods = {
     HEAD: [],
     OPTIONS: []
 };
+
+/**
+ * class and method separate
+ */
+WebRestful.separator = '@';
 
 module.exports = WebRestful;
