@@ -60,7 +60,7 @@ class Request extends CoreRequest {
      * @param String param 参数名
      * @return String | null | ''
      */
-    getGetParam(param) {
+    getQueryString(param) {
         var parsed = Request.parseUrl(this.request);
         // 查找参数
         if(null !== parsed.query &&
@@ -86,7 +86,7 @@ class Request extends CoreRequest {
      * @param String param 参数名
      * @param String value 参数值
      */
-    setGetParam(param, value) {
+    setQueryString(param, value) {
         if(undefined === this.request.additionalQuery) {
             this.request.additionalQuery = param + '=' + value;
             
@@ -102,7 +102,7 @@ class Request extends CoreRequest {
      * @param String param 参数名
      * @return String | null | ''
      */
-    getPostParam(param) {
+    getParameter(param) {
         if(undefined === this.request.body) {
             return null;
         }

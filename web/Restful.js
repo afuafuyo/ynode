@@ -45,7 +45,7 @@ class WebRestful extends CoreRouter {
                     matchedHandler.paramValues = [];
                     
                     for(let j=0,l=matchedHandler.paramKeys.length; j<l; j++) {
-                        requestInstance.setGetParam(matchedHandler.paramKeys[j],
+                        requestInstance.setQueryString(matchedHandler.paramKeys[j],
                             matches[j+1]);
                             
                         matchedHandler.paramValues.push(matches[j+1]);

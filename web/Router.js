@@ -62,7 +62,7 @@ class Router extends CoreRouter {
                         let requestInstance = new Request(request);
                         
                         for(let i=0,len=mapping.params.length; i<len; i++) {
-                            requestInstance.setGetParam(mapping.params[i],
+                            requestInstance.setQueryString(mapping.params[i],
                                 matches[i+1]);
                         }
                     }

@@ -226,7 +226,7 @@ app.listen(8090, function(){
 YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
     var r = new YNode.WebRequest(req);
     
-    console.log(r.getGetParam('id'));
+    console.log(r.getQueryString('id'));
     console.log(id);
     
     res.end('api get');
