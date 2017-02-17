@@ -8,6 +8,14 @@
 
 + https://github.com/yulipu/ynode
 
+###### Version change
+
++ 2017-02-17
+
+    * change web/Request::getGetParam() to web/Request::getQueryString()
+    * change web/Request::getPostParam() to web/Request::getParameter()
+
+
 ###### Build in system variable
 
 + @y  system dir

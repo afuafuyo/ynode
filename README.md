@@ -10,10 +10,12 @@
 
 + https://github.com/yulipu/ynode
 
-###### 本程序特点
+###### 版本更新
 
-+ 采用控制器单一入口执行程序 解决单一文件过大不好维护问题
-+ 以控制器目录分组的方式组织代码 结构清晰 支持无限级子目录 (模块控制器除外)
++ 2017-02-17
+
+    * 修改 web/Request::getGetParam() to web/Request::getQueryString()
+    * 修改 web/Request::getPostParam() to web/Request::getParameter()
 
 ###### 系统内置别名
 
