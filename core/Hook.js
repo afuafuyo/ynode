@@ -38,7 +38,7 @@ class Hook {
     /**
      * 获取一个 handler
      */
-    takeHook() {
+    getHook() {
         if(this.index === this.handlers.length) {
             this.index = 0;
             
@@ -55,7 +55,7 @@ class Hook {
      * 触发
      */
     trigger(req, res, callback) {
-        var first = this.takeHook();
+        var first = this.getHook();
         
         this.callback = callback;
         
@@ -69,19 +69,15 @@ class Hook {
     }
     
     triggerHook(req, res, next) {
-        var _self = this;
-        
         next(req, res, () => {
-            var nextHandler = _self.takeHook();
+            var nextHandler = this.getHook();
             
             if(null !== nextHandler && 'function' === typeof nextHandler) {
-                _self.triggerHook(req, res, nextHandler);
-                _self = null;
+                this.triggerHook(req, res, nextHandler);
                 return;
             }
             
-            _self.callback(req, res, null);
-            _self = null;
+            this.callback(req, res, null);
         });
     }
     
