@@ -11,15 +11,19 @@
 + https://github.com/yulipu/ynode
 
 ###### 版本更新
+    
++ 2017-02-20
+
+    * 修改 web/Restful's className to Restful
+
++ 2017-02-18
+
+    * 修改 core/Hook::takeHook() to core/Hook::getHook()
 
 + 2017-02-17
 
     * 修改 web/Request::getGetParam() to web/Request::getQueryString()
     * 修改 web/Request::getPostParam() to web/Request::getParameter()
-    
-+ 2017-02-18
-
-    * 修改 core/Hook::takeHook() to core/Hook::getHook()
 
 ###### 系统内置别名
 

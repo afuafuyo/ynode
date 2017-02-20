@@ -9,7 +9,7 @@ var Request = require('./Request');
 var CoreRouter = require('../core/Router');
 var InvalidCallException = require('../core/InvalidCallException');
 
-class WebRestful extends CoreRouter {
+class Restful extends CoreRouter {
     
     /**
      * listen request
@@ -17,7 +17,7 @@ class WebRestful extends CoreRouter {
     static requestListener(request, response) {
         var route = Request.parseUrl(request).pathname;
         var httpMethod = request.method;
-        var handlers = WebRestful.methods[httpMethod];
+        var handlers = Restful.methods[httpMethod];
         var matchedHandler = null;
         var parsedRoute = null;
         var matches = null;
@@ -28,7 +28,7 @@ class WebRestful extends CoreRouter {
         }
         
         for(let i=0,len=handlers.length; i<len; i++) {
-            parsedRoute = WebRestful.parse(handlers[i]['pattern']);
+            parsedRoute = Restful.parse(handlers[i]['pattern']);
             
             handlers[i]['paramKeys'] = parsedRoute.params;  // null or array
             handlers[i]['paramValues'] = null;
@@ -69,7 +69,7 @@ class WebRestful extends CoreRouter {
         }
         
         // handler is string
-        var pos = matchedHandler.handler.indexOf(WebRestful.separator);
+        var pos = matchedHandler.handler.indexOf(Restful.separator);
         var obj = null;
         if(-1 === pos) {
             obj = Y.createObject(matchedHandler.handler);
@@ -93,12 +93,12 @@ class WebRestful extends CoreRouter {
      */
     static addRoute(httpMethod, pattern, handler) {
         if('string' === typeof httpMethod) {
-            WebRestful.methods[httpMethod].push( {pattern: pattern, handler: handler} );
+            Restful.methods[httpMethod].push( {pattern: pattern, handler: handler} );
             return;
         }
         
         for(let i=0,len=httpMethod.length; i<len; i++) {
-            WebRestful.methods[httpMethod[i]].push( {pattern: pattern, handler: handler} );
+            Restful.methods[httpMethod[i]].push( {pattern: pattern, handler: handler} );
         }
     }
     
@@ -106,49 +106,49 @@ class WebRestful extends CoreRouter {
      * get
      */
     static get(pattern, handler) {
-        WebRestful.addRoute('GET', pattern, handler);
+        Restful.addRoute('GET', pattern, handler);
     }
     
     /**
      * post
      */
     static post(pattern, handler) {
-        WebRestful.addRoute('POST', pattern, handler);
+        Restful.addRoute('POST', pattern, handler);
     }
     
     /**
      * put
      */
     static put(pattern, handler) {
-        WebRestful.addRoute('PUT', pattern, handler);
+        Restful.addRoute('PUT', pattern, handler);
     }
     
     /**
      * delete
      */
     static delete(pattern, handler) {
-        WebRestful.addRoute('DELETE', pattern, handler);
+        Restful.addRoute('DELETE', pattern, handler);
     }
     
     /**
      * patch
      */
     static patch(pattern, handler) {
-        WebRestful.addRoute('PATCH', pattern, handler);
+        Restful.addRoute('PATCH', pattern, handler);
     }
     
     /**
      * head
      */
     static head(pattern, handler) {
-        WebRestful.addRoute('HEAD', pattern, handler);
+        Restful.addRoute('HEAD', pattern, handler);
     }
     
     /**
      * options
      */
     static options(pattern, handler) {
-        WebRestful.addRoute('OPTIONS', pattern, handler);
+        Restful.addRoute('OPTIONS', pattern, handler);
     }
 
 }
@@ -161,7 +161,7 @@ class WebRestful extends CoreRouter {
  * [ {pattern: pattern, handler: handler} ... ]
  *
  */
-WebRestful.methods = {
+Restful.methods = {
     GET: [],
     POST: [],
     PUT: [],
@@ -174,6 +174,6 @@ WebRestful.methods = {
 /**
  * class and method separate
  */
-WebRestful.separator = '@';
+Restful.separator = '@';
 
-module.exports = WebRestful;
+module.exports = Restful;
