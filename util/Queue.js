@@ -4,7 +4,7 @@
  */
 'use strict';
 
-class List {
+class Queue {
     
     /**
      * 列表添加元素
@@ -25,4 +25,4 @@ class List {
     
 }
 
-module.exports = List;
+module.exports = Queue;

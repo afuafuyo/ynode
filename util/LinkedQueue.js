@@ -4,12 +4,12 @@
  */
 'use strict';
 
-var List = require('./List');
+var Queue = require('./Queue');
 
 /**
  * 链表
  */
-class LinkedList extends List {
+class LinkedQueue extends Queue {
     
     /**
      * constructor
@@ -43,7 +43,7 @@ class LinkedList extends List {
      * @inheritdoc
      */
     add(data) {
-        var node = new LinkedList.Node(data, null);
+        var node = new LinkedQueue.Node(data, null);
         
         if(0 === this.size) {
             this.headNode = node;
@@ -112,7 +112,7 @@ class LinkedList extends List {
     }
     
 }
-LinkedList.Node = class {
+LinkedQueue.Node = class {
     
     /**
      * constructor
@@ -124,4 +124,4 @@ LinkedList.Node = class {
     
 };
 
-module.exports = LinkedList;
+module.exports = LinkedQueue;
