@@ -11,7 +11,11 @@
 + https://github.com/yulipu/ynode
 
 ###### 版本更新
-    
+
++ 2017-02-22
+
+    * 重命名 util/LinkedList to LinkedQueue
+
 + 2017-02-20
 
     * 修改 web/Restful's className to Restful

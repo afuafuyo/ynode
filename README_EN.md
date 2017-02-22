@@ -10,6 +10,10 @@
 
 ###### Version change
 
++ 2017-02-22
+
+    * rename util/LinkedList to LinkedQueue
+
 + 2017-02-20
 
     * change web/Restful's className to Restful
