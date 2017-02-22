@@ -59,4 +59,4 @@ makedirs $full_path
 # start file
 echo -e "var YNode = require('ynode');\n\nvar app = new YNode({\n'id': 1,\n'appPath': __dirname + '/app'\n});\n\napp.listen(8090);" 1> "$user_path"/index.js
 
-
+echo done
