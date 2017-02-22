@@ -58,7 +58,7 @@ class LinkedList extends List {
      */
     take() {
         // 为空直接返回
-        if(this.headNode === this.tailNode) {
+        if(0 === this.size) {
             return null;
         }
         
