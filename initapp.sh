@@ -28,8 +28,8 @@ if [ -z "$user_path" ] ; then
 	exit
 fi
 
-if [ ${user_path:0:1} = "." ] ; then
-	tip "The path must be absolute"
+if [ ${user_path:0:1} == "." ] ; then
+	tip "The project must be absolute path"
 	exit
 fi
 
