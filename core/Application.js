@@ -81,6 +81,11 @@ class Application {
         this.fileExtention = '.js';
         
         /**
+         * @var String 编码
+         */
+        this.encoding = 'utf8';
+        
+        /**
          * @var Boolean 调试
          */
         this.debug = false;

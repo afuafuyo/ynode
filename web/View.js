@@ -41,14 +41,14 @@ class View extends CoreView {
     static getTemplate(view, callback) {
         var path = View.getTemplateFilePath(view);
         
-        fs.readFile(path, 'utf8', callback);
+        fs.readFile(path, Y.app.encoding, callback);
     }
     
     /**
      * @inheritdoc
      */
     static getTemplateFromPath(path, callback) {
-        fs.readFile(path, 'utf8', callback);
+        fs.readFile(path, Y.app.encoding, callback);
     }
     
 }

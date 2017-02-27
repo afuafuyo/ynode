@@ -55,7 +55,7 @@ class Target extends ITarget {
         var msg = this.formatMessage(messages);
         var file = this.logPath + '/' + this.logFile;
         
-        fs.appendFile(file, msg, 'utf8', (err) => {});
+        fs.appendFile(file, msg, Y.app.encoding, (err) => {});
     }
     
     /**
