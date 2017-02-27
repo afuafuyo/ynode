@@ -17,7 +17,7 @@ class View extends CoreView {
     /**
      * @inheritdoc
      */
-    static getTemplateFilePath(view) {
+    getTemplateFilePath(view) {
         var app = Y.app;
         var path = '';
         
@@ -38,8 +38,8 @@ class View extends CoreView {
     /**
      * @inheritdoc
      */
-    static getTemplate(view, callback) {
-        var path = View.getTemplateFilePath(view);
+    getTemplate(view, callback) {
+        var path = this.getTemplateFilePath(view);
         
         fs.readFile(path, Y.app.encoding, callback);
     }
@@ -47,7 +47,7 @@ class View extends CoreView {
     /**
      * @inheritdoc
      */
-    static getTemplateFromPath(path, callback) {
+    getTemplateFromPath(path, callback) {
         fs.readFile(path, Y.app.encoding, callback);
     }
     
