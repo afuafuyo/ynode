@@ -12,6 +12,10 @@
 
 ###### 版本更新
 
++ 2017-02-28
+
+    * 优化代码
+
 + 2017-02-22
 
     * 重命名 util/LinkedList to LinkedQueue

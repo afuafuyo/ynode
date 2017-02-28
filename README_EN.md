@@ -10,6 +10,10 @@
 
 ###### Version change
 
++ 2017-02-28
+
+    * optimize system code
+
 + 2017-02-22
 
     * rename util/LinkedList to LinkedQueue
