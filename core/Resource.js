@@ -74,8 +74,6 @@ class Resource {
 Resource.Mime = {
     'js': 'text/javascript'
     ,'css': 'text/css'
-    ,'html': 'text/html'
-    ,'htm': 'text/html'
 
     ,'ico': 'image/x-icon'
     ,'gif': 'image/gif'
