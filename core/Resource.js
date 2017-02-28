@@ -19,7 +19,7 @@ class Resource {
     static isStatic(pathName) {
         var ret = false;
         var ext = Resource.getExtName(pathName);
-        var mime = null === Y.app.mime ? Resource.Mime : Object.assign({}, Resource.Mime, Y.app.mime);
+        var mime = undefined === Y.app.mime ? Resource.Mime : Object.assign({}, Resource.Mime, Y.app.mime);
         for(let key in mime) {
             if(ext === '.' + key) {
                 ret = true;
@@ -38,7 +38,7 @@ class Resource {
     static getMimeType(pathName) {
         var ret = '';
         var ext = Resource.getExtName(pathName);
-        var mime = null === Y.app.mime ? Resource.Mime : Object.assign({}, Resource.Mime, Y.app.mime);
+        var mime = undefined === Y.app.mime ? Resource.Mime : Object.assign({}, Resource.Mime, Y.app.mime);
         for(let key in mime) {
             if(ext === '.' + key) {
                 ret = mime[key];

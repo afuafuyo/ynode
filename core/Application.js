@@ -85,13 +85,6 @@ class Application {
          */
         this.debug = false;
         
-        /**
-         * mime type
-         *
-         * {'html': 'text/html', ...}
-         */
-        this.mime = null;
-        
         Y.app = this;
         this.init(config);
         Y.config(this, config);
