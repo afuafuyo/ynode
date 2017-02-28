@@ -22,15 +22,8 @@ class Application {
          * @var JSON 自定义路由配置
          *
          * 'routes': {
-         *     // 注意正则需转义
-         *     // 把下面这个模式 路由到 user 目录下的 IndexController 并有两个参数 id uid
-         *     '/show/(\\d+)/(\\d+)': {
-         *         'prefix': 'user',
-         *         'controllerId': 'index',
-         *         'params': {
-         *             'key': ['id', 'uid'],
-         *             'segment': [1, 2]
-         *         }
+         *     '/abc/{param1:\\d+}/{param2:\\w+}': {
+         *         ...
          *     }
          * }
          */
