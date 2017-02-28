@@ -43,8 +43,8 @@ class Router extends CoreRouter {
                 parsedRoute = Router.parse(pattern);
                 mapping.params = parsedRoute.params;  // null or array
                 
-                // 路由
-                matches = route.match( new RegExp(parsedRoute.pattern) );
+                // 路由 end with $ 精确匹配
+                matches = route.match( new RegExp(parsedRoute.pattern + '$') );
                     
                 if(null !== matches) {
                     if(undefined !== mapping.moduleId) {

@@ -5,7 +5,6 @@
 'use strict';
 
 var StringHelper = require('../helpers/StringHelper');
-var InvalidArgumentException = require('./InvalidArgumentException');
 
 class Router {
     
@@ -21,9 +20,6 @@ class Router {
      *
      */
     static parse(pattern) {
-        if('string' !== typeof pattern) {
-            throw new InvalidArgumentException('The argument must be a string');
-        }
         var ret = null;
         
         pattern = pattern.replace(/\{/g, '(').replace(/\}/g, ')');
@@ -42,8 +38,7 @@ class Router {
         }
         
         pattern = StringHelper.trimChar(pattern, '/');
-        pattern = StringHelper.rTrimChar(pattern, '$');
-        pattern = pattern.replace(/\//g, '\\/') + '$';  // end with pattern
+        pattern = pattern.replace(/\//g, '\\/');
         
         return {
             pattern: pattern,

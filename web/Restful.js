@@ -33,7 +33,8 @@ class Restful extends CoreRouter {
             handlers[i]['paramKeys'] = parsedRoute.params;  // null or array
             handlers[i]['paramValues'] = null;
             
-            matches = route.match( new RegExp(parsedRoute.pattern) );
+            // end with $ 精确匹配
+            matches = route.match( new RegExp(parsedRoute.pattern + '$') );
             
             // 匹配到路由
             if(null !== matches) {
