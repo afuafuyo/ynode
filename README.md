@@ -113,6 +113,14 @@ http://xxx.com/[pattern]
 
 + 所有系统类路径都以 y 开头 eg. y/log/file/Target 其中 y 是系统定义的路径别名
 + 所有应用类路径都以 app 开头 eg. app/controllers/index/IndexController 其中 app 是系统定义的路径别名
++ 要想让系统识别其他路径 需要手动添加别名 eg.
+
+```javascript
+// 首先添加别名
+Y.setPathAlias('@libs', '/www/libs');
+// 这时就可以使用别名创建某一个类的对象了
+Y.createObject('libs/Mylib');
+```
 
 # 按照 mvc 框架使用
 
@@ -133,6 +141,8 @@ new YNode({
     'id': 1,
     'debug': true,
     'appPath': __dirname + '/app',
+    'assets': 'public',
+    
     'modules': {
         'bbs': 'app/modules/bbs'
     },
@@ -142,8 +152,6 @@ new YNode({
             'moduleId': 'bbs'
         }
     },
-    
-    'assets': 'public',
     'log': {
         'targets': {
             'file': {
