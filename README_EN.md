@@ -110,7 +110,7 @@ user define route will be given priority
 ###### Appointment
 
 + all system class begin with 'y' eg. y/log/file/Target
-+ all user app class begin with the app dir name eg. app/controllers/index/IndexController
++ all user application class begin with 'app' eg. app/controllers/index/IndexController
 
 # Use as mvc
 

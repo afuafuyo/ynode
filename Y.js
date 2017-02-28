@@ -56,18 +56,15 @@ class Y {
     /**
      * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
      *
-     * @param String clazz 类全名 eg. y/log/file/Target, app/controllers/index/IndexController
+     * @param String clazz 以某个已经定义的别名开头的类全名 eg. y/log/file/Target, app/controllers/index/IndexController
      * @param Object params 参数
      * @return Object 类实例
      */
     static createObject(clazz, ...params) {
-        var isSysClass = Y.sysClassPrefix === clazz.substring(0, Y.sysClassPrefix.length) ? true : false;
-        var classPath = isSysClass ?
-            Y.getPathAlias('@y') + '/' + clazz.substring(Y.sysClassPrefix.length) :
-            Y.app.getAppPath() + '/' + clazz.substring(clazz.indexOf('/') + 1);
-            
+        var realClass = Y.getPathAlias('@' + clazz);
+        
         // 文件不存在抛出异常
-        var Obj = require(classPath + Y.app.fileExtention);
+        var Obj = require(realClass + Y.fileExtention);
         
         return new Obj(...params);
     }
@@ -100,8 +97,8 @@ Y.app = null;
 Y.pathAliases = {'@y': __dirname};
 
 /**
- * @var String 系统类路径前缀
+ * @var String 默认文件扩展名
  */
-Y.sysClassPrefix = 'y/';
+Y.fileExtention = '.js';
 
 module.exports = Y;

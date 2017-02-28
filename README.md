@@ -111,8 +111,8 @@ http://xxx.com/[pattern]
 
 ###### 约定
 
-+ 所有系统类路径都以 y 开头 eg. y/log/file/Target
-+ 所有应用类路径都以项目目录名开头 eg. app/controllers/index/IndexController
++ 所有系统类路径都以 y 开头 eg. y/log/file/Target 其中 y 是系统定义的路径别名
++ 所有应用类路径都以 app 开头 eg. app/controllers/index/IndexController 其中 app 是系统定义的路径别名
 
 # 按照 mvc 框架使用
 

@@ -76,11 +76,6 @@ class Application {
         this.routePrefix = '';
         
         /**
-         * @var String 文件扩展名
-         */
-        this.fileExtention = '.js';
-        
-        /**
          * @var String 编码
          */
         this.encoding = 'utf8';
