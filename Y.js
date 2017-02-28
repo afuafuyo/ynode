@@ -47,10 +47,11 @@ class Y {
 
         if(null === path) {
             delete Y.pathAliases[alias];
-
-        } else {
-            Y.pathAliases[alias] = StringHelper.rTrimChar(path, '/');
+            
+            return;
         }
+        
+        Y.pathAliases[alias] = StringHelper.rTrimChar(path, '/');
     }
     
     /**
