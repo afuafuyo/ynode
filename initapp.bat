@@ -1,6 +1,9 @@
+:: This file use to make base app structor
 @echo off
 
 set /p val="Please input the app path: "
+
+if not exist "%val%" md "%val%"
 
 set controllerPath=%val%/app/controllers/index
 set viewPath=%val%/app/views/index
@@ -8,22 +11,25 @@ set viewPath=%val%/app/views/index
 md "%controllerPath%"
 md "%viewPath%"
 
-echo 'use strict';> %controllerPath%/IndexController.js
-echo var YNode = require('ynode');>> %controllerPath%/IndexController.js
-echo class IndexController extends YNode.WebController {>> %controllerPath%/IndexController.js
-echo   run(req, res) {>> %controllerPath%/IndexController.js
-echo     res.end('hello ynode');>> %controllerPath%/IndexController.js
-echo   }>> %controllerPath%/IndexController.js
-echo }>> %controllerPath%/IndexController.js
-echo module.exports = IndexController;>> %controllerPath%/IndexController.js
+:: init file
+set c=%controllerPath%/IndexController.js
+echo 'use strict';> %c%
+echo var YNode = require('ynode');>> %c%
+echo class IndexController extends YNode.WebController {>> %c%
+echo   run(req, res) {>> %c%
+echo     res.end('hello ynode');>> %c%
+echo   }>> %c%
+echo }>> %c%
+echo module.exports = IndexController;>> %c%
 
-echo var YNode = require('ynode');> %val%/index.js
-echo var app = new YNode({>> %val%/index.js
-echo   'id': 1,>> %val%/index.js
-echo   'debug': true,>> %val%/index.js
-echo   'appPath': __dirname + '/app',>> %val%/index.js
-echo   'assets': 'public'>> %val%/index.js
-echo });>> %val%/index.js
-echo app.listen(8090, function(){console.log('listen on 8090');});>> %val%/index.js
+set v=%val%/index.js
+echo var YNode = require('ynode');> %v%
+echo var app = new YNode({>> %v%
+echo   'id': 1,>> %v%
+echo   'debug': true,>> %v%
+echo   'appPath': __dirname + '/app',>> %v%
+echo   'assets': 'public'>> %v%
+echo });>> %v%
+echo app.listen(8090, function(){console.log('listen on 8090');});>> %v%
 
 echo done

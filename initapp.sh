@@ -8,7 +8,7 @@ tip() {
 }
 
 makedirs() {
-	if [ -z $1 -o $1 == '/' ] ; then
+	if [ -z $1 -o $1 == '/' -o $1 == '.' ] ; then
 		return
 	fi
 
@@ -21,18 +21,18 @@ makedirs() {
 	fi
 }
 
-user_path=$1
+echo -n 'Please input the app path: '
 
-if [ -z "$user_path" ] ; then
-	tip "Command error: sudo ./initapp.sh /www/mypro"
+read val
+
+if [ -z "$val" ] ; then
+	tip "Command error: The app path can not be empty"
 	exit
 fi
 
-if [ ${user_path:0:1} == "." ] ; then
-	tip "The project must be absolute path"
-	exit
+if [ ! -d $val ] ; then
+    makedirs $val
 fi
-
 
 #
 # project structor
@@ -49,14 +49,30 @@ fi
 #		runtime
 #
 
-full_path="$user_path""/app/controllers/index"
-makedirs $full_path
-echo -e  "'use strict';\n\nclass IndexController {\nrun(req, res) {\nres.end('hello ynode');\n}\n}\nmodule.exports=IndexController;" 1> $full_path/IndexController.js
+controllerPath=$val/app/controllers/index
+viewPath=$val/app/views/index
 
-full_path="$user_path""/app/views/index"
-makedirs $full_path
+makedirs $controllerPath
+makedirs $viewPath
 
-# start file
-echo -e "var YNode = require('ynode');\n\nvar app = new YNode({\n'id': 1,\n'appPath': __dirname + '/app'\n});\n\napp.listen(8090);" 1> "$user_path"/index.js
+c=$controllerPath/IndexController.js
+echo "'use strict';" > $c
+echo "var YNode = require('ynode');" >> $c
+echo "class IndexController extends YNode.WebController {" >> $c
+echo "  run(req, res) {" >> $c
+echo "    res.end('hello ynode');" >> $c
+echo "  }" >> $c
+echo "}" >> $c
+echo "module.exports = IndexController;" >> $c
+
+v=$val/index.js
+echo "var YNode = require('ynode');" > $v
+echo "var app = new YNode({" >> $v
+echo "  'id': 1," >> $v
+echo "  'debug': true," >> $v
+echo "  'appPath': __dirname + '/app'," >> $v
+echo "  'assets': 'public'" >> $v
+echo "});" >> $v
+echo "app.listen(8090, function(){console.log('listen on 8090');});" >> $v
 
 echo done
