@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # This file used to create base dir of a project
-# sudo ./initapp.sh /www/mypro
 
 tip() {
 	echo -e "\033[31m $1 \033[0m";
