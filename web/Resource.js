@@ -30,9 +30,6 @@ class Resource extends CoreResource {
         pathname = (Y.app.getRootPath() + '/' + Y.app.assets + pathname).replace(/\.\.\//g, '');
         
         fs.stat(pathname, (err, stats) => {
-            response.setHeader('Content-Type', '' === mimeType ? 'text/plain' : mimeType);
-            response.setHeader('Last-Modified', stats.mtime.toUTCString());
-            
             if(null !== err) {
                 response.writeHead(404);
                 response.end();
@@ -44,6 +41,10 @@ class Resource extends CoreResource {
                 response.end();
                 return;
             }
+            
+            // headers
+            response.setHeader('Content-Type', '' === mimeType ? 'text/plain' : mimeType);
+            response.setHeader('Last-Modified', stats.mtime.toUTCString());
             
             // 设置缓存
             let extName = Resource.getExtName(pathname);
