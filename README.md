@@ -1,3 +1,11 @@
+<pre>
+__  ___   __          __
+\ \/ / | / /___  ____/ /__
+ \  /  |/ / __ \/ __  / _ \
+ / / /|  / /_/ / /_/ /  __/
+/_/_/ |_/\____/\__,_/\___/
+</pre>
+
 # A small node.js mvc and REST framework
 
 # [English doc](./README_EN.md)
