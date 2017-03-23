@@ -16,7 +16,7 @@
   "author": "yulipu",
   "bin": {
       "_ynode": "./bin/_ynode"
-  }
+  },
   "license": "Apache-2.0",
   "homepage": "https://github.com/yulipu/ynode"
 }
