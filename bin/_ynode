@@ -82,7 +82,7 @@ fs.writeFile(viewPath + '/index.html',
     <title>YNode</title>
 </head>
 <body>
-    <h6>Hello YNode</h6>
+    <h2>Hello YNode</h2>
 </body>
 </html>
 `,
