@@ -301,6 +301,14 @@ YNode.Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 结果会存放到 req.body
 ```
 
+# 利用工具初始化应用
+
+安装完 ynode 后可以使用程序自带工具来初始化应用
+
+```shell
+./node_modules/.bin/_ynode PROJECT_NAME
+```
+
 # 已知问题
 
 + 异步异常没做处理

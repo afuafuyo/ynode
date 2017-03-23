@@ -291,6 +291,14 @@ YNode.Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 the result will added to req.body
 ```
 
+# use sysutil to create a structure of app
+
+when installed ynode you can use _ynode to create a app
+
+```shell
+./node_modules/.bin/_ynode PROJECT_NAME
+```
+
 # 已知问题
 
 + 异步异常没做处理

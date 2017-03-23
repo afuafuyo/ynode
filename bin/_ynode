@@ -83,7 +83,26 @@ fs.writeFile(viewPath + '/index.html',
 <body>
     <h6>Hello YNode!</h6>
 </body>
-</html>`,
+</html>
+`,
+    function(err){
+        if(err) throw err;
+});
+
+// main file
+fs.writeFile(viewPath + '/index.html',
+`var YNode = require('ynode');
+
+new YNode({
+    'id': 1,
+    'debug': true,
+    'appPath': __dirname + '/app',
+    'assets': 'public'
+    
+}).listen(8080, function(){
+    console.log('listen on 8080');
+});
+`,
     function(err){
         if(err) throw err;
 });
