@@ -82,7 +82,7 @@ fs.writeFile(viewPath + '/index.html',
     <title>YNode</title>
 </head>
 <body>
-    <h6>Hello YNode!</h6>
+    <h6>Hello YNode</h6>
 </body>
 </html>
 `,
@@ -100,8 +100,8 @@ new YNode({
     'appPath': __dirname + '/app',
     'assets': 'public'
     
-}).listen(8080, function(){
-    console.log('listen on 8080');
+}).listen(8090, function(){
+    console.log('listen on 8090');
 });
 `,
     function(err){
