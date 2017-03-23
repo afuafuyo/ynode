@@ -1,0 +1,92 @@
+#!/usr/bin/env node
+
+'use strict';
+
+/**
+ * 该文件用来初始化基本的应用框架
+ */
+var fs = require('fs');
+var path = require('path');
+
+var dir = process.cwd();
+var appName = process.argv.slice(2)[0];
+
+if(undefined === appName) {
+    console.log('appName must specified');
+    return;
+}
+
+function createDirectorySync(dir, mode) {
+    undefined === mode && (mode = 0o777);
+    
+    if(fs.existsSync(dir)) {
+        return true;
+    }
+        
+    if(createDirectorySync(path.dirname(dir))) {
+        fs.mkdirSync(dir, mode);
+    }
+    
+    return true;
+}
+
+/*
+project structor
+
+prject
+    app
+        controllers
+            index
+                IndexController.js
+        views
+            index
+                index.html
+        modules
+        runtime
+*/
+var controllerPath = dir + '/' + appName + '/app/controllers/index';
+var viewPath = dir + '/' + appName + '/app/views/index';
+
+createDirectorySync(controllerPath);
+createDirectorySync(viewPath);
+
+// controller file
+fs.writeFile(controllerPath + '/IndexController.js',
+`'use strict';
+
+var YNode = require('ynode');
+
+class IndexController extends YNode.WebController {
+
+    run(req, res) {
+       this.getTemplate('index', (err, data) => {
+           res.end(data);
+       });
+    }
+
+}
+
+module.exports = IndexController;
+`,
+    function(err){
+        if(err) throw err;
+});
+
+// view file
+fs.writeFile(viewPath + '/index.html',
+`<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>YNode</title>
+</head>
+<body>
+    <h6>Hello YNode!</h6>
+</body>
+</html>`,
+    function(err){
+        if(err) throw err;
+});
+
+// done
+console.log('done');

@@ -65,13 +65,13 @@ __  ___   __          __
 |      |
 |      |-- user 用户组目录
 |      |   |
-|      |   |-- IndexController.js 用户组下的控制器
-|      |   |-- OtherController.js
+|      |   |-- IndexController.js  - host:port/user/index 可以访问到该类
+|      |   |-- OtherController.js  - host:port/user/other 可以访问到该类
 |      |
 |      |-- goods 商品组目录
 |      |   |
-|      |   |-- IndexController.js
-|      |   |-- OtherController.js
+|      |   |-- IndexController.js  - host:port/goods/index 可以访问到该类
+|      |   |-- OtherController.js  - host:port/goods/other 可以访问到该类
 |      |
 |   -- views 普通控制器模板目录
 |      |
@@ -107,7 +107,7 @@ __  ___   __          __
 路由格式
 
 // mvc
-http://xxx.com/[route_prefix|moduleId]/[controllerId]
+http://xxx.com/[route_prefix | moduleId]/[controllerId]
 
 // restful api
 http://xxx.com/[pattern]

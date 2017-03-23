@@ -105,7 +105,7 @@ __  ___   __          __
 route example
 
 // mvc
-http://xxx.com/[route_prefix|moduleId]/[controllerId]
+http://xxx.com/[route_prefix | moduleId]/[controllerId]
 
 // restful api
 http://xxx.com/[pattern]
