@@ -46,6 +46,7 @@ prject
 */
 var controllerPath = dir + '/' + appName + '/app/controllers/index';
 var viewPath = dir + '/' + appName + '/app/views/index';
+var mainFile = dir + '/' + appName + '/index.js';
 
 createDirectorySync(controllerPath);
 createDirectorySync(viewPath);
@@ -90,7 +91,7 @@ fs.writeFile(viewPath + '/index.html',
 });
 
 // main file
-fs.writeFile(viewPath + '/index.html',
+fs.writeFile(mainFile,
 `var YNode = require('ynode');
 
 new YNode({
