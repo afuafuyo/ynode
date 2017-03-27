@@ -12,7 +12,7 @@ __  ___   __          __
 
 ###### Node 版本
 
-+ >= 6.0.0
++ 大于等于 6.0.0
 
 ###### 源码 source code
 
@@ -176,8 +176,8 @@ new YNode({
         }
     }
     
-}).listen(8080, function(){
-    console.log('listen on 8080');
+}).listen(8090, function(){
+    console.log('listen on 8090');
 });
 ```
 

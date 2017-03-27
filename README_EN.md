@@ -10,7 +10,7 @@ __  ___   __          __
 
 ###### Node version
 
-+ >= 6.0.0
++ no less than 6.0.0
 
 ###### Source code
 
@@ -166,8 +166,8 @@ new YNode({
         }
     }
     
-}).listen(8080, function(){
-    console.log('listen on 8080');
+}).listen(8090, function(){
+    console.log('listen on 8090');
 });
 ```
 
