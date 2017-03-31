@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-03-31
+
+    * optimize some regular expression
+
 + 2017-03-23
 
     * add system util
