@@ -18,7 +18,8 @@ var app = new YNode({
         '/abc/{id:\\d+}': {
             'moduleId': 'bbs'
         }
-    },
+    }
+    ,'combineRoutes': true
 });
 var server = app.getServer();
 

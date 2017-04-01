@@ -18,7 +18,9 @@ class Router extends CoreRouter {
      * @param Object request
      */
     static resolve(app, route, request) {
-        var ret = Router.resolveUserrouteCombine(app, route, request);
+        var ret = true === app.combineRoutes ?
+            Router.resolveUserroutesCombine(app, route, request) :
+            Router.resolveUserroutesOneByOne(app, route, request);
         
         if(null !== ret) {
             return ret;
@@ -28,7 +30,7 @@ class Router extends CoreRouter {
     }
     
     // 合并解析用户路由
-    static resolveUserrouteCombine(app, route, request) {
+    static resolveUserroutesCombine(app, route, request) {
         var moduleId = '';
         var controllerId = '';
         var routePrefix = '';
@@ -99,7 +101,7 @@ class Router extends CoreRouter {
     }
     
     // 依次解析用户路由
-    static resolveUserrouteOneByOne(app, route, request) {
+    static resolveUserroutesOneByOne(app, route, request) {
         var moduleId = '';
         var controllerId = '';
         var routePrefix = '';

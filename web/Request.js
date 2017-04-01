@@ -62,19 +62,17 @@ class Request extends CoreRequest {
      */
     getQueryString(param) {
         var parsed = Request.parseUrl(this.request);
+        
         // 查找参数
         if(null !== parsed.query &&
             (0 === parsed.query.indexOf(param) ||
-                parsed.query.indexOf('&'+param) > 0)) {
+                parsed.query.indexOf('&' + param) > 0)) {
             
             return querystring.parse(parsed.query)[param];
         }
         
-        if(null !== parsed.additionalQuery &&
-            (0 === parsed.additionalQuery.indexOf(param) ||
-                parsed.additionalQuery.indexOf('&'+param) > 0)) {
-            
-            return querystring.parse(parsed.additionalQuery)[param];
+        if(null !== parsed.additionalQuery) {
+            return parsed.additionalQuery[param];
         }
 
         return null;
@@ -88,12 +86,10 @@ class Request extends CoreRequest {
      */
     setQueryString(param, value) {
         if(undefined === this.request.additionalQuery) {
-            this.request.additionalQuery = param + '=' + value;
-            
-            return;
+            this.request.additionalQuery = {};
         }
         
-        this.request.additionalQuery = this.request.additionalQuery + '&' + param + '=' + value;
+        this.request.additionalQuery[param] = value;
     }
     
     /**
