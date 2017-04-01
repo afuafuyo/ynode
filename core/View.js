@@ -10,14 +10,14 @@
 class View {
     
     /**
-     * 获取默认视图文件路径
+     * 获取视图文件路径
      *
      * @param String view 视图文件名
      */
     getTemplateFilePath(view) {}
     
     /**
-     * 查找视图文件
+     * 读取视图文件
      *
      * @param String view 视图文件名
      * @param Function callback 回调函数
@@ -25,7 +25,7 @@ class View {
     getTemplate(view, callback) {}
     
     /**
-     * 从指定路径读取模板文件
+     * 从指定路径读取视图文件
      *
      * @param String path 文件路径
      * @param Function callback 回调函数
