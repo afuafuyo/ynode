@@ -52,9 +52,9 @@ __  ___   __          __
 ###### 系统内置别名
 
 + @y  系统目录
-+ @app  项目目录 由 appPath 指定
-+ @runtime  缓存目录 默认指向 @app/runtime
-+ @root  网站根目录
++ @app  项目目录 由 appPath 指定 ```YNode.Y.app.getAppPath()``` 可得到该值
++ @runtime  缓存目录 默认指向 @app/runtime ```YNode.Y.app.getRuntimePath()``` 可得到该值
++ @root  网站根目录 ```YNode.Y.app.getRootPath()``` 可得到该值
 
 ###### 项目目录示例
 

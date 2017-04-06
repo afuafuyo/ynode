@@ -50,9 +50,9 @@ __  ___   __          __
 ###### Build in system variable
 
 + @y  system dir
-+ @app  app dir
-+ @runtime  cache dir default to @app/runtime
-+ @root  website root dir
++ @app  app dir ```YNode.Y.app.getAppPath()``` can get the value
++ @runtime  cache dir default to @app/runtime ```YNode.Y.app.getRuntimePath()``` can get the value
++ @root  website root dir ```YNode.Y.app.getRootPath()``` can get the value
 
 ###### Application structure demo
 
