@@ -61,7 +61,7 @@ class Target extends ITarget {
         this.sessionCookieName = 'ynode_session';
         
         /**
-         * @var Integer session 过期时间分钟
+         * @var number session 过期时间分钟
          */
         this.sessionCookieExpiresMinutes = 20;
         

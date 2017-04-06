@@ -87,7 +87,7 @@ class YNode {
     /**
      * listen
      *
-     * @param int port
+     * @param number port
      * @param Function callback
      *
      * If you want to create HTTPS server you can do so as shown here

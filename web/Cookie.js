@@ -16,7 +16,7 @@ class Cookie {
      *
      * @param String name cookie name
      * @param String value cookie value
-     * @param Integer expires cookie expires time in milliseconds
+     * @param number expires cookie expires time in milliseconds
      * @param String path cookie path
      * @param String domain cookie domain
      * @param Boolean secure cookie secure

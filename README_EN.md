@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-04-06
+
+    * 1.4.0 adjust TimeHelper.format(formats[, timestamp]) function params
+
 + 2017-03-31
 
     * optimize some regular expression

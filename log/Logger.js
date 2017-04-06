@@ -22,14 +22,14 @@ class Logger {
          * Each log message is of the following structure:
          * [
          *   [0] => string:message
-         *   [1] => int:level
-         *   [2] => int:timestamp
+         *   [1] => number:level
+         *   [2] => number:timestamp
          * ]
          */
         this.messages = [];
         
         /**
-         * @var Integer how many messages should be logged before they are flushed from memory
+         * @var number how many messages should be logged before they are flushed from memory
          */
         this.flushInterval = 10;
         
@@ -71,7 +71,7 @@ class Logger {
      * 记录日志
      *
      * @param String message 消息
-     * @param Integer level 日志级别
+     * @param number level 日志级别
      */
     log(message, level) {
         this.messages.push([message, level, Date.now()]);
@@ -132,7 +132,7 @@ class Logger {
     /**
      * 获取日志级别描述
      *
-     * @param integer level 级别
+     * @param number level 级别
      */
     static getLevelName(level) {
         var name = 'unknown';

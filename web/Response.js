@@ -30,13 +30,12 @@ class Response extends CoreResponse {
         //this.version = '1.1';
         
         /**
-         * @var Integer the HTTP status code
+         * @var number the HTTP status code
          */
         this.statusCode = 200;
         
         /**
          * @var String the HTTP status description that comes together with the status code.
-         * @see httpStatuses
          */
         this.statusText = 'OK';
         
@@ -59,7 +58,7 @@ class Response extends CoreResponse {
     /**
      * 得到 http status code
      *
-     * @return Integer
+     * @return number
      */
     getStatusCode() {
         return this.statusCode;
@@ -68,7 +67,7 @@ class Response extends CoreResponse {
     /**
      * 设置 http status code
      *
-     * @param Integer value the status code
+     * @param number value the status code
      * @param String text the status text
      */
     setStatusCode(value, text) {

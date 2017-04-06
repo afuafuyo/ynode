@@ -13,7 +13,7 @@ class StringHelper {
      * 查找某字符在一个字符串中第 N 次出现的位置
      *
      * @param String str 待查找的字符串
-     * @param int n 第几次出现
+     * @param number n 第几次出现
      */
     static indexOfN(str, find, n) {
         var x = str.indexOf(find);

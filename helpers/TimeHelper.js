@@ -10,26 +10,58 @@
 class TimeHelper {
     
     /**
+     * 填充 0
+     *
+     * @param String str 待处理字符串
+     * @param number length 处理后字符串长度
+     * @return String 处理后的字符串
+     */
+    static pad(str, length) {
+        while(str.length < length) {
+            str = '0' + str;
+        }
+        
+        return str;
+    }
+    
+    /**
      * 格式化时间
      *
-     * @param Integer timestamp 时间戳
-     * @param String format 格式化参数
+     * @param String formats 格式化参数
+     * @param number timestamp 时间戳
+     *
+     * 用法
+     * var str = TimeHelper.format('y-m-d h:i:s');
+     *
      */
-    static format(timestamp, format = 'y-m-d h:i:s') {
-        var d = new Date(timestamp),
-            year = d.getFullYear(),
-            month = d.getMonth() + 1,
-            date = d.getDate(),
-            hour = d.getHours(),
-            minute = d.getMinutes(),
-            second = d.getSeconds();
+    static format(formats, timestamp) {
+        var d = undefined === timestamp ? new Date() : new Date(timestamp);
+        var funs = {
+            y: function() {
+                return d.getFullYear();
+            }
+            ,m: function() {
+                return TimeHelper.pad(String(d.getMonth() + 1), 2);
+            }
+            ,d: function() {
+                return TimeHelper.pad(String(d.getDate()), 2);
+            }
+            ,h: function() {
+                return TimeHelper.pad(String(d.getHours()), 2);
+            }
+            ,i: function() {
+                return TimeHelper.pad(String(d.getMinutes()), 2);
+            }
+            ,s: function() {
+                return TimeHelper.pad(String(d.getSeconds()), 2);
+            }
+        };
         
-        return format.replace('y', year)
-            .replace('m', month)
-            .replace('d', date)
-            .replace('h', hour)
-            .replace('i', minute)
-            .replace('s', second);
+        return formats.replace(/(.?)/ig, function(match, p, offset, string){
+            return undefined !== funs[match] ?
+                funs[match]() :
+                p;
+        });
     }
     
 }

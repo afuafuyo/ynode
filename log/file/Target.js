@@ -72,9 +72,12 @@ class Target extends ITarget {
     formatMessage(messages) {
         var msg = '';
         for(let i=0,len=messages.length; i<len; i++) {
-            msg += TimeHelper.format(messages[i][2]) + ' -- '
-                + Logger.getLevelName(messages[i][1]) + ' -- '
-                + messages[i][0] + '\n';
+            msg += TimeHelper.format('y-m-d h:i:s', messages[i][2])
+                + ' -- '
+                + Logger.getLevelName(messages[i][1])
+                + ' -- '
+                + messages[i][0]
+                + '\n';
         }
         
         return msg;
