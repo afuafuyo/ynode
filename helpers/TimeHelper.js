@@ -37,27 +37,15 @@ class TimeHelper {
     static format(formats, timestamp) {
         var d = undefined === timestamp ? new Date() : new Date(timestamp);
         var funs = {
-            y: function() {
-                return d.getFullYear();
-            }
-            ,m: function() {
-                return TimeHelper.pad(String(d.getMonth() + 1), 2);
-            }
-            ,d: function() {
-                return TimeHelper.pad(String(d.getDate()), 2);
-            }
-            ,h: function() {
-                return TimeHelper.pad(String(d.getHours()), 2);
-            }
-            ,i: function() {
-                return TimeHelper.pad(String(d.getMinutes()), 2);
-            }
-            ,s: function() {
-                return TimeHelper.pad(String(d.getSeconds()), 2);
-            }
+            y: () => d.getFullYear()
+            ,m: () => TimeHelper.pad(String(d.getMonth() + 1), 2)
+            ,d: () => TimeHelper.pad(String(d.getDate()), 2)
+            ,h: () => TimeHelper.pad(String(d.getHours()), 2)
+            ,i: () => TimeHelper.pad(String(d.getMinutes()), 2)
+            ,s: () => TimeHelper.pad(String(d.getSeconds()), 2)
         };
         
-        return formats.replace(/(.?)/ig, function(match, p, offset, string){
+        return formats.replace(/(.?)/ig, (match, p, offset, string) => {
             return undefined !== funs[match] ?
                 funs[match]() :
                 p;
