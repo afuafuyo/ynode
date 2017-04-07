@@ -15,11 +15,11 @@ class Application {
     /**
      * constructor
      *
-     * @param JSON config 配置信息
+     * @param {JSON} config 配置信息
      */
     constructor(config) {
         /**
-         * @var JSON 自定义路由配置
+         * @property {JSON} routes 自定义路由配置
          *
          * 'routes': {
          *     '/abc/{param1:\\d+}/{param2:\\w+}': {
@@ -30,7 +30,7 @@ class Application {
         this.routes = null;
         
         /**
-         * @var JSON 注册的模块
+         * @property {JSON} modules 注册的模块
          *
          * 'modules': {
          *     'bbs': 'app/modules/bbs'
@@ -39,42 +39,42 @@ class Application {
         this.modules = null;
         
         /**
-         * @var String 默认路由
+         * @property {String} defaultRoute 默认路由
          */
         this.defaultRoute = 'index/index';
         
         /**
-         * @var String 默认控制器命名空间
+         * @property {String} defaultControllerNamespace 默认控制器命名空间
          */
         this.defaultControllerNamespace = 'app/controllers';
         
         /**
-         * @var String 默认控制器
+         * @property {String} defaultControllerId 默认控制器
          */
         this.defaultControllerId = 'index';
         
         /**
-         * @var String 当前的模块
+         * @property {String} moduleId 当前的模块
          */
         this.moduleId = '';
         
         /**
-         * @var String 当前的控制器
+         * @property {String} controllerId 当前的控制器
          */
         this.controllerId = '';
         
         /**
-         * @var String 前缀目录
+         * @property {String} routePrefix 前缀目录
          */
         this.routePrefix = '';
         
         /**
-         * @var String 编码
+         * @property {String} encoding 编码
          */
         this.encoding = 'utf8';
         
         /**
-         * @var Boolean 调试
+         * @property {Boolean} debug 调试
          */
         this.debug = false;
         
@@ -86,8 +86,8 @@ class Application {
     /**
      * 初始化应用
      *
-     * @param Array config 应用配置
-     * @throws InvalidConfigException 当丢失必要配置项目时
+     * @param {Array} config 应用配置
+     * @throws {InvalidConfigException} 当丢失必要配置项目时
      */
     init(config) {
         if(undefined === config.id) {
@@ -123,7 +123,7 @@ class Application {
     /**
      * 设置应用路径
      *
-     * @param String path 应用路径
+     * @param {String} path 应用路径
      */
     setAppPath(path) {
         Y.setPathAlias('@app', path);
@@ -132,7 +132,7 @@ class Application {
     /**
      * 得到应用目录
      *
-     * @return String 路径
+     * @return {String} 路径
      */
     getAppPath(){
         return Y.getPathAlias('@app');
@@ -141,7 +141,7 @@ class Application {
     /**
      * 设置 runtime 路径
      *
-     * @param String path 路径
+     * @param {String} path 路径
      */
     setRuntimePath(path) {
         Y.setPathAlias('@runtime', path);
@@ -150,7 +150,7 @@ class Application {
     /**
      * 得到 runtime 目录
      *
-     * @return String 路径
+     * @return {String} 路径
      */
     getRuntimePath() {
         return Y.getPathAlias('@runtime');
@@ -159,7 +159,7 @@ class Application {
     /**
      * 设置 root 路径
      *
-     * @param String path 路径
+     * @param {String} path 路径
      */
     setRootPath(path) {
         Y.setPathAlias('@root', path);
@@ -168,7 +168,7 @@ class Application {
     /**
      * 得到 root 目录
      *
-     * @return String 路径
+     * @return {String} 路径
      */
     getRootPath() {
         return Y.getPathAlias('@root');
@@ -177,8 +177,8 @@ class Application {
     /**
      * handler request
      *
-     * @param Object request
-     * @param Object response
+     * @param {Object} request
+     * @param {Object} response
      */
     requestListener(request, response) {}
     
@@ -187,8 +187,8 @@ class Application {
      * 路由 'xxx/yyy' 中 xxx 可能为模块 id 或前缀目录  
      * 如 xxx 模块的 yyy 控制器 或 xxx 目录下的 yyy 控制器
      *
-     * @param Object request
-     * @return Object 控制器
+     * @param {Object} request
+     * @return {Object} 控制器
      */
     createController(request) {}
 }

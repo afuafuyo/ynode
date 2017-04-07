@@ -29,7 +29,7 @@ class Hook {
     /**
      * 注册
      *
-     * @param Function handler
+     * @param {Function} handler
      */
     addHook(handler) {
         this.handlers.push(handler);
@@ -53,6 +53,10 @@ class Hook {
     
     /**
      * 触发
+     * 
+     * @param {Object} req
+     * @param {Object} res
+     * @param {Function} callback
      */
     trigger(req, res, callback) {
         var first = this.getHook();

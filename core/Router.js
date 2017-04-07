@@ -11,9 +11,8 @@ class Router {
     /**
      * 合并路由
      *
-     * @param JSON routes
-     *
-     * @return JSON
+     * @param {JSON} routes
+     * @return {JSON}
      */
     static combineRoutes(routes) {
         var ret = {};
@@ -41,14 +40,14 @@ class Router {
     /**
      * 解析正则路由
      *
-     * @param String pattern 路由模式
+     * @param {String} pattern 路由模式
      *
      * pattern: /abc/{id:\d+} -> /abc/(id:\d+) -> /abc/(\d+) -> abc\/(\d+)
      * pattern: /abc/{id:} -> /abc/(id:) -> /abc/() -> abc\/(\w+)
      * pattern: /abc/{\w+} -> /abc/(\w+) -> abc\/(\w+)
      * pattern: /abc/def -> abc\/def
      *
-     * @return JSON
+     * @return {JSON}
      */
     static parse(pattern) {
         var ret = null;

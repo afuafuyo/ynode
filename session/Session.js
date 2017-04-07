@@ -12,8 +12,9 @@ class Session {
     /**
      * 获取 Session 类实例
      *
-     * @param Object request 请求
-     * @param Object response 响应
+     * @param {Object} request 请求
+     * @param {Object} response 响应
+     * @return {Object}
      */
     static factorySync(request, response) {
         if(undefined === Y.app.session) {

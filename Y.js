@@ -14,8 +14,8 @@ class Y {
     /**
      * @ 别名路径转换真实路径
      *
-     * @param String alias 路径别名
-     * @return String 路径
+     * @param {String} alias 路径别名
+     * @return {String} 路径
      */
     static getPathAlias(alias) {
         if('@' !== alias.charAt(0)) {
@@ -37,8 +37,8 @@ class Y {
     /**
      * 设置路径别名
      *
-     * @param String alias 路径别名
-     * @param String path 路径
+     * @param {String} alias 路径别名
+     * @param {String} path 路径
      */
     static setPathAlias(alias, path) {
         if('@' !== alias.charAt(0)) {
@@ -57,9 +57,9 @@ class Y {
     /**
      * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
      *
-     * @param String clazz 以某个已经定义的别名开头的类全名 eg. y/log/file/Target, app/controllers/index/IndexController
-     * @param Object params 参数
-     * @return Object 类实例
+     * @param {String} clazz 以某个已经定义的别名开头的类全名 eg. y/log/file/Target, app/controllers/index/IndexController
+     * @param {Object} params 参数
+     * @return {Object} 类实例
      */
     static createObject(clazz, ...params) {
         var realClass = Y.getPathAlias('@' + clazz);
@@ -71,11 +71,22 @@ class Y {
     }
     
     /**
+     * 导入一个类文件
+     *
+     * @param {String} clazz 类全名
+     */
+    static include(clazz) {
+        var realClass = Y.getPathAlias('@' + clazz);
+        
+        return require(realClass + Y.fileExtention);
+    }
+    
+    /**
      * 对象配置
      *
-     * @param Object object 需要配置的对象
-     * @param JSON propertys 配置项
-     * @return Object 源对象
+     * @param {Object} object 需要配置的对象
+     * @param {JSON} propertys 配置项
+     * @return {Object} 源对象
      */
     static config(object, propertys) {
         for(let key in propertys) {

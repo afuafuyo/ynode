@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### 版本更新
 
++ 2017-04-07
+
+    * 1.4.1 ```Y``` 辅助类增加 include 方法以方便加载一个类 ```var Logger = YNode.Y.include('y/log/Logger');```
+
 + 2017-04-06
 
     * 1.4.0 调整 TimeHelper.format(formats[, timestamp]) 方法参数

@@ -27,47 +27,47 @@ class ITarget {
     /**
      * 读取
      *
-     * @param String key
-     * @param Function callback
+     * @param {String} key
+     * @param {Function} callback
      */
     read(key, callback) {}
     
     /**
      * 同步读取
      *
-     * @param String key
+     * @param {String} key
      */
     readSync(key) {}
     
     /**
      * 写入
      *
-     * @param String key
-     * @param String data session data
-     * @param Function callback
+     * @param {String} key
+     * @param {String} data session data
+     * @param {Function} callback
      */
     write(key, data, callback) {}
     
     /**
      * 同步写入
      *
-     * @param String key
-     * @param String data session data
+     * @param {String} key
+     * @param {String} data session data
      */
     writeSync(key, data) {}
     
     /**
      * 删除
      *
-     * @param String key
-     * @param Function callback
+     * @param {String} key
+     * @param {Function} callback
      */
     destroy(key, callback) {}
     
     /**
      * 同步删除
      *
-     * @param String key
+     * @param {String} key
      */
     destroySync(key) {}
     

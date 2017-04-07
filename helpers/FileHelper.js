@@ -14,7 +14,8 @@ class FileHelper {
     /**
      * 获取 dirname
      *
-     * @param String dir 目录路径
+     * @param {String} dir 目录路径
+     * @return {String}
      */
     static getDirname(dir) {
         dir = dir.replace(/\\/g, '/').replace(/\/[^\/]*\/?$/, '');
@@ -25,9 +26,9 @@ class FileHelper {
     /**
      * 创建文件夹
      *
-     * @param String dir 目录路径
-     * @param number mode 目录权限
-     * @param Function callback 回调函数
+     * @param {String} dir 目录路径
+     * @param {Number} mode 目录权限
+     * @param {Function} callback 回调函数
      */
     static createDirectory(dir, mode = 0o777, callback = null) {
         fs.access(dir, fs.constants.F_OK, (err) => {
@@ -46,8 +47,8 @@ class FileHelper {
     /**
      * 同步创建文件夹
      *
-     * @param String dir 目录路径
-     * @param number mode 目录权限
+     * @param {String} dir 目录路径
+     * @param {Number} mode 目录权限
      */
     static createDirectorySync(dir, mode = 0o777) {
         if(fs.existsSync(dir)) {

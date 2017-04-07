@@ -25,7 +25,7 @@ class Request extends CoreRequest {
     /**
      * 解析 request url
      *
-     * @param Object request 请求对象
+     * @param {Object} request 请求对象
      */
     static parseUrl(request) {
         var obj = url.parse(request.url);
@@ -43,7 +43,7 @@ class Request extends CoreRequest {
     /**
      * 获取客户端 ip
      *
-     * @param Object request 请求对象
+     * @param {Object} request 请求对象
      */
     static getClientIp(request) {
         var forward = request.headers['x-forwarded-for'];
@@ -57,8 +57,8 @@ class Request extends CoreRequest {
     /**
      * 获取 get 参数
      *
-     * @param String param 参数名
-     * @return String | null | ''
+     * @param {String} param 参数名
+     * @return {String | null | ''}
      */
     getQueryString(param) {
         var parsed = Request.parseUrl(this.request);
@@ -81,8 +81,8 @@ class Request extends CoreRequest {
     /**
      * 设置 get 参数
      *
-     * @param String param 参数名
-     * @param String value 参数值
+     * @param {String} param 参数名
+     * @param {String} value 参数值
      */
     setQueryString(param, value) {
         if(undefined === this.request.additionalQuery) {
@@ -95,8 +95,8 @@ class Request extends CoreRequest {
     /**
      * 获取 post 参数
      *
-     * @param String param 参数名
-     * @return String | null | ''
+     * @param {String} param 参数名
+     * @return {String | null | ''}
      */
     getParameter(param) {
         if(undefined === this.request.body) {
@@ -109,7 +109,7 @@ class Request extends CoreRequest {
     /**
      * 获取 cookie
      *
-     * @param name cookie name
+     * @param {String} name cookie name
      */
     getCookie(name) {
         return Cookie.getCookie(this.request, name);

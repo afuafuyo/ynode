@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-04-07
+
+    * 1.4.1 ```Y``` class add include() method to import a class ```var Logger = YNode.Y.include('y/log/Logger');```
+
 + 2017-04-06
 
     * 1.4.0 adjust TimeHelper.format(formats[, timestamp]) function params

@@ -23,7 +23,7 @@ class YNode {
     /**
      * constructor
      *
-     * @param JSON config 配置信息
+     * @param {JSON} config 配置信息
      */
     constructor(config) {
         if(undefined === config) {
@@ -87,8 +87,8 @@ class YNode {
     /**
      * listen
      *
-     * @param number port
-     * @param Function callback
+     * @param {Number} port
+     * @param {Function} callback
      *
      * If you want to create HTTPS server you can do so as shown here
      * 

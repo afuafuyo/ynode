@@ -12,9 +12,9 @@ class TimeHelper {
     /**
      * 填充 0
      *
-     * @param String str 待处理字符串
-     * @param number length 处理后字符串长度
-     * @return String 处理后的字符串
+     * @param {String} str 待处理字符串
+     * @param {Number} length 处理后字符串长度
+     * @return {String} 处理后的字符串
      */
     static pad(str, length) {
         while(str.length < length) {
@@ -27,12 +27,13 @@ class TimeHelper {
     /**
      * 格式化时间
      *
-     * @param String formats 格式化参数
-     * @param number timestamp 时间戳
+     * @param {String} formats 格式化参数
+     * @param {Number} timestamp 时间戳
      *
      * 用法
      * var str = TimeHelper.format('y-m-d h:i:s');
      *
+     * @return {String}
      */
     static format(formats, timestamp) {
         var d = undefined === timestamp ? new Date() : new Date(timestamp);

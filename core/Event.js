@@ -14,6 +14,8 @@ class Event {
      */
     constructor() {
         /**
+         * @property {JSON} handlers
+         * 
          * {
          *     'eventName': [fn1, fn2...]
          *     'eventName2': [fn1, fn2...]
@@ -25,8 +27,8 @@ class Event {
     /**
      * 注册事件处理
      *
-     * @param String eventName 事件名称
-     * @param Function handler 回调函数
+     * @param {String} eventName 事件名称
+     * @param {Function} handler 回调函数
      */
     on(eventName, handler) {
         if(undefined === this.handlers[eventName]) {
@@ -39,8 +41,8 @@ class Event {
     /**
      * 注销事件处理
      *
-     * @param String eventName 事件名称
-     * @param Function handler 回调函数
+     * @param {String} eventName 事件名称
+     * @param {Function} handler 回调函数
      */
     off(eventName, handler) {
         if(undefined !== this.handlers[eventName]) {
@@ -60,8 +62,8 @@ class Event {
     /**
      * 触发
      *
-     * @param String eventName 事件名称
-     * @param Array param 参数
+     * @param {String} eventName 事件名称
+     * @param {Array} param 参数
      */
     trigger(eventName, param) {
         if(undefined !== this.handlers[eventName]) {
@@ -75,8 +77,8 @@ class Event {
     /**
      * 触发
      *
-     * @param String eventName 事件名称
-     * @param Any params 参数
+     * @param {String} eventName 事件名称
+     * @param {any} params 参数
      */
     triggerWithRestParams(eventName, ...params) {
         if(undefined !== this.handlers[eventName]) {

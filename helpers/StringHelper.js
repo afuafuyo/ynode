@@ -12,8 +12,10 @@ class StringHelper {
     /**
      * 查找某字符在一个字符串中第 N 次出现的位置
      *
-     * @param String str 待查找的字符串
-     * @param number n 第几次出现
+     * @param {String} str 待查找的字符串
+     * @param {String} find 要查找的字符串
+     * @param {Number} n 第几次出现
+     * @return {Number}
      */
     static indexOfN(str, find, n) {
         var x = str.indexOf(find);
@@ -27,9 +29,9 @@ class StringHelper {
     /**
      * 删除两端字符
      *
-     * @param String str 待处理的字符串
-     * @param String character 要删除的字符
-     * @return String 处理后的字符串
+     * @param {String} str 待处理的字符串
+     * @param {String} character 要删除的字符
+     * @return {String} 处理后的字符串
      */
     static trimChar(str, character) {
         if(character === str.charAt(0)) {
@@ -45,9 +47,9 @@ class StringHelper {
     /**
      * 删除左侧字符
      *
-     * @param String str 待处理的字符串
-     * @param String character 要删除的字符
-     * @return String 处理后的字符串
+     * @param {String} str 待处理的字符串
+     * @param {String} character 要删除的字符
+     * @return {String} 处理后的字符串
      */
     static lTrimChar(str, character) {
         if(character === str.charAt(0)) {
@@ -60,9 +62,9 @@ class StringHelper {
     /**
      * 删除右侧字符
      *
-     * @param String str 待处理的字符串
-     * @param String character 要删除的字符
-     * @return String 处理后的字符串
+     * @param {String} str 待处理的字符串
+     * @param {String} character 要删除的字符
+     * @return {String} 处理后的字符串
      */
     static rTrimChar(str, character) {
         if(character === str.charAt(str.length - 1)) {
@@ -75,8 +77,8 @@ class StringHelper {
     /**
      * 首字母大写
      *
-     * @param String str 待处理的字符串
-     * @return String 处理后的字符串
+     * @param {String} str 待处理的字符串
+     * @return {String} 处理后的字符串
      */
     static ucFirst(str) {
         var ret = str.charAt(0).toUpperCase();

@@ -12,7 +12,7 @@ class Exception extends Error {
     /**
      * constructor
      *
-     * @param String message 错误信息
+     * @param {String} message 错误信息
      */
     constructor(message) {
         super(message);
@@ -22,6 +22,8 @@ class Exception extends Error {
     
     /**
      * 获得错误名
+     * 
+     * @return {String}
      */
     getName() {
         return this.name;

@@ -14,7 +14,8 @@ class Resource {
     /**
      * 是否是静态资源
      *
-     * @param String pathName 访问路径
+     * @param {String} pathName 访问路径
+     * @return {Boolean}
      */
     static isStatic(pathName) {
         var ret = false;
@@ -33,7 +34,8 @@ class Resource {
     /**
      * 获取 mimeType
      *
-     * @param String pathName 访问路径
+     * @param {String} pathName 访问路径
+     * @return {String}
      */
     static getMimeType(pathName) {
         var ret = '';
@@ -52,7 +54,8 @@ class Resource {
     /**
      * 获得扩展名
      *
-     * @param String pathName 访问路径
+     * @param {String} pathName 访问路径
+     * @return {String}
      */
     static getExtName(pathName) {
         return pathName.substring(pathName.lastIndexOf('.'));
@@ -61,8 +64,8 @@ class Resource {
     /**
      * 处理静态资源
      *
-     * @param Object request
-     * @param Object response
+     * @param {Object} request
+     * @param {Object} response
      */
     static handler(request, response) {}
     

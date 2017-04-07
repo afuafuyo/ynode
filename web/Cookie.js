@@ -14,13 +14,13 @@ class Cookie {
     /**
      * constructor
      *
-     * @param String name cookie name
-     * @param String value cookie value
-     * @param number expires cookie expires time in milliseconds
-     * @param String path cookie path
-     * @param String domain cookie domain
-     * @param Boolean secure cookie secure
-     * @param Boolean httpOnly cookie httpOnly
+     * @param {String} name cookie name
+     * @param {String} value cookie value
+     * @param {Number} expires cookie expires time in milliseconds
+     * @param {String} path cookie path
+     * @param {String} domain cookie domain
+     * @param {Boolean} secure cookie secure
+     * @param {Boolean} httpOnly cookie httpOnly
      */
     constructor(name, value, expires, path, domain, secure, httpOnly) {
         this.name = name;
@@ -55,8 +55,9 @@ class Cookie {
     /**
      * 获取 cookie
      *
-     * @param name cookie name
-     * @return String | null
+     * @param {Object} request cookie name
+     * @param {String} name cookie name
+     * @return {String | null}
      */
     static getCookie(request, name) {
         if(undefined === request.headers.cookie) {
@@ -81,7 +82,8 @@ class Cookie {
     /**
      * 设置 cookie
      *
-     * @param Array cookies cookies
+     * @param {Object} response cookie name
+     * @param {Array} cookies cookies
      */
     static setCookie(response, cookies) {
         response.setHeader('Set-Cookie', cookies);

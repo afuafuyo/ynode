@@ -12,21 +12,18 @@ class Request {
     /**
      * constructor
      *
-     * @param Object request
+     * @param {Object} request
      */
     constructor(request) {
         this.request = request;
         
-        /**
-         * @var String 入口文件名
-         */
         this._scriptFile = null;
     }
     
     /**
      * 返回入口文件名
      *
-     * @return String
+     * @return {String}
      */
     getScriptFile() {
         if (null === this._scriptFile) {

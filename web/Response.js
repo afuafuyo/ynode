@@ -20,37 +20,37 @@ class Response extends CoreResponse {
         super(response);
         
         /**
-         * @var String 编码
+         * @property {String} encoding 编码
          */
         this.encoding = 'utf8';
         
         /**
-         * @var String HTTP protocol version
+         * @property {String} version HTTP protocol version
          */
         //this.version = '1.1';
         
         /**
-         * @var number the HTTP status code
+         * @property {Number} statusCode the HTTP status code
          */
         this.statusCode = 200;
         
         /**
-         * @var String the HTTP status description that comes together with the status code.
+         * @property {String} statusText the HTTP status description that comes together with the status code.
          */
         this.statusText = 'OK';
         
         /**
-         * @var JSON HTTP headers
+         * @property {JSON} headers HTTP headers
          */
         this.headers = {};
         
         /**
-         * @var String | Buffer HTTP content
+         * @property {String | Buffer} content HTTP content
          */
         this.content = '';
         
         /**
-         * @var Array HTTP cookies
+         * @property {Array} cookies HTTP cookies
          */
         this.cookies = [];
     }
@@ -58,7 +58,7 @@ class Response extends CoreResponse {
     /**
      * 得到 http status code
      *
-     * @return number
+     * @return {Number}
      */
     getStatusCode() {
         return this.statusCode;
@@ -67,8 +67,8 @@ class Response extends CoreResponse {
     /**
      * 设置 http status code
      *
-     * @param number value the status code
-     * @param String text the status text
+     * @param {Number} value the status code
+     * @param {String} text the status text
      */
     setStatusCode(value, text) {
         if(value < 100 || value >= 600) {
@@ -91,8 +91,8 @@ class Response extends CoreResponse {
     /**
      * 获取 header
      *
-     * @param String name header name
-     * @return String | null
+     * @param {String} name header name
+     * @return {String | null}
      */
     getHeader(name) {
         if(undefined !== this.headers[name]) {
@@ -105,8 +105,8 @@ class Response extends CoreResponse {
     /**
      * 设置 header
      *
-     * @param String name header name
-     * @param String | Array value of header
+     * @param {String} name header name
+     * @param {String | Array} value of header
      */
     setHeader(name, value) {
         this.headers[name] = value;
@@ -117,7 +117,7 @@ class Response extends CoreResponse {
     /**
      * 获取实体内容
      *
-     * @return String | Buffer
+     * @return {String | Buffer}
      */
     getContent() {
         return this.content;
@@ -126,7 +126,7 @@ class Response extends CoreResponse {
     /**
      * 设置实体内容
      *
-     * @param String | Buffer content 实体内容
+     * @param {String | Buffer} content 实体内容
      */
     setContent(content) {
         this.content = content;
@@ -137,9 +137,9 @@ class Response extends CoreResponse {
     /**
      * 设置一条 cookie
      *
-     * @param String name cookie name
-     * @param String value cookie value
-     * @param JSON options other config
+     * @param {String} name cookie name
+     * @param {String} value cookie value
+     * @param {JSON} options other config
      */
     setCookie(name, value, options) {
         if(undefined === options) {

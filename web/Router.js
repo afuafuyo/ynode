@@ -13,9 +13,9 @@ class Router extends CoreRouter {
     /**
      * 解析路由
      *
-     * @param Object app
-     * @param String route
-     * @param Object request
+     * @param {Object} app
+     * @param {String} route
+     * @param {Object} request
      */
     static resolve(app, route, request) {
         var ret = true === app.combineRoutes ?

@@ -17,7 +17,7 @@ class Logger {
      */
     constructor() {
         /**
-         * @var Array logged messages
+         * @property {Array} messages logged messages
          *
          * Each log message is of the following structure:
          * [
@@ -29,12 +29,12 @@ class Logger {
         this.messages = [];
         
         /**
-         * @var number how many messages should be logged before they are flushed from memory
+         * @property {Number} flushInterval how many messages should be logged before they are flushed from memory
          */
         this.flushInterval = 10;
         
         /**
-         * @var Array the targets class
+         * @property {Array} targets the targets class
          */
         this.targets = [];
         
@@ -58,6 +58,8 @@ class Logger {
     
     /**
      * 获取日志类实例
+     * 
+     * @return {Object}
      */
     static getLogger() {
         if(null === Logger._logger) {
@@ -70,8 +72,8 @@ class Logger {
     /**
      * 记录日志
      *
-     * @param String message 消息
-     * @param number level 日志级别
+     * @param {String} message 消息
+     * @param {Number} level 日志级别
      */
     log(message, level) {
         this.messages.push([message, level, Date.now()]);
@@ -96,7 +98,7 @@ class Logger {
     /**
      * Logs a error message
      *
-     * @param String message the message to be logged
+     * @param {String} message the message to be logged
      */
     error(message) {
         this.log(message, Logger.LEVEL_ERROR);
@@ -105,7 +107,7 @@ class Logger {
     /**
      * Logs a warning message
      *
-     * @param String message the message to be logged
+     * @param {String} message the message to be logged
      */
     warning(message) {
         this.log(message, Logger.LEVEL_WARNING);
@@ -114,7 +116,7 @@ class Logger {
     /**
      * Logs a info message
      *
-     * @param String message the message to be logged
+     * @param {String} message the message to be logged
      */
     info(message) {
         this.log(message, Logger.LEVEL_INFO);
@@ -123,7 +125,7 @@ class Logger {
     /**
      * Logs a trace message
      *
-     * @param String message the message to be logged
+     * @param {String} message the message to be logged
      */
     trace(message) {
         this.log(message, Logger.LEVEL_TRACE);
@@ -132,7 +134,8 @@ class Logger {
     /**
      * 获取日志级别描述
      *
-     * @param number level 级别
+     * @param {Number} level 级别
+     * @return {String}
      */
     static getLevelName(level) {
         var name = 'unknown';
