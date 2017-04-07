@@ -1,8 +1,9 @@
 'use strict';
 
 var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
 
-class IndexController extends YNode.WebController {
+class IndexController extends Controller {
     
     run(req, res) {
         this.getTemplate('index', (err, str) => {

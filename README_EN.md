@@ -20,6 +20,10 @@ __  ___   __          __
 
 + 2017-04-07
 
+    * publish 1.5.0 change code structure remove class mount on YNode
+
++ 2017-04-07
+
     * 1.4.1 ```Y``` class add include() method to import a class ```var Logger = YNode.Y.include('y/log/Logger');```
 
 + 2017-04-06
@@ -189,8 +193,9 @@ app\controllers\index\IndexController.js
 'use strict';
 
 var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
 
-class IndexController extends YNode.WebController {
+class IndexController extends Controller {
     // the controller has only one method
     run(req, res) {
         this.getTemplate('index', (err, str) => {
@@ -220,9 +225,11 @@ you can use like follow in your controller
 'use strict';
 
 var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
 var ejs = require('ejs');
 
-class IndexController extends YNode.WebController {
+class IndexController extends Controller {
     
     run(req, res) {
         // get the content of template file and render with ejs
@@ -269,9 +276,11 @@ app.listen(8090, function(){
     console.log(8090)
 });
 
+var Restful = YNode.Y.include('y/web/Restful');
 // get request with a id param and id must be a number
-YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
-    var r = new YNode.WebRequest(req);
+Restful.get('/abc/{id:\\d+}', function(req, res, id){
+    var Request = YNode.Y.include('y/web/Request');
+    var r = new Request(req);
     
     console.log(r.getQueryString('id'));
     console.log(id);
@@ -280,12 +289,12 @@ YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
 });
 
 // multiple request with a id param and the id can be number or string
-YNode.WebRestful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
+Restful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
     res.end(id);
 });
 
 // use app/api/User::index method process the request
-YNode.WebRestful.get('/xyz/{id:}', 'app/apis/User@index');
+Restful.get('/xyz/{id:}', 'app/apis/User@index');
 
 // User define like follow
 'use strict';

@@ -13,17 +13,18 @@ var app = new YNode({
 });
 var server = app.getServer();
 
+var Restful = YNode.Y.include('y/web/Restful');
 // api
-YNode.WebRestful.get('/abc', function(req, res){
+Restful.get('/abc', function(req, res){
     res.end('get ok');
 });
-YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
+Restful.get('/abc/{id:\\d+}', function(req, res, id){
     res.end(String(id));
 });
-YNode.WebRestful.post('/def', function(req, res){
+Restful.post('/def', function(req, res){
     res.end('post ok');
 });
-YNode.WebRestful.get('/xyz', 'app/api/Demo@index');
+Restful.get('/xyz', 'app/api/Demo@index');
 
 // test restful api
 describe('RESTful api', function() {

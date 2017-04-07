@@ -22,6 +22,10 @@ __  ___   __          __
 
 + 2017-04-07
 
+    * 发布 1.5.0 代码结构变更 去除 YNode 上挂载的类
+
++ 2017-04-07
+
     * 1.4.1 ```Y``` 辅助类增加 include 方法以方便加载一个类 ```var Logger = YNode.Y.include('y/log/Logger');```
 
 + 2017-04-06
@@ -199,15 +203,13 @@ app\controllers\index\IndexController.js
 'use strict';
 
 var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
 
-class IndexController extends YNode.WebController {
+class IndexController extends Controller {
     // 控制器单入口
     run(req, res) {
         this.getTemplate('index', (err, str) => {
             res.end(str);
-            
-            YNode.Logger.getLogger().error('this is a error log');
-            YNode.Logger.getLogger().flush();
         });
     }
     
@@ -230,9 +232,11 @@ npm install ejs
 'use strict';
 
 var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
 var ejs = require('ejs');
 
-class IndexController extends YNode.WebController {
+class IndexController extends Controller {
     
     run(req, res) {
         // 获取 index 模板内容用 ejs 渲染输出
@@ -279,9 +283,11 @@ app.listen(8090, function(){
     console.log(8090)
 });
 
+var Restful = YNode.Y.include('y/web/Restful');
 // get 路由 并指定 id 参数必须为数字
-YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
-    var r = new YNode.WebRequest(req);
+Restful.get('/abc/{id:\\d+}', function(req, res, id){
+    var Request = YNode.Y.include('y/web/Request');
+    var r = new Request(req);
     
     console.log(r.getQueryString('id'));
     console.log(id);
@@ -290,12 +296,12 @@ YNode.WebRestful.get('/abc/{id:\\d+}', function(req, res, id){
 });
 
 // 多方法路由 id 参数可为字母或数字
-YNode.WebRestful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
+Restful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
     res.end(id);
 });
 
 // 使用 app/api/User 类的 index 方法处理请求
-YNode.WebRestful.get('/xyz/{id:}', 'app/apis/User@index');
+Restful.get('/xyz/{id:}', 'app/apis/User@index');
 
 // 其中 User 的定义如下
 'use strict';
@@ -312,7 +318,8 @@ module.exports = User;
 可以使用 express 的 body-parser 中间件
 
 ```javascript
-YNode.Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
+var Hook = YNode.Y.include('y/core/Hook');
+Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 
 结果会存放到 req.body
 ```
@@ -328,7 +335,3 @@ YNode.Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 # 已知问题
 
 + 异步异常没做处理
-
-# 思考
-
-关于何时使用 const var 以及 let 一直思考 但一直没定夺

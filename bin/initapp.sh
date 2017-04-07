@@ -57,7 +57,8 @@ makedirs $viewPath
 c=$controllerPath/IndexController.js
 echo "'use strict';" > $c
 echo "var YNode = require('ynode');" >> $c
-echo "class IndexController extends YNode.WebController {" >> $c
+echo "var Controller = YNode.Y.include('y/web/Controller');" >> $c
+echo "class IndexController extends Controller {" >> $c
 echo "  run(req, res) {" >> $c
 echo "    res.end('hello ynode');" >> $c
 echo "  }" >> $c
