@@ -311,7 +311,8 @@ module.exports = User;
 you can use express's body-parser midware
 
 ```javascript
-YNode.Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
+var Hook = YNode.Y.include('y/core/Hook');
+Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 
 the result will added to req.body
 ```
