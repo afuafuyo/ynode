@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### 版本更新
 
++ 2017-04-11
+
+    * 1.5.2 将静态资源处理器分离 移动到 midware 目录
+
 + 2017-04-07
 
     * 发布 1.5.0 代码结构变更 去除 YNode 上挂载的类
@@ -173,7 +177,6 @@ new YNode({
     'id': 1,
     'debug': true,
     'appPath': __dirname + '/app',
-    'assets': 'public',
     
     'modules': {
         'bbs': 'app/modules/bbs'
@@ -322,6 +325,18 @@ var Hook = YNode.Y.include('y/core/Hook');
 Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 
 结果会存放到 req.body
+```
+
+# 处理图片等的静态资源
+
+```javascript
+var R = YNode.Y.include('y/midware/Resource');
+Hook.getInstance().addHook(new R(__dirname + '/public').serve());
+
+或者使用其他中间件
+
+var serveStatic = require('serve-static');
+Hook.getInstance().addHook( serveStatic('public') );
 ```
 
 # 利用工具初始化应用

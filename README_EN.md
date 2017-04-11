@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-04-11
+
+    * 1.5.2 static handler class split from core framework and moved to midware dir
+
 + 2017-04-07
 
     * publish 1.5.0 change code structure remove class mount on YNode
@@ -163,7 +167,6 @@ new YNode({
     'id': 1,
     'debug': true,
     'appPath': __dirname + '/app',
-    'assets': 'public',
     
     'modules': {
         'bbs': 'app/modules/bbs'
@@ -315,6 +318,18 @@ var Hook = YNode.Y.include('y/core/Hook');
 Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 
 the result will added to req.body
+```
+
+# Handler static resource
+
+```javascript
+var R = YNode.Y.include('y/midware/Resource');
+Hook.getInstance().addHook(new R(__dirname + '/public').serve());
+
+or
+
+var serveStatic = require('serve-static');
+Hook.getInstance().addHook( serveStatic('public') );
 ```
 
 # use sysutil to create a structure of app

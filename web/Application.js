@@ -7,7 +7,6 @@
 var Y = require('../Y');
 var CoreApp = require('../core/Application');
 var Request = require('./Request');
-var Resource = require('./Resource');
 var StringHelper = require('../helpers/StringHelper');
 var Router = require('./Router');
 var InvalidCallException = require('../core/InvalidCallException');
@@ -28,12 +27,6 @@ class Application extends CoreApp {
      * @inheritdoc
      */
     requestListener(request, response) {
-        var pathname = Request.parseUrl(request).pathname;
-        if(Resource.isStatic(pathname)) {
-            Resource.handler(request, response);
-            return;
-        }
-        
         var controller = this.createController(request);
         
         if(null === controller || !'run' in controller) {

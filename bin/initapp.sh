@@ -70,8 +70,7 @@ echo "var YNode = require('ynode');" > $v
 echo "var app = new YNode({" >> $v
 echo "  'id': 1," >> $v
 echo "  'debug': true," >> $v
-echo "  'appPath': __dirname + '/app'," >> $v
-echo "  'assets': 'public'" >> $v
+echo "  'appPath': __dirname + '/app'" >> $v
 echo "});" >> $v
 echo "app.listen(8090, function(){console.log('listen on 8090');});" >> $v
 
