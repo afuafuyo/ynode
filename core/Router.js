@@ -35,7 +35,7 @@ class Router {
             // 为每个模式添加一个括号 用于定位匹配到的是哪一个模式
             patternArray.push( '(' + parsedRoute.pattern + ')' );
             paramArray.push(parsedRoute.params);
-            handler.push(routes[reg])
+            handler.push(routes[reg]);
         }
         
         ret.pattern = patternArray.join('|');
