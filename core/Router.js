@@ -12,13 +12,21 @@ class Router {
      * 合并路由
      *
      * @param {JSON} routes
+     *
+     * { pattern: string 处理程序 | JSON 路由配置 | other }
+     *
+     * eg.
+     *
+     * { '/abc': 'app/api/Abc@index' }
+     * { '/abc': {'controllerId': 'index'} }
+     *
      * @return {JSON}
      */
     static combineRoutes(routes) {
         var ret = {};
         var patternArray = [];
         var paramArray = [];
-        var handlerArray = [];
+        var handler = [];  // 路由配置
         
         var parsedRoute = null;
         for(let reg in routes) {
@@ -27,12 +35,12 @@ class Router {
             // 为每个模式添加一个括号 用于定位匹配到的是哪一个模式
             patternArray.push( '(' + parsedRoute.pattern + ')' );
             paramArray.push(parsedRoute.params);
-            handlerArray.push(routes[reg])
+            handler.push(routes[reg])
         }
         
         ret.pattern = patternArray.join('|');
         ret.params = paramArray;
-        ret.handlers = handlerArray;
+        ret.handler = handler;
         
         return ret;
     }

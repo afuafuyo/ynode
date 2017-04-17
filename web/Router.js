@@ -68,14 +68,14 @@ class Router extends CoreRouter {
                 // 没有匹配到竖线 说明匹配的是第一部分
                 index = null === verticalLine ? 0 : verticalLine.length;
                 
-                if(undefined !== combine.handlers[index].moduleId) {
-                    moduleId = combine.handlers[index].moduleId;
+                if(undefined !== combine.handler[index].moduleId) {
+                    moduleId = combine.handler[index].moduleId;
                 }
-                if(undefined !== combine.handlers[index].controllerId) {
-                    controllerId = combine.handlers[index].controllerId;
+                if(undefined !== combine.handler[index].controllerId) {
+                    controllerId = combine.handler[index].controllerId;
                 }
-                if(undefined !== combine.handlers[index].routePrefix) {
-                    routePrefix = combine.handlers[index].routePrefix;
+                if(undefined !== combine.handler[index].routePrefix) {
+                    routePrefix = combine.handler[index].routePrefix;
                 }
                 
                 // 参数
