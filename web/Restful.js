@@ -16,22 +16,67 @@ class Restful extends CoreRouter {
      */
     static requestListener(request, response) {
         var route = Request.parseUrl(request).pathname;
-        var httpMethod = request.method;
-        var handlers = Restful.methods[httpMethod];
-        var matchedHandler = null;
-        var parsedRoute = null;
-        var matches = null;
         
         // 检测非法 与 路径中不能有双斜线 '//'
         if(!/^[\w\-\/]+$/.test(route) || route.indexOf('//') >= 0) {
             throw new InvalidCallException('The route: '+ route +' is invalid');
         }
         
-        for(let i=0,len=handlers.length; i<len; i++) {
-            parsedRoute = Restful.parse(handlers[i]['pattern']);
+        // {paramValues, handler}
+        var ret = true === Y.app.combineRoutes ?
+            Restful.resolveRoutesCombine(request) :
+            Restful.resolveRoutesOneByOne(request);
+        
+        if(null === ret) {
+            throw new InvalidCallException('The REST route: ' + route + ' not found');
+        }
+        
+        var args = null === ret.paramValues ? [null] : ret.paramValues;
+        
+        // handler is function
+        if('function' === typeof ret.handler) {
+            ret.handler(request, response, ...args);
             
-            handlers[i]['paramKeys'] = parsedRoute.params;  // null or array
-            handlers[i]['paramValues'] = null;
+            return;    
+        }
+        
+        // handler is string
+        var pos = ret.handler.indexOf(Restful.separator);
+        var obj = null;
+        if(-1 === pos) {
+            obj = Y.createObject(ret.handler);
+            obj.index(request, response, ...args);
+            
+        } else {
+            obj = Y.createObject( ret.handler.substring(0, pos) );
+            obj[ ret.handler.substring(pos + 1) ](
+                request,
+                response,
+                ...args);
+        }
+    }
+    
+    /**
+     * 依次解析路由
+     *
+     * @param {Object} request
+     * @return {JSON | null}
+     */
+    static resolveRoutesOneByOne(request) {
+        var route = Request.parseUrl(request).pathname;
+        var httpMethod = request.method;
+        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
+        
+        // {pattern, handler, paramKeys, paramValues}
+        var matchedHandler = null;
+        var parsedRoute = null;
+        var matches = null;
+        
+        for(let i=0,len=handlers.length; i<len; i++) {
+            parsedRoute = Restful.parse(handlers[i].pattern);
+            
+            handlers[i].paramKeys = parsedRoute.params;  // null or array
+            handlers[i].paramValues = null;
             
             // end with $ 精确匹配
             matches = route.match( new RegExp(parsedRoute.pattern + '$') );
@@ -43,13 +88,13 @@ class Restful extends CoreRouter {
                 // 存储参数
                 if(null !== matchedHandler.paramKeys) {
                     let requestInstance = new Request(request);
-                    matchedHandler.paramValues = [];
+                    matchedHandler.paramValues = new Array(matchedHandler.paramKeys.length);
                     
                     for(let j=0,l=matchedHandler.paramKeys.length; j<l; j++) {
                         requestInstance.setQueryString(matchedHandler.paramKeys[j],
                             matches[j+1]);
                             
-                        matchedHandler.paramValues.push(matches[j+1]);
+                        matchedHandler.paramValues[j] = matches[j+1];
                     }
                 }
                 
@@ -58,31 +103,49 @@ class Restful extends CoreRouter {
             }
         }
         
-        if(null === matchedHandler) {
-            throw new InvalidCallException('The REST route: ' + route + ' not found');
+        return matchedHandler;
+    }
+    
+    /**
+     * 合并解析路由
+     *
+     * @param {Object} request
+     * @return {JSON | null}
+     */
+    static resolveRoutesCombine(request) {
+        var route = Request.parseUrl(request).pathname;
+        var httpMethod = request.method;
+        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
+        var ret = null;
+        
+        var tmp = {};
+        for(let i=0,len=handlers.length; i<len; i++) {
+            tmp[handlers[i].pattern] = handlers[i].handler;
+        }
+        // {pattern, params, handler}
+        var combinedRoute = Restful.combineRoutes(tmp);
+        
+        var matches = route.match( new RegExp('(?:' + combinedRoute.pattern + ')$') );
+        
+        if(null !== matches) {
+            ret = {};
+            // 确定当前路由匹配到哪个模式
+            var [matchedRouteSegment, subPatternPosition] =
+                Restful.combinedRouteMatchPosition(combinedRoute, matches);
+            
+            ret.handler = combinedRoute.handler[matchedRouteSegment];
+            ret.paramValues = null;
+            
+            // 有参数
+            if(null !== combinedRoute.params[matchedRouteSegment]) {
+                ret.paramValues = new Array(combinedRoute.params[matchedRouteSegment].length);
+                for(let i=0,len=combinedRoute.params[matchedRouteSegment].length; i<len; i++) {
+                    ret.paramValues[i] = matches[subPatternPosition + i + 1];
+                }
+            }
         }
         
-        var args = null === matchedHandler.paramValues ? [null] : matchedHandler.paramValues;
-        if('function' === typeof matchedHandler.handler) {
-            matchedHandler.handler(request, response, ...args);
-            
-            return;    
-        }
-        
-        // handler is string
-        var pos = matchedHandler.handler.indexOf(Restful.separator);
-        var obj = null;
-        if(-1 === pos) {
-            obj = Y.createObject(matchedHandler.handler);
-            obj.index(request, response, ...args);
-            
-        } else {
-            obj = Y.createObject( matchedHandler.handler.substring(0, pos) );
-            obj[ matchedHandler.handler.substring(pos + 1) ](
-                request,
-                response,
-                ...args);
-        }
+        return ret;
     }
     
     /**

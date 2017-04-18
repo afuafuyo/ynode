@@ -36,54 +36,28 @@ class Router extends CoreRouter {
         var routePrefix = '';
         
         if(null !== app.routes) {
-            /*
-            {
-                pattern: '(abc\\/(\\d+))|(abc)|(xyz\\/other)',
-                params: [ [ 'id' ], null, null ],
-                handlers: [ { controllerId: '' }, { moduleId: '' }, { routePrefix: '' } ]
-            }
-            */
-            var combine = Router.combineRoutes(app.routes);
-            
-            // [ 'xyz/other', undefined, undefined, undefined, 'xyz/other']
-            var matches = route.match( new RegExp('(?:' + combine.pattern + ')$') );
+            var combinedRoute = Router.combineRoutes(app.routes);
+            var matches = route.match( new RegExp('(?:' + combinedRoute.pattern + ')$') );
             
             if(null !== matches) {
-                var subPatternIndex = -1;
-                var index = -1;
-                var verticalLine = null;
+                var [index, subPatternIndex] = Router.combinedRouteMatchPosition(combinedRoute, matches);
                 
-                // 计算匹配到的子模式
-                for(let i=1,len=matches.length; i<len; i++) {
-                    if(undefined !== matches[i]) {
-                        subPatternIndex = i;
-                        break;
-                    }
+                if(undefined !== combinedRoute.handler[index].moduleId) {
+                    moduleId = combinedRoute.handler[index].moduleId;
                 }
-                
-                // '(' 在 pattern 中第 subPatternIndex 次出现的位置
-                // 用于确定当前路由匹配的是第几部分
-                index = StringHelper.indexOfN(combine.pattern, '(', subPatternIndex);
-                verticalLine = combine.pattern.substring(0, index).match(/\|/g);
-                // 没有匹配到竖线 说明匹配的是第一部分
-                index = null === verticalLine ? 0 : verticalLine.length;
-                
-                if(undefined !== combine.handler[index].moduleId) {
-                    moduleId = combine.handler[index].moduleId;
+                if(undefined !== combinedRoute.handler[index].controllerId) {
+                    controllerId = combinedRoute.handler[index].controllerId;
                 }
-                if(undefined !== combine.handler[index].controllerId) {
-                    controllerId = combine.handler[index].controllerId;
-                }
-                if(undefined !== combine.handler[index].routePrefix) {
-                    routePrefix = combine.handler[index].routePrefix;
+                if(undefined !== combinedRoute.handler[index].routePrefix) {
+                    routePrefix = combinedRoute.handler[index].routePrefix;
                 }
                 
                 // 参数
-                if(null !== combine.params[index]) {
+                if(null !== combinedRoute.params[index]) {
                     let requestInstance = new Request(request);
                         
-                    for(let i=0,len=combine.params[index].length; i<len; i++) {
-                        requestInstance.setQueryString(combine.params[index][i],
+                    for(let i=0,len=combinedRoute.params[index].length; i<len; i++) {
+                        requestInstance.setQueryString(combinedRoute.params[index][i],
                             matches[subPatternIndex + i + 1]);
                     }
                 }

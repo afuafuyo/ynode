@@ -17,10 +17,19 @@ class Router {
      *
      * eg.
      *
-     * { '/abc': 'app/api/Abc@index' }
-     * { '/abc': {'controllerId': 'index'} }
+     * { '/abc': 'app/api/Abc@index' ... }
+     * { '/abc': {'controllerId': 'index'} ... }
      *
      * @return {JSON}
+     *
+     * {
+     *   pattern: '(abc\\/(\\d+))|(abc)|(xyz\\/other)',
+     *   params: [ [ 'id' ], null, null ],
+     *   handler: [ { controllerId: '' }, { moduleId: '' }, { routePrefix: '' } ]
+     *   or
+     *   handler: [ Function, Function, 'Abc@index' ]
+     * }
+     *
      */
     static combineRoutes(routes) {
         var ret = {};
@@ -43,6 +52,38 @@ class Router {
         ret.handler = handler;
         
         return ret;
+    }
+    
+    /**
+     * 查找匹配的路由的位置
+     *
+     * @param {JSON} combinedRoute 合并的路由
+     * @param {Array} matches 路由匹配结果
+     * @return {Array}
+     */
+    static combinedRouteMatchPosition(combinedRoute, matches) {
+        // 匹配到第几个路由
+        var matchedRouteSegment = -1;
+        // 匹配到第几个子模式
+        var subPatternPosition = -1;
+        var tmpLine = null;
+        
+        // matches: [ 'xyz/other', undefined, undefined, undefined, 'xyz/other']
+        for(let i=1,len=matches.length; i<len; i++) {
+            if(undefined !== matches[i]) {
+                subPatternPosition = i;
+                break;
+            }
+        }
+        
+        // '(' 在 pattern 中第 subPatternPosition 次出现的位置
+        // 用于确定当前路由匹配的是第几部分
+        matchedRouteSegment = StringHelper.indexOfN(combinedRoute.pattern, '(', subPatternPosition);
+        tmpLine = combinedRoute.pattern.substring(0, matchedRouteSegment).match(/\|/g);
+        // 没有匹配到竖线 说明匹配的是第一部分
+        matchedRouteSegment = null === tmpLine ? 0 : tmpLine.length;
+        
+        return [matchedRouteSegment, subPatternPosition];
     }
     
     /**

@@ -10,6 +10,7 @@ var app = new YNode({
     'appPath': __dirname + '/app',
     'debug': true,
     'useRestful': true
+    ,'combineRoutes': true
 });
 var server = app.getServer();
 
