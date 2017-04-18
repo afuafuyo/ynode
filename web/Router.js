@@ -38,26 +38,37 @@ class Router extends CoreRouter {
             var combinedRoute = Router.combineRoutes(app.routes);
             var matches = route.match( new RegExp('(?:' + combinedRoute.pattern + ')$') );
             
+            // 路由成功匹配
             if(null !== matches) {
-                var [index, subPatternIndex] = Router.combinedRouteMatchPosition(combinedRoute, matches);
+                var subPatternPosition = -1;
+                // matches: [ 'xyz/other', undefined, undefined, undefined, 'xyz/other']
+                for(let i=1,len=matches.length; i<len; i++) {
+                    if(undefined !== matches[i]) {
+                        subPatternPosition = i;
+                        break;
+                    }
+                }
                 
-                if(undefined !== combinedRoute.handler[index].moduleId) {
-                    moduleId = combinedRoute.handler[index].moduleId;
+                var matchedRouteSegment = Router.getMatchedSegmentBySubPatternPosition(
+                    combinedRoute, subPatternPosition);
+                
+                if(undefined !== combinedRoute.handler[matchedRouteSegment].moduleId) {
+                    moduleId = combinedRoute.handler[matchedRouteSegment].moduleId;
                 }
-                if(undefined !== combinedRoute.handler[index].controllerId) {
-                    controllerId = combinedRoute.handler[index].controllerId;
+                if(undefined !== combinedRoute.handler[matchedRouteSegment].controllerId) {
+                    controllerId = combinedRoute.handler[matchedRouteSegment].controllerId;
                 }
-                if(undefined !== combinedRoute.handler[index].routePrefix) {
-                    routePrefix = combinedRoute.handler[index].routePrefix;
+                if(undefined !== combinedRoute.handler[matchedRouteSegment].routePrefix) {
+                    routePrefix = combinedRoute.handler[matchedRouteSegment].routePrefix;
                 }
                 
                 // 参数
-                if(null !== combinedRoute.params[index]) {
+                if(null !== combinedRoute.params[matchedRouteSegment]) {
                     let requestInstance = new Request(request);
                         
-                    for(let i=0,len=combinedRoute.params[index].length; i<len; i++) {
-                        requestInstance.setQueryString(combinedRoute.params[index][i],
-                            matches[subPatternIndex + i + 1]);
+                    for(let i=0,len=combinedRoute.params[matchedRouteSegment].length; i<len; i++) {
+                        requestInstance.setQueryString(combinedRoute.params[matchedRouteSegment][i],
+                            matches[subPatternPosition + i + 1]);
                     }
                 }
                 

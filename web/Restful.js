@@ -127,11 +127,21 @@ class Restful extends CoreRouter {
         
         var matches = route.match( new RegExp('(?:' + combinedRoute.pattern + ')$') );
         
+        // 路由成功匹配
         if(null !== matches) {
             ret = {};
-            // 确定当前路由匹配到哪个模式
-            var [matchedRouteSegment, subPatternPosition] =
-                Restful.combinedRouteMatchPosition(combinedRoute, matches);
+            
+            var subPatternPosition = -1;
+            // matches: [ 'xyz/other', undefined, undefined, undefined, 'xyz/other']
+            for(let i=1,len=matches.length; i<len; i++) {
+                if(undefined !== matches[i]) {
+                    subPatternPosition = i;
+                    break;
+                }
+            }
+            
+            var matchedRouteSegment = Restful.getMatchedSegmentBySubPatternPosition(
+                combinedRoute, subPatternPosition);
             
             ret.handler = combinedRoute.handler[matchedRouteSegment];
             ret.paramValues = null;
