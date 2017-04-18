@@ -6,7 +6,6 @@
 
 var Request = require('./Request');
 var CoreRouter = require('../core/Router');
-var StringHelper = require('../helpers/StringHelper');
 
 class Router extends CoreRouter {
     
