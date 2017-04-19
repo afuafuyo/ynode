@@ -24,8 +24,8 @@ class Restful extends CoreRouter {
         
         // {paramValues, handler}
         var ret = true === Y.app.combineRoutes ?
-            Restful.resolveRoutesCombine(request) :
-            Restful.resolveRoutesOneByOne(request);
+            Restful.resolveRoutesCombine(route, request.method) :
+            Restful.resolveRoutesOneByOne(route, request.method);
         
         if(null === ret) {
             throw new InvalidCallException('The REST route: ' + route + ' not found');
@@ -59,16 +59,15 @@ class Restful extends CoreRouter {
     /**
      * 依次解析路由
      *
-     * @param {Object} request
+     * @param {String} route 路由
+     * @param {String} httpMethod 请求方法
      * @return {JSON | null}
      */
-    static resolveRoutesOneByOne(request) {
-        var route = Request.parseUrl(request).pathname;
-        var httpMethod = request.method;
-        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
-        
+    static resolveRoutesOneByOne(route, httpMethod) {
         // {pattern, handler, paramKeys, paramValues}
         var matchedHandler = null;
+        
+        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
         var parsedRoute = null;
         var matches = null;
         
@@ -109,15 +108,14 @@ class Restful extends CoreRouter {
     /**
      * 合并解析路由
      *
-     * @param {Object} request
+     * @param {String} route 路由
+     * @param {String} httpMethod 请求方法
      * @return {JSON | null}
      */
-    static resolveRoutesCombine(request) {
-        var route = Request.parseUrl(request).pathname;
-        var httpMethod = request.method;
-        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
+    static resolveRoutesCombine(route, httpMethod) {
         var ret = null;
         
+        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
         var tmp = {};
         for(let i=0,len=handlers.length; i<len; i++) {
             tmp[handlers[i].pattern] = handlers[i].handler;
