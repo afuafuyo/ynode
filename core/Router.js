@@ -15,12 +15,9 @@ class Router {
      *
      * { pattern: string 处理程序 | JSON 路由配置 | other }
      *
-     * eg.
-     *
-     * { '/abc': 'app/api/Abc@index' ... }
-     * { '/abc': {'controllerId': 'index'} ... }
-     *
      * @return {JSON}
+     *
+     * eg.
      *
      * {
      *   pattern: '(abc\\/(\\d+))|(abc)|(xyz\\/other)',

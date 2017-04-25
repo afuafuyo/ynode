@@ -115,7 +115,8 @@ class Restful extends CoreRouter {
     static resolveRoutesCombine(route, httpMethod) {
         var ret = null;
         
-        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
+        // [ {pattern, handler} ... ]
+        var handlers = Restful.methods[httpMethod];
         var tmp = {};
         for(let i=0,len=handlers.length; i<len; i++) {
             tmp[handlers[i].pattern] = handlers[i].handler;
