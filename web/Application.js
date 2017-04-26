@@ -48,8 +48,8 @@ class Application extends CoreApp {
             route = this.defaultRoute;
         }
         
-        // 检测非法 与 路径中不能有双斜线 '//'
-        if(!/^[\w\-\/]+$/.test(route) || route.indexOf('//') >= 0) {
+        // 检测非法
+        if(!Router.isValidRoute(route)) {
             return null;
         }
         

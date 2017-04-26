@@ -17,8 +17,8 @@ class Restful extends CoreRouter {
     static requestListener(request, response) {
         var route = Request.parseUrl(request).pathname;
         
-        // 检测非法 与 路径中不能有双斜线 '//'
-        if(!/^[\w\-\/]+$/.test(route) || route.indexOf('//') >= 0) {
+        // 检测非法
+        if(!Restful.isValidRoute(route)) {
             throw new InvalidCallException('The route: '+ route +' is invalid');
         }
         
@@ -54,55 +54,6 @@ class Restful extends CoreRouter {
                 response,
                 ...args);
         }
-    }
-    
-    /**
-     * 依次解析路由
-     *
-     * @param {String} route 路由
-     * @param {String} httpMethod 请求方法
-     * @return {JSON | null}
-     */
-    static resolveRoutesOneByOne(route, httpMethod) {
-        // {pattern, handler, paramKeys, paramValues}
-        var matchedHandler = null;
-        
-        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
-        var parsedRoute = null;
-        var matches = null;
-        
-        for(let i=0,len=handlers.length; i<len; i++) {
-            parsedRoute = Restful.parse(handlers[i].pattern);
-            
-            handlers[i].paramKeys = parsedRoute.params;  // null or array
-            handlers[i].paramValues = null;
-            
-            // end with $ 精确匹配
-            matches = route.match( new RegExp(parsedRoute.pattern + '$') );
-            
-            // 匹配到路由
-            if(null !== matches) {
-                matchedHandler = handlers[i];
-                
-                // 存储参数
-                if(null !== matchedHandler.paramKeys) {
-                    let requestInstance = new Request(request);
-                    matchedHandler.paramValues = new Array(matchedHandler.paramKeys.length);
-                    
-                    for(let j=0,l=matchedHandler.paramKeys.length; j<l; j++) {
-                        requestInstance.setQueryString(matchedHandler.paramKeys[j],
-                            matches[j+1]);
-                            
-                        matchedHandler.paramValues[j] = matches[j+1];
-                    }
-                }
-                
-                // 匹配到就退出
-                break;
-            }
-        }
-        
-        return matchedHandler;
     }
     
     /**
@@ -155,6 +106,55 @@ class Restful extends CoreRouter {
         }
         
         return ret;
+    }
+    
+    /**
+     * 依次解析路由
+     *
+     * @param {String} route 路由
+     * @param {String} httpMethod 请求方法
+     * @return {JSON | null}
+     */
+    static resolveRoutesOneByOne(route, httpMethod) {
+        // {pattern, handler, paramKeys, paramValues}
+        var matchedHandler = null;
+        
+        var handlers = Restful.methods[httpMethod];  // [ {pattern, handler} ... ]
+        var parsedRoute = null;
+        var matches = null;
+        
+        for(let i=0,len=handlers.length; i<len; i++) {
+            parsedRoute = Restful.parse(handlers[i].pattern);
+            
+            handlers[i].paramKeys = parsedRoute.params;  // null or array
+            handlers[i].paramValues = null;
+            
+            // end with $ 精确匹配
+            matches = route.match( new RegExp(parsedRoute.pattern + '$') );
+            
+            // 匹配到路由
+            if(null !== matches) {
+                matchedHandler = handlers[i];
+                
+                // 存储参数
+                if(null !== matchedHandler.paramKeys) {
+                    let requestInstance = new Request(request);
+                    matchedHandler.paramValues = new Array(matchedHandler.paramKeys.length);
+                    
+                    for(let j=0,l=matchedHandler.paramKeys.length; j<l; j++) {
+                        requestInstance.setQueryString(matchedHandler.paramKeys[j],
+                            matches[j+1]);
+                            
+                        matchedHandler.paramValues[j] = matches[j+1];
+                    }
+                }
+                
+                // 匹配到就退出
+                break;
+            }
+        }
+        
+        return matchedHandler;
     }
     
     /**

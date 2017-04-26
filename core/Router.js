@@ -9,11 +9,26 @@ var StringHelper = require('../helpers/StringHelper');
 class Router {
     
     /**
+     * 检测路由合法性
+     *
+     * @param {String} route 路由
+     * @return {Boolean}
+     */
+    static isValidRoute(route) {
+        // 检测非法 与 路径中不能有双斜线 '//'
+        if(!/^[\w\-\/]+$/.test(route) || route.indexOf('//') >= 0) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
      * 合并路由
      *
      * @param {JSON} routes
      *
-     * { pattern: string 处理程序 | JSON 路由配置 | other }
+     * { pattern: any }
      *
      * @return {JSON}
      *
@@ -22,9 +37,7 @@ class Router {
      * {
      *   pattern: '(abc\\/(\\d+))|(abc)|(xyz\\/other)',
      *   params: [ [ 'id' ], null, null ],
-     *   handler: [ { controllerId: '' }, { moduleId: '' }, { routePrefix: '' } ]
-     *   or
-     *   handler: [ Function, Function, 'Abc@index' ]
+     *   handler: any
      * }
      *
      */
