@@ -7,7 +7,7 @@
 var Exception = require('./Exception');
 
 /**
- * 非法调用异常
+ * 非法参数异常
  */
 class InvalidArgumentException extends Exception {}
 
