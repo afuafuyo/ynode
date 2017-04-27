@@ -46,7 +46,7 @@ class TimeHelper {
             ,s: () => TimeHelper.pad(String(d.getSeconds()), 2)
         };
         
-        return formats.replace(/(.?)/ig, (match, p, offset, string) => {
+        return formats.replace(/(.?)/ig, (match, p/* , offset, string */) => {
             return undefined !== funs[match] ?
                 funs[match]() :
                 p;
