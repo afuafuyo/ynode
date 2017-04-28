@@ -30,7 +30,7 @@ class Application extends CoreApp {
         var controller = this.createController(request);
         
         if(null === controller || !'run' in controller) {
-            throw new InvalidCallException('The Controller.run is not a function')
+            throw new InvalidCallException('The Controller.run is not a function');
         }
         
         controller.run(request, response);
