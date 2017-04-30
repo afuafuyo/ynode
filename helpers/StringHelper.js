@@ -10,12 +10,12 @@
 class StringHelper {
     
     /**
-     * 查找某字符在一个字符串中第 N 次出现的位置
+     * 查找某字符串在另一个字符串中第 N 次出现的位置
      *
      * @param {String} str 待查找的字符串
      * @param {String} find 要查找的字符串
      * @param {Number} n 第几次出现
-     * @return {Number}
+     * @return {Number} 位置值
      */
     static indexOfN(str, find, n) {
         var x = str.indexOf(find);
@@ -89,10 +89,10 @@ class StringHelper {
     /**
      * 转化特殊 html 字符到实体
      *
-     * @param {String} str
-     * @param {Number} flag
-     * @param {Boolean} doubleEncode
-     * @return {String}
+     * @param {String} str 待处理的字符串
+     * @param {Number} flag 转义规则
+     * @param {Boolean} doubleEncode 转义 & 符号
+     * @return {String} 处理后的字符串
      */
     static htmlSpecialChars(str, flag = 0, doubleEncode = true) {
         var OPTIONS = {
