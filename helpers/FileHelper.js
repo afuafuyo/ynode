@@ -24,6 +24,43 @@ class FileHelper {
     }
     
     /**
+     * 转化正常路径
+     *
+     * 路径分隔符转换 e.g. '\\a\\b\\c' becomes '/a/b/c'
+     * 删除末尾分隔符 e.g. '/a/b/c/' becomes '/a/b/c'
+     * 多斜线转为单个 e.g. '/a///b/c' becomes '/a/b/c'
+     * 处理 .. 与 . e.g. '/a/./b/../c' becomes '/a/c'
+     *
+     * @param {String} path 待转换路径
+     * @param {String} directorySeparator 目录分隔符
+     * @return {String} 转换后的路径
+     */
+    static normalizePath(path, directorySeparator = '/') {
+        var ret = [];
+        
+        path = path.replace(/\\+/g, directorySeparator);
+        if(directorySeparator === path.charAt(path.length - 1)) {
+            path = path.substring(0, path.length - 1);
+        }
+        
+        path = path.replace(/\/+/g, directorySeparator);
+        
+        for(let arr = path.split(directorySeparator), len=arr.length, i=0; i<len; i++) {
+            if('.' === arr[i]) {
+                continue;
+                
+            } else if('..' === arr[i] && ret.length > 0) {
+                ret.pop();
+                
+            } else {
+                ret.push(arr[i]);
+            }
+        }
+        
+        return ret.join('/');
+    }
+    
+    /**
      * 创建文件夹
      *
      * @param {String} dir 目录路径
