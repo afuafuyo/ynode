@@ -86,6 +86,42 @@ class StringHelper {
         return ret + str.substring(1);
     }
     
+    /**
+     * 转化特殊 html 字符到实体
+     *
+     * @param {String} str
+     * @param {Number} flag
+     * @param {Boolean} doubleEncode
+     * @return {String}
+     */
+    static htmlSpecialChars(str, flag = 0, doubleEncode = true) {
+        var OPTIONS = {
+            'ALL_QUOTES': 0,
+            'SINGLE_QUOTE': 1,
+            'DOUBLE_QUOTE': 2
+        };
+        
+        // 放到最前面 防止多次转义
+        if(doubleEncode !== false) {
+            str = str.replace(/&/g, '&amp;');
+        }
+        
+        str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        
+        if(flag === OPTIONS.ALL_QUOTES) {
+            str = str.replace(/'/g, '&#039;').replace(/"/g, '&quot;');
+            
+        } else if(flag === OPTIONS.SINGLE_QUOTE) {
+            str = str.replace(/'/g, '&#039;');
+            
+        } else if(flag === OPTIONS.DOUBLE_QUOTE) {
+            str = str.replace(/"/g, '&quot;');
+            
+        }
+        
+        return str;
+    }
+    
 }
 
 module.exports = StringHelper;
