@@ -133,7 +133,7 @@ class StringHelper {
      * @param {String} allowed
      * @return {String}
      */
-    function filterTags(str, allowed = '') {
+    static filterTags(str, allowed = '') {
         var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
         var comments = /<!--[\s\S]*?-->/gi;
         
