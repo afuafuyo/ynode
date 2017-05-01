@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-05-01
+
+    * 1.5.5 optimize combine regular expression
+
 + 2017-04-11
 
     * 1.5.2 static handler class split from core framework and moved to midware dir
