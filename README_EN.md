@@ -20,7 +20,7 @@ __  ___   __          __
 
 + 2017-05-01
 
-    * 1.5.5 optimize combine regular expression
+    * 1.5.6 optimize combine regular expression
 
 + 2017-04-11
 
