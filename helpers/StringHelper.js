@@ -122,6 +122,34 @@ class StringHelper {
         return str;
     }
     
+    /**
+     * 过滤 html 标签
+     *
+     * eg.
+     * filterTags('<a>abc</a>xyz') -> abcxyz
+     * filterTags('<a>abc</a>', '<a>') -> <a>abc</a>xyz
+     *
+     * @param {String} str
+     * @param {String} allowed
+     * @return {String}
+     */
+    function filterTags(str, allowed = '') {
+        var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
+        var comments = /<!--[\s\S]*?-->/gi;
+        
+        str = str.replace(comments, '');
+        
+        if('' === allowed) {
+            return str.replace(tags, '');
+        }
+        
+        allowed = allowed.toLowerCase();
+        
+        return str.replace(tags, (match, p) => {
+            return allowed.indexOf('<' + p.toLowerCase() + '>') !== -1 ? match : '';
+        });
+    }
+    
 }
 
 module.exports = StringHelper;
