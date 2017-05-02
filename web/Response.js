@@ -4,6 +4,7 @@
  */
 'use strict';
 
+var Y = require('../Y');
 var CoreResponse = require('../core/Response');
 var Cookie = require('./Cookie');
 var HttpException = require('../core/HttpException');
@@ -22,7 +23,7 @@ class Response extends CoreResponse {
         /**
          * @property {String} encoding 编码
          */
-        this.encoding = 'utf8';
+        this.encoding = Y.app.encoding;
         
         /**
          * @property {String} version HTTP protocol version
