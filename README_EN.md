@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-05-02
+
+    * 1.5.8 change ```TimeHelper.pad(str, length) to TimeHelper.stringLPad(str, pad, length)```
+
 + 2017-05-01
 
     * 1.5.6 optimize combine regular expression

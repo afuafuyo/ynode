@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### 版本更新
 
++ 2017-05-02
+
+    * 1.5.8 修改 ```TimeHelper.pad(str, length) to TimeHelper.stringLPad(str, pad, length)```
+
 + 2017-05-01
 
     * 1.5.6 优化合并正则路由
