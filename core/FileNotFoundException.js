@@ -7,7 +7,7 @@
 var Exception = require('./Exception');
 
 /**
- * HTTP 异常
+ * 文件找不到异常
  */
 class FileNotFoundException extends Exception {}
 
