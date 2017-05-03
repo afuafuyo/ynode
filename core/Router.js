@@ -28,7 +28,7 @@ class Router {
      *
      * @param {JSON} routes
      *
-     * { pattern: any }
+     * { pattern: any ... }
      *
      * @return {JSON}
      *
