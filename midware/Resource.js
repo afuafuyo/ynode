@@ -21,7 +21,7 @@ class Resource {
      *
      * {
      *    mime: { ... },
-     *    staticCache: {regExp, cacheDay}
+     *    cache: {regExp, maxAge}
      * }
      *
      */
@@ -132,11 +132,12 @@ class Resource {
             
             // 设置缓存
             let extName = this.getExtName(pathname);
-            let cacheConfig = undefined === this.options.staticCache ? Resource.staticCache : this.options.staticCache;
-            let cacheSecond = cacheConfig.cacheDay * 24 * 60 * 60;
+            let cacheConfig = undefined === this.options.cache ?
+                Resource.cache : this.options.cache;
+            
             if(cacheConfig.regExp.test(extName)) {
-                response.setHeader('Expires', new Date(Date.now() + cacheSecond * 1000).toUTCString());
-                response.setHeader('Cache-Control', 'max-age=' + cacheSecond);
+                response.setHeader('Expires', new Date(Date.now() + cacheConfig.maxAge).toUTCString());
+                response.setHeader('Cache-Control', 'max-age=' + cacheConfig.maxAge / 1000);
             }
             
             // 有缓存直接返回
@@ -183,9 +184,11 @@ Resource.mime = {
 /**
  * 缓存
  */
-Resource.staticCache = {
+Resource.cache = {
+    // 那些资源需要缓存
     'regExp': /(\.gif|\.jpg|\.jpeg|\.png|\.js|\.css)$/ig,
-    'cacheDay': 30
+    // 缓存时间毫秒
+    'maxAge': 1000 * 3600 * 24 * 30
 };
 
 module.exports = Resource;

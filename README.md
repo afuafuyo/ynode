@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### 版本更新
 
++ 2017-05-03
+
+    * 1.5.9 优化 session 和 静态资源代码
+
 + 2017-05-02
 
     * 1.5.8 修改 ```TimeHelper.pad(str, length) to TimeHelper.stringLPad(str, pad, length)```

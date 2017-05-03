@@ -20,7 +20,7 @@ var FileHelper = require('../../helpers/FileHelper');
  *     'class': 'y/session/file/Target',
  *     'secretKey': 'xxx',
  *     'sessionCookieName': 'ynode_session',
- *     'sessionCookieExpiresMinutes': 20,
+ *     'sessionCookieExpiration': 0,
  *     'sessionCookiePath': '/',
  *     'sessionCookieDomain': '',
  *     'sessionCookieSecure': false,
@@ -61,9 +61,9 @@ class Target extends ITarget {
         this.sessionCookieName = 'ynode_session';
         
         /**
-         * @var number session 过期时间分钟
+         * @var number session 生存时间毫秒
          */
-        this.sessionCookieExpiresMinutes = 20;
+        this.sessionCookieExpiration = 7200000;
         
         /**
          * @var String session path
@@ -123,8 +123,8 @@ class Target extends ITarget {
         if(undefined !== config.sessionCookieName) {
             this.sessionCookieName = config.sessionCookieName;
         }
-        if(undefined !== config.sessionCookieExpiresMinutes) {
-            this.sessionCookieExpiresMinutes = config.sessionCookieExpiresMinutes;
+        if(undefined !== config.sessionCookieExpiration) {
+            this.sessionCookieExpiration = config.sessionCookieExpiration;
         }
         if(undefined !== config.sessionCookiePath) {
             this.sessionCookiePath = config.sessionCookiePath;
@@ -149,7 +149,7 @@ class Target extends ITarget {
             this.sessionId = this.generateSessionId();
             Cookie.setCookie(this.response, [new Cookie(this.sessionCookieName,
                 this.sessionId,
-                Date.now() + this.sessionCookieExpiresMinutes * 60 * 1000,
+                (0 === this.sessionCookieExpiration ? 0 : Date.now() + this.sessionCookieExpiration),
                 this.sessionCookiePath,
                 this.sessionCookieDomain,
                 this.sessionCookieSecure,

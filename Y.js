@@ -4,9 +4,7 @@
  */
 'use strict';
 
-var FileHelper = require('./helpers/FileHelper');
 var StringHelper = require('./helpers/StringHelper');
-var FileNotFoundException = require('./core/FileNotFoundException');
 
 /**
  * 辅助类
@@ -67,9 +65,7 @@ class Y {
         var realClass = Y.getPathAlias('@' + clazz);
         
         // 文件不存在抛出异常
-        if(!FileHelper.existsSync(realClass + Y.fileExtention)) {
-            throw new FileNotFoundException('File not found: ' + realClass + Y.fileExtention);
-        }
+        // todo
         
         var Obj = require(realClass + Y.fileExtention);
         
@@ -85,9 +81,7 @@ class Y {
         var realClass = Y.getPathAlias('@' + clazz);
         
         // 文件不存在抛出异常
-        if(!FileHelper.existsSync(realClass + Y.fileExtention)) {
-            throw new FileNotFoundException('File not found: ' + realClass + Y.fileExtention);
-        }
+        // todo
         
         return require(realClass + Y.fileExtention);
     }
