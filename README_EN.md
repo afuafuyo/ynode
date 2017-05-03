@@ -6,7 +6,7 @@ __  ___   __          __
 /_/_/ |_/\____/\__,_/\___/
 </pre>
 
-# A small node.js mvc and REST framework
+# An Object-Oriented node.js mvc and REST framework
 
 ###### Node version
 

@@ -6,7 +6,7 @@ __  ___   __          __
 /_/_/ |_/\____/\__,_/\___/
 </pre>
 
-# A small node.js mvc and REST framework
+# 一个面向对象的高效 node.js mvc and REST 框架
 
 # [English doc](./README_EN.md)
 
