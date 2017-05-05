@@ -104,17 +104,17 @@ class Y {
 }
 
 /**
- * @var Application 应用实例
+ * @property {Application} app 应用实例
  */
 Y.app = null;
 
 /**
- * @var JSON 路径别名
+ * @property {JSON} pathAliases 路径别名
  */
 Y.pathAliases = {'@y': __dirname};
 
 /**
- * @var String 默认文件扩展名
+ * @property {String} fileExtention 默认文件扩展名
  */
 Y.fileExtention = '.js';
 
