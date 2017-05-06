@@ -4,12 +4,13 @@
  */
 'use strict';
 
+var Y = require('../Y');
 var Behavior = require('./Behavior');
 
 /**
  * 组件是实现 属性 (property) 行为 (behavior) 事件 (event) 的基类
  */
-class Component /* extends Object */ {
+class Component {
     
     /**
      * constructor
@@ -18,36 +19,45 @@ class Component /* extends Object */ {
         this.ensureDeclaredBehaviorsAttached();
         
         // 注入
+        // 相对于其他编程语言来说这种处理方式并不是很好
+        // 但在 javascript 中没找到更好的解决方式 暂时写成这样了
+        var ret = null;
         for(let name in Component._behaviors) {
-            if('class' === name) {
-                continue;
+            // 属性
+            ret = Object.getOwnPropertyNames(Component._behaviors[name]);
+            for(let i=0,len=ret.length; i<len; i++) {
+                if(undefined !== this[ret[i]]) {
+                    continue;
+                }
+                
+                this[ret[i]] = Component._behaviors[name][ret[i]];
             }
             
-            this[name] = Component._behaviors[name];
+            // 方法
+            ret = Object.getOwnPropertyNames(Object.getPrototypeOf(Component._behaviors[name]));
+            for(let i=0,len=ret.length; i<len; i++) {
+                if('constructor' === ret[i] || undefined !== this[ret[i]]) {
+                    continue;
+                }
+                
+                this[ret[i]] = Component._behaviors[name][ret[i]];
+            }
         }
-    }
-    
-    /**
-     * 判断属性是否存在
-     *
-     * @param {String} name 属性名
-     * @return {Boolean}
-     */
-    hasProperty(name) {
-        return name in this;
     }
     
     /**
      * 返回该组件的行为列表
      *
-     * 子类组件可以重写该方法去指定其行为
+     * 子类组件可以重写该方法去指定要附加的行为类
      *
      * @return {JSON}
      *
      * {
      *     'behaviorName': {
      *         'class': 'BehaviorClass'
-     *     }
+     *     },
+     *     'behaviorName2': 'BehaviorClass2'
+     *     'behaviorName3': BehaviorClassInstance
      * }
      *
      */
@@ -74,7 +84,7 @@ class Component /* extends Object */ {
      * 向组件附加一个行为
      *
      * @param {String} name 行为的名称
-     * @param {String | Object} behavior
+     * @param {String | Object | JSON} behavior
      */
     attachBehavior(name, behavior) {
         this.ensureDeclaredBehaviorsAttached();
@@ -86,7 +96,7 @@ class Component /* extends Object */ {
      * 向组件附加一个行为
      *
      * @param {String} name 行为的名称
-     * @param {JSON | Object } behavior
+     * @param {String | Object | JSON} behavior
      */
     attachBehaviorInternal(name, behavior) {
         if(!(behavior instanceof Behavior)) {

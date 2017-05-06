@@ -29,7 +29,7 @@ class Application extends CoreApp {
     requestListener(request, response) {
         var controller = this.createController(request);
         
-        if(null === controller || !'run' in controller) {
+        if(null === controller || !('run' in controller)) {
             throw new InvalidCallException('The Controller.run is not a function');
         }
         

@@ -5,7 +5,6 @@
 'use strict';
 
 var View = require('./View');
-var Component = require('../core/Component');
 
 /**
  * 控制器

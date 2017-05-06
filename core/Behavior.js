@@ -8,8 +8,10 @@
  * 所有行为类的基类
  *
  * 一个行为类可以用于在不改变原组件代码的情况下增强其功能
+ * 当行为附加到组件后它将 注入 它的方法和属性到组件中
+ * 然后就可以像访问组件自己的方法和属性一样访问它们
  */
-class Behavior /* extends Object */ {
+class Behavior {
     
     constructor() {
         /**
@@ -22,6 +24,9 @@ class Behavior /* extends Object */ {
      * 声明组件的事件回调
      *
      * @return {JSON}
+     *
+     * {eventName: handler, ...}
+     *
      */
     events() {
         return {};
