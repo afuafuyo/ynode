@@ -10,6 +10,7 @@ var Request = require('./Request');
 var StringHelper = require('../helpers/StringHelper');
 var Router = require('./Router');
 var InvalidCallException = require('../core/InvalidCallException');
+var InvalidRouteException = require('../core/InvalidRouteException');
 
 /**
  * web 应用
@@ -29,7 +30,10 @@ class Application extends CoreApp {
     requestListener(request, response) {
         var controller = this.createController(request);
         
-        if(null === controller || !('run' in controller)) {
+        if(null === controller) {
+            throw new InvalidRouteException('The route requested is invalid');
+        }
+        if(!('run' in controller)) {
             throw new InvalidCallException('The Controller.run is not a function');
         }
         
@@ -37,7 +41,12 @@ class Application extends CoreApp {
     }
     
     /**
-     * @inheritdoc
+     * 创建控制器
+     * 路由 'xxx/yyy' 中 xxx 可能为模块 id 或前缀目录  
+     * 如 xxx 模块的 yyy 控制器 或 xxx 目录下的 yyy 控制器
+     *
+     * @param {Object} request
+     * @return {Object} 控制器
      */
     createController(request) {
         var route = Request.parseUrl(request).pathname;
@@ -78,7 +87,7 @@ class Application extends CoreApp {
         return Y.createObject( this.defaultControllerNamespace + '/' +
             this.routePrefix + '/' + StringHelper.ucFirst(this.controllerId) + 'Controller' );
     }
-     
+    
 }
 
 module.exports = Application;

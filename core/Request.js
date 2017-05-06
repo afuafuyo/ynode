@@ -32,7 +32,7 @@ class Request {
         
         return this._scriptFile;
     }
-
+    
 }
 
 module.exports = Request;

@@ -182,15 +182,6 @@ class Application {
      */
     requestListener(request, response) {}
     
-    /**
-     * 创建控制器
-     * 路由 'xxx/yyy' 中 xxx 可能为模块 id 或前缀目录  
-     * 如 xxx 模块的 yyy 控制器 或 xxx 目录下的 yyy 控制器
-     *
-     * @param {Object} request
-     * @return {Object} 控制器
-     */
-    createController(request) {}
 }
 
 module.exports = Application;
