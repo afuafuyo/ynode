@@ -7,10 +7,8 @@
 var Y = require('../Y');
 var CoreApp = require('../core/Application');
 var Request = require('./Request');
-var StringHelper = require('../helpers/StringHelper');
-var Router = require('./Router');
-var InvalidCallException = require('../core/InvalidCallException');
 var InvalidRouteException = require('../core/InvalidRouteException');
+var InvalidCallException = require('../core/InvalidCallException');
 
 /**
  * web 应用
@@ -28,7 +26,9 @@ class Application extends CoreApp {
      * @inheritdoc
      */
     requestListener(request, response) {
-        var controller = this.createController(request);
+        var route = Request.parseUrl(request).pathname;
+        
+        var controller = this.createController(route);
         
         if(null === controller) {
             throw new InvalidRouteException('The route requested is invalid');
@@ -38,54 +38,6 @@ class Application extends CoreApp {
         }
         
         controller.run(request, response);
-    }
-    
-    /**
-     * 创建控制器
-     * 路由 'xxx/yyy' 中 xxx 可能为模块 id 或前缀目录  
-     * 如 xxx 模块的 yyy 控制器 或 xxx 目录下的 yyy 控制器
-     *
-     * @param {Object} request
-     * @return {Object} 控制器
-     */
-    createController(request) {
-        var route = Request.parseUrl(request).pathname;
-        route = StringHelper.lTrimChar(route, '/');
-        
-        // route eg. index/index
-        if('' === route || '/' === route) {
-            route = this.defaultRoute;
-        }
-        
-        // 检测非法
-        if(!Router.isValidRoute(route)) {
-            return null;
-        }
-        
-        // 解析路由
-        var router = Router.resolve(this, route, request);
-        var moduleId = router.moduleId;
-        var controllerId = router.controllerId;
-        var routePrefix = router.routePrefix;  // 前缀目录
-        
-        // 保存当前控制器标示
-        this.controllerId = '' === controllerId ? this.defaultControllerId : controllerId;
-        
-        // 搜索顺序 模块控制器 -> 普通控制器
-        // 模块没有前缀目录
-        if('' !== moduleId && null !== this.modules && undefined !== this.modules[moduleId]) {
-            var clazz = StringHelper.trimChar(this.modules[moduleId], '/') + '/controllers/' +
-                StringHelper.ucFirst(this.controllerId) + 'Controller';
-            this.moduleId = moduleId;
-            
-            return Y.createObject(clazz);
-        }
-        
-        // 普通控制器有前缀目录
-        this.routePrefix = '' === routePrefix ? this.controllerId : routePrefix;
-
-        return Y.createObject( this.defaultControllerNamespace + '/' +
-            this.routePrefix + '/' + StringHelper.ucFirst(this.controllerId) + 'Controller' );
     }
     
 }

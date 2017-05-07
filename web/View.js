@@ -21,16 +21,19 @@ class View extends CoreView {
         var app = Y.app;
         var path = '';
         
+        // 模块无子目录 普通控制器有子目录
         if('' !== app.moduleId) {
-            path = app.modules[app.moduleId];
+            path = app.modules[app.moduleId]
+                + '/views/'
+                + view + View.defaultViewExtension;
             
         } else {
-            path = app.getAppPath();
+            path = app.getAppPath()
+                + '/views/'
+                + ('' === app.subRoute ? '.' : app.subRoute)
+                + '/'
+                + view + View.defaultViewExtension;
         }
-        
-        // 模块无子目录 普通控制器有子目录
-        path = path + '/views/' + ('' === app.routePrefix ? '.' : app.routePrefix) +
-            '/' + view + View.defaultViewExtension;
         
         return path;
     }

@@ -193,12 +193,6 @@ new YNode({
     'modules': {
         'bbs': 'app/modules/bbs'
     },
-    'routes': {
-        // 访问此自定义路径跳转到 bbs 模块 参数为数字 id 及字符串 name
-        '/abc/{id:\\d+}/{name:\\w+}': {
-            'moduleId': 'bbs'
-        }
-    },
     'log': {
         'targets': {
             'file': {

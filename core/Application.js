@@ -5,12 +5,13 @@
 'use strict';
 
 var Y = require('../Y');
+var Module = require('./Module');
 var InvalidConfigException = require('../core/InvalidConfigException');
 
 /**
  * 应用基类
  */
-class Application {
+class Application extends Module {
     
     /**
      * constructor
@@ -18,55 +19,7 @@ class Application {
      * @param {JSON} config 配置信息
      */
     constructor(config) {
-        /**
-         * @property {JSON} routes 自定义路由配置
-         *
-         * 'routes': {
-         *     '/abc/{param1:\\d+}/{param2:\\w+}': {
-         *         ...
-         *     }
-         * }
-         */
-        this.routes = null;
-        
-        /**
-         * @property {JSON} modules 注册的模块
-         *
-         * 'modules': {
-         *     'bbs': 'app/modules/bbs'
-         * }
-         */
-        this.modules = null;
-        
-        /**
-         * @property {String} defaultRoute 默认路由
-         */
-        this.defaultRoute = 'index/index';
-        
-        /**
-         * @property {String} defaultControllerNamespace 默认控制器命名空间
-         */
-        this.defaultControllerNamespace = 'app/controllers';
-        
-        /**
-         * @property {String} defaultControllerId 默认控制器
-         */
-        this.defaultControllerId = 'index';
-        
-        /**
-         * @property {String} moduleId 当前的模块
-         */
-        this.moduleId = '';
-        
-        /**
-         * @property {String} controllerId 当前的控制器
-         */
-        this.controllerId = '';
-        
-        /**
-         * @property {String} routePrefix 前缀目录
-         */
-        this.routePrefix = '';
+        super();
         
         /**
          * @property {String} encoding 编码

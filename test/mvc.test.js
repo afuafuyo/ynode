@@ -12,14 +12,7 @@ var app = new YNode({
     
     'modules': {
         'bbs': 'app/modules/bbs'
-    },
-    'routes': {
-        // 访问此自定义路径跳转到 bbs 模块 参数为数字 id
-        '/abc/{id:\\d+}': {
-            'moduleId': 'bbs'
-        }
     }
-    ,'combineRoutes': true
 });
 var server = app.getServer();
 
@@ -51,16 +44,4 @@ describe('MVC', function() {
             });
     });
     
-    it('customer route redirect to module bbs', function(done) {
-        request(server)
-            .get('/abc/1')
-            .expect(200)
-            .end(function(err, res){
-                if (err) return done(err);
-                
-                assert.equal(res.text, 'module ok');
-                
-                done();
-            });
-    });
 });
