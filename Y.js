@@ -57,10 +57,12 @@ class Y {
     /**
      * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
      *
-     * @param {String | JSON} clazz 以某个已经定义的别名开头的类全名或带 class 键的配置
-     *     eg.
-     *     y/log/file/Target
-     *     {class: '...', ...}
+     * @param {String | JSON} clazz 以某个已经定义的别名开头的类全名或带 'class' 键的配置
+     *
+     * eg.
+     * y/log/file/Target
+     * or
+     * {class: '...', ...}
      *
      * @param {any} params 参数
      * @return {Object} 类实例
@@ -75,8 +77,8 @@ class Y {
         } else if('object' === typeof clazz && undefined !== clazz['class']) {
             realClass = Y.getPathAlias('@' + clazz['class']);
             
-            delete clazz['class'];
-            properties = clazz;
+            properties = Object.assign({}, clazz);
+            delete properties['class'];
         }
         
         // 文件不存在抛出异常
