@@ -12,6 +12,9 @@ var StringHelper = require('../helpers/StringHelper');
  */
 class Module {
     
+    /**
+     * constructor
+     */
     constructor() {
         /**
          * @property {JSON} modules 注册的模块

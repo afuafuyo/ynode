@@ -5,7 +5,7 @@
 'use strict';
 
 /**
- * 服务定位器
+ * 服务定位器 [service locator](//en.wikipedia.org/wiki/Service_locator_pattern)
  */
 class ServiceLocator {
     
@@ -17,17 +17,42 @@ class ServiceLocator {
          * @property {Map} services
          */
         this.services = new Map();
+        
+        /**
+         * @property {Map} definitions
+         */
+        this.definitions = new Map();
     }
     
     /**
-     * 注册一个服务
+     * 设置服务
      *
+     * @param {String} key
+     * @param {Object} service
      */
     setService(key, service) {
         
     }
     
-    getService(key) {}
+    /**
+     * 以定义方式设置服务
+     *
+     * @param {String} key
+     * @param {JSON} definition
+     */
+    setServiceAsDefinition(key, definition) {
+        
+    }
+    
+    /**
+     * 获取服务
+     *
+     * @param {String} key
+     * @return {Object}
+     */
+    getService(key) {
+        
+    }
     
 }
 
