@@ -7,6 +7,7 @@
 var Y = require('../Y');
 var Request = require('./Request');
 var CoreRouter = require('../core/Router');
+var StringHelper = require('../helpers/StringHelper');
 var InvalidCallException = require('../core/InvalidCallException');
 
 class Restful extends CoreRouter {
@@ -198,7 +199,7 @@ class Restful extends CoreRouter {
         
         var parsedRoute = null;
         for(let reg in routes) {
-            parsedRoute = Router.parse(reg);
+            parsedRoute = Restful.parse(reg);
             
             // 为每个模式添加一个括号 用于定位匹配到的是哪一个模式
             patternArray.push( '(' + parsedRoute.pattern + ')' );

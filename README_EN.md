@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-05-08
+
+    * npm package 2.0.0 published. remove mvc regexp route and fix some template read bug
+
 + 2017-05-03
 
     * 1.5.9 optimize session and resource class code
@@ -153,7 +157,7 @@ module controller --> general controller
 
 ###### Route search order
 
-user define route will be given priority
+module controllers will be given priority
 
 ###### Appointment
 
