@@ -24,7 +24,7 @@ class Application extends Module {
         /**
          * @property {String} encoding 编码
          */
-        this.encoding = 'utf8';
+        this.encoding = 'UTF-8';
         
         /**
          * @property {Boolean} debug 调试
