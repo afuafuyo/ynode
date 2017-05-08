@@ -23,7 +23,7 @@ class Component {
         // 但在 javascript 中没找到更好的解决方式 暂时写成这样了
         var ret = null;
         for(let name in Component._behaviors) {
-            // 属性
+            // 本身
             ret = Object.getOwnPropertyNames(Component._behaviors[name]);
             for(let i=0,len=ret.length; i<len; i++) {
                 if(undefined !== this[ret[i]]) {
@@ -33,7 +33,7 @@ class Component {
                 this[ret[i]] = Component._behaviors[name][ret[i]];
             }
             
-            // 方法
+            // 原型链
             ret = Object.getOwnPropertyNames(Object.getPrototypeOf(Component._behaviors[name]));
             for(let i=0,len=ret.length; i<len; i++) {
                 if('constructor' === ret[i] || undefined !== this[ret[i]]) {
