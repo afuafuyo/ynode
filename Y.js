@@ -67,20 +67,29 @@ class Y {
      */
     static createObject(clazz, ...params) {
         var realClass = '';
+        var properties = null;
         
         if('string' === typeof clazz) {
             realClass = Y.getPathAlias('@' + clazz);
             
         } else if('object' === typeof clazz && undefined !== clazz['class']) {
             realClass = Y.getPathAlias('@' + clazz['class']);
+            
+            delete clazz['class'];
+            properties = clazz;
         }
         
         // 文件不存在抛出异常
         // todo
         
-        var Obj = require(realClass + Y.fileExtention);
+        var ClassName = require(realClass + Y.fileExtention);
+        var instance = new ClassName(...params);
         
-        return new Obj(...params);
+        if(null !== properties) {
+            Y.config(instance, properties);
+        }
+        
+        return instance;
     }
     
     /**
@@ -101,12 +110,12 @@ class Y {
      * 对象配置
      *
      * @param {Object} object 需要配置的对象
-     * @param {JSON} propertys 配置项
+     * @param {JSON} properties 配置项
      * @return {Object} 源对象
      */
-    static config(object, propertys) {
-        for(let key in propertys) {
-            object[key] = propertys[key];
+    static config(object, properties) {
+        for(let key in properties) {
+            object[key] = properties[key];
         }
         
         return object;
