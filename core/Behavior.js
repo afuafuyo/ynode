@@ -10,6 +10,8 @@
  * 一个行为类可以用于在不改变原组件代码的情况下增强其功能
  * 当行为附加到组件后它将 注入 它的方法和属性到组件中
  * 然后就可以像访问组件自己的方法和属性一样访问它们
+ *
+ * 行为类还能够监听组件的事件并作出响应
  */
 class Behavior {
     
@@ -21,7 +23,7 @@ class Behavior {
     }
     
     /**
-     * 声明组件的事件回调
+     * 声明要监听的组件的事件和对应事件的处理程序
      *
      * @return {JSON}
      *
@@ -33,11 +35,11 @@ class Behavior {
     }
     
     /**
-     * 向组件附加行为
+     * 监听组件的事件
      *
      * @param {Component} component 组件
      */
-    attach(component) {
+    listen(component) {
         this.component = component;
         
         var events = this.events();
@@ -48,9 +50,9 @@ class Behavior {
     }
     
     /**
-     * 删除组件的行为
+     * 取消监听组件的事件
      */
-    detach() {
+    unListen() {
         if(null !== this.component) {
             var events = this.events();
             

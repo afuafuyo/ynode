@@ -16,37 +16,65 @@ class Component {
      * constructor
      */
     constructor() {
+        /**
+         * @var {JSON} _events the attached event handlers
+         *
+         * {
+         *     'eventName': [fn1, fn2...]
+         *     'eventName2': [fn1, fn2...]
+         * }
+         *
+         */
+        this._events = {};
+        
+        /**
+         * @var {JSON} _behaviors the attached behaviors
+         *
+         * {
+         *     'behaviorName': BehaviorInstance
+         *     ...
+         * }
+         *
+         */
+        this._behaviors = null;
+        
+        this.init();
+    }
+    
+    // 行为注入组件
+    init() {
         this.ensureDeclaredBehaviorsAttached();
         
-        // 注入
+        if(0 === Object.keys(this._behaviors).length) return;
+        
         // 相对于其他编程语言来说这种处理方式并不是很好
         // 但在 javascript 中没找到更好的解决方式 暂时写成这样了
         var ret = null;
-        for(let name in Component._behaviors) {
+        for(let name in this._behaviors) {
             // 本身
-            ret = Object.getOwnPropertyNames(Component._behaviors[name]);
+            ret = Object.getOwnPropertyNames(this._behaviors[name]);
             for(let i=0,len=ret.length; i<len; i++) {
                 if(undefined !== this[ret[i]]) {
                     continue;
                 }
                 
-                this[ret[i]] = Component._behaviors[name][ret[i]];
+                this[ret[i]] = this._behaviors[name][ret[i]];
             }
             
             // 原型链
-            ret = Object.getOwnPropertyNames(Object.getPrototypeOf(Component._behaviors[name]));
+            ret = Object.getOwnPropertyNames(Object.getPrototypeOf(this._behaviors[name]));
             for(let i=0,len=ret.length; i<len; i++) {
                 if('constructor' === ret[i] || undefined !== this[ret[i]]) {
                     continue;
                 }
                 
-                this[ret[i]] = Component._behaviors[name][ret[i]];
+                this[ret[i]] = this._behaviors[name][ret[i]];
             }
         }
     }
     
     /**
-     * 返回该组件的行为列表
+     * 声明该组件的行为列表
      *
      * 子类组件可以重写该方法去指定要附加的行为类
      *
@@ -66,12 +94,12 @@ class Component {
     }
     
     /**
-     * 确保 behaviors() 声明的行为已经附加到组件
+     * 确保 behaviors() 声明的行为已保存到组件
      */
     ensureDeclaredBehaviorsAttached() {
         // 只执行一次
-        if(null === Component._behaviors) {
-            Component._behaviors = {};
+        if(null === this._behaviors) {
+            this._behaviors = {};
             
             var behaviors = this.behaviors();
             for(let name in behaviors) {
@@ -93,7 +121,26 @@ class Component {
     }
     
     /**
-     * 向组件附加一个行为
+     * 删除组件的行为
+     *
+     * @param {String} name 行为的名称
+     * @return {Object | null}
+     */
+    detachBehavior(name) {
+        if(undefined !== this._behaviors[name]) {
+            var behavior = this._behaviors[name];
+            
+            delete this._behaviors[name];
+            behavior.unListen();
+            
+            return behavior;
+        }
+        
+        return null;
+    }
+    
+    /**
+     * 保存行为类到组件
      *
      * @param {String} name 行为的名称
      * @param {String | Object | JSON} behavior
@@ -103,12 +150,13 @@ class Component {
             behavior = Y.createObject(behavior);
         }
         
-        if(undefined !== Component._behaviors[name]) {
-            Component._behaviors[name].detach();
+        if(undefined !== this._behaviors[name]) {
+            this._behaviors[name].unListen();
         }
         
-        behavior.attach(this);
-        Component._behaviors[name] = behavior;
+        // 行为类可以监听组件的事件并处理
+        behavior.listen(this);
+        this._behaviors[name] = behavior;
     }
     
     /**
@@ -118,11 +166,11 @@ class Component {
      * @param {Function} handler 回调函数
      */
     on(eventName, handler) {
-        if(undefined === Component._events[eventName]) {
-            Component._events[eventName] = [];
+        if(undefined === this._events[eventName]) {
+            this._events[eventName] = [];
         }
         
-        Component._events[eventName].push(handler);
+        this._events[eventName].push(handler);
     }
     
     /**
@@ -132,14 +180,14 @@ class Component {
      * @param {Function} handler 回调函数
      */
     off(eventName, handler) {
-        if(undefined !== Component._events[eventName]) {
+        if(undefined !== this._events[eventName]) {
             if(undefined === handler) {
-                delete Component._events[eventName];
+                delete this._events[eventName];
                 
             } else {
-                for(let i=0,len=Component._events[eventName].length; i<len; i++) {
-                    if(handler === Component._events[eventName][i]) {
-                        Component._events[eventName].splice(i, 1);
+                for(let i=0,len=this._events[eventName].length; i<len; i++) {
+                    if(handler === this._events[eventName][i]) {
+                        this._events[eventName].splice(i, 1);
                     }
                 }
             }
@@ -153,30 +201,14 @@ class Component {
      * @param {Array} param 参数
      */
     trigger(eventName, param) {
-        if(undefined !== Component._events[eventName]) {
-            for(let i=0,len=Component._events[eventName].length; i<len; i++) {
-                undefined === param ? Component._events[eventName][i]() :
-                    Component._events[eventName][i].apply(null, param);
+        if(undefined !== this._events[eventName]) {
+            for(let i=0,len=this._events[eventName].length; i<len; i++) {
+                undefined === param ? this._events[eventName][i]() :
+                    this._events[eventName][i].apply(null, param);
             }
         }
     }
     
 }
-
-/**
- * @var {JSON} _events the attached event handlers
- *
- * {
- *     'eventName': [fn1, fn2...]
- *     'eventName2': [fn1, fn2...]
- * }
- *
- */
-Component._events = {};
-
-/**
- * @var {JSON} _behaviors the attached behaviors
- */
-Component._behaviors = null;
 
 module.exports = Component;
