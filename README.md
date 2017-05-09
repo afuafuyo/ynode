@@ -38,7 +38,7 @@ __  ___   __          __
 
 + 2017-04-11
 
-    * 1.5.2 将静态资源处理器分离 移动到 midware 目录
+    * 1.5.2 将静态资源处理器分离 移动到 midwares 目录
 
 + 2017-04-07
 
@@ -340,7 +340,7 @@ Hook.getInstance().addHook(bodyParser.urlencoded({ extended: false }));
 # 处理图片等的静态资源
 
 ```javascript
-var R = YNode.Y.include('y/midware/Resource');
+var R = YNode.Y.include('y/midwares/Resource');
 Hook.getInstance().addHook(new R(__dirname + '/public').serve());
 
 或者使用其他中间件

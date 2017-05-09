@@ -36,7 +36,7 @@ __  ___   __          __
 
 + 2017-04-11
 
-    * 1.5.2 static handler class split from core framework and moved to midware dir
+    * 1.5.2 static handler class split from core framework and moved to midwares dir
 
 + 2017-04-07
 
@@ -321,7 +321,7 @@ module.exports = User;
 
 # Get the post param
 
-you can use express's body-parser midware
+you can use express's body-parser midwares
 
 ```javascript
 var Hook = YNode.Y.include('y/core/Hook');
@@ -333,7 +333,7 @@ the result will added to req.body
 # Handler static resource
 
 ```javascript
-var R = YNode.Y.include('y/midware/Resource');
+var R = YNode.Y.include('y/midwares/Resource');
 Hook.getInstance().addHook(new R(__dirname + '/public').serve());
 
 or
