@@ -321,7 +321,7 @@ module.exports = User;
 
 # Get the post param
 
-you can use express's body-parser midwares
+you can use express's body-parser midware
 
 ```javascript
 var Hook = YNode.Y.include('y/core/Hook');
