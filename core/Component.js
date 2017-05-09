@@ -36,15 +36,14 @@ class Component {
          * }
          *
          */
-        this._behaviors = null;
+        this._behaviors = {};
         
+        this.ensureDeclaredBehaviorsAttached();
         this.init();
     }
     
     // 行为注入组件
     init() {
-        this.ensureDeclaredBehaviorsAttached();
-        
         if(0 === Object.keys(this._behaviors).length) return;
         
         // 相对于其他编程语言来说这种处理方式并不是很好
@@ -97,14 +96,9 @@ class Component {
      * 确保 behaviors() 声明的行为已保存到组件
      */
     ensureDeclaredBehaviorsAttached() {
-        // 只执行一次
-        if(null === this._behaviors) {
-            this._behaviors = {};
-            
-            var behaviors = this.behaviors();
-            for(let name in behaviors) {
-                this.attachBehaviorInternal(name, behaviors[name]);
-            }
+        var behaviors = this.behaviors();
+        for(let name in behaviors) {
+            this.attachBehaviorInternal(name, behaviors[name]);
         }
     }
     
@@ -114,9 +108,7 @@ class Component {
      * @param {String} name 行为的名称
      * @param {String | Object | JSON} behavior
      */
-    attachBehavior(name, behavior) {
-        this.ensureDeclaredBehaviorsAttached();
-        
+    attachBehavior(name, behavior) {        
         this.attachBehaviorInternal(name, behavior);
     }
     
