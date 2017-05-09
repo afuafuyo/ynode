@@ -17,7 +17,7 @@ class Component {
      */
     constructor() {
         /**
-         * @var {JSON} _events the attached event handlers
+         * @property {JSON} eventsMap the attached event handlers
          *
          * {
          *     'eventName': [fn1, fn2...]
@@ -25,10 +25,10 @@ class Component {
          * }
          *
          */
-        this._events = {};
+        this.eventsMap = {};
         
         /**
-         * @var {JSON} _behaviors the attached behaviors
+         * @property {JSON} behaviorsMap the attached behaviors
          *
          * {
          *     'behaviorName': BehaviorInstance
@@ -36,7 +36,7 @@ class Component {
          * }
          *
          */
-        this._behaviors = {};
+        this.behaviorsMap = {};
         
         this.ensureDeclaredBehaviorsAttached();
         this.init();
@@ -44,30 +44,30 @@ class Component {
     
     // 行为注入组件
     init() {
-        if(0 === Object.keys(this._behaviors).length) return;
+        if(0 === Object.keys(this.behaviorsMap).length) return;
         
         // 相对于其他编程语言来说这种处理方式并不是很好
         // 但在 javascript 中没找到更好的解决方式 暂时写成这样了
         var ret = null;
-        for(let name in this._behaviors) {
+        for(let name in this.behaviorsMap) {
             // 本身
-            ret = Object.getOwnPropertyNames(this._behaviors[name]);
+            ret = Object.getOwnPropertyNames(this.behaviorsMap[name]);
             for(let i=0,len=ret.length; i<len; i++) {
                 if(undefined !== this[ret[i]]) {
                     continue;
                 }
                 
-                this[ret[i]] = this._behaviors[name][ret[i]];
+                this[ret[i]] = this.behaviorsMap[name][ret[i]];
             }
             
             // 原型链
-            ret = Object.getOwnPropertyNames(Object.getPrototypeOf(this._behaviors[name]));
+            ret = Object.getOwnPropertyNames(Object.getPrototypeOf(this.behaviorsMap[name]));
             for(let i=0,len=ret.length; i<len; i++) {
                 if('constructor' === ret[i] || undefined !== this[ret[i]]) {
                     continue;
                 }
                 
-                this[ret[i]] = this._behaviors[name][ret[i]];
+                this[ret[i]] = this.behaviorsMap[name][ret[i]];
             }
         }
     }
@@ -81,9 +81,11 @@ class Component {
      *
      * {
      *     'behaviorName': {
-     *         'class': 'BehaviorClass'
+     *         'class': 'BehaviorClassName',
+     *         'property1' => 'value1',
+     *         'property2' => 'value2'
      *     },
-     *     'behaviorName2': 'BehaviorClass2'
+     *     'behaviorName2': 'BehaviorClassName2'
      *     'behaviorName3': BehaviorClassInstance
      * }
      *
@@ -119,10 +121,10 @@ class Component {
      * @return {Object | null}
      */
     detachBehavior(name) {
-        if(undefined !== this._behaviors[name]) {
-            var behavior = this._behaviors[name];
+        if(undefined !== this.behaviorsMap[name]) {
+            var behavior = this.behaviorsMap[name];
             
-            delete this._behaviors[name];
+            delete this.behaviorsMap[name];
             behavior.unListen();
             
             return behavior;
@@ -142,13 +144,13 @@ class Component {
             behavior = Y.createObject(behavior);
         }
         
-        if(undefined !== this._behaviors[name]) {
-            this._behaviors[name].unListen();
+        if(undefined !== this.behaviorsMap[name]) {
+            this.behaviorsMap[name].unListen();
         }
         
         // 行为类可以监听组件的事件并处理
         behavior.listen(this);
-        this._behaviors[name] = behavior;
+        this.behaviorsMap[name] = behavior;
     }
     
     /**
@@ -158,11 +160,11 @@ class Component {
      * @param {Function} handler 回调函数
      */
     on(eventName, handler) {
-        if(undefined === this._events[eventName]) {
-            this._events[eventName] = [];
+        if(undefined === this.eventsMap[eventName]) {
+            this.eventsMap[eventName] = [];
         }
         
-        this._events[eventName].push(handler);
+        this.eventsMap[eventName].push(handler);
     }
     
     /**
@@ -172,14 +174,14 @@ class Component {
      * @param {Function} handler 回调函数
      */
     off(eventName, handler) {
-        if(undefined !== this._events[eventName]) {
+        if(undefined !== this.eventsMap[eventName]) {
             if(undefined === handler) {
-                delete this._events[eventName];
+                delete this.eventsMap[eventName];
                 
             } else {
-                for(let i=0,len=this._events[eventName].length; i<len; i++) {
-                    if(handler === this._events[eventName][i]) {
-                        this._events[eventName].splice(i, 1);
+                for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
+                    if(handler === this.eventsMap[eventName][i]) {
+                        this.eventsMap[eventName].splice(i, 1);
                     }
                 }
             }
@@ -193,10 +195,10 @@ class Component {
      * @param {Array} param 参数
      */
     trigger(eventName, param) {
-        if(undefined !== this._events[eventName]) {
-            for(let i=0,len=this._events[eventName].length; i<len; i++) {
-                undefined === param ? this._events[eventName][i]() :
-                    this._events[eventName][i].apply(null, param);
+        if(undefined !== this.eventsMap[eventName]) {
+            for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
+                undefined === param ? this.eventsMap[eventName][i]() :
+                    this.eventsMap[eventName][i].apply(null, param);
             }
         }
     }
