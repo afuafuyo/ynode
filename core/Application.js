@@ -135,6 +135,14 @@ class Application extends Module {
      */
     requestListener(request, response) {}
     
+    /**
+     * 异常处理
+     *
+     * @param {Object} response 输出类
+     * @param {Exception} exception 异常类
+     */
+    handlerException(response, exception) {}
+    
 }
 
 module.exports = Application;

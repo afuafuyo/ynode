@@ -20,6 +20,11 @@ class Application extends CoreApp {
      */
     constructor(config) {
         super(config);
+        
+        /**
+         * @property {String} exceptionHandler 异常处理类
+         */
+        this.exceptionHandler = 'y/web/ExceptionHandler';
     }
     
     /**
@@ -38,6 +43,15 @@ class Application extends CoreApp {
         }
         
         controller.run(request, response);
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    handlerException(response, exception) {
+        var handler = Y.createObject(this.exceptionHandler);
+        
+        handler.handlerException(response, exception);
     }
     
 }

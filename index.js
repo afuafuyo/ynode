@@ -32,21 +32,13 @@ class YNode {
         this.app = new WebApp(config);
     }
     
-    // debug
-    debug(res, error) {
-        res.setHeader('Content-Type', 'text/plain');
-        res.writeHead(500);
-        res.end(true === this.config.debug ? error.message + '\n' + error.stack :
-            'The server encountered an internal error');
-    }
-    
     // web
     requestListenerWeb(req, res) {
         try {
             this.app.requestListener(req, res);
             
         } catch(e) {
-            this.debug(res, e);
+            this.app.handlerException(res, e);
         }
     }
     
@@ -56,7 +48,7 @@ class YNode {
             WebRestful.requestListener(req, res);
             
         } catch(e) {
-            this.debug(res, e);
+            this.app.handlerException(res, e);
         }
     }
     
