@@ -127,7 +127,7 @@ class StringHelper {
      *
      * eg.
      * filterTags('<a>abc</a>xyz') -> abcxyz
-     * filterTags('<a>abc</a>', '<a>') -> <a>abc</a>xyz
+     * filterTags('<a>abc</a>xyz', '<a>') -> <a>abc</a>xyz
      *
      * @param {String} str
      * @param {String} allowed
