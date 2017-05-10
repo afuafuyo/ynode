@@ -64,7 +64,7 @@ class Y {
      * or
      * {class: '...', ...}
      *
-     * @param {any} params 参数
+     * @param {any} params 构造函数参数
      * @return {Object} 类实例
      */
     static createObject(clazz, ...params) {
@@ -77,7 +77,7 @@ class Y {
         } else if('object' === typeof clazz && undefined !== clazz['class']) {
             realClass = Y.getPathAlias('@' + clazz['class']);
             
-            properties = Object.assign({}, clazz);
+            properties = Y.config({}, clazz);
             delete properties['class'];
         }
         
