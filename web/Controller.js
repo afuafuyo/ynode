@@ -4,13 +4,41 @@
  */
 'use strict';
 
-var View = require('./View');
+var Y = require('../Y');
+var CoreController = require('../core/Controller');
 
 /**
  * 控制器
  */
-class Controller extends View {
-    // todo
+class Controller extends CoreController {
+    
+    constructor() {
+        super();
+        
+        /**
+         * @property {String} viewHandler
+         */
+        this.viewHandler = 'y/web/View';
+        
+        /**
+         * @property {View} view
+         */
+        this.view = null;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    getView() {
+        if(null !== this.view) {
+            return this.view;
+        }
+        
+        this.view = Y.createObject(this.viewHandler);
+        
+        return this.view;
+    }
+    
 }
 
 module.exports = Controller;

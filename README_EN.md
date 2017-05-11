@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-05-11
+
+    * since npm package 2.1.0 get template html file change to use ```this.getView().getTemplate(...)```
+
 + 2017-05-08
 
     * npm package 2.0.0 published. remove mvc regexp route and fix some template read bug
@@ -211,7 +215,7 @@ var Controller = YNode.Y.include('y/web/Controller');
 class IndexController extends Controller {
     // the controller has only one method
     run(req, res) {
-        this.getTemplate('index', (err, str) => {
+        this.getView().getTemplate('index', (err, str) => {
             res.end(str);
             
             YNode.Logger.getLogger().error('this is a error log');
@@ -246,7 +250,7 @@ class IndexController extends Controller {
     
     run(req, res) {
         // get the content of template file and render with ejs
-        this.getTemplate('index', (err, str) => {
+        this.getView().getTemplate('index', (err, str) => {
             str = ejs.render(str, {user: {name:'张三'}});
             res.end(str);
         });

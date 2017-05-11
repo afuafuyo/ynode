@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### 版本更新
 
++ 2017-05-11
+
+    * 从 npm 包 2.1.0 开始 controller 中获取模板使用 ```this.getView().getTemplate(...)```
+
 + 2017-05-08
 
     * npm 包 2.0.0 发布 去掉了 mvc 模式下的正则路由 并修复了一些模板读取失败 bug
@@ -221,7 +225,7 @@ var Controller = YNode.Y.include('y/web/Controller');
 class IndexController extends Controller {
     // 控制器单入口
     run(req, res) {
-        this.getTemplate('index', (err, str) => {
+        this.getView().getTemplate('index', (err, str) => {
             res.end(str);
         });
     }
@@ -253,7 +257,7 @@ class IndexController extends Controller {
     
     run(req, res) {
         // 获取 index 模板内容用 ejs 渲染输出
-        this.getTemplate('index', (err, str) => {
+        this.getView().getTemplate('index', (err, str) => {
             str = ejs.render(str, {user: {name:'张三'}});
             res.end(str);
         });

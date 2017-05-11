@@ -61,7 +61,7 @@ var Controller = YNode.Y.include('y/web/Controller');
 class IndexController extends Controller {
 
     run(req, res) {
-       this.getTemplate('index', (err, data) => {
+       this.getView().getTemplate('index', (err, data) => {
            res.end(data);
        });
     }
