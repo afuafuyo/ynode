@@ -168,7 +168,7 @@ class Target extends ITarget {
     /**
      * @inheritdoc
      */
-    readSync(key) {
+    getSync(key) {
         var file = this.sessionSavePath + '/' + this.sessionFilePrefix + this.sessionId + this.sessionFileExtension;
         
         if(fs.existsSync(file)) {
@@ -184,7 +184,7 @@ class Target extends ITarget {
     /**
      * @inheritdoc
      */
-    writeSync(key, data) {
+    setSync(key, data) {
         var file = this.sessionSavePath + '/' + this.sessionFilePrefix + this.sessionId + this.sessionFileExtension;
         
         // 已经存在

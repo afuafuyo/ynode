@@ -30,14 +30,14 @@ class ITarget {
      * @param {String} key
      * @param {Function} callback
      */
-    read(key, callback) {}
+    get(key, callback) {}
     
     /**
      * 同步读取
      *
      * @param {String} key
      */
-    readSync(key) {}
+    getSync(key) {}
     
     /**
      * 写入
@@ -46,7 +46,7 @@ class ITarget {
      * @param {String} data session data
      * @param {Function} callback
      */
-    write(key, data, callback) {}
+    set(key, data, callback) {}
     
     /**
      * 同步写入
@@ -54,7 +54,7 @@ class ITarget {
      * @param {String} key
      * @param {String} data session data
      */
-    writeSync(key, data) {}
+    setSync(key, data) {}
     
     /**
      * 删除

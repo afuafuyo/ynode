@@ -18,6 +18,11 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-05-12
+
+    * since npm package 2.1.0 session methods ```read() change to get() readSync() change to getSync()  write() change to set() writeSync() change to setSync()```
+
+
 + 2017-05-11
 
     * since npm package 2.1.0 get template html file change to use ```this.getView().getTemplate(...)```

@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### 版本更新
 
++ 2017-05-12
+
+    * 从 npm 包 2.1.1 开始 session 的 ```read() 改为 get() readSync() 改为 getSync()  write() 改为 set() writeSync() 改为 setSync()```
+
 + 2017-05-11
 
     * 从 npm 包 2.1.0 开始 controller 中获取模板使用 ```this.getView().getTemplate(...)```
