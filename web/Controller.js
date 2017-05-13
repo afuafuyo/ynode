@@ -12,6 +12,9 @@ var CoreController = require('../core/Controller');
  */
 class Controller extends CoreController {
     
+    /**
+     * constructor
+     */
     constructor() {
         super();
         

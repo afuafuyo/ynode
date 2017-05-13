@@ -112,7 +112,7 @@ class Component {
      * @param {String} name 行为的名称
      * @param {String | Object | JSON} behavior
      */
-    attachBehavior(name, behavior) {        
+    attachBehavior(name, behavior) {
         this.attachBehaviorInternal(name, behavior);
     }
     
