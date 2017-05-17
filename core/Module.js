@@ -39,25 +39,6 @@ class Module {
          * @property {String} defaultControllerId 默认控制器
          */
         this.defaultControllerId = 'index';
-        
-        /**
-         * @property {String} moduleId 当前的模块
-         */
-        this.moduleId = '';
-        
-        /**
-         * @property {String} controllerId 当前的控制器
-         */
-        this.controllerId = '';
-        
-        /**
-         * @property {String} subRoute 子目录
-         *
-         * eg. subRoute = ''  ->  app/views/xxx.html
-         * eg. subRoute = 'subdir'  ->  app/views/subdir/xxx.html
-         *
-         */
-        this.subRoute = '';
     }
     
     /**
@@ -66,7 +47,22 @@ class Module {
      * @param {String} route 路由
      */
     createController(route) {
-        this.moduleId = this.controllerId = this.subRoute = '';
+        /**
+         * @var {String} moduleId 当前的模块
+         */
+        var moduleId = '';
+        /**
+         * @var {String} controllerId 当前的控制器
+         */
+        var controllerId = '';
+        /**
+         * @var {String} subRoute 子目录
+         *
+         * eg. subRoute = ''  ->  app/views/xxx.html
+         * eg. subRoute = 'subdir'  ->  app/views/subdir/xxx.html
+         *
+         */
+        var subRoute = '';
         
         route = StringHelper.lTrimChar(route, '/');
         
@@ -87,7 +83,7 @@ class Module {
         if(-1 !== pos) {
             id = route.substring(0, pos);
             route = route.substring(pos + 1);
-            this.controllerId = route;
+            controllerId = route;
             
         } else {
             id = route;
@@ -95,38 +91,52 @@ class Module {
         }
         
         // 保存前缀
-        this.subRoute = id;
+        subRoute = id;
         
         // 保存当前控制器标识
         if( -1 !== (pos = route.lastIndexOf('/')) ) {
-            this.subRoute = this.subRoute + '/' + route.substring(0, pos);
+            subRoute = subRoute + '/' + route.substring(0, pos);
             
-            this.controllerId = route.substring(pos + 1);
+            controllerId = route.substring(pos + 1);
         }
-        if('' === this.controllerId) {
-            this.controllerId = this.defaultControllerId;
+        if('' === controllerId) {
+            controllerId = this.defaultControllerId;
         }
         
         // 搜索顺序 模块控制器 -> 普通控制器
         // 模块没有前缀目录
         var clazz = '';
         if(null !== this.modules && undefined !== this.modules[id]) {
-            this.moduleId = id;
+            moduleId = id;
             
             clazz = StringHelper.trimChar(this.modules[id], '/')
                 + '/controllers/'
-                + StringHelper.ucFirst(this.controllerId) + 'Controller';
+                + StringHelper.ucFirst(controllerId) + 'Controller';
             
-            return Y.createObject(clazz);
+            return Y.createObject({
+                'class': clazz,
+                'context': {
+                    moduleId: moduleId,
+                    controllerId: controllerId,
+                    subRoute: subRoute
+                }
+            });
         }
         
         clazz = this.defaultControllerNamespace
             + '/'
-            + this.subRoute
+            + subRoute
             + '/'
-            + StringHelper.ucFirst(this.controllerId) + 'Controller';
+            + StringHelper.ucFirst(controllerId) + 'Controller';
         
-        return Y.createObject(clazz);
+        return Y.createObject({
+            'class': clazz,
+            'context': {
+                moduleId: moduleId,
+                controllerId: controllerId,
+                subRoute: subRoute
+            }
+        });
     }
     
 }

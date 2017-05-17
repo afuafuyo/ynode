@@ -19,18 +19,19 @@ class View extends CoreView {
      */
     getTemplateFilePath(view) {
         var app = Y.app;
+        var context = this.context;
         var path = '';
         
         // 模块无子目录 普通控制器有子目录
-        if('' !== app.moduleId) {
-            path = app.modules[app.moduleId]
+        if('' !== context.moduleId) {
+            path = app.modules[context.moduleId]
                 + '/views/'
                 + view + View.defaultViewExtension;
             
         } else {
             path = app.getAppPath()
                 + '/views/'
-                + ('' === app.subRoute ? '.' : app.subRoute)
+                + ('' === context.subRoute ? '.' : context.subRoute)
                 + '/'
                 + view + View.defaultViewExtension;
         }

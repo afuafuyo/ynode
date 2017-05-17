@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### 版本更新
 
++ 2017-05-17
+
+    * npm 包 2.1.3 修复并发变量被覆盖问题
+
 + 2017-05-12
 
     * 从 npm 包 2.1.1 开始 session 的 ```read() 改为 get() readSync() 改为 getSync()  write() 改为 set() writeSync() 改为 setSync()```
@@ -369,4 +373,4 @@ Hook.getInstance().addHook( serveStatic('public') );
 
 + 异步异常没做处理
 
-+ 由于变量缓存修改问题 高并发下存在读取错误模板 bug 正在修复中
++ 由于变量缓存修改问题 高并发下存在读取错误模板 bug 正在修复中 -- 已解决

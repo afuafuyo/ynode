@@ -18,10 +18,13 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-05-17
+
+    * npm package 2.1.3 fix variable override under concurrency request
+
 + 2017-05-12
 
     * since npm package 2.1.0 session methods ```read() change to get() readSync() change to getSync()  write() change to set() writeSync() change to setSync()```
-
 
 + 2017-05-11
 

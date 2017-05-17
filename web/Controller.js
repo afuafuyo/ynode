@@ -37,7 +37,10 @@ class Controller extends CoreController {
             return this.view;
         }
         
-        this.view = Y.createObject(this.viewHandler);
+        this.view = Y.createObject({
+            'class': this.viewHandler,
+            'context': this.context
+        });
         
         return this.view;
     }

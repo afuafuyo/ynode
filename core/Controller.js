@@ -18,6 +18,11 @@ class Controller extends Component {
         super();
         
         /**
+         * @property {Object} context 上下文环境 用于保存当前请求相关的信息
+         */
+        this.context = null;
+        
+        /**
          * @property {String} EVENT_BEFORE_ACTIONCALL
          */
         this.EVENT_BEFORE_ACTIONCALL = 'beforeActionCall';

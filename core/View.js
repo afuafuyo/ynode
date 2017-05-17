@@ -10,6 +10,16 @@
 class View {
     
     /**
+     * constructor
+     */
+    constructor() {
+        /**
+         * @property {Object} context 上下文环境
+         */
+        this.context = null;
+    }
+    
+    /**
      * 获取视图文件路径
      *
      * @param {String} view 视图文件名
