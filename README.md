@@ -368,3 +368,5 @@ Hook.getInstance().addHook( serveStatic('public') );
 # 已知问题
 
 + 异步异常没做处理
+
++ 由于变量缓存修改问题 高并发下存在读取错误模板 bug 正在修复中
