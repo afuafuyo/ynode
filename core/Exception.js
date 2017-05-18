@@ -22,7 +22,7 @@ class Exception extends Error {
     
     /**
      * 获得错误名
-     * 
+     *
      * @return {String}
      */
     getName() {
