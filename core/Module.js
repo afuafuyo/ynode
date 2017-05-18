@@ -17,6 +17,19 @@ class Module {
      */
     constructor() {
         /**
+         * @property {JSON} routesMap 实现路由到控制器转换配置
+         *
+         * {
+         *     'account': {
+         *         'class': 'app/controllers/user/IndexController',
+         *         'property': 'value'
+         *     }
+         * }
+         *
+         */
+        this.routesMap = null;
+        
+        /**
          * @property {JSON} modules 注册的模块
          *
          * 'modules': {
@@ -103,9 +116,11 @@ class Module {
             controllerId = this.defaultControllerId;
         }
         
-        // 搜索顺序 模块控制器 -> 普通控制器
+        // 搜索顺序 用户配置 -> 模块控制器 -> 普通控制器
         // 模块没有前缀目录
-        var clazz = '';
+        var clazz = null;
+        //if(null !== this.routesMap && undefined !== this.routesMap[id]) {}
+        
         if(null !== this.modules && undefined !== this.modules[id]) {
             moduleId = id;
             
