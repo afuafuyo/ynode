@@ -34,11 +34,24 @@ class Controller extends Component {
     }
     
     /**
-     * 获取视图类
+     * 控制器方法执行前
      *
-     * @return {Object}
+     * @param {Object} request
+     * @param {Object} response
      */
-    getView() {}
+    beforeActionCall(request, response) {
+        this.triggerWithRestParams(this.EVENT_BEFORE_ACTIONCALL, request, response);
+    }
+    
+    /**
+     * 控制器方法执行后
+     *
+     * @param {Object} request
+     * @param {Object} response
+     */
+    afterActionCall(request, response) {
+        this.triggerWithRestParams(this.EVENT_AFTER_ACTIONCALL, request, response);
+    }
     
     /**
      * 执行控制器的方法
@@ -47,12 +60,19 @@ class Controller extends Component {
      * @param {Object} response
      */
     runControllerAction(request, response) {
-        this.trigger(this.EVENT_BEFORE_ACTIONCALL);
+        this.beforeActionCall(request, response);
         
         this.run(request, response);
         
-        this.trigger(this.EVENT_AFTER_ACTIONCALL);
+        this.afterActionCall(request, response);
     }
+    
+    /**
+     * 获取视图类
+     *
+     * @return {Object}
+     */
+    getView() {}
     
 }
 

@@ -205,6 +205,20 @@ class Component {
         }
     }
     
+    /**
+     * 触发
+     *
+     * @param {String} eventName 事件名称
+     * @param {any} params 参数
+     */
+    triggerWithRestParams(eventName, ...params) {
+        if(undefined !== this.eventsMap[eventName]) {
+            for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
+                this.eventsMap[eventName][i](...params);
+            }
+        }
+    }
+    
 }
 
 module.exports = Component;
