@@ -145,6 +145,7 @@ class StringHelper {
         
         allowed = allowed.toLowerCase();
         
+        // match 为匹配到的内容  p 为第一个子模式
         return str.replace(tags, (match, p) => {
             return allowed.indexOf('<' + p.toLowerCase() + '>') !== -1 ? match : '';
         });
