@@ -39,13 +39,13 @@ class Application extends CoreApp {
         }
         
         // 是否继承自框架控制器
-        if('runControllerAction' in controller) {
-            controller.runControllerAction(request, response);
+        if( !('runControllerAction' in controller) ) {
+            controller.run(request, response);
             
             return;
         }
         
-        controller.run(request, response);
+        controller.runControllerAction(request, response);
     }
     
     /**
