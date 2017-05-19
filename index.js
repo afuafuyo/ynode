@@ -80,7 +80,7 @@ class YNode {
      * @param {Function} callback
      *
      * If you want to create HTTPS server you can do so as shown here
-     * 
+     *
      * var https = require('https');
      * var YNode = require('ynode');
      * var app = new YNode({ ... });
