@@ -8,7 +8,6 @@ var Y = require('../Y');
 var CoreApp = require('../core/Application');
 var Request = require('./Request');
 var InvalidRouteException = require('../core/InvalidRouteException');
-var InvalidCallException = require('../core/InvalidCallException');
 
 /**
  * web 应用
@@ -38,8 +37,12 @@ class Application extends CoreApp {
         if(null === controller) {
             throw new InvalidRouteException('The route requested is invalid');
         }
-        if(!('run' in controller)) {
-            throw new InvalidCallException('The Controller.run is not a function');
+        
+        // 是否继承自框架控制器
+        if('runControllerAction' in controller) {
+            controller.runControllerAction(request, response);
+            
+            return;
         }
         
         controller.run(request, response);
