@@ -15,6 +15,13 @@ var CoreView = require('../core/View');
 class View extends CoreView {
     
     /**
+     * constructor
+     */
+    constructor(context) {
+        super(context);
+    }
+    
+    /**
      * @inheritdoc
      */
     getTemplateFilePath(view) {

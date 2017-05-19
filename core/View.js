@@ -12,11 +12,11 @@ class View {
     /**
      * constructor
      */
-    constructor() {
+    constructor(context) {
         /**
          * @property {Object} context 上下文环境
          */
-        this.context = null;
+        this.context = context;
     }
     
     /**

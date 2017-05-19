@@ -20,6 +20,7 @@ class Module {
          * @property {JSON} routesMap 实现路由到控制器转换配置
          *
          * {
+         *     'u': 'app/controllers/user/IndexController',
          *     'account': {
          *         'class': 'app/controllers/user/IndexController',
          *         'property': 'value'
@@ -119,7 +120,14 @@ class Module {
         // 搜索顺序 用户配置 -> 模块控制器 -> 普通控制器
         // 模块没有前缀目录
         var clazz = null;
-        //if(null !== this.routesMap && undefined !== this.routesMap[id]) {}
+        if(null !== this.routesMap && undefined !== this.routesMap[id]) {
+            
+            return Y.createObject(this.routesMap[id], {
+                moduleId: moduleId,
+                controllerId: controllerId,
+                subRoute: subRoute
+            });
+        }
         
         if(null !== this.modules && undefined !== this.modules[id]) {
             moduleId = id;
@@ -128,13 +136,10 @@ class Module {
                 + '/controllers/'
                 + StringHelper.ucFirst(controllerId) + 'Controller';
             
-            return Y.createObject({
-                'class': clazz,
-                'context': {
-                    moduleId: moduleId,
-                    controllerId: controllerId,
-                    subRoute: subRoute
-                }
+            return Y.createObject(clazz, {
+                moduleId: moduleId,
+                controllerId: controllerId,
+                subRoute: subRoute
             });
         }
         
@@ -144,13 +149,10 @@ class Module {
             + '/'
             + StringHelper.ucFirst(controllerId) + 'Controller';
         
-        return Y.createObject({
-            'class': clazz,
-            'context': {
-                moduleId: moduleId,
-                controllerId: controllerId,
-                subRoute: subRoute
-            }
+        return Y.createObject(clazz, {
+            moduleId: moduleId,
+            controllerId: controllerId,
+            subRoute: subRoute
         });
     }
     

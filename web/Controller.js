@@ -15,8 +15,8 @@ class Controller extends CoreController {
     /**
      * constructor
      */
-    constructor() {
-        super();
+    constructor(context) {
+        super(context);
         
         /**
          * @property {String} viewHandler
@@ -37,10 +37,7 @@ class Controller extends CoreController {
             return this.view;
         }
         
-        this.view = Y.createObject({
-            'class': this.viewHandler,
-            'context': this.context
-        });
+        this.view = Y.createObject(this.viewHandler, this.context);
         
         return this.view;
     }

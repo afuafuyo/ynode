@@ -14,13 +14,13 @@ class Controller extends Component {
     /**
      * constructor
      */
-    constructor() {
+    constructor(context) {
         super();
         
         /**
          * @property {Object} context 上下文环境 用于保存当前请求相关的信息
          */
-        this.context = null;
+        this.context = context;
         
         /**
          * @property {String} EVENT_BEFORE_ACTIONCALL
