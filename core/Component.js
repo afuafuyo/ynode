@@ -84,8 +84,8 @@ class Component {
      * {
      *     'behaviorName': {
      *         'class': 'BehaviorClassName',
-     *         'property1' => 'value1',
-     *         'property2' => 'value2'
+     *         'property1': 'value1',
+     *         'property2': 'value2'
      *     },
      *     'behaviorName2': 'BehaviorClassName2'
      *     'behaviorName3': BehaviorClassInstance
