@@ -10,7 +10,7 @@ var Cookie = require('./Cookie');
 var HttpException = require('../core/HttpException');
 
 /**
- * 一个与 node api 独立的 Web HTTP response
+ * HTTP response
  */
 class Response extends CoreResponse {
     
