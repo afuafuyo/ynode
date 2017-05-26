@@ -182,10 +182,8 @@ class Response extends CoreResponse {
             return;
         }
         
-        if(null !== this.headers) {
-            for(let name in this.headers) {
-                this.response.setHeader(name, this.headers[name]);
-            }
+        for(let name in this.headers) {
+            this.response.setHeader(name, this.headers[name]);
         }
         
         if(this.cookies.length > 0) {
