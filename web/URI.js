@@ -108,7 +108,32 @@ class URI {
      * @param {String} uri
      */
     setURI(uri) {
+        var ret = this.parseUrl(uri);
         
+        if(undefined !== ret.scheme) {
+            this.scheme = ret.scheme;
+        }
+        if(undefined !== ret.host) {
+            this.host = ret.host;
+        }
+        if(undefined !== ret.port) {
+            this.port = ret.port;
+        }
+        if(undefined !== ret.user) {
+            this.user = ret.user;
+        }
+        if(undefined !== ret.password) {
+            this.password = ret.password;
+        }
+        if(undefined !== ret.path) {
+            this.path = ret.path;
+        }
+        if(undefined !== ret.query) {
+            this.query = ret.query;
+        }
+        if(undefined !== ret.fragment) {
+            this.fragment = ret.fragment;
+        }
     }
     
     /**
@@ -118,7 +143,44 @@ class URI {
      * @return {JSON}
      */
     parseUrl(url) {
+        var ret = {};
+        var keys = [
+            'source',
+            'scheme',
+            'user',
+            'password',
+            'host',
+            'port',
+            'path',
+            'query',
+            'fragment'
+        ];
+        var reg = new RegExp([
+            // (scheme)
+            '(http|https)?',
+            // ://
+            '(?::\\/\\/)?',
+            // (user):(password)@
+            '(?:([^:@\\/]*):?([^:@\\/]*)@)?',
+            // (host):(port)
+            '([^:\\/?#]*)(?::(\\d*))?',
+            // (path)
+            '((?:\\/)?[^?#]*)',
+            // ?(query)
+            '(?:\\?([^#]*))?',
+            // #(fragment)
+            '(?:#(.*))?'
+        ].join(''));
         
+        var matches = url.match(reg);
+        
+        if(null !== matches) {
+            for(var i=0,len=keys.length; i++) {
+                ret[keys[i]] = matches[i];
+            }
+        }
+        
+        return ret;
     }
     
     /**
