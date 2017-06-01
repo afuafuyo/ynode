@@ -11,6 +11,17 @@ var HttpException = require('../core/HttpException');
 
 /**
  * HTTP response
+ *
+ * 使用 response 输出内容
+ *
+ * var response = new Response(res);
+ * response.setContent('some data from server');
+ * response.send();
+ *
+ * 使用 response 重定向
+ *
+ * response.redirect('http://foo.com');
+ *
  */
 class Response extends CoreResponse {
     
@@ -198,6 +209,20 @@ class Response extends CoreResponse {
      */
     sendContent() {
         this.response.write(this.content, this.encoding);
+    }
+    
+    /**
+     * 重定向
+     *
+     * @param {String} url
+     * @param {Number} statusCode
+     */
+    redirect(url, statusCode = 302) {
+        this.setHeader('Location', url);
+        
+        this.setStatusCode(statusCode);
+        
+        this.send();
     }
     
 }
