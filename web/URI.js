@@ -5,9 +5,9 @@
 'use strict';
 
 /**
- * URI 类
+ * Universal Resource Identifier
  *
- * @see https://tools.ietf.org/html/rfc3986#section-3.2
+ * @see https://tools.ietf.org/html/rfc3986
  *
  * URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
  *
