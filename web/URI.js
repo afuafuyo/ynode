@@ -64,6 +64,41 @@ class URI {
          * @property {String} fragment 锚点
          */
         this.fragment = '';
+        
+        /**
+         * @property {RegExp} uri 正则表达式
+         */
+        this.uriRegExp = new RegExp([
+            // (scheme)
+            '(http|https)?',
+            // ://
+            '(?::\\/\\/)?',
+            // (user):(password)@
+            '(?:([^:@\\/]*):?([^:@\\/]*)@)?',
+            // (host):(port)
+            '([^:\\/?#]*)(?::(\\d*))?',
+            // (path)
+            '((?:\\/)?[^?#]*)',
+            // ?(query)
+            '(?:\\?([^#]*))?',
+            // #(fragment)
+            '(?:#(.*))?'
+        ].join(''));
+        
+        /**
+         * @property {Array} uri 正则表达式匹配项
+         */
+        this.uriRegExpKeys = [
+            'source',
+            'scheme',
+            'user',
+            'password',
+            'host',
+            'port',
+            'path',
+            'query',
+            'fragment'
+        ];
     }
     
     /**
@@ -144,39 +179,12 @@ class URI {
      */
     parseUrl(url) {
         var ret = {};
-        var keys = [
-            'source',
-            'scheme',
-            'user',
-            'password',
-            'host',
-            'port',
-            'path',
-            'query',
-            'fragment'
-        ];
-        var reg = new RegExp([
-            // (scheme)
-            '(http|https)?',
-            // ://
-            '(?::\\/\\/)?',
-            // (user):(password)@
-            '(?:([^:@\\/]*):?([^:@\\/]*)@)?',
-            // (host):(port)
-            '([^:\\/?#]*)(?::(\\d*))?',
-            // (path)
-            '((?:\\/)?[^?#]*)',
-            // ?(query)
-            '(?:\\?([^#]*))?',
-            // #(fragment)
-            '(?:#(.*))?'
-        ].join(''));
         
-        var matches = url.match(reg);
+        var matches = url.match(this.uriRegExp);
         
         if(null !== matches) {
-            for(let i=0,len=keys.length; i<len; i++) {
-                ret[keys[i]] = matches[i];
+            for(let i=0,len=this.uriRegExpKeys.length; i<len; i++) {
+                ret[this.uriRegExpKeys[i]] = matches[i];
             }
         }
         
