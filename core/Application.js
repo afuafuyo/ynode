@@ -39,7 +39,7 @@ class Application extends Module {
     /**
      * 初始化应用
      *
-     * @param {Array} config 应用配置
+     * @param {JSON} config 应用配置
      * @throws {InvalidConfigException} 当丢失必要配置项目时
      */
     init(config) {
