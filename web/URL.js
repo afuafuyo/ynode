@@ -42,7 +42,11 @@ class URL {
      * @return {String}
      */
     getHostInfo() {
-        var host = this.request.headers.host;
+        var protocol = this.request.socket.encrypted
+            || this.request.headers['x-forwarded-protocol'] === 'https'
+            ? 'https' : 'http';
+        
+        var host = protocol + '://' + this.request.headers.host;
         
         return host;
     }
