@@ -39,11 +39,10 @@ class Component {
         this.behaviorsMap = {};
         
         this.ensureDeclaredBehaviorsAttached();
-        this.init();
     }
     
     // 行为注入组件
-    init() {
+    inject() {
         var keys = Object.keys(this.behaviorsMap);
         
         if(0 === keys.length) return;
