@@ -256,12 +256,48 @@ new YNode({
             <h4><b>自定义属性</b></h4>
             <p>其他在入口文件中传入的参数都会作为自定义参数传入应用对象</p>
             
+            <h1 class="page-header" id="controller"><b>应用控制器</b></h1>
+            <p>控制器是<code>MVC</code>模式中的一部分 是继承<code>y/core/Controller</code>类的对象 负责处理请求和生成响应</p>
+        
+            <h4><b>动作</b></h4>
+            <p>控制器由 动作 组成 它是执行终端用户请求的最基础的单元  一个控制器有且只有一个入口动作叫做<code>run</code></p>
+<p>
+<pre><code>
+'use strict';
+
+var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
+class IndexController extends Controller {
+
+    // 入口动作
+    run(req, res) {
+        res.end('hello');
+    }
+
+}
+
+module.exports = IndexController;
+</pre></code>
+</p>
+        
+            <h4><b>路由与控制器</b></h4>
+            <p>一般一个路由对应一个控制器 路由格式如下</p>
+            <p><pre><code>[route_prefix]/[controllerId]</code></pre></p>
+            <p>如果属于模块下的控制器 那么路由格式如下</p>
+            <p><pre><code>[moduleId]/[controllerId]</code></pre></p>
+            <p>如果用户的请求地址为<code>http://hostname/index</code>会执行<code>index</code>控制器的<code>run</code>入口动作</p>
+            <p>如果用户的请求地址为<code>http://hostname/bbs/index</code>会执行<code>bbs</code>模块的<code>index</code>控制器的<code>run</code>入口动作 或者执行普通控制器的<code>bbs</code>目录下的<code>index</code>控制器的<code>run</code>入口动作</p>
+            
+            <p>控制器查找顺序 优先查找模块下的控制器 <code>模块控制器 --> 普通控制器</code></p>
+        
         </div>
         <div class="col-md-3" style="background-color: #f5f5f5">
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="javascript:;">入门</a></li>
                 <li><a href="#firstrun">第一次运行程序</a></li>
                 <li><a href="#appstruct">应用结构</a></li>
+                <li><a href="#controller">应用控制器</a></li>
             </ul>
         </div>
     </div>
