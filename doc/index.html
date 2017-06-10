@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YNode js DOC</title>
+    
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="navbar">
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <a class="navbar-brand" href="#">YNode</a>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            
+            <h1 class="page-header">入门</h1>
+            
+            <h4><b>安装程序</b></h4>
+            <p>
+                可以通过两种方式安装<code>YNode</code>
+                <ol>
+                    <li>使用<code>npm</code></li>
+                    <li>下载源代码手动部署</li>
+                </ol>
+            </p>
+            
+            <h4><b>使用<code>npm</code>安装</b></h4>
+            <p>
+                <pre><code class="language-html">npm install ynode</code></pre>
+            </p>
+            
+            <h4><b>下载源代码手动部署</b></h4>
+            <p>
+                <pre>通过<code>github</code>下载源码放置到<code>node_modules</code>目录即可</pre>
+            </p>
+            
+            <h1 class="page-header" id="firstrun"><b>第一次运行程序</b></h1>
+            <p>
+                本例输出一个 Hello word 程序
+            </p>
+            <p>首先需要创建一个基本应用框架</p>
+            <p>在<code>YNode</code>的<code>bin</code>目录提供了一个创建应用的工具<code>_ynode 可以使用该工具初始化应用</code></p>
+            <p>如果<code>YNode</code>是通过<code>npm</code>安装的 那么<code>_ynode</code>会被安装到<code>node_modules/.bin</code>目录</p>
+            <p>如果<code>YNode</code>是通过下载源码手动安装的 那么需要到<code>node_modules/ynode/bin</code>目录下找到该工具</p>
+            <p>
+                <pre><code>./node_modules/.bin/_ynode PROJECT_NAME</code></pre>
+            </p>
+            <p>这样就会创建一个简单的应用如下</p>
+<p>
+    <pre><code>
+|- index.js
+|
+|- app
+|  |
+|  |-- controllers 普通控制器目录
+|      |
+|      |-- index
+|      |   |
+|      |   |-- IndexController.js
+|      |
+|   -- views
+|      |
+|      |-- index
+|      |   |
+|      |   |-- index.html
+    </code></pre>
+</p>
+            <p>
+                入口文件 index.js
+            </p>
+<p>
+    <pre><code>
+var YNode = require('ynode');
+
+new YNode({
+    'id': 1,
+    'debug': true,
+    'appPath': __dirname + '/app'
+    
+}).listen(8090, function(){
+    console.log('listen on 8090');
+});
+    </code></pre>
+</p>
+            <p>
+                启动程序
+            </p>
+            <p><pre><code>node index.js</code></pre></p>
+            <p>
+                访问程序
+            </p>
+            <p><pre><code>访问 <a href="http://localhost:8090" target="_blank">http://localhost:8090</a></code></pre></p>
+            
+            <h1 class="page-header" id="appstruct">应用结构</h1>
+            
+            <h4><b>应用目录结构</b></h4>
+<p>
+<pre><code>
+|- index.js
+|
+|- node_modules 依赖模块目录
+|
+|- public 目录 一般存放静态文件
+|
+|- app 项目目录
+|  |
+|  |-- controllers 普通控制器目录
+|      |
+|      |-- user 用户组目录
+|      |   |
+|      |   |-- IndexController.js  - host:port/user/index 可以访问到该类
+|      |   |-- OtherController.js  - host:port/user/other 可以访问到该类
+|      |
+|      |-- goods 商品组目录
+|      |   |
+|      |   |-- IndexController.js  - host:port/goods/index 可以访问到该类
+|      |   |-- OtherController.js  - host:port/goods/other 可以访问到该类
+|      |
+|   -- views 普通控制器模板目录
+|      |
+|      |-- user 用户组模板 对应上面用户组
+|      |   |
+|      |   |-- index.html
+|      |   |-- other.html
+|      |
+|   -- goods 商品组模板
+|      |   |
+|      |   |-- index.html
+|      |   |-- other.html
+|      |
+|   -- modules 模块
+|      |
+|      |-- reg
+|      |   |
+|      |   |-- controllers 模块控制器目录 其下无子目录
+|      |   |   |
+|      |   |   |-- IndexController.js
+|      |   |
+|      |   |-- views 模块模板目录
+|      |   |   |
+|      |   |   |-- index.html
+|      |   |
+|      |   |-- 其他目录
+|      |
+|   -- runtime 缓存目录
+|
+</pre></code>
+</p>
+            
+            <h4><b>入口脚本</b></h4>
+            <p>
+                入口脚本是应用启动流程中的第一环 一个应用只有一个入口脚本
+                入口脚本包含启动脚本 程序启动后就会监听客户端的连接 并作出响应
+            </p>
+            <p>
+                入口脚本主要完成以下工作
+                <ul>
+                    <li>加载应用配置</li>
+                    <li>启动应用</li>
+                    <li>注册各种需要组件</li>
+                </ul>
+            </p>
+<p>
+<pre><code>
+var YNode = require('ynode');
+
+new YNode({
+    'id': 1,
+    
+    // 定义调试应用
+    'debug': true,
+    
+    // 定义应用路径
+    'appPath': __dirname + '/app',
+    
+    // 注册模块
+    'modules': {
+        'bbs': 'app/modules/bbs'
+    },
+    
+    // 注册日志组件
+    'log': {
+        'targets': {
+            'file': {
+                'class': 'y/log/file/Target'
+            }
+        }
+    }
+    
+}).listen(8090, function(){
+    console.log('listen on 8090');
+});
+</pre></code>
+</p>
+        
+            <h4><b>应用</b></h4>
+            <p>应用是管理<code>YNode</code>应用系统整体结构和生命周期的对象</p>
+            <p>一般的框架都包含两种应用<code>WEB应用</code>和<code>控制台应用</code>但是<code>YNode</code>只有一种<code>WEB应用</code></p>
+            <p>每个<code>YNode</code>应用系统只能包含一个应用主体</p>
+            
+            <h4><b>应用属性</b></h4>
+            <p>
+                在入口文件中可以传入各种参数 这些参数最终会被赋值到应用对象上
+            </p>
+            
+            <h4><b>必要属性</b></h4>
+            <ul>
+                <li>
+                    <p><b>y/web/Application.id</b></p>
+                    <p>该属性用来标识唯一应用</p>
+                </li>
+                <li>
+                    <p><b>y/web/Application.appPath</b></p>
+                    <p>该属性用指明应用所在的目录</p>
+                </li>
+            </ul>
+            
+            <h4><b>重要属性</b></h4>
+            <ul>
+                <li>
+                    <p><b>y/web/Application.routesMap</b></p>
+                    <p><b>用来自定义路由处理程序</b></p>
+<p>
+<pre><code>
+// account 路由使用 app/controllers/user/IndexController 做处理 并传入了一个参数 property
+'account': {
+    'class': 'app/controllers/user/IndexController',
+    'property': 'value'
+}
+</code></pre>
+</p>
+                </li>
+                <li>
+                    <p><b>y/web/Application.modules</b></p>
+                    <p><b>用来注册应用模块</b></p>
+<p>
+<pre><code>
+// 注册一个 bbs 模块
+'modules': {
+    'bbs': 'app/modules/bbs'
+}
+</code></pre>
+</p>
+                </li>
+            </ul>
+            
+            <h4><b>自定义属性</b></h4>
+            <p>其他在入口文件中传入的参数都会作为自定义参数传入应用对象</p>
+            
+        </div>
+        <div class="col-md-3" style="background-color: #f5f5f5">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="javascript:;">入门</a></li>
+                <li><a href="#firstrun">第一次运行程序</a></li>
+                <li><a href="#appstruct">应用结构</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
