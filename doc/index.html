@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <style>
+    [class^="bg-"] {
+        padding: 15px;
+    }
+    </style>
 </head>
 <body>
 <header class="navbar">
@@ -35,12 +41,12 @@
             
             <h4><b>使用<code>npm</code>安装</b></h4>
             <p>
-                <pre><code class="language-html">npm install ynode</code></pre>
+                <pre><code>npm install ynode</code></pre>
             </p>
             
             <h4><b>下载源代码手动部署</b></h4>
             <p>
-                <pre>通过<code>github</code>下载源码放置到<code>node_modules</code>目录即可</pre>
+                <pre>通过 github 下载源码放置到 node_modules 目录即可</pre>
             </p>
             
             <h1 class="page-header" id="firstrun"><b>第一次运行程序</b></h1>
@@ -49,11 +55,14 @@
             </p>
             <p>首先需要创建一个基本应用框架</p>
             <p>在<code>YNode</code>的<code>bin</code>目录提供了一个创建应用的工具<code>_ynode 可以使用该工具初始化应用</code></p>
-            <p>如果<code>YNode</code>是通过<code>npm</code>安装的 那么<code>_ynode</code>会被安装到<code>node_modules/.bin</code>目录</p>
-            <p>如果<code>YNode</code>是通过下载源码手动安装的 那么需要到<code>node_modules/ynode/bin</code>目录下找到该工具</p>
             <p>
-                <pre><code>./node_modules/.bin/_ynode PROJECT_NAME</code></pre>
+                如果<code>YNode</code>是通过<code>npm</code>安装的 那么<code>_ynode</code>会被安装到<code>node_modules/.bin</code>目录
+                如果<code>YNode</code>是通过下载源码手动安装的 那么需要到<code>node_modules/ynode/bin</code>目录下找到该工具
             </p>
+            <p>
+                <pre><code>./node_modules/.bin/_ynode PROJECT_NAME 使用自己想用的应用名字替换掉 PROJECT_NAME 变量即可</code></pre>
+            </p>
+            
             <p>这样就会创建一个简单的应用如下</p>
 <p>
     <pre><code>
@@ -74,25 +83,9 @@
 |      |   |-- index.html
     </code></pre>
 </p>
-            <p>
-                入口文件 index.js
-            </p>
-<p>
-    <pre><code>
-var YNode = require('ynode');
 
-new YNode({
-    'id': 1,
-    'debug': true,
-    'appPath': __dirname + '/app'
-    
-}).listen(8090, function(){
-    console.log('listen on 8090');
-});
-    </code></pre>
-</p>
             <p>
-                启动程序
+                进入应用目录启动程序
             </p>
             <p><pre><code>node index.js</code></pre></p>
             <p>
@@ -102,7 +95,7 @@ new YNode({
             
             <h1 class="page-header" id="appstruct">应用结构</h1>
             
-            <h4><b>应用目录结构</b></h4>
+            <h4><b>一个比较完整的应用目录结构如下</b></h4>
 <p>
 <pre><code>
 |- index.js
@@ -203,16 +196,18 @@ new YNode({
 </p>
         
             <h4><b>应用</b></h4>
-            <p>应用是管理<code>YNode</code>应用系统整体结构和生命周期的对象</p>
-            <p>一般的框架都包含两种应用<code>WEB应用</code>和<code>控制台应用</code>但是<code>YNode</code>只有一种<code>WEB应用</code></p>
-            <p>每个<code>YNode</code>应用系统只能包含一个应用主体</p>
+            <p>
+                应用是管理<code>YNode</code>应用系统整体结构和生命周期的对象
+                一般的框架都包含两种应用<code>WEB应用</code>和<code>控制台应用</code>但是<code>YNode</code>只有一种<code>WEB应用</code>
+                每个<code>YNode</code>应用系统只能包含一个应用主体
+            </p>
             
             <h4><b>应用属性</b></h4>
             <p>
                 在入口文件中可以传入各种参数 这些参数最终会被赋值到应用对象上
             </p>
             
-            <h4><b>必要属性</b></h4>
+            <h6><b>必要属性</b></h6>
             <ul>
                 <li>
                     <p><b>y/web/Application.id</b></p>
@@ -224,7 +219,7 @@ new YNode({
                 </li>
             </ul>
             
-            <h4><b>重要属性</b></h4>
+            <h6><b>重要属性</b></h6>
             <ul>
                 <li>
                     <p><b>y/web/Application.routesMap</b></p>
@@ -260,7 +255,7 @@ new YNode({
             <p>控制器是<code>MVC</code>模式中的一部分 是继承<code>y/core/Controller</code>类的对象 负责处理请求和生成响应</p>
         
             <h4><b>动作</b></h4>
-            <p>控制器由 动作 组成 它是执行终端用户请求的最基础的单元  一个控制器有且只有一个入口动作叫做<code>run</code></p>
+            <p>控制器由 动作 组成 它是执行终端用户请求的最基础的单元 一个控制器有且只有一个入口动作叫做<code>run</code></p>
 <p>
 <pre><code>
 'use strict';
@@ -289,8 +284,247 @@ module.exports = IndexController;
             <p>如果用户的请求地址为<code>http://hostname/index</code>会执行<code>index</code>控制器的<code>run</code>入口动作</p>
             <p>如果用户的请求地址为<code>http://hostname/bbs/index</code>会执行<code>bbs</code>模块的<code>index</code>控制器的<code>run</code>入口动作 或者执行普通控制器的<code>bbs</code>目录下的<code>index</code>控制器的<code>run</code>入口动作</p>
             
-            <p>控制器查找顺序 优先查找模块下的控制器 <code>模块控制器 --> 普通控制器</code></p>
+            <p>控制器查找顺序 优先查找模块下的控制器<code>模块控制器 --> 普通控制器</code></p>
         
+            <h1 class="page-header" id="model"><b>模型</b></h1>
+            <p>模型是<code>MVC</code>模式中的一部分 是代表业务数据的对象 用户读取数据库等</p>
+            <p class="bg-danger">
+                <code>YNode</code>暂时没有提供读取数据库的类 所以本部分待续
+            </p>
+            
+            <h1 class="page-header" id="view"><b>视图</b></h1>
+            <p>视图是<code>MVC</code>模式中的一部分 它用于给终端用户展示页面</p>
+            <p class="bg-danger">
+                视图类一般把模型层提供的数据与静态页面结合生成一个最终的页面展示给用户
+                <code>YNode</code>暂时只在控制器层提供了功能有限的<code>API</code>
+            </p>
+            
+            <h4><b>模板引擎</b></h4>
+            <p class="bg-danger">
+                一般视图类与模板引擎结合使用 但是<code>YNode</code>并没有实现一个模板引擎
+                用户需要使用已有的模板引擎来实现自己的业务
+            </p>
+            
+            <h4><b>控制器层的视图 API</b></h4>
+            <p>
+                如果用户的控制器从code{y/web/Controller}继承而来
+                那么可以在控制器中使用<code>getView()</code>方法来获取视图类实例
+            </p>
+            <p>视图类提供了如下<code>API</code>供用户使用</p>
+            <ul>
+                <li><code>getTemplateFilePath(view)</code>用于获取一个视图文件的绝对路径</li>
+                <li><code>getTemplate(view, callback)</code>用于读取一个视图文件的内容</li>
+                <li><code>getTemplateFromPath(path, callback)</code>用于从指定路径读取视图文件内容</li>
+            </ul>
+<p>
+<pre><code>
+'use strict';
+
+var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
+class IndexController extends Controller {
+    
+    run(req, res) {
+        this.getView().getTemplate('index', (err, str) => {
+            res.end(str);
+        });
+    }
+    
+}
+
+module.exports = IndexController;
+</code></pre>
+</p>
+            
+            <h1 class="page-header" id="module"><b>模块</b></h1>
+            <p>
+                模块是独立的软件单元<code>由模型 视图 控制器和其他支持组件</code>组成
+                终端用户可以访问在应用主体中已注册的模块的控制器 模块可以被当成小应用来看待
+                <code>YNode</code>在解析路由时优先查找模块中有没有满足条件的控制器
+            </p>
+            <p class="bg-info">
+                注意 和普通项目目录不同的是 模块中的<code>控制器和视图</code>没有子目录
+                所有控制器和视图都存放在一个大文件夹下
+            </p>
+            
+            <h4><b>创建模块</b></h4>
+            <p>在应用目录的<code>modules</code>目录中建立单独目录创建模块 如下</p>
+<p>
+<pre><code>
+modules 模块目录
+    |
+    |-- bbs 创建 bbs 模块
+    |   |
+    |   |-- controllers 模块控制器目录
+    |   |   |
+    |   |   |-- IndexController.js
+    |   |
+    |   |-- views 模块视图目录
+    |   |   |
+    |   |   |-- index.html
+    |   |
+    |   |-- 其他目录
+</code></pre>
+</p>
+            
+            <h4><b>注册模块</b></h4>
+            <p>创建完成的模块还不能被系统识别 需要手动注册一下</p>
+<p>
+<pre><code>
+var YNode = require('ynode');
+
+new YNode({
+    ...
+    
+    // 注册模块
+    'modules': {
+        'bbs': 'app/modules/bbs'
+    },
+    
+    ...
+    
+}).listen(8090, function(){
+    console.log('listen on 8090');
+});
+</code></pre>
+</p>
+            
+            <h1 class="page-header" id="midware"><b>中间件</b></h1>
+            <p>
+                中间件是处理请求的第一个环节 可以对请求做过滤处理并调用下一个中间件
+            </p>
+            <p class="bg-danger">
+                <code>YNode</code>暂时只提供了一个处理 静态资源 的中间件
+                理论上<code>YNode</code>兼容任何<code>express</code>的中间件
+            </p>
+            
+            <h1 class="page-header" id="static"><b>静态资源</b></h1>
+            <p>
+                <code>YNode</code>中的资源是和 Web 页面相关的文件
+                可为 CSS 文件 JavaScript 文件 图片或视频等
+                资源放在 Web 可访问的目录下 比如项目的 public 目录
+            </p>
+            <p>
+                <code>YNode</code>默认是不处理静态资源的 需要使用中间件
+            </p>
+<p>
+<pre><code>
+// 入口文件
+var YNode = require('ynode');
+
+var Hook = YNode.Y.include('y/core/Hook');
+var R = YNode.Y.include('y/midwares/Resource');
+
+Hook.getInstance().addHook(new R(__dirname + '/public').serve());
+
+new YNode({
+
+    ...
+    
+}).listen(8090, function(){
+    console.log('listen on 8090');
+});
+</code></pre>
+</p>
+
+            
+            <h1 class="page-header" id="reqres"><b>请求与响应</b></h1>
+            <p>
+                <code>YNode</code>提供了处理请求和响应的类
+                <code>y/web/Request</code>和<code>y/web/Response</code>
+            </p>
+            
+            <h1 class="page-header" id="helper"><b>助手类</b></h1>
+            <p>助手类封装了一些常用操作</p>
+            
+            <h4><b>文件助手类<code>FileHelper</code></b></h4>
+            <ul>
+                <li><code>getDirname(dir)</code> 获取路径的 dir 部分</li>
+                <li><code>normalizePath(path, directorySeparator = '/')</code> 正常化一个路径</li>
+                <li><code>createDirectory(dir, mode = 0o777, callback = null)</code> 异步创建文件夹</li>
+                <li><code>createDirectorySync(dir, mode = 0o777)</code> 同步创建文件夹</li>
+            </ul>
+            
+            <h4><b>字符串助手类<code>StringHelper</code></b></h4>
+            <ul>
+                <li><code>indexOfN(str, find, n)</code> 查找某字符串在另一个字符串中第 N 次出现的位置</li>
+                <li><code>trimChar(str, character)</code> 删除两端字符</li>
+                <li><code>lTrimChar(str, character)</code> 删除左侧字符</li>
+                <li><code>rTrimChar(str, character)</code> 删除右侧字符</li>
+                <li><code>ucFirst(str)</code> 首字母大写</li>
+                <li><code>htmlSpecialChars(str, flag = 0, doubleEncode = true)</code> 转化特殊 html 字符到实体</li>
+                <li><code>filterTags(str, allowed = '')</code> 过滤 html 标签</li>
+            </ul>
+            
+            <h4><b>时间助手类<code>TimeHelper</code></b></h4>
+            <ul>
+                <li><code>format(formats, timestamp = Date.now())</code> 格式化时间</li>
+            </ul>
+            
+            <h1 class="page-header" id="restful"><b>RESTful</b></h1>
+            <p class="bg-info">暂时 RESTful 模式和 MVC 模式不能共存</p>
+            <p>在 RESTful 模式中可用的请求方法如下</p>
+            <ul>
+                <li><code>get(route, handler)</code></li>
+                <li><code>post(route, handler)</code></li>
+                <li><code>put(route, handler)</code></li>
+                <li><code>delete(route, handler)</code></li>
+                <li><code>patch(route, handler)</code></li>
+                <li><code>head(route, handler)</code></li>
+                <li><code>options(route, handler)</code></li>
+            </ul>
+<p>
+<pre><code>
+// 增加 useRestful 参数启用 RESTful
+var app = new YNode({
+    'id': 1,
+    'debug': true,
+    'appPath': __dirname + '/app',
+    
+    'useRestful': true
+});
+app.listen(8090, function(){
+    console.log(8090)
+});
+
+var Restful = YNode.Y.include('y/web/Restful');
+// get 路由 并指定 id 参数必须为数字
+Restful.get('/abc/{id:\\d+}', function(req, res, id){
+    var Request = YNode.Y.include('y/web/Request');
+    var r = new Request(req);
+    
+    console.log(r.getQueryString('id'));
+    console.log(id);
+    
+    res.end('api get');
+});
+
+// 多方法路由 id 参数可为字母或数字
+Restful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
+    res.end(id);
+});
+
+// 使用 app/api/User 类的 index 方法处理请求
+Restful.get('/xyz/{id:}', 'app/apis/User@index');
+
+// 其中 User 的定义如下
+'use strict';
+class User {
+    index(req, res, id) {
+        res.end(id);
+    }
+}
+module.exports = User;
+</code></pre>
+</p>
+            
+            <h1 class="page-header" id="appoint"><b>约定</b></h1>
+            <ul>
+                <li>所有系统类路径都以 y 开头 eg. y/log/file/Target 其中 y 是系统定义的路径别名</li>
+                <li>所有应用类路径都以 app 开头 eg. app/controllers/index/IndexController 其中 app 是系统定义的路径别名</li>
+            </ul>
+            
         </div>
         <div class="col-md-3" style="background-color: #f5f5f5">
             <ul class="nav nav-pills nav-stacked">
@@ -298,6 +532,15 @@ module.exports = IndexController;
                 <li><a href="#firstrun">第一次运行程序</a></li>
                 <li><a href="#appstruct">应用结构</a></li>
                 <li><a href="#controller">应用控制器</a></li>
+                <li><a href="#model">模型</a></li>
+                <li><a href="#view">视图</a></li>
+                <li><a href="#module">模块</a></li>
+                <li><a href="#midware">中间件</a></li>
+                <li><a href="#static">静态资源</a></li>
+                <li><a href="#reqres">请求与响应</a></li>
+                <li><a href="#helper">助手类</a></li>
+                <li><a href="#restful">RESTful</a></li>
+                <li><a href="#appoint">约定</a></li>
             </ul>
         </div>
     </div>
