@@ -6,12 +6,20 @@
     <title>YNode js DOC</title>
     
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <!-- 代码高亮 -->
+    <script src="http://cdn.bootcss.com/prettify/r298/run_prettify.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/prettify/r298/prettify.css" type="text/css">
     
     <style>
     [class^="bg-"] {
         padding: 15px;
+    }
+    
+    pre.prettyprint {
+        padding: 10px;
+        font-size: 14px;
+        border-color: #ccc;
     }
     </style>
 </head>
@@ -427,7 +435,6 @@ new YNode({
 });
 </code></pre>
 </p>
-
             
             <h1 class="page-header" id="reqres"><b>请求与响应</b></h1>
             <p>
@@ -545,5 +552,12 @@ module.exports = User;
         </div>
     </div>
 </div>
+
+<script>
+//var pres = document.querySelectorAll('pre');
+//pres.forEach((tag, i) => {
+//    tag.className = 'prettyprint';
+//});
+</script>
 </body>
 </html>
