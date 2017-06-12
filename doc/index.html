@@ -288,19 +288,19 @@ module.exports = IndexController;
         
             <h1 class="page-header" id="model"><b>模型</b></h1>
             <p>模型是<code>MVC</code>模式中的一部分 是代表业务数据的对象 用户读取数据库等</p>
-            <p class="bg-danger">
+            <p class="bg-info">
                 <code>YNode</code>暂时没有提供读取数据库的类 所以本部分待续
             </p>
             
             <h1 class="page-header" id="view"><b>视图</b></h1>
             <p>视图是<code>MVC</code>模式中的一部分 它用于给终端用户展示页面</p>
-            <p class="bg-danger">
+            <p class="bg-info">
                 视图类一般把模型层提供的数据与静态页面结合生成一个最终的页面展示给用户
                 <code>YNode</code>暂时只在控制器层提供了功能有限的<code>API</code>
             </p>
             
             <h4><b>模板引擎</b></h4>
-            <p class="bg-danger">
+            <p class="bg-info">
                 一般视图类与模板引擎结合使用 但是<code>YNode</code>并没有实现一个模板引擎
                 用户需要使用已有的模板引擎来实现自己的业务
             </p>
@@ -394,7 +394,7 @@ new YNode({
             <p>
                 中间件是处理请求的第一个环节 可以对请求做过滤处理并调用下一个中间件
             </p>
-            <p class="bg-danger">
+            <p class="bg-info">
                 <code>YNode</code>暂时只提供了一个处理 静态资源 的中间件
                 理论上<code>YNode</code>兼容任何<code>express</code>的中间件
             </p>
@@ -463,7 +463,7 @@ new YNode({
             </ul>
             
             <h1 class="page-header" id="restful"><b>RESTful</b></h1>
-            <p class="bg-info">暂时 RESTful 模式和 MVC 模式不能共存</p>
+            <p class="bg-danger">暂时 RESTful 模式和 MVC 模式不能共存</p>
             <p>在 RESTful 模式中可用的请求方法如下</p>
             <ul>
                 <li><code>get(route, handler)</code></li>
@@ -521,8 +521,8 @@ module.exports = User;
             
             <h1 class="page-header" id="appoint"><b>约定</b></h1>
             <ul>
-                <li>所有系统类路径都以 y 开头 eg. y/log/file/Target 其中 y 是系统定义的路径别名</li>
-                <li>所有应用类路径都以 app 开头 eg. app/controllers/index/IndexController 其中 app 是系统定义的路径别名</li>
+                <li>所有系统类路径都以<code>y</code>开头<code>eg. y/log/file/Target</code>其中<code>y</code>是系统定义的路径别名</li>
+                <li>所有应用类路径都以<code>app</code>开头<code>eg. app/controllers/index/IndexController</code>其中<code>app</code>是系统定义的路径别名</li>
             </ul>
             
         </div>
