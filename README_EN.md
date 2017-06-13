@@ -8,7 +8,7 @@ __  ___   __          __
 
 # An Object-Oriented node.js mvc and REST framework
 
-# [DOC](./doc/index.html)
+# [DOC](https://yulipu.github.io)
 
 ###### Node version
 

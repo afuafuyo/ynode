@@ -9,7 +9,7 @@ __  ___   __          __
 # 一个面向对象的高效 node.js mvc and REST 框架
 
 # [English Readme](./README_EN.md)
-# [文档](./doc/index.html)
+# [文档](https://yulipu.github.io)
 
 ###### Node 版本
 
