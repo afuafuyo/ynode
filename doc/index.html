@@ -53,9 +53,7 @@
             </p>
             
             <h1 class="page-header" id="firstrun"><b>第一次运行程序</b></h1>
-            <p>
-                本例输出一个 Hello word 程序
-            </p>
+            <p>本例输出一个 Hello word 程序</p>
             <p>首先需要创建一个基本应用框架</p>
             <p>在<code>YNode</code>的<code>bin</code>目录提供了一个创建应用的工具<code>_ynode 可以使用该工具初始化应用</code></p>
             <p>
@@ -87,13 +85,9 @@
     </code></pre>
 </p>
 
-            <p>
-                进入应用目录启动程序
-            </p>
+            <p>进入应用目录启动程序</p>
             <p><pre><code>node index.js</code></pre></p>
-            <p>
-                访问程序
-            </p>
+            <p>访问程序</p>
             <p><pre><code>访问 <a href="http://localhost:8090" target="_blank">http://localhost:8090</a></code></pre></p>
             
             <h1 class="page-header" id="appstruct">应用结构</h1>
@@ -206,9 +200,7 @@ new YNode({
             </p>
             
             <h4><b>应用属性</b></h4>
-            <p>
-                在入口文件中可以传入各种参数 这些参数最终会被赋值到应用对象上
-            </p>
+            <p>在入口文件中可以传入各种参数 这些参数最终会被赋值到应用对象上</p>
             
             <h6><b>必要属性</b></h6>
             <ul>
@@ -393,10 +385,21 @@ new YNode({
 </code></pre>
 </p>
             
-            <h1 class="page-header" id="midware"><b>中间件</b></h1>
+            <h1 class="page-header" id="component"><b>组件 & 行为</b></h1>
+            <p>组件是实现<code>属性 (property) 行为 (behavior) 事件 (event)</code>的基类</p>
             <p>
-                中间件是处理请求的第一个环节 可以对请求做过滤处理并调用下一个中间件
+                一个行为类可以用于在不改变原组件代码的情况下增强其功能<br />
+                当行为附加到组件后它将 注入 它的方法和属性到组件中 然后就可以像访问组件自己的方法和属性一样访问它们<br />
+                行为类还能够监听组件的事件并作出响应
             </p>
+            <p>
+                组件是<code>y/core/Component 或其 子类的实例</code>
+                <code>YNode</code>中<code>y/core/Controller</code>类继承自<code>y/core/Component</code>
+            </p>
+            <p>行为类一般与组件类同时使用</p>
+            
+            <h1 class="page-header" id="midware"><b>中间件</b></h1>
+            <p>中间件是处理请求的第一个环节 可以对请求做过滤处理并调用下一个中间件</p>
             <p class="bg-info">
                 <code>YNode</code>暂时只提供了一个处理 静态资源 的中间件
                 理论上<code>YNode</code>兼容任何<code>express</code>的中间件
@@ -441,6 +444,19 @@ new YNode({
                 <li><code>getCurrent()</code> 获取当前网址 不包含锚点部分</li>
                 <li><code>to(url[, params = null])</code> 创建一个 url</li>
             </ul>
+<p>
+<pre><code>
+var URL = YNode.Y.include('y/web/URL');
+
+var url = new URL(req);
+
+// return scheme://host/index/index
+url.to('index/index');
+
+// return scheme://host/index/index?id=1#anchor
+url.to('index/index', {id: 1, '#': 'anchor'})
+</code></pre>
+</p>
             
             <h1 class="page-header" id="reqres"><b>请求与响应</b></h1>
             <p>
@@ -540,6 +556,26 @@ response.redirect('http://foo.com');
                 <li><code>format(formats[, timestamp = Date.now()])</code> 格式化时间</li>
             </ul>
             
+<p>
+<pre><code>
+var Response = YNode.Y.include('y/helpers/FileHelper');
+var Response = YNode.Y.include('y/helpers/StringHelper');
+var Response = YNode.Y.include('y/helpers/TimeHelper');
+
+// return /a/c
+var path = FileHelper.normalizePath('/a/./b/../c');
+
+// return &amp;lt;script&amp;gt;
+var str = StringHelper.htmlSpecialChars('&lt;script&gt;');
+
+// return abcxyz
+var strTag = StringHelper.filterTags('&lt;a&gt;abc&lt;/a&gt;xyz');
+
+// 格式化当前时间 return xxxx-xx-xx xx:xx:xx 
+var time = TimeHelper.format('y-m-d h:i:s');
+</code></pre>
+</p>
+            
             <h1 class="page-header" id="alias"><b>别名系统</b></h1>
             <p>为了方便类的管理 实现自动加载 初始化等<code>YNode</code>提供了一套别名系统</p>
             <p>别名是一个以<code>@</code>符号开头的字符串 每一个别名对应一个真实的物理路径</p>
@@ -554,9 +590,7 @@ response.redirect('http://foo.com');
             </ul>
             
             <h4><b>自定义别名</b></h4>
-            <p>
-                用户可以自定义别名
-            </p>
+            <p>用户可以自定义别名</p>
 <p>
 <pre><code>
 // 注册别名
@@ -682,6 +716,7 @@ log.flush();  // 写入硬盘
                 <li><a href="#model">模型</a></li>
                 <li><a href="#view">视图</a></li>
                 <li><a href="#module">模块</a></li>
+                <li><a href="#component">组件 & 行为</a></li>
                 <li><a href="#midware">中间件</a></li>
                 <li><a href="#static">静态资源</a></li>
                 <li><a href="#url">URL 类</a></li>
