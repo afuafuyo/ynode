@@ -5,20 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>YNode js DOC</title>
     <meta name="keywords" content="YNode MVC Framework Restful API">
-    <meta name="description" content="一个面向对象的高效 node.js mvc and REST 框架">
+    <meta name="description" content="一个面向对象的高效 node.js MVC and REST 框架">
     
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
-    [class^="bg-"] {
-        padding: 15px;
+    blockquote {font-size: 14px;}
+    blockquote.bg-danger {
+        border-left-color: #cc3322;
+    }
+    blockquote.bg-info {
+        border-left-color: #1b809e;
+    }
+    footer {
+        background-color: #222;
+        color: #fff;
+        padding: 20px 0;
     }
     </style>
 </head>
 <body>
-<header class="navbar">
+<header>
     <nav class="navbar navbar-inverse">
         <div class="container">
-            <a class="navbar-brand" href="#">YNode</a>
+            <a target="_blank" class="navbar-brand" href="https://github.com/yulipu/ynode">YNode</a>
         </div>
     </nav>
 </header>
@@ -46,10 +55,10 @@
             <h4><b>下载源代码手动部署</b></h4>
             <p>
                 <pre>通过<a target="_blank" href="https://github.com/yulipu/ynode"><b>GitHub</b></a>下载源码放置到 node_modules 目录即可</pre>
-                <p class="bg-info">
+                <blockquote class="bg-info">
                     注意 通过 github 下载的源码可能需要删除其中的 git 仓库信息
                     否则 npm 安装其他包可能会有问题
-                </p>
+                </blockquote>
             </p>
             
             <h1 class="page-header" id="firstrun"><b>第一次运行程序</b></h1>
@@ -177,7 +186,7 @@ new YNode({
         'bbs': 'app/modules/bbs'
     },
     
-    // 注册日志组件
+    // 配置日志
     'log': {
         'targets': {
             'file': {
@@ -205,20 +214,17 @@ new YNode({
             <h6><b>必要属性</b></h6>
             <ul>
                 <li>
-                    <p><code>y/web/Application.id</code></p>
-                    <p>该属性用来标识唯一应用</p>
+                    <p><code>y/web/Application.id</code> 该属性用来标识唯一应用</p>
                 </li>
                 <li>
-                    <p><code>y/web/Application.appPath</code></p>
-                    <p>该属性用指明应用所在的目录</p>
+                    <p><code>y/web/Application.appPath</code> 该属性用指明应用所在的目录</p>
                 </li>
             </ul>
             
             <h6><b>重要属性</b></h6>
             <ul>
                 <li>
-                    <p><code>y/web/Application.routesMap</code></p>
-                    <p>用来自定义路由处理程序</p>
+                    <p><code>y/web/Application.routesMap</code> 用来自定义路由处理程序</p>
 <p>
 <pre><code>
 // account 路由使用 app/controllers/user/IndexController 做处理 并传入了一个参数 property
@@ -230,8 +236,7 @@ new YNode({
 </p>
                 </li>
                 <li>
-                    <p><code>y/web/Application.modules</code></p>
-                    <p>用来注册应用模块</p>
+                    <p><code>y/web/Application.modules</code> 用来注册应用模块</p>
 <p>
 <pre><code>
 // 注册一个 bbs 模块
@@ -240,6 +245,12 @@ new YNode({
 }
 </code></pre>
 </p>
+                </li>
+                <li>
+                    <p><code>y/web/Application.encoding</code> 项目编码方式</p>
+                </li>
+                <li>
+                    <p><code>y/web/Application.debug</code> 是否开启调试</p>
                 </li>
             </ul>
             
@@ -271,6 +282,43 @@ module.exports = IndexController;
 </pre></code>
 </p>
         
+            <h4><b>动作切面</b></h4>
+            <p>
+                如果控制器从<code>y/web/Controller</code>继承而来<mark>（在YNode中控制器可以不从<code>y/web/Controller</code>继承）</mark>
+                那么就可以使用动作切面在控制器的动作执行前后实现一些业务逻辑
+            </p>
+<p>
+<pre><code>
+'use strict';
+
+var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
+class IndexController extends Controller {
+
+    beforeActionCall(req, res) {
+        console.log('beforeActionCall')
+    }
+
+    afterActionCall(req, res) {
+        console.log('afterActionCall')
+    }
+
+    // 入口动作
+    run(req, res) {
+        res.end('hello');
+    }
+
+}
+
+module.exports = IndexController;
+</pre></code>
+</p>
+
+            <blockquote class="bg-danger">
+                注意 由于项目代码中可能存在异步操作<code>afterActionCall()</code>并不能保证在 run() 执行完成后再执行
+            </blockquote>
+        
             <h4><b>路由与控制器</b></h4>
             <p>一般一个路由对应一个控制器 路由格式如下</p>
             <p><pre><code>[route_prefix]/[controllerId]</code></pre></p>
@@ -283,26 +331,26 @@ module.exports = IndexController;
         
             <h1 class="page-header" id="model"><b>模型</b></h1>
             <p>模型是<code>MVC</code>模式中的一部分 是代表业务数据的对象 用户读取数据库等</p>
-            <p class="bg-info">
+            <blockquote class="bg-info">
                 <code>YNode</code>暂时没有提供读取数据库的类 所以本部分待续
-            </p>
+            </blockquote>
             
             <h1 class="page-header" id="view"><b>视图</b></h1>
             <p>视图是<code>MVC</code>模式中的一部分 它用于给终端用户展示页面</p>
-            <p class="bg-info">
+            <blockquote class="bg-info">
                 视图类一般把模型层提供的数据与静态页面结合生成一个最终的页面展示给用户
                 <code>YNode</code>暂时只在控制器层提供了功能有限的<code>API</code>
-            </p>
+            </blockquote>
             
             <h4><b>模板引擎</b></h4>
-            <p class="bg-info">
+            <blockquote class="bg-info">
                 一般视图类与模板引擎结合使用 但是<code>YNode</code>并没有实现一个模板引擎
                 用户需要使用已有的模板引擎来实现自己的业务
-            </p>
+            </blockquote>
             
             <h4><b>控制器层的视图 API</b></h4>
             <p>
-                如果用户的控制器从code{y/web/Controller}继承而来
+                如果用户的控制器从<code>y/web/Controller</code>继承而来
                 那么可以在控制器中使用<code>getView()</code>方法来获取视图类实例
             </p>
             <p>视图类提供了如下<code>API</code>供用户使用</p>
@@ -338,10 +386,10 @@ module.exports = IndexController;
                 终端用户可以访问在应用主体中已注册的模块的控制器 模块可以被当成小应用来看待
                 <code>YNode</code>在解析路由时优先查找模块中有没有满足条件的控制器
             </p>
-            <p class="bg-info">
+            <blockquote class="bg-info">
                 注意 和普通项目目录不同的是 模块中的<code>控制器和视图</code>没有子目录
                 所有控制器和视图都存放在一个大文件夹下
-            </p>
+            </blockquote>
             
             <h4><b>创建模块</b></h4>
             <p>在应用目录的<code>modules</code>目录中建立单独目录创建模块 如下</p>
@@ -400,10 +448,10 @@ new YNode({
             
             <h1 class="page-header" id="midware"><b>中间件</b></h1>
             <p>中间件是处理请求的第一个环节 可以对请求做过滤处理并调用下一个中间件</p>
-            <p class="bg-info">
+            <blockquote class="bg-info">
                 <code>YNode</code>暂时只提供了一个处理 静态资源 的中间件
                 理论上<code>YNode</code>兼容任何<code>express</code>的中间件
-            </p>
+            </blockquote>
             
             <h1 class="page-header" id="static"><b>静态资源</b></h1>
             <p>
@@ -482,9 +530,9 @@ url.to('index/index', {id: 1, '#': 'anchor'})
                 <li><code>getParameter(param)</code> 实例方法获取 POST 请求参数</li>
                 <li><code>getCookie(name)</code> 实例方法获取 COOKIE</li>
             </ul>
-            <p class="bg-danger">
+            <blockquote class="bg-danger">
                 <code>YNode</code>中使用 getParameter() 获取 POST 参数暂时需要依赖第三方解析 body 的中间件 否则将反回 null
-            </p>
+            </blockquote>
 <p>
 <pre><code>
 var Request = YNode.Y.include('y/web/Request');
@@ -602,7 +650,7 @@ var obj = YNode.Y.createObject('lib/MyClass');
 </p>
             
             <h1 class="page-header" id="restful"><b>RESTful</b></h1>
-            <p class="bg-danger">暂时 RESTful 模式和 MVC 模式不能共存</p>
+            <blockquote class="bg-danger">暂时 RESTful 模式和 MVC 模式不能共存</blockquote>
             <p>在 RESTful 模式中可用的请求方法如下</p>
             <ul>
                 <li><code>get(route, handler)</code></li>
@@ -729,5 +777,11 @@ log.flush();  // 写入硬盘
         </div>
     </div>
 </div>
+
+<footer>
+    <div class="container">
+        <h4>YNode 一个面向对象的高效 MVC and REST 框架</h4>
+    </div>
+</footer>
 </body>
 </html>
