@@ -434,17 +434,141 @@ new YNode({
 </p>
             
             <h1 class="page-header" id="component"><b>组件 & 行为</b></h1>
-            <p>组件是实现<code>属性 (property) 行为 (behavior) 事件 (event)</code>的基类</p>
-            <p>
-                一个行为类可以用于在不改变原组件代码的情况下增强其功能<br />
-                当行为附加到组件后它将 注入 它的方法和属性到组件中 然后就可以像访问组件自己的方法和属性一样访问它们<br />
-                行为类还能够监听组件的事件并作出响应
-            </p>
+            
+            <h4><b>组件</b></h4>
+            <p>组件是实现<code>属性 (property) 行为 (behavior) 事件 (event)</code>的基类 如果一个类继承自组件类 那么这个类就拥有组件类的特性</p>
             <p>
                 组件是<code>y/core/Component 或其 子类的实例</code>
                 <code>YNode</code>中<code>y/core/Controller</code>类继承自<code>y/core/Component</code>
             </p>
             <p>行为类一般与组件类同时使用</p>
+            
+            <h4><b>行为</b></h4>
+            <p>
+                行为是<code>y/core/Behavior</code>类或其子类的实例<br />
+                一个行为类可以用于在不改变原组件代码的情况下增强其功能<br />
+                当行为附加到组件后它将 注入 它的方法和属性到组件中 然后就可以像访问组件自己的方法和属性一样访问它们<br />
+                行为类还能够监听组件的事件并作出响应
+            </p>
+            
+            <h4><b>属性</b></h4>
+            <p>javascript 类的成员变量也被称为属性 properties</p>
+            
+            <h4><b>事件</b></h4>
+            <p><code>YNode</code>中实现了一个观察者模式</p>
+            
+            <h4><b>行为的使用</b></h4>
+            
+            <h6><b>定义行为</b></h6>
+            <p>要定义行为 通过继承<code>y/core/Behavior</code>或其子类来建立一个类</p>
+<p>
+<pre><code>
+'use strict';
+
+var YNode = require('ynode');
+var Behavior = YNode.Y.include('y/core/Behavior');
+
+class MyBehavior extends Behavior {
+    constructor() {
+        super();
+        
+        this.props1 = 1;
+        this.props2 = 2;
+    }
+    
+    myFun() {
+        // todo
+    }
+}
+
+module.exports = MyBehavior;
+</code></pre>
+</p>
+            
+            <p>以上代码定义了行为类<code>MyBehavior</code>并为要附加行为的组件提供了两个属性<code>prop1 prop2</code>和一个方法<code>myFun()</code></p>
+            
+            <h6><b>附加行为到组件</b></h6>
+            <p>可以通过<code>静态配置</code>或者<code>动态方法</code>形式附加行为到组件</p>
+            
+            <p>要使用静态配置附加行为 重写组件类的<code>behaviors()</code>方法即可<code>behaviors()</code>方法应该返回行为配置列表</p>
+<p>
+<pre><code>
+class IndexController extends Controller {
+    
+    // 重写方法
+    behaviors() {
+    
+        // 返回要附加的行为
+        return {
+            myBehavior: 'app/controllers/index/MyBehavior'
+        };
+    }
+    
+    run(req, res) {
+        res.end('hello');
+    }
+    
+}
+</code></pre>
+</p>
+
+            <p>要使用动态方法附加行为 在组件里调用<code>attachBehavior()</code>方法即可</p>
+<p>
+<pre><code>
+class IndexController extends Controller {
+    
+    constructor() {
+        super();
+        
+        // 附加组件
+        this.attachBehavior('myBehavior', 'app/controllers/index/MyBehavior');
+    }
+    
+    run(req, res) {
+        res.end('hello');
+    }
+    
+}
+</code></pre>
+</p>
+            
+            <h6><b>使用</b></h6>
+            <p>一旦行为附加到组件 就可以直接使用它</p>
+            <blockquote class="bg-info">
+                为了不必要的性能开销<code>YNode</code>不会真的执行注入操作 要想使用行为类的功能 必须在调用行为类的功能之前手动调用一下<code>inject()</code>方法
+            </blockquote>
+<p>
+<pre><code>
+'use strict';
+
+var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
+class IndexController extends Controller {
+    
+    constructor() {
+        super();
+        
+        this.attachBehavior('myBehavior', 'app/controllers/index/MyBehavior');
+    }
+    
+    run(req, res) {
+        // 手动调用
+        this.inject();
+        
+        // 使用行为类的功能
+        this.myFun();
+        console.log(this.props1);
+        console.log(this.props2);
+        
+        res.end('hello');
+    }
+    
+}
+
+module.exports = IndexController;
+</code></pre>
+</p>
             
             <h1 class="page-header" id="midware"><b>中间件</b></h1>
             <p>中间件是处理请求的第一个环节 可以对请求做过滤处理并调用下一个中间件</p>
