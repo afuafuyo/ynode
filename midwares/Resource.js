@@ -53,6 +53,10 @@ class Resource {
             Resource.mime :
             Object.assign({}, Resource.mime, this.options.mime);
         
+        if('' === ext) {
+            return false;
+        }
+        
         for(let key in mime) {
             if(ext === key) {
                 ret = true;
