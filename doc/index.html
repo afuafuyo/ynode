@@ -472,8 +472,8 @@ var Controller = YNode.Y.include('y/web/Controller');
 
 class IndexController extends Controller {
     
-    constructor() {
-        super();
+    constructor(context) {
+        super(context);
         
         this.on('myevent', function() {
             console.log('myevent fired');
@@ -528,6 +528,11 @@ module.exports = MyBehavior;
             <p>要使用静态配置附加行为 重写组件类的<code>behaviors()</code>方法即可<code>behaviors()</code>方法应该返回行为配置列表</p>
 <p>
 <pre><code>
+'use strict';
+
+var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
 class IndexController extends Controller {
     
     // 重写方法
@@ -544,16 +549,23 @@ class IndexController extends Controller {
     }
     
 }
+
+module.exports = IndexController;
 </code></pre>
 </p>
 
             <p>要使用动态方法附加行为 在组件里调用<code>attachBehavior()</code>方法即可</p>
 <p>
 <pre><code>
+'use strict';
+
+var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
 class IndexController extends Controller {
     
-    constructor() {
-        super();
+    constructor(context) {
+        super(context);
         
         // 附加组件
         this.attachBehavior('myBehavior', 'app/controllers/index/MyBehavior');
@@ -564,6 +576,8 @@ class IndexController extends Controller {
     }
     
 }
+
+module.exports = IndexController;
 </code></pre>
 </p>
             
@@ -581,8 +595,8 @@ var Controller = YNode.Y.include('y/web/Controller');
 
 class IndexController extends Controller {
     
-    constructor() {
-        super();
+    constructor(context) {
+        super(context);
         
         this.attachBehavior('myBehavior', 'app/controllers/index/MyBehavior');
     }

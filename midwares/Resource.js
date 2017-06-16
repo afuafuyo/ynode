@@ -48,13 +48,13 @@ class Resource {
     isStatic(request) {
         var ret = false;
         var pathname = Request.parseUrl(request).pathname;
-        var ext = this.getExtName(pathname);
+        var ext = this.getExtName(pathname).substring(1);
         var mime = undefined === this.options.mime ?
             Resource.mime :
             Object.assign({}, Resource.mime, this.options.mime);
         
         for(let key in mime) {
-            if(ext === '.' + key) {
+            if(ext === key) {
                 ret = true;
                 break;
             }
@@ -71,13 +71,13 @@ class Resource {
      */
     getMimeType(pathName) {
         var ret = '';
-        var ext = this.getExtName(pathName);
+        var ext = this.getExtName(pathName).substring(1);
         var mime = undefined === this.options.mime ?
             Resource.mime :
             Object.assign({}, Resource.mime, this.options.mime);
         
         for(let key in mime) {
-            if(ext === '.' + key) {
+            if(ext === key) {
                 ret = mime[key];
                 break;
             }
@@ -159,19 +159,19 @@ class Resource {
  * MimeType
  */
 Resource.mime = {
-    'js': 'text/javascript'
-    ,'css': 'text/css'
+    'js': 'text/javascript',
+    'css': 'text/css',
 
-    ,'ico': 'image/x-icon'
-    ,'gif': 'image/gif'
-    ,'png': 'image/png'
-    ,'jpg': 'image/jpeg'
-    ,'jpeg': 'image/jpeg'
+    'ico': 'image/x-icon',
+    'gif': 'image/gif',
+    'png': 'image/png',
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
 
-    ,'svg': 'image/svg+xml'
-    ,'tiff': 'image/tiff'
+    'svg': 'image/svg+xml',
+    'tiff': 'image/tiff',
 
-    ,'swf': 'application/x-shockwave-flash'
+    'swf': 'application/x-shockwave-flash'
 };
 
 /**
