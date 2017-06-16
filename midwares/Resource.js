@@ -172,13 +172,6 @@ Resource.mime = {
     ,'tiff': 'image/tiff'
 
     ,'swf': 'application/x-shockwave-flash'
-    ,'wav': 'audio/x-wav'
-    ,'wma': 'audio/x-ms-wma'
-    ,'wmv': 'video/x-ms-wmv'
-    ,'mp3': 'audio/mpeg'
-    ,'mp4': 'video/mp4'
-    ,'mpeg': 'video/mpeg'
-    ,'avi': 'video/x-msvideo'
 };
 
 /**
