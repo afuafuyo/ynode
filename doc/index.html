@@ -456,6 +456,34 @@ new YNode({
             
             <h4><b>事件</b></h4>
             <p><code>YNode</code>中实现了一个观察者模式</p>
+<p>
+<pre><code>
+'use strict';
+
+var YNode = require('ynode');
+var Controller = YNode.Y.include('y/web/Controller');
+
+class IndexController extends Controller {
+    
+    constructor() {
+        super();
+        
+        this.on('myevent', function() {
+            console.log('myevent fired');
+        });
+    }
+    
+    run(req, res) {
+        this.trigger('myevent');
+        
+        res.end('hello');
+    }
+    
+}
+
+module.exports = IndexController;
+</code></pre>
+</p>
             
             <h4><b>行为的使用</b></h4>
             
@@ -567,6 +595,33 @@ class IndexController extends Controller {
 }
 
 module.exports = IndexController;
+</code></pre>
+</p>
+            
+            <h6><b>行为中处理事件</b></h6>
+            <p>行为类可以处理组件触发的事件 只需要重写行为类的<code>events()</code>方法即可</p>
+<p>
+<pre><code>
+// YNode 在调用控制器入口动作前后会触发 beforeActionCall afterActionCall 事件 可以使用行为类进行处理
+'use strict';
+
+var YNode = require('ynode');
+var Behavior = YNode.Y.include('y/core/Behavior');
+
+class MyBehavior extends Behavior {
+    events() {
+        return {
+            'beforeActionCall': function(){
+                console.log('before');
+            },
+            'afterActionCall': function() {
+                console.log('after');
+            }
+        }
+    }
+}
+
+module.exports = MyBehavior;
 </code></pre>
 </p>
             
