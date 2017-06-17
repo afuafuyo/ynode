@@ -954,6 +954,11 @@ log.flush();  // 写入硬盘
 </code></pre>
 </p>
             
+            <blockquote class="bg-info">
+                <code>YNode</code>暂时只提供了文件日志功能 如果想实现诸如数据库日志等的功能必须自己进行日志扩展
+                <code>YNode</code>完善的代码设计使得进行日志扩展非常容易 只需要让扩展的日志类继承<code>y/log/ITarget</code>并实现其中的<code>flush()</code>方法即可
+            </blockquote>
+            
         </div>
         <div class="col-md-3" style="background-color: #f5f5f5">
             <ul class="nav nav-pills nav-stacked">
