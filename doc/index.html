@@ -912,7 +912,7 @@ module.exports = User;
             </p>
             
             <h4><b>使用日志</b></h4>
-            <p>使用日志功能前 需要在入口文件注册日志</p>
+            <p>使用日志功能前 需要在入口文件注册</p>
 <p>
 <pre><code>
 'log': {
@@ -942,7 +942,7 @@ module.exports = User;
                 <li><code>info(message)</code> 记录信息日志</li>
                 <li><code>trace(message)</code> 记录追踪日志</li>
                 <li><code>flush()</code> 输出日志</li>
-            </ul>            
+            </ul>
 <p>
 <pre><code>
 var YNode = require('ynode')
@@ -957,6 +957,52 @@ log.flush();  // 写入硬盘
             <blockquote class="bg-info">
                 <code>YNode</code>暂时只提供了文件日志功能 如果想实现诸如数据库日志等的功能必须自己进行日志扩展
                 <code>YNode</code>完善的代码设计使得进行日志扩展非常容易 只需要让扩展的日志类继承<code>y/log/ITarget</code>并实现其中的<code>flush()</code>方法即可
+            </blockquote>
+            
+            <h1 class="page-header" id="cache"><b>缓存</b></h1>
+            <p>
+                <code>YNode</code>提供了数据缓存处理的功能 目前只支持文件缓存
+            </p>
+            
+            <h4><b>使用缓存</b></h4>
+            <p>使用缓存功能前 需要在入口文件注册</p>
+<p>
+<pre><code>
+'cache': {
+    'file': {
+        'class': 'y/cache/file/Cache',
+        'cachePath': '...'
+    }
+}
+</code></pre>
+</p>
+            
+            <p><code>file</code>用于指定使用文件缓存</p>
+            
+            <h4><b>缓存接口</b></h4>
+            <ul>
+                <li><code>setSync(key, value, duration)</code> 同步写入缓存</li>
+                <li><code>set(key, value, duration, callback)</code> 异步写入缓存</li>
+                <li><code>getSync(key)</code> 同步读取缓存</li>
+                <li><code>get(key, callback)</code> 异步读取缓存</li>
+                <li><code>deleteSync(key)</code> 同步删除缓存</li>
+                <li><code>delete(key, callback)</code> 异步删除缓存</li>
+            </ul>
+<p>
+<pre><code>
+var YNode = require('ynode')
+var Cache = YNode.Y.include('y/cache/Cache');
+
+var c = Cache.getCache('file');
+c.setSync('key', 'value');
+
+var data = c.getSync('key');
+</code></pre>
+</p>
+            
+            <blockquote class="bg-info">
+                <code>YNode</code>暂时只提供了文件缓存功能 如果想实现诸如数据库缓存等的功能必须自己进行缓存扩展
+                <code>YNode</code>完善的代码设计使得进行缓存扩展非常容易 只需要让扩展的缓存类继承<code>y/cache/ICache</code>并实现其中的方法即可
             </blockquote>
             
         </div>
@@ -978,6 +1024,7 @@ log.flush();  // 写入硬盘
                 <li><a href="#alias">别名系统</a></li>
                 <li><a href="#restful">RESTful</a></li>
                 <li><a href="#log">日志</a></li>
+                <li><a href="#cache">缓存</a></li>
             </ul>
         </div>
     </div>

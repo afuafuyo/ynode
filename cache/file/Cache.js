@@ -56,12 +56,43 @@ class Cache extends ICache {
     /**
      * @inheritdoc
      */
+    setSync(key, value, duration = 31536000000/* one year */) {
+        var cacheFile = this.getCacheFile(key);
+        
+        var life = (Date.now() + duration) / 1000;
+        
+        fs.writeFileSync(cacheFile, value, Y.app.encoding);
+        
+        fs.utimesSync(cacheFile, life, life);
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    set(key, value, duration = 31536000000/* one year */, callback = null) {
+        var cacheFile = this.getCacheFile(key);
+        
+        var life = (Date.now() + duration) / 1000;
+        
+        fs.writeFile(cacheFile, value, Y.app.encoding, (err) => {
+            if(null !== err) {
+                callback(err);
+                return;
+            }
+            
+            fs.utimes(cacheFile, life, life, callback);
+        });
+    }
+    
+    /**
+     * @inheritdoc
+     */
     getSync(key) {
         var ret = null;
         var cacheFile = this.getCacheFile(key);
         
         if(fs.existsSync(cacheFile) && fs.statSync(cacheFile).mtime.getTime() > Date.now()) {
-            ret = fs.readFileSync(cacheFile);
+            ret = fs.readFileSync(cacheFile, Y.app.encoding);
         }
 
         return ret;
@@ -70,14 +101,22 @@ class Cache extends ICache {
     /**
      * @inheritdoc
      */
-    setSync(key, value, duration = 31536000000/* one year */) {
+    get(key, callback) {
         var cacheFile = this.getCacheFile(key);
         
-        var life = (Date.now() + duration) / 1000;
-        
-        fs.writeFileSync(cacheFile, value);
-        
-        fs.utimesSync(cacheFile, life, life);
+        fs.stat(cacheFile, (err, stats) => {
+            if(null !== err) {
+                callback(err, null);
+                return;
+            }
+            
+            if(stats.mtime.getTime() < Date.now()) {
+                callback(new Error('The cache file has expired'), null);
+                return;
+            }
+            
+            fs.readFile(cacheFile, Y.app.encoding, callback);
+        });
     }
     
     /**
@@ -87,6 +126,15 @@ class Cache extends ICache {
         var cacheFile = this.getCacheFile(key);
         
         fs.unlinkSync(cacheFile);
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    delete(key, callback) {
+        var cacheFile = this.getCacheFile(key);
+        
+        fs.unlink(cacheFile, callback);
     }
     
 }
