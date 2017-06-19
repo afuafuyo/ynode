@@ -9,6 +9,7 @@ var fs = require('fs');
 var Y = require('../../Y');
 var ICache = require('../ICache');
 var FileHelper = require('../../helpers/FileHelper');
+var CacheException = require('../../core/CacheException');
 
 /**
  * 文件缓存
@@ -111,7 +112,7 @@ class Cache extends ICache {
             }
             
             if(stats.mtime.getTime() < Date.now()) {
-                callback(new Error('The cache file has expired'), null);
+                callback(new CacheException('The cache: '+ key +' has expired'), null);
                 return;
             }
             

@@ -990,13 +990,21 @@ log.flush();  // 写入硬盘
             </ul>
 <p>
 <pre><code>
-var YNode = require('ynode')
+var YNode = require('ynode');
 var Cache = YNode.Y.include('y/cache/Cache');
 
 var c = Cache.getCache('file');
-c.setSync('key', 'value');
 
+// 同步
+c.setSync('key', 'value');
 var data = c.getSync('key');
+
+// 异步
+c.set('key2', 'value2', undefined, (err) => {
+    c.get('sync', (err, data) => {
+        res.end(data);
+    });
+});
 </code></pre>
 </p>
             
