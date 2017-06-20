@@ -682,10 +682,39 @@ new YNode({
 </code></pre>
 </p>
             
-            <h1 class="page-header" id="url"><b>URL 类</b></h1>
+            <h1 class="page-header" id="url"><b>URI & URL 类</b></h1>
             <p>
-                <code>y/web/URL</code>类提供了对 url 操作的方法
+                <code>y/web/URI 及 y/web/URL</code>类提供了对 uri 和 url 操作的方法
             </p>
+            
+            <h4><b>y/web/URI</b></h4>
+            <ul>
+                <li><code>parseUrl()</code> 解析 url</li>
+            </ul>
+<p>
+<pre><code>
+var URI = YNode.Y.include('y/web/URI');
+
+var uri = new URI();
+
+/*
+{
+    source: 'http://xxx.com:8080/abc?q=1#anchor',
+    scheme: 'http',
+    user: undefined,
+    password: undefined,
+    host: 'xxx.com',
+    port: '8080',
+    path: '/abc',
+    query: 'q=1',
+    fragment: 'anchor'
+}
+*/
+uri.parseUrl('http://xxx.com:8080/abc?q=1#anchor');
+</code></pre>
+</p>
+            
+            <h4><b>y/web/URL</b></h4>
             <ul>
                 <li><code>getReferer()</code> 获取先前网页的地址</li>
                 <li><code>getHostInfo()</code> 获取 URI 协议和主机部分</li>
@@ -1026,7 +1055,7 @@ c.set('key2', 'value2', undefined, (err) => {
                 <li><a href="#component">组件 & 行为</a></li>
                 <li><a href="#midware">中间件</a></li>
                 <li><a href="#static">静态资源</a></li>
-                <li><a href="#url">URL 类</a></li>
+                <li><a href="#url">URI & URL 类</a></li>
                 <li><a href="#reqres">请求与响应</a></li>
                 <li><a href="#helper">助手类</a></li>
                 <li><a href="#alias">别名系统</a></li>
