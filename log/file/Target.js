@@ -38,8 +38,9 @@ class Target extends ITarget {
         /**
          * @var String 日志路径
          */
-        this.logPath = undefined === config.logPath ? Y.getPathAlias('@runtime/logs') :
-            config.logPath;
+        this.logPath = undefined === config.logPath
+            ? Y.getPathAlias('@runtime/logs')
+            : config.logPath;
         
         /**
          * @var String 日志文件名
