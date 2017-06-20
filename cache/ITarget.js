@@ -4,7 +4,7 @@
  */
 'use strict';
 
-class ICache {
+class ITarget {
     
     /**
      * 进行初始化
@@ -62,4 +62,4 @@ class ICache {
     
 }
 
-module.exports = ICache;
+module.exports = ITarget;

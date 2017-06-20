@@ -999,7 +999,7 @@ log.flush();  // 写入硬盘
 <pre><code>
 'cache': {
     'file': {
-        'class': 'y/cache/file/Cache',
+        'class': 'y/cache/file/Target',
         'cachePath': '...'
     }
 }
@@ -1039,7 +1039,7 @@ c.set('key2', 'value2', undefined, (err) => {
             
             <blockquote class="bg-info">
                 <code>YNode</code>暂时只提供了文件缓存功能 如果想实现诸如数据库缓存等的功能必须自己进行缓存扩展
-                <code>YNode</code>完善的代码设计使得进行缓存扩展非常容易 只需要让扩展的缓存类继承<code>y/cache/ICache</code>并实现其中的方法即可
+                <code>YNode</code>完善的代码设计使得进行缓存扩展非常容易 只需要让扩展的缓存类继承<code>y/cache/ITarget</code>并实现其中的方法即可
             </blockquote>
             
         </div>

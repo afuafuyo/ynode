@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-06-20
+
+    * npm package 2.2.3 add cache system
+
 + 2017-05-17
 
     * npm package 2.1.3 fix variable override under concurrency request

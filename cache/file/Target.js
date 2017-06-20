@@ -7,7 +7,7 @@
 var fs = require('fs');
 
 var Y = require('../../Y');
-var ICache = require('../ICache');
+var ITarget = require('../ITarget');
 var FileHelper = require('../../helpers/FileHelper');
 var CacheException = require('../../core/CacheException');
 
@@ -16,13 +16,13 @@ var CacheException = require('../../core/CacheException');
  *
  * 'cache': {
  *      'file': {
- *          'class': 'y/cache/file/Cache',
+ *          'class': 'y/cache/file/Target',
  *          'cachePath': '...'
  *      }
  * }
  *
  */
-class Cache extends ICache {
+class Target extends ITarget {
     
     /**
      * constructor
@@ -140,4 +140,4 @@ class Cache extends ICache {
     
 }
 
-module.exports = Cache;
+module.exports = Target;
