@@ -10,7 +10,7 @@ var StringHelper = require('../helpers/StringHelper');
 /**
  * MVC 基类
  */
-class Module {
+class Core {
     
     /**
      * constructor
@@ -158,4 +158,4 @@ class Module {
     
 }
 
-module.exports = Module;
+module.exports = Core;

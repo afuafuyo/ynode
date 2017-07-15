@@ -5,13 +5,13 @@
 'use strict';
 
 var Y = require('../Y');
-var Module = require('./Module');
+var Core = require('./Core');
 var InvalidConfigException = require('../core/InvalidConfigException');
 
 /**
  * 应用基类
  */
-class Application extends Module {
+class Application extends Core {
     
     /**
      * constructor
