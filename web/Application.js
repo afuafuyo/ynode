@@ -6,6 +6,7 @@
 
 var Y = require('../Y');
 var CoreApp = require('../core/Application');
+var CoreController = require('../core/Controller');
 var Request = require('./Request');
 var InvalidRouteException = require('../core/InvalidRouteException');
 
@@ -39,7 +40,7 @@ class Application extends CoreApp {
         }
         
         // 是否继承自框架控制器
-        if( !('runControllerAction' in controller) ) {
+        if( !(controller instanceof CoreController) ) {
             controller.run(request, response);
             
             return;
