@@ -62,15 +62,15 @@ __  ___   __          __
             
             <h4><b>Download the source code for manual deployment</b></h4>
             <p>
-                <pre>Through<a target="_blank" href="https://github.com/yulipu/ynode"><b>GitHub</b></a>download source code can be placed to the node_modules directory</pre>
+                <pre>Through<a target="_blank" href="https://github.com/yulipu/ynode"><b>GitHub</b></a>download source code and place it to the node_modules directory</pre>
                 <blockquote class="bg-info">
-                    Note that the source code downloaded by github may need to remove the git repository information from it or else the npp installs other packages may be problematic
+                    Note that the source code downloaded by github may need to remove the git repository information from it otherwise the npm installs other packages may be problematic
                 </blockquote>
             </p>
             
             <h1 class="page-header" id="firstrun"><b>Run the program for the first time</b></h1>
             <p>This example outputs a Hello word program</p>
-            <p>First need to create a basic application framework</p>
+            <p>First need to create a basic application framework as follows</p>
             <p>In<code>YNode</code>the<code>bin</code>directory provides a tool for creating the application<code>_ynode</code></p>
             <p>If<code>YNode</code>is installed by<code>npm</code>then<code>_ynode</code>will be installed to the<code>node_modules/.bin</code>directory</p>
             <p>If<code>YNode</code>manually installed by downloading the source code then need to find the tool in the<code>node_modules/ynode/bin</code>directory</p>
@@ -217,7 +217,7 @@ new YNode({
             
             <h4><b>Application properties</b></h4>
             <p>
-                In the entrance to the file can be introduced to various parameters.
+                Various parameters can be introduced in the entry file.
                 These parameters will eventually be assigned to the application object
             </p>
             
@@ -391,7 +391,7 @@ module.exports = IndexController;
             
             <h1 class="page-header" id="module"><b>Module</b></h1>
             <p>
-                Module is independent of the software unit.
+                Module is independent software unit.
                 It consists of<code>Model View Controller</code>and other necessary components
             </p>
             <blockquote class="bg-info">
@@ -443,7 +443,7 @@ new YNode({
             <h1 class="page-header" id="component"><b>Component & Behavior</b></h1>
             
             <h4><b>Component</b></h4>
-            <p>Component is the base class of<code>property behavior and event</code></p>
+            <p>Component is the base class of<code>Property Behavior and Event</code></p>
             <p>Components are instances of<code>y/core/Controller</code>, or an extended class</p>
             <p>Behavior classes are typically used in conjunction with component classes</p>
             
@@ -454,7 +454,7 @@ new YNode({
             <p>The behavior class also can listen to the component's events and respond</p>
             
             <h4><b>Properties</b></h4>
-            <p>Membership variables for the javascript class are also known as properties properties</p>
+            <p>Membership variables for the javascript class are also known as properties</p>
             
             <h4><b>Event</b></h4>
             <p><code>YNode</code>implements an observer pattern</p>
