@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2017-08-20
+
+    * Because the design is not elegant enough. Since npm package 2.2.6 YNode removed session module
+
 + 2017-06-20
 
     * npm package 2.2.3 add cache system
