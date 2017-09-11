@@ -31,6 +31,11 @@ class Application extends Core {
          */
         this.debug = false;
         
+        /**
+         * @property {String} exceptionHandler 异常处理类
+         */
+        this.exceptionHandler = '';
+        
         Y.app = this;
         this.init(config);
         Y.config(this, config);
