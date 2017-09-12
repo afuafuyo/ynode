@@ -27,7 +27,7 @@ class Target extends ITarget {
     /**
      * constructor
      *
-     * @param {JSON} config
+     * @param {Object} config
      */
     constructor(config) {
         super();

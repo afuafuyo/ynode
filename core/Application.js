@@ -16,7 +16,7 @@ class Application extends Core {
     /**
      * constructor
      *
-     * @param {JSON} config 配置信息
+     * @param {Object} config 配置信息
      */
     constructor(config) {
         super();
@@ -44,7 +44,7 @@ class Application extends Core {
     /**
      * 初始化应用
      *
-     * @param {JSON} config 应用配置
+     * @param {Object} config 应用配置
      * @throws {InvalidConfigException} 当丢失必要配置项目时
      */
     init(config) {

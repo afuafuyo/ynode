@@ -20,7 +20,7 @@ class YNode {
     /**
      * constructor
      *
-     * @param {JSON} config 配置信息
+     * @param {Object} config 配置信息
      */
     constructor(config) {
         if(undefined === config) {

@@ -57,7 +57,7 @@ class Y {
     /**
      * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
      *
-     * @param {String | JSON} clazz 以某个已经定义的别名开头的类全名或带 'class' 键的配置
+     * @param {String | Object} clazz 以某个已经定义的别名开头的类全名或带 'class' 键的配置
      *
      * eg.
      * y/log/file/Target
@@ -112,7 +112,7 @@ class Y {
      * 对象配置
      *
      * @param {Object} object 需要配置的对象
-     * @param {JSON} properties 配置项
+     * @param {Object} properties 配置项
      * @return {Object} 源对象
      */
     static config(object, properties) {
@@ -131,7 +131,7 @@ class Y {
 Y.app = null;
 
 /**
- * @property {JSON} pathAliases 路径别名
+ * @property {Object} pathAliases 路径别名
  */
 Y.pathAliases = {'@y': __dirname};
 

@@ -38,7 +38,7 @@ class ServiceLocator {
         this.services = new Map();
         
         /**
-         * @property {Map<String, JSON>} definitions
+         * @property {Map<String, Object>} definitions
          */
         this.definitions = new Map();
     }
@@ -62,7 +62,7 @@ class ServiceLocator {
     /**
      * 以定义方式设置服务
      *
-     * @param {JSON} definition
+     * @param {Object} definition
      *
      * {
      *     'service1': {...},
