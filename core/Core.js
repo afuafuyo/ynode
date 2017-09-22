@@ -51,6 +51,7 @@ class Core {
          * 'modules': {
          *     'bbs': 'app/modules/bbs'
          * }
+         *
          */
         this.modules = null;
         
@@ -80,10 +81,12 @@ class Core {
          * @var {String} moduleId 当前的模块
          */
         var moduleId = '';
+        
         /**
          * @var {String} controllerId 当前的控制器
          */
         var controllerId = '';
+        
         /**
          * @var {String} subRoute 子目录
          *

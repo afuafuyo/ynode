@@ -6,7 +6,7 @@
 
 var Y = require('../Y');
 var Core = require('./Core');
-var InvalidConfigException = require('../core/InvalidConfigException');
+var InvalidConfigException = require('./InvalidConfigException');
 
 /**
  * 应用基类
@@ -92,7 +92,7 @@ class Application extends Core {
      *
      * @return {String} 路径
      */
-    getAppPath(){
+    getAppPath() {
         return Y.getPathAlias('@app');
     }
     
