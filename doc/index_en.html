@@ -329,15 +329,38 @@ module.exports = IndexController;
                 Note that there may be asynchronous operations in the project code.
                 <code>afterActionCall()</code>does not guarantee execution after run() execution is complete
             </blockquote>
-        
-            <h4><b>Routing and controller</b></h4>
+            
+            <h1 class="page-header" id="route"><b>Routing</b></h1>
             <p>Generally a route corresponds to a controller</p>
             <p><pre><code>[route_prefix]/[controllerId]</code></pre></p>
+            
             <p>If the controller belongs to the module then the routing format is as follows</p>
             <p><pre><code>[moduleId]/[controllerId]</code></pre></p>
-            
             <p>Controller search order<code>module controller --> common controller</code></p>
-        
+            
+            <h4><b>Intercept routing</b></h4>
+            <p>
+                In some scenarios (for example, shutting down websites)
+                We want all the routes to be centralized into a class to handle,
+                and then we can use the route intercept function
+            </p>
+            <p>
+                To use the routing intercept function, need to import a configuration item into the entry file<code>interceptAll</code>
+                Thus, no matter what route is accessed, the class specified by<code>interceptAll</code>is processed
+            </p>
+            
+<p>
+<pre><code>
+var app = new CandyJs({
+    'id': 1,
+    'appPath': __dirname + '/app',
+    'debug': true,
+    
+    'interceptAll': 'app/Intercept'
+});
+</code></pre>
+</p>
+
             <h1 class="page-header" id="model"><b>Model</b></h1>
             <p>The model is part of the<code>MVC</code>pattern that represents the object of the business data</p>
             <blockquote class="bg-info">
@@ -1010,6 +1033,7 @@ c.set('key2', 'value2', undefined, (err) => {
                 <li><a href="#firstrun">First saying hello</a></li>
                 <li><a href="#appstruct">Application structure</a></li>
                 <li><a href="#controller">Controller</a></li>
+                <li><a href="#route">Routing</a></li>
                 <li><a href="#model">Model</a></li>
                 <li><a href="#view">View</a></li>
                 <li><a href="#module">Module</a></li>

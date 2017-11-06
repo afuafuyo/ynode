@@ -266,7 +266,7 @@ new YNode({
             <h4><b>自定义属性</b></h4>
             <p>其他在入口文件中传入的参数都会作为自定义参数传入应用对象</p>
             
-            <h1 class="page-header" id="controller"><b>应用控制器</b></h1>
+            <h1 class="page-header" id="controller"><b>控制器</b></h1>
             <p>控制器是<code>MVC</code>模式中的一部分 是继承<code>y/core/Controller</code>类的对象 负责处理请求和生成响应</p>
         
             <h4><b>动作</b></h4>
@@ -328,16 +328,38 @@ module.exports = IndexController;
                 注意 由于项目代码中可能存在异步操作<code>afterActionCall()</code>并不能保证在 run() 执行完成后再执行
             </blockquote>
         
-            <h4><b>路由与控制器</b></h4>
+            <h1 class="page-header" id="route"><b>路由</b></h1>
             <p>一般一个路由对应一个控制器 路由格式如下</p>
             <p><pre><code>[route_prefix]/[controllerId]</code></pre></p>
             <p>如果属于模块下的控制器 那么路由格式如下</p>
             <p><pre><code>[moduleId]/[controllerId]</code></pre></p>
+            
             <p>如果用户的请求地址为<code>http://hostname/index</code>会执行<code>index</code>控制器的<code>run</code>入口动作</p>
             <p>如果用户的请求地址为<code>http://hostname/bbs/index</code>会执行<code>bbs</code>模块的<code>index</code>控制器的<code>run</code>入口动作 或者执行普通控制器的<code>bbs</code>目录下的<code>index</code>控制器的<code>run</code>入口动作</p>
-            
             <p>控制器查找顺序 优先查找模块下的控制器<code>模块控制器 --> 普通控制器</code></p>
-        
+            
+            <h4><b>路由拦截</b></h4>
+            <p>
+                在某些场景下（比如关闭网站）
+                我们想让所有路由都集中到一个类去处理 这时候就可以使用路由拦截功能
+            </p>
+            <p>
+                要使用路由拦截功能 需要在入口文件传入一个配置项<code>interceptAll</code>
+                这样无论访问什么路由 都会被<code>interceptAll</code>指定的类处理
+            </p>
+            
+<p>
+<pre><code>
+var app = new CandyJs({
+    'id': 1,
+    'appPath': __dirname + '/app',
+    'debug': true,
+    
+    'interceptAll': 'app/Intercept'
+});
+</code></pre>
+</p>
+
             <h1 class="page-header" id="model"><b>模型</b></h1>
             <p>模型是<code>MVC</code>模式中的一部分 是代表业务数据的对象</p>
             <blockquote class="bg-info">
@@ -1043,7 +1065,8 @@ c.set('key2', 'value2', undefined, (err) => {
                 <li><a href="javascript:;">入门</a></li>
                 <li><a href="#firstrun">第一次运行程序</a></li>
                 <li><a href="#appstruct">应用结构</a></li>
-                <li><a href="#controller">应用控制器</a></li>
+                <li><a href="#controller">控制器</a></li>
+                <li><a href="#route">路由</a></li>
                 <li><a href="#model">模型</a></li>
                 <li><a href="#view">视图</a></li>
                 <li><a href="#module">模块</a></li>
