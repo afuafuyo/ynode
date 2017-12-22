@@ -19,6 +19,16 @@ __  ___   __          __
 
 + https://github.com/yulipu/ynode
 
+###### 推荐
+
++ ynode 是一个个人项目 推荐使用 candyjs 替代 ynode 这两个项目架构是一样的 candyjs 由多为同学负责维护
+
++ ynode 也会继续维护 一些新特性可能 candyjs 会优先使用
+
++ 网址 http://candyjs.org
+
++ Git https://github.com/candy-js/candyjs
+
 ###### 版本更新
 
 + 2017-08-20
