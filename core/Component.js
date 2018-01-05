@@ -50,7 +50,7 @@ class Component {
         // 相对于其他编程语言来说这种处理方式并不是很好
         // 但在 javascript 中没找到更好的解决方式 暂时写成这样了
         var ret = null;
-        for(var i=0,length=keys.length; i<length; i++) {
+        for(let i=0,length=keys.length; i<length; i++) {
             // 本身
             ret = Object.getOwnPropertyNames(this.behaviorsMap[keys[i]]);
             for(let x=0,len=ret.length; x<len; x++) {
