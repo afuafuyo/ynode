@@ -122,16 +122,16 @@ class Component {
      * @return {Object | null}
      */
     detachBehavior(name) {
-        if(undefined !== this.behaviorsMap[name]) {
-            var behavior = this.behaviorsMap[name];
-            
-            delete this.behaviorsMap[name];
-            behavior.unListen();
-            
-            return behavior;
+        if(undefined === this.behaviorsMap[name]) {
+            return null;
         }
         
-        return null;
+        var behavior = this.behaviorsMap[name];
+        
+        delete this.behaviorsMap[name];
+        behavior.unListen();
+        
+        return behavior;
     }
     
     /**
@@ -175,15 +175,17 @@ class Component {
      * @param {Function} handler 回调函数
      */
     off(eventName, handler) {
-        if(undefined !== this.eventsMap[eventName]) {
-            if(undefined === handler) {
-                delete this.eventsMap[eventName];
-                
-            } else {
-                for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
-                    if(handler === this.eventsMap[eventName][i]) {
-                        this.eventsMap[eventName].splice(i, 1);
-                    }
+        if(undefined === this.eventsMap[eventName]) {
+            return;
+        }
+        
+        if(undefined === handler) {
+            delete this.eventsMap[eventName];
+            
+        } else {
+            for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
+                if(handler === this.eventsMap[eventName][i]) {
+                    this.eventsMap[eventName].splice(i, 1);
                 }
             }
         }
@@ -196,11 +198,13 @@ class Component {
      * @param {Array} param 参数
      */
     trigger(eventName, param) {
-        if(undefined !== this.eventsMap[eventName]) {
-            for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
-                undefined === param ? this.eventsMap[eventName][i]() :
-                    this.eventsMap[eventName][i].apply(null, param);
-            }
+        if(undefined === this.eventsMap[eventName]) {
+            return;
+        }
+        
+        for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
+            undefined === param ? this.eventsMap[eventName][i]() :
+                this.eventsMap[eventName][i].apply(null, param);
         }
     }
     
@@ -211,10 +215,12 @@ class Component {
      * @param {any} params 参数
      */
     triggerWithRestParams(eventName, ...params) {
-        if(undefined !== this.eventsMap[eventName]) {
-            for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
-                this.eventsMap[eventName][i](...params);
-            }
+        if(undefined === this.eventsMap[eventName]) {
+            return;
+        }
+        
+        for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
+            this.eventsMap[eventName][i](...params);
         }
     }
     
