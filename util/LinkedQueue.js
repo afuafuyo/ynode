@@ -20,6 +20,8 @@ class LinkedQueue extends Queue {
         this.headNode = null;
         this.tailNode = null;
         this.size = 0;
+        
+        this.currentIteratorNode = null;
     }
     
     [Symbol.iterator]() {
@@ -27,16 +29,29 @@ class LinkedQueue extends Queue {
     }
     
     next() {
-        if(undefined === this.currentIteratorNode) {
+        if(null === this.currentIteratorNode) {
             this.currentIteratorNode = this.headNode;
             
         } else {
             this.currentIteratorNode = this.currentIteratorNode.next;
         }
         
-        return null === this.currentIteratorNode ?
-            (this.currentIteratorNode = undefined, {done: true}) :
-            {done: false, value: this.currentIteratorNode.data};
+        return null === this.currentIteratorNode
+            ? (this.currentIteratorNode = null, {done: true})
+            : {done: false, value: this.currentIteratorNode.data};
+    }
+    
+    iterator() {
+        if(null === this.currentIteratorNode) {
+            this.currentIteratorNode = this.headNode;
+            
+        } else {
+            this.currentIteratorNode = this.currentIteratorNode.next;
+        }
+        
+        return null === this.currentIteratorNode
+            ? (this.currentIteratorNode = null, null)
+            : this.currentIteratorNode.data;
     }
     
     /**
