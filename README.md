@@ -31,6 +31,10 @@ __  ___   __          __
 
 ###### 版本更新
 
++ 2018-01-11
+
+    * util/LinkedQueue 添加 ```iterator()``` 和 ```remove(data)``` 方法
+
 + 2017-08-20
 
     * 由于设计的不够优雅 YNode 从 npm 包 2.2.6 开始将 session 模块移除
