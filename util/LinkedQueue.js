@@ -102,6 +102,43 @@ class LinkedQueue extends Queue {
     /**
      * @inheritdoc
      */
+    remove(data) {
+        var current = this.headNode;
+        var previous = null;
+        
+        for(; null !== current; previous = current, current = current.next) {
+            if(data !== current.data) {
+                continue;
+            }
+            
+            // 删除头结点
+            if(null === previous) {
+                this.headNode = current.next;
+            }
+            
+            // 删除非头结点
+            if(null !== previous) {
+                previous.next = current.next;
+            }
+            
+            // 尾节点
+            if(null === current.next) {
+                this.tailNode = previous;
+            }
+            
+            // 清楚当前节点
+            current.next = null;
+            current = null;
+            
+            this.size--;
+            
+            break;
+        }
+    }
+    
+    /**
+     * @inheritdoc
+     */
     clear() {
         while(0 !== this.size) {
             this.take();
@@ -109,7 +146,7 @@ class LinkedQueue extends Queue {
     }
     
     /**
-     * toString
+     * @inheritdoc
      */
     toString() {
         var str = '[ ';
