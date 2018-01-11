@@ -12,3 +12,7 @@ var data = null;
 while(null !== (data = q.iterator())) {
     console.log(data);
 }
+
+while(null !== (data = q.iterator())) {
+    console.log(data);
+}
