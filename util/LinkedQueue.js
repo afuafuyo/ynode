@@ -116,7 +116,7 @@ class LinkedQueue extends Queue {
                 this.headNode = current.next;
             }
             
-            // 删除非头结点
+            // 非头结点需要移动 previous
             if(null !== previous) {
                 previous.next = current.next;
             }
@@ -126,7 +126,7 @@ class LinkedQueue extends Queue {
                 this.tailNode = previous;
             }
             
-            // 清楚当前节点
+            // 清除当前节点
             current.next = null;
             current = null;
             
