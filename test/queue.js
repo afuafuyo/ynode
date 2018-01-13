@@ -10,16 +10,23 @@ q.add(d1);
 q.add(d2);
 q.add(d3);
 
-//console.log(q.toString());
-
 //var data = null;
 //while(null !== (data = q.iterator())) {
-//    console.log(data);
+//    console.log('1', data);
 //}
 
 //while(null !== (data = q.iterator())) {
-//    console.log(data);
+//    console.log('1', data);
 //}
 
-q.remove(d3);
-console.log(q)
+q.forEach((data) => {
+    console.log('1', data)
+});
+
+q.remove(d2);
+
+q.forEach((data) => {
+    console.log('2', data)
+});
+
+console.log(q.toString());

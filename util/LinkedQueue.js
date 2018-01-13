@@ -24,23 +24,9 @@ class LinkedQueue extends Queue {
         this.currentIteratorNode = null;
     }
     
-    [Symbol.iterator]() {
-        return this;
-    }
-    
-    next() {
-        if(null === this.currentIteratorNode) {
-            this.currentIteratorNode = this.headNode;
-            
-        } else {
-            this.currentIteratorNode = this.currentIteratorNode.next;
-        }
-        
-        return null === this.currentIteratorNode
-            ? (this.currentIteratorNode = null, {done: true})
-            : {done: false, value: this.currentIteratorNode.data};
-    }
-    
+    /**
+     * @inheritdoc
+     */
     iterator() {
         if(null === this.currentIteratorNode) {
             this.currentIteratorNode = this.headNode;
@@ -52,6 +38,15 @@ class LinkedQueue extends Queue {
         return null === this.currentIteratorNode
             ? (this.currentIteratorNode = null, null)
             : this.currentIteratorNode.data;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    forEach(callback) {
+        for(let current = this.headNode; null !== current; current = current.next) {
+            callback(current.data);
+        }
     }
     
     /**
@@ -151,13 +146,8 @@ class LinkedQueue extends Queue {
     toString() {
         var str = '[ ';
         
-        /*
         for(let current = this.headNode; null !== current; current = current.next) {
             str += current.data + ' ';
-        }
-        */
-        for(let data of this) {
-            str = str + data + ' ';
         }
         
         return str + ' ]';
