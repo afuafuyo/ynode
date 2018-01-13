@@ -43,9 +43,11 @@ class LinkedQueue extends Queue {
     /**
      * @inheritdoc
      */
-    forEach(callback) {
+    each(callback) {
         for(let current = this.headNode; null !== current; current = current.next) {
-            callback(current.data);
+            if(false === callback(current.data)) {
+                break;
+            }
         }
     }
     

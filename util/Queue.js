@@ -14,11 +14,11 @@ class Queue {
     iterator() {}
     
     /**
-     * 遍历队列 在循环结束前无法终止
+     * 遍历队列 callback 返回值为 false 可结束循环
      *
      * @param {Function} callback
      */
-    forEach(callback) {}
+    each(callback) {}
     
     /**
      * 列表添加元素

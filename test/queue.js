@@ -19,13 +19,18 @@ q.add(d3);
 //    console.log('1', data);
 //}
 
-q.forEach((data) => {
+q.each((data) => {
     console.log('1', data)
+    
+    if(2 === data.age) {
+        return false;
+    }
+    
 });
 
 q.remove(d2);
 
-q.forEach((data) => {
+q.each((data) => {
     console.log('2', data)
 });
 

@@ -20,6 +20,15 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-01-12
+
+    * npm package 2.2.9 util/LinkedQueue added ```each()``` method
+
++ 2018-01-11
+
+    * npm package 2.2.8 util/LinkedQueue added ```iterator()``` add ```remove(data)``` method
+
+
 + 2017-08-20
 
     * Because the design is not elegant enough. Since npm package 2.2.6 YNode removed session module
