@@ -32,7 +32,6 @@ class View {
      *
      * @param {String} view 视图文件名
      * @param {Function} callback 回调函数
-     * @return {String}
      */
     getTemplate(view, callback) {}
     
@@ -41,7 +40,6 @@ class View {
      *
      * @param {String} path 文件路径
      * @param {Function} callback 回调函数
-     * @return {String}
      */
     getTemplateFromPath(path, callback) {}
     
