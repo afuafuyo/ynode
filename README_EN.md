@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-01-24
+
+    * npm package 2.3.0 fix some bug
+
 + 2018-01-12
 
     * npm package 2.2.9 util/LinkedQueue added ```each()``` method
