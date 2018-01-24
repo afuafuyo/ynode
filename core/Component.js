@@ -158,7 +158,7 @@ class Component {
      * 注册事件
      *
      * @param {String} eventName 事件名称
-     * @param {Function} handler 回调函数
+     * @param {any} handler 事件处理器
      */
     on(eventName, handler) {
         if(undefined === this.eventsMap[eventName]) {
@@ -172,7 +172,7 @@ class Component {
      * 注销事件
      *
      * @param {String} eventName 事件名称
-     * @param {Function} handler 回调函数
+     * @param {any} handler 事件处理器
      */
     off(eventName, handler) {
         if(undefined === this.eventsMap[eventName]) {
