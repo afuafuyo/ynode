@@ -16,7 +16,7 @@ var app = new YNode({
 });
 var server = app.getServer();
 
-// test mvc
+// test
 describe('MVC', function() {
     it('simple get', function(done) {
         request(server)

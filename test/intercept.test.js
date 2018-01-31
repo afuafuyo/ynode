@@ -18,7 +18,7 @@ var app = new YNode({
 });
 var server = app.getServer();
 
-// test mvc
+// test
 describe('interceptRoutes', function() {
     it('a route', function(done) {
         request(server)

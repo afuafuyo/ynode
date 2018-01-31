@@ -27,7 +27,7 @@ Restful.post('/def', function(req, res){
 });
 Restful.get('/xyz', 'app/api/Demo@index');
 
-// test restful api
+// test
 describe('RESTful api', function() {
     it('simple get', function(done) {
         request(server)

@@ -8,6 +8,7 @@ class Queue {
     
     /**
      * 迭代队列
+     * 此方法的实现并不能保证线程安全
      *
      * @return {Object | null}
      */
