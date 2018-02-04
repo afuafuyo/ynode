@@ -10,13 +10,20 @@ var InvalidArgumentException = require('../core/InvalidArgumentException');
 
 class Cache {
     
+    /**
+     * 获取缓存实例
+     *
+     * @param {Object} cacheFlag
+     */
     static getCache(cacheFlag) {
         if(undefined === cacheFlag) {
             throw new InvalidArgumentException('Invalid param: cacheFlag');
         }
+        
         if(undefined === Y.app.cache || undefined === Y.app.cache[cacheFlag]) {
             throw new InvalidConfigException('No cache config found');
         }
+        
         if(undefined === Y.app.cache[cacheFlag]['class']) {
             throw new InvalidConfigException('The cache config lost key: class');
         }
