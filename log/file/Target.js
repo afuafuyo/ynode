@@ -43,16 +43,18 @@ class Target extends ITarget {
             : config.fileExtension;
         
         /**
-         * @var String 日志路径
+         * @property {String} 日志路径
          */
         this.logPath = undefined === config.logPath
             ? Y.getPathAlias('@runtime/logs')
             : config.logPath;
         
         /**
-         * @var String 日志文件名
+         * @property {String} 日志文件名
          */
-        this.logFile = this.generateTimeLogFile();
+        this.logFile = undefined === config.logFile
+            ? this.generateFile()
+            : config.logFile;
     }
     
     /**
@@ -79,7 +81,7 @@ class Target extends ITarget {
     /**
      * 生成日志文件名
      */
-    generateTimeLogFile() {
+    generateFile() {
         var date = new Date();
         return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + this.fileExtension;
     }

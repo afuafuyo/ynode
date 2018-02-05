@@ -47,7 +47,12 @@ class Target extends ITarget {
             : config.cachePath;
     }
     
-    getCacheFile(key) {
+    /**
+     * 获取缓存文件
+     *
+     * @param {String} key
+     */
+    generateFile(key) {
         return this.cachePath + '/' + key + this.fileExtension;
     }
     
@@ -55,7 +60,7 @@ class Target extends ITarget {
      * @inheritdoc
      */
     setSync(key, value, duration = 31536000000/* one year */) {
-        var cacheFile = this.getCacheFile(key);
+        var cacheFile = this.generateFile(key);
         
         var life = (Date.now() + duration) / 1000;
         
@@ -73,7 +78,7 @@ class Target extends ITarget {
      * @inheritdoc
      */
     set(key, value, duration = 31536000000/* one year */, callback = null) {
-        var cacheFile = this.getCacheFile(key);
+        var cacheFile = this.generateFile(key);
         
         var life = (Date.now() + duration) / 1000;
         
@@ -111,7 +116,7 @@ class Target extends ITarget {
      */
     getSync(key) {
         var ret = null;
-        var cacheFile = this.getCacheFile(key);
+        var cacheFile = this.generateFile(key);
         
         if(fs.existsSync(cacheFile) && fs.statSync(cacheFile).mtime.getTime() > Date.now()) {
             ret = fs.readFileSync(cacheFile, Y.app.encoding);
@@ -124,7 +129,7 @@ class Target extends ITarget {
      * @inheritdoc
      */
     get(key, callback) {
-        var cacheFile = this.getCacheFile(key);
+        var cacheFile = this.generateFile(key);
         
         fs.stat(cacheFile, (err, stats) => {
             if(null !== err) {
@@ -145,7 +150,7 @@ class Target extends ITarget {
      * @inheritdoc
      */
     deleteSync(key) {
-        var cacheFile = this.getCacheFile(key);
+        var cacheFile = this.generateFile(key);
         
         fs.unlinkSync(cacheFile);
     }
@@ -154,7 +159,7 @@ class Target extends ITarget {
      * @inheritdoc
      */
     delete(key, callback) {
-        var cacheFile = this.getCacheFile(key);
+        var cacheFile = this.generateFile(key);
         
         fs.unlink(cacheFile, callback);
     }
