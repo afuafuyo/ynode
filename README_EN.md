@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-03-02
+
+    * npm package 2.3.1 change system event instance variable to static variable
+
 + 2018-01-24
 
     * npm package 2.3.0 fix some bug

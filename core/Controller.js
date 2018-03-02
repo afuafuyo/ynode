@@ -21,16 +21,6 @@ class Controller extends Component {
          * @property {Object} context 上下文环境 用于保存当前请求相关的信息
          */
         this.context = context;
-        
-        /**
-         * @property {String} EVENT_BEFORE_ACTIONCALL
-         */
-        this.EVENT_BEFORE_ACTIONCALL = 'beforeActionCall';
-        
-        /**
-         * @property {String} EVENT_AFTER_ACTIONCALL
-         */
-        this.EVENT_AFTER_ACTIONCALL = 'afterActionCall';
     }
     
     /**
@@ -40,7 +30,7 @@ class Controller extends Component {
      * @param {Object} response
      */
     beforeActionCall(request, response) {
-        this.triggerWithRestParams(this.EVENT_BEFORE_ACTIONCALL, request, response);
+        this.triggerWithRestParams(Controller.EVENT_BEFORE_ACTIONCALL, request, response);
     }
     
     /**
@@ -50,7 +40,7 @@ class Controller extends Component {
      * @param {Object} response
      */
     afterActionCall(request, response) {
-        this.triggerWithRestParams(this.EVENT_AFTER_ACTIONCALL, request, response);
+        this.triggerWithRestParams(Controller.EVENT_AFTER_ACTIONCALL, request, response);
     }
     
     /**
@@ -75,5 +65,15 @@ class Controller extends Component {
     getView() {}
     
 }
+
+/**
+ * @property {String} EVENT_BEFORE_ACTIONCALL
+ */
+Controller.EVENT_BEFORE_ACTIONCALL = 'beforeActionCall';
+
+/**
+ * @property {String} EVENT_AFTER_ACTIONCALL
+ */
+Controller.EVENT_AFTER_ACTIONCALL = 'afterActionCall';
 
 module.exports = Controller;
