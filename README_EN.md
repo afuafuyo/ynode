@@ -20,6 +20,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-03-21
+
+    * npm package 2.4.0 fix rest mode bug
+
 + 2018-03-15
 
     * npm package 2.3.2 change method name StringHelper.indexOfN() to StringHelper.nIndexOf()
