@@ -21,13 +21,13 @@ __  ___   __          __
 
 ###### 推荐
 
-+ ynode 是一个个人项目 推荐使用 candyjs 替代 ynode 这两个项目架构是一样的 candyjs 由多为同学负责维护
++ ynode 是一个个人项目 推荐使用 candyjs 替代 ynode
 
 + ynode 也会继续维护 一些新特性可能 candyjs 会优先使用
 
 + 网址 http://candyjs.org
 
-+ Git https://github.com/candy-js/candyjs
++ Git https://github.com/douyu-beijing/candyjs
 
 ###### 版本更新
 
