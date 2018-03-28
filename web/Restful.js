@@ -99,9 +99,11 @@ class Restful extends CoreRouter {
             
             // 有参数
             if(null !== combinedRoute.params[matchedRouteSegment]) {
-                ret.paramValues = new Array(combinedRoute.params[matchedRouteSegment].length);
+                // ret.paramValues = new Array(combinedRoute.params[matchedRouteSegment].length);
+                ret.paramValues = [];
                 for(let i=0,len=combinedRoute.params[matchedRouteSegment].length; i<len; i++) {
-                    ret.paramValues[i] = matches[subPatternPosition + i + 1];
+                    // ret.paramValues[i] = matches[subPatternPosition + i + 1];
+                    ret.paramValues.push( matches[subPatternPosition + i + 1] );
                 }
             }
         }
@@ -141,14 +143,16 @@ class Restful extends CoreRouter {
                 // 存储参数
                 if(null !== matchedHandler.paramKeys) {
                     let requestInstance = new Request(request);
-                    matchedHandler.paramValues = new Array(matchedHandler.paramKeys.length);
+                    // matchedHandler.paramValues = new Array(matchedHandler.paramKeys.length);
+                    matchedHandler.paramValues = [];
                     
                     for(let j=0,l=matchedHandler.paramKeys.length; j<l; j++) {
                         requestInstance.setQueryString(
                             matchedHandler.paramKeys[j],
                             matches[j+1]);
                             
-                        matchedHandler.paramValues[j] = matches[j+1];
+                        // matchedHandler.paramValues[j] = matches[j+1];
+                        matchedHandler.paramValues.push(matches[j+1]);
                     }
                 }
                 
