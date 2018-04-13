@@ -27,7 +27,6 @@ class View extends CoreView {
     getTemplateFilePath(view) {
         var app = Y.app;
         var context = this.context;
-        var path = '';
         
         // 模块无子目录 普通控制器有子目录
         if('' !== context.moduleId) {
@@ -36,7 +35,7 @@ class View extends CoreView {
                 + view + View.defaultViewExtension;
         }
         
-        return path = app.getAppPath()
+        return app.getAppPath()
             + '/views/'
             + context.subRoute
             + '/'
