@@ -24,9 +24,9 @@ class Restful extends CoreRouter {
         }
         
         // {paramValues, handler}
-        var ret = true === Y.app.combineRoutes
-            ? Restful.resolveRoutesCombine(route, request.method)
-            : Restful.resolveRoutesOneByOne(request, route, request.method);
+        var ret = false === Y.app.combineRoutes
+            ? Restful.resolveRoutesOneByOne(request, route, request.method)
+            : Restful.resolveRoutesCombine(route, request.method);
         
         if(null === ret) {
             throw new InvalidCallException('The REST route: ' + route + ' not found');
