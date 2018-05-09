@@ -23,7 +23,9 @@ class Rest {
          */
         this.exceptionHandler = '';
         
+        Y.rest = this;
         this.init(config);
+        Y.config(this, config);
     }
     
     /**

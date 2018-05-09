@@ -131,6 +131,11 @@ class Y {
 Y.app = null;
 
 /**
+ * @property {Rest} rest RESTful 实例
+ */
+Y.rest = null;
+
+/**
  * @property {Object} pathAliases 路径别名
  */
 Y.pathAliases = {'@y': __dirname};

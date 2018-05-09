@@ -19,7 +19,7 @@ class ExceptionHandler extends CoreExceptionHandler {
         response.setHeader('Content-Type', 'text/plain');
         response.writeHead(500);
         
-        response.end(true === Y.app.debug
+        response.end((true === Y.app.debug || true === Y.rest.debug)
             ? exception.message + '\n' + exception.stack
             : 'The server encountered an internal error');
     }

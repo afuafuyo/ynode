@@ -16,6 +16,8 @@ class Rest extends CoreRest {
     constructor(config) {
         super(config);
         
+        this.defaultExceptionHandler = 'y/web/ExceptionHandler';
+        
         /**
          * 请求方法
          *
@@ -209,6 +211,17 @@ class Rest extends CoreRest {
         for(let i=0,len=httpMethod.length; i<len; i++) {
             this.methods[httpMethod[i]].push( {pattern: pattern, handler: handler} );
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    handlerException(response, exception) {
+        var handler = Y.createObject('' === this.exceptionHandler
+            ? this.defaultExceptionHandler
+            : this.exceptionHandler);
+        
+        handler.handlerException(response, exception);
     }
     
 }
