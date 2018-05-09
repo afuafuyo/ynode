@@ -8,8 +8,7 @@ var http = require('http');
 
 var Y = require('./Y');
 var Hook = require('./core/Hook');
-var WebRestful = require('./web/Restful');
-var WebApp = require('./web/Application');
+var Application = require('./web/Application');
 var InvalidConfigException = require('./core/InvalidConfigException');
 
 /**
@@ -29,11 +28,11 @@ class YNode {
         
         this.config = config;
         this.server = null;
-        this.app = new WebApp(config);
+        this.app = new Application(config);
     }
     
     // web
-    requestListenerWeb(req, res) {
+    requestListener(req, res) {
         try {
             this.app.requestListener(req, res);
             
@@ -42,27 +41,10 @@ class YNode {
         }
     }
     
-    // restful
-    requestListenerRestful(req, res) {
-        try {
-            WebRestful.requestListener(req, res);
-            
-        } catch(e) {
-            this.app.handlerException(res, e);
-        }
-    }
-    
     // handler
     handler(req, res) {
-        Hook.getInstance().trigger(req, res, () => {            
-            this.requestListenerWeb(req, res);
-        });
-    }
-    
-    // handler restful
-    handlerRestful(req, res) {
         Hook.getInstance().trigger(req, res, () => {
-            this.requestListenerRestful(req, res);
+            this.requestListener(req, res);
         });
     }
     
@@ -72,10 +54,7 @@ class YNode {
      * @return http server
      */
     getServer() {
-        return http.createServer(
-            true === this.config.useRestful
-                ? this.handlerRestful.bind(this)
-                : this.handler.bind(this));
+        return http.createServer(this.handler.bind(this));
     }
     
     /**

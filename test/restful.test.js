@@ -3,31 +3,26 @@
 var request = require('supertest');
 var assert = require('assert');
 
-var YNode = require('../index.js');
+var Rest = require('../rest.js');
 
-var app = new YNode({
-    'id': 1,
-    'appPath': __dirname + '/app',
-    'debug': true,
-    'useRestful': true
-    ,'combineRoutes': true
+var rest = new Rest({
+    appPath: __dirname + '/app'
 });
-var server = app.getServer();
+var server = rest.getServer();
 
-var Restful = YNode.Y.include('y/web/Restful');
 // api
-Restful.get('/abc', function(req, res){
+rest.get('/abc', function(req, res){
     res.end('get ok');
 });
-Restful.get('/abc/{id:\\d+}', function(req, res, id){
+rest.get('/abc/{id:\\d+}', function(req, res, id){
     res.end(String(id));
 });
-Restful.post('/def', function(req, res){
+rest.post('/def', function(req, res){
     res.end('post ok');
 });
-Restful.get('/xyz', 'app/api/Demo@index');
+rest.get('/xyz', 'app/api/Demo@index');
 
-// test
+// test restful api
 describe('RESTful api', function() {
     it('simple get', function(done) {
         request(server)
@@ -67,7 +62,7 @@ describe('RESTful api', function() {
                 done();
             });
     });
-    
+
     it('simple class get', function(done) {
         request(server)
             .get('/xyz')
