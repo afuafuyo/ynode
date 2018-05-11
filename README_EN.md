@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-05-10
+
+    * npm package release 3.0.0 and redesigned rest system
+
 + 2018-03-21
 
     * npm package 2.4.0 fix rest mode bug
