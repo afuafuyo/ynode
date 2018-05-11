@@ -8,8 +8,6 @@ __  ___   __          __
 
 # An Object-Oriented node.js mvc and REST framework
 
-# [DOC](https://yulipu.github.io)
-
 ###### Node version
 
 + no less than 6.0.0
