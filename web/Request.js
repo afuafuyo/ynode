@@ -59,7 +59,7 @@ class Request extends CoreRequest {
      * 
      * @param {Object} request 请求对象
      * @param {String} param 参数名
-     * @return {String | null | ''}
+     * @return {String | null}
      */
     static getQueryString(request, param) {
         var parsed = Request.parseUrl(request);
@@ -81,10 +81,10 @@ class Request extends CoreRequest {
     
     /**
      * 静态方法 获取 post 参数
-     * 
+     *
      * @param {Object} request 请求对象
      * @param {String} param 参数名
-     * @return {String | null | undefined | ''}
+     * @return {String | null | undefined}
      */
     static getParameter(request, param) {
         if(undefined === request.body) {
@@ -95,9 +95,11 @@ class Request extends CoreRequest {
     }
     
     /**
-     * 
+     * 获取 cookie
+     *
      * @param {Object} request 请求对象
      * @param {String} name cookie name
+     * @see Cookie.getCookie
      */
     static getCookie(request, name) {
         return Cookie.getCookie(request, name);
@@ -107,7 +109,7 @@ class Request extends CoreRequest {
      * 获取 get 参数
      *
      * @param {String} param 参数名
-     * @return {String | null | ''}
+     * @return {String | null}
      */
     getQueryString(param) {
         var parsed = Request.parseUrl(this.request);
@@ -145,7 +147,7 @@ class Request extends CoreRequest {
      * 获取 post 参数
      *
      * @param {String} param 参数名
-     * @return {String | null | undefined | ''}
+     * @return {String | null | undefined}
      */
     getParameter(param) {
         if(undefined === this.request.body) {
@@ -162,6 +164,44 @@ class Request extends CoreRequest {
      */
     getCookie(name) {
         return Cookie.getCookie(this.request, name);
+    }
+    
+    /**
+     * 获取引用网址
+     *
+     * @return {String | null}
+     */
+    getReferer(request) {
+        if(undefined !== this.request.headers.referer) {
+            return this.request.headers.referer;
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取 URI 协议和主机部分
+     *
+     * @return {String}
+     */
+    getHostInfo() {
+        var protocol = undefined !== this.request.socket.encrypted
+            || 'https' === this.request.headers['x-forwarded-protocol']
+                ? 'https'
+                : 'http';
+
+        var host = protocol + '://' + this.request.headers.host;
+
+        return host;
+    }
+    
+    /**
+     * 获取当前网址 不包含锚点部分
+     *
+     * @return {String}
+     */
+    getCurrent() {
+        return this.getHostInfo() + this.request.url;
     }
     
 }

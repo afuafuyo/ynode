@@ -18,6 +18,11 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-06-15
+
+    * npm package 3.1.0 update web/Request and web/URL class. moved most of functions of class web/URL to web/Request
+
+
 + 2018-05-10
 
     * npm package release 3.0.0 and redesigned rest system
