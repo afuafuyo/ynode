@@ -88,13 +88,13 @@ class Fate {
         var controllerId = '';
 
         /**
-         * @var {String} subRoute 子目录
+         * @var {String} viewPath 子目录
          *
-         * eg. subRoute = ''  ->  app/views/xxx.html
-         * eg. subRoute = 'subdir'  ->  app/views/subdir/xxx.html
+         * eg. viewPath = ''  ->  app/views/xxx.html
+         * eg. viewPath = 'subdir'  ->  app/views/subdir/xxx.html
          *
          */
-        var subRoute = '';
+        var viewPath = '';
 
         route = StringHelper.lTrimChar(route, '/');
 
@@ -128,11 +128,11 @@ class Fate {
         }
 
         // 保存前缀
-        subRoute = id;
+        viewPath = id;
 
         // 保存当前控制器标识
         if( -1 !== (pos = route.lastIndexOf('/')) ) {
-            subRoute = subRoute + '/' + route.substring(0, pos);
+            viewPath = viewPath + '/' + route.substring(0, pos);
 
             controllerId = route.substring(pos + 1);
         }
@@ -148,7 +148,7 @@ class Fate {
             return Y.createObject(this.routesMap[id], {
                 moduleId: moduleId,
                 controllerId: controllerId,
-                subRoute: subRoute
+                viewPath: viewPath
             });
         }
 
@@ -162,20 +162,20 @@ class Fate {
             return Y.createObject(clazz, {
                 moduleId: moduleId,
                 controllerId: controllerId,
-                subRoute: subRoute
+                viewPath: viewPath
             });
         }
 
         clazz = this.defaultControllerNamespace
             + '/'
-            + subRoute
+            + viewPath
             + '/'
             + StringHelper.ucFirst(controllerId) + 'Controller';
 
         return Y.createObject(clazz, {
             moduleId: moduleId,
             controllerId: controllerId,
-            subRoute: subRoute
+            viewPath: viewPath
         });
     }
 
