@@ -10,7 +10,7 @@ var StringHelper = require('./helpers/StringHelper');
  * 辅助类
  */
 class Y {
-    
+
     /**
      * @ 别名路径转换真实路径
      *
@@ -33,7 +33,7 @@ class Y {
 
         return '';
     }
-    
+
     /**
      * 设置路径别名
      *
@@ -47,22 +47,22 @@ class Y {
 
         if(null === path) {
             delete Y.pathAliases[alias];
-            
+
             return;
         }
-        
+
         Y.pathAliases[alias] = StringHelper.rTrimChar(path, '/');
     }
-    
+
     /**
      * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
      *
-     * @param {String | Object} clazz 以某个已经定义的别名开头的类全名或带 'class' 键的配置
+     * @param {String | Object} clazz 以某个已经定义的别名开头的类全名或带 'classPath' 键的配置
      *
      * eg.
-     * y/log/file/Target
+     * 'some/path/Class'
      * or
-     * {class: '...', ...}
+     * {classPath: 'some/path/Class', ...}
      *
      * @param {any} params 构造函数参数
      * @return {Object} 类实例
@@ -70,30 +70,30 @@ class Y {
     static createObject(clazz, ...params) {
         var realClass = '';
         var properties = null;
-        
+
         if('string' === typeof clazz) {
             realClass = Y.getPathAlias('@' + clazz);
-            
-        } else if('object' === typeof clazz && undefined !== clazz['class']) {
-            realClass = Y.getPathAlias('@' + clazz['class']);
-            
+
+        } else if('object' === typeof clazz && undefined !== clazz.classPath) {
+            realClass = Y.getPathAlias('@' + clazz.classPath);
+
             properties = Y.config({}, clazz);
-            delete properties['class'];
+            delete properties.classPath;
         }
-        
+
         // 文件不存在抛出异常
         // todo
-        
+
         var ClassName = require(realClass + Y.fileExtention);
         var instance = new ClassName(...params);
-        
+
         if(null !== properties) {
             Y.config(instance, properties);
         }
-        
+
         return instance;
     }
-    
+
     /**
      * 导入一个类文件
      *
@@ -101,13 +101,13 @@ class Y {
      */
     static include(clazz) {
         var realClass = Y.getPathAlias('@' + clazz);
-        
+
         // 文件不存在抛出异常
         // todo
-        
+
         return require(realClass + Y.fileExtention);
     }
-    
+
     /**
      * 对象配置
      *
@@ -119,10 +119,10 @@ class Y {
         for(let key in properties) {
             object[key] = properties[key];
         }
-        
+
         return object;
     }
-    
+
 }
 
 /**

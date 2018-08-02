@@ -24,6 +24,10 @@ ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 yn
 
 ###### 版本更新
 
++ 2018-08-02
+
+    * npm 包发布 3.1.2 项目中 `class` 配置项修改为 `classPath`
+
 + 2018-06-15
 
     * npm 包发布 3.1.0 更新了 web/Request 和 web/URL 两个类 web/URL 类中的大部分方法移动到了 web/Request 中

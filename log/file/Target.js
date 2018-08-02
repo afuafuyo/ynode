@@ -18,7 +18,7 @@ var TimeHelper = require('../../helpers/TimeHelper');
  * 'log': {
  *     'targets': {
  *         'file': {
- *             'class': 'y/log/file/Target',
+ *             'classPath': 'y/log/file/Target',
  *             'logPath': __dirname + '/logs'
  *         },
  *         'other': {...}
@@ -28,22 +28,22 @@ var TimeHelper = require('../../helpers/TimeHelper');
  *
  */
 class Target extends ITarget {
-    
+
     /**
      * constructor
      */
     constructor(config) {
         super();
-        
+
         this.config = config;
-        
+
         /**
          * @property {String} fileExtension 文件扩展名
          */
         this.fileExtension = undefined === config.fileExtension
             ? '.log'
             : config.fileExtension;
-        
+
         /**
          * @property {String} logPath 日志路径
          */
@@ -51,7 +51,7 @@ class Target extends ITarget {
             ? Y.getPathAlias('@runtime/logs')
             : config.logPath;
     }
-    
+
     /**
      * 获取日志文件
      */
@@ -59,9 +59,9 @@ class Target extends ITarget {
         if(undefined !== this.config.logFile) {
             return this.logPath + '/' + this.config.logFile;
         }
-        
+
         var date = new Date();
-        
+
         return this.logPath
             + '/'
             + date.getFullYear()
@@ -71,28 +71,28 @@ class Target extends ITarget {
             + date.getDate()
             + this.fileExtension;
     }
-    
+
     /**
      * @inheritdoc
      */
     flush(messages) {
         var msg = this.formatMessage(messages);
         var file = this.generateFile();
-        
+
         // 检查目录
         fs.access(this.logPath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
             if(null === err) {
                 fs.appendFile(file, msg, Y.app.encoding, (err) => {});
-                
+
                 return;
             }
-            
+
             FileHelper.createDirectory(this.logPath, 0o777, (err) => {
                 fs.appendFile(file, msg, Y.app.encoding, (err) => {});
             });
         });
     }
-    
+
     /**
      * 格式化内容
      */
@@ -106,10 +106,10 @@ class Target extends ITarget {
                 + messages[i][0]
                 + '\n';
         }
-        
+
         return msg;
     }
-    
+
 }
 
 module.exports = Target;

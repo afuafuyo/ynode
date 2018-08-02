@@ -18,10 +18,13 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-08-02
+
+    * npm package 3.1.2 all project's `class` config key change into `classPath`
+
 + 2018-06-15
 
     * npm package 3.1.0 update web/Request and web/URL class. moved most of functions of class web/URL to web/Request
-
 
 + 2018-05-10
 
@@ -50,7 +53,6 @@ __  ___   __          __
 + 2018-01-11
 
     * npm package 2.2.8 util/LinkedQueue added ```iterator()``` add ```remove(data)``` method
-
 
 + 2017-08-20
 
