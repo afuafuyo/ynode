@@ -20,7 +20,7 @@ __  ___   __          __
 
 # 说明
 
-ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 ynode 演化而成并采用 MIT 许可的一个与 ynode 保持同步的项目 并且提供了 typescript 版本 可以再托管平台搜索 candyjs 了解
+ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 ynode 演化而成并采用 MIT 许可的一个与 ynode 保持同步的项目 并且提供了 typescript 版本 可在托管平台搜索 candyjs 了解
 
 ###### 版本更新
 

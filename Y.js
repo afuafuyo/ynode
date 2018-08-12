@@ -68,14 +68,14 @@ class Y {
      * @return {Object} 类实例
      */
     static createObject(clazz, ...params) {
-        var realClass = '';
+        var file = '';
         var properties = null;
 
         if('string' === typeof clazz) {
-            realClass = Y.getPathAlias('@' + clazz);
+            file = Y.getPathAlias('@' + clazz);
 
         } else if('object' === typeof clazz && undefined !== clazz.classPath) {
-            realClass = Y.getPathAlias('@' + clazz.classPath);
+            file = Y.getPathAlias('@' + clazz.classPath);
 
             properties = Y.config({}, clazz);
             delete properties.classPath;
@@ -84,7 +84,7 @@ class Y {
         // 文件不存在抛出异常
         // todo
 
-        var ClassName = require(realClass + Y.fileExtention);
+        var ClassName = require(file + Y.fileExtention);
         var instance = new ClassName(...params);
 
         if(null !== properties) {
@@ -100,12 +100,12 @@ class Y {
      * @param {String} clazz 类全名
      */
     static include(clazz) {
-        var realClass = Y.getPathAlias('@' + clazz);
+        var file = Y.getPathAlias('@' + clazz);
 
         // 文件不存在抛出异常
         // todo
 
-        return require(realClass + Y.fileExtention);
+        return require(file + Y.fileExtention);
     }
 
     /**
