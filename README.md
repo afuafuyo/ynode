@@ -16,7 +16,7 @@ __  ___   __          __
 
 ###### 源码 source code
 
-+ https://github.com/yulipu/ynode
++ https://github.com/afuafuyo/ynode
 
 # 说明
 
@@ -204,7 +204,3 @@ ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 yn
 </pre>
 
 # 已知问题
-
-+ 异步异常没做处理
-
-+ 由于变量缓存修改问题 高并发下存在读取错误模板 bug 正在修复中 -- 已解决

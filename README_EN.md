@@ -14,7 +14,7 @@ __  ___   __          __
 
 ###### Source code
 
-+ https://github.com/yulipu/ynode
++ https://github.com/afuafuyo/ynode
 
 ###### Version change
 
