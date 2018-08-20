@@ -1,4 +1,3 @@
-var request = require('supertest');
 var assert = require('assert');
 
 var YNode = require('../index.js');
