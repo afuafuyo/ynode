@@ -31,7 +31,7 @@ class Behavior {
      *
      */
     events() {
-        return {};
+        return null;
     }
     
     /**
@@ -43,6 +43,10 @@ class Behavior {
         this.component = component;
         
         var events = this.events();
+        
+        if(null === events) {
+            return;
+        }
         
         for(let eventName in events) {
             this.component.on(eventName, events[eventName]);
@@ -58,6 +62,10 @@ class Behavior {
         }
         
         var events = this.events();
+        
+        if(null === events) {
+            return;
+        }
         
         for(let eventName in events) {
             this.component.off(eventName, events[eventName]);

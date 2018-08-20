@@ -14,7 +14,7 @@ class Event {
      */
     constructor() {
         /**
-         * @property {Object} handlers
+         * @property {Object} handlers the attached event handlers
          *
          * {
          *     'eventName': [fn1, fn2...]

@@ -5,28 +5,20 @@
 'use strict';
 
 var Y = require('../Y');
+var Event = require('./Event');
 var Behavior = require('./Behavior');
 
 /**
  * 组件是实现 属性 (property) 行为 (behavior) 事件 (event) 的基类
  */
-class Component {
+class Component extends Event {
 
     /**
      * constructor
      */
     constructor() {
-        /**
-         * @property {Object} eventsMap the attached event handlers
-         *
-         * {
-         *     'eventName': [fn1, fn2...]
-         *     'eventName2': [fn1, fn2...]
-         * }
-         *
-         */
-        this.eventsMap = {};
-
+        super();
+        
         /**
          * @property {Object} behaviorsMap the attached behaviors
          *
@@ -41,7 +33,7 @@ class Component {
         this.ensureDeclaredBehaviorsAttached();
     }
 
-    // 行为注入组件
+    // 将行为注入组件
     inject() {
         var keys = Object.keys(this.behaviorsMap);
 
@@ -92,7 +84,7 @@ class Component {
      *
      */
     behaviors() {
-        return {};
+        return null;
     }
 
     /**
@@ -100,6 +92,11 @@ class Component {
      */
     ensureDeclaredBehaviorsAttached() {
         var behaviors = this.behaviors();
+        
+        if(null === behaviors) {
+            return;
+        }
+        
         for(let name in behaviors) {
             this.attachBehaviorInternal(name, behaviors[name]);
         }
@@ -152,76 +149,6 @@ class Component {
         // 行为类可以监听组件的事件并处理
         behavior.listen(this);
         this.behaviorsMap[name] = behavior;
-    }
-
-    /**
-     * 注册事件
-     *
-     * @param {String} eventName 事件名称
-     * @param {any} handler 事件处理器
-     */
-    on(eventName, handler) {
-        if(undefined === this.eventsMap[eventName]) {
-            this.eventsMap[eventName] = [];
-        }
-
-        this.eventsMap[eventName].push(handler);
-    }
-
-    /**
-     * 注销事件
-     *
-     * @param {String} eventName 事件名称
-     * @param {any} handler 事件处理器
-     */
-    off(eventName, handler) {
-        if(undefined === this.eventsMap[eventName]) {
-            return;
-        }
-
-        if(undefined === handler) {
-            delete this.eventsMap[eventName];
-
-        } else {
-            for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
-                if(handler === this.eventsMap[eventName][i]) {
-                    this.eventsMap[eventName].splice(i, 1);
-                }
-            }
-        }
-    }
-
-    /**
-     * 触发
-     *
-     * @param {String} eventName 事件名称
-     * @param {Array} param 参数
-     */
-    trigger(eventName, param) {
-        if(undefined === this.eventsMap[eventName]) {
-            return;
-        }
-
-        for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
-            undefined === param ? this.eventsMap[eventName][i]() :
-                this.eventsMap[eventName][i].apply(null, param);
-        }
-    }
-
-    /**
-     * 触发
-     *
-     * @param {String} eventName 事件名称
-     * @param {any} params 参数
-     */
-    triggerWithRestParams(eventName, ...params) {
-        if(undefined === this.eventsMap[eventName]) {
-            return;
-        }
-
-        for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
-            this.eventsMap[eventName][i](...params);
-        }
     }
 
 }
