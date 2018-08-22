@@ -18,9 +18,13 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-08-22
+
+    * npm package 3.1.4 remove method ```setQueryString()``` of class y/web/Request
+
 + 2018-08-02
 
-    * npm package 3.1.2 all project's `class` config key change into `classPath`
+    * npm package 3.1.2 all project's `class` config key changed into `classPath`
 
 + 2018-06-15
 

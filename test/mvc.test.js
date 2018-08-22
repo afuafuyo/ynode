@@ -44,4 +44,17 @@ describe('MVC', function() {
             });
     });
     
+    it('get with params', function(done) {
+        request(server)
+            .get('/param?name=jack&age=20')
+            //.expect(200)
+            .end(function(err, res){
+                if (err) {return done(err);}
+                
+                assert.equal(res.text.trim(), 'jack');
+                
+                done();
+            });
+    });
+    
 });

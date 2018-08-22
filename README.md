@@ -24,6 +24,10 @@ ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 yn
 
 ###### 版本更新
 
++ 2018-08-22
+
+    * npm 包发布 3.1.4 去除 y/web/Request 类的 setQueryString() 方法
+
 + 2018-08-02
 
     * npm 包发布 3.1.2 项目中 `class` 配置项修改为 `classPath`
