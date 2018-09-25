@@ -1,8 +1,6 @@
 var fs = require('fs');
 
 var YNode = require('../index.js');
-// mock app
-YNode.Y.app = {encoding: 'UTF-8'};
 
 var config = {
     'targets': {
