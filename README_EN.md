@@ -18,6 +18,10 @@ __  ___   __          __
 
 ###### Version change
 
++ 2018-09-27
+
+    * npm package 3.2.0 optimize log system
+
 + 2018-08-22
 
     * npm package 3.1.4 remove method ```setQueryString()``` of class y/web/Request

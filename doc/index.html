@@ -1005,9 +1005,10 @@ rest.listen('8090', () => {
     'targets': {
         'file': {
             'classPath': 'y/log/file/Target',
-            'logPath': __dirname + '/logs'
-        },
-        'other': {...}
+            'logPath': __dirname + '/logs',
+            'logFile': 'system.log',
+            'maxFileSize': 10240  // 10 MB
+        }
     },
     'flushInterval': 10
 }
