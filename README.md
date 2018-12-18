@@ -166,47 +166,47 @@ ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 yn
 |- public 目录
 |
 |- app 项目目录
-|  |
-|  |-- apis
-|  |
-|  |-- controllers 普通控制器目录
-|      |
-|      |-- user 用户组目录
-|      |   |
-|      |   |-- IndexController.js  - host:port/user/index 可以访问到该类
-|      |   |-- OtherController.js  - host:port/user/other 可以访问到该类
-|      |
-|      |-- goods 商品组目录
-|      |   |
-|      |   |-- IndexController.js  - host:port/goods/index 可以访问到该类
-|      |   |-- OtherController.js  - host:port/goods/other 可以访问到该类
-|      |
+|   |
+|   |-- apis
+|   |
+|   |-- controllers 普通控制器目录
+|       |
+|       |-- user 用户组目录
+|       |   |
+|       |   |-- IndexController.js  - host:port/user/index 可以访问到该类
+|       |   |-- OtherController.js  - host:port/user/other 可以访问到该类
+|       |
+|       |-- goods 商品组目录
+|       |   |
+|       |   |-- IndexController.js  - host:port/goods/index 可以访问到该类
+|       |   |-- OtherController.js  - host:port/goods/other 可以访问到该类
+|       |
 |   -- views 普通控制器模板目录
-|      |
-|      |-- user 用户组模板 对应上面用户组
-|      |   |
-|      |   |-- index.html
-|      |   |-- other.html
-|      |
+|       |
+|       |-- user 用户组模板 对应上面用户组
+|       |   |
+|       |   |-- index.html
+|       |   |-- other.html
+|       |
 |   -- goods 商品组模板
-|      |   |
-|      |   |-- index.html
-|      |   |-- other.html
-|      |
+|       |   |
+|       |   |-- index.html
+|       |   |-- other.html
+|       |
 |   -- modules 模块
-|      |
-|      |-- reg
-|      |   |
-|      |   |-- controllers 模块控制器目录 其下无子目录
-|      |   |   |
-|      |   |   |-- IndexController.js
-|      |   |
-|      |   |-- views 模块模板目录
-|      |   |   |
-|      |   |   |-- index.html
-|      |   |
-|      |   |-- 其他目录
-|      |
+|       |
+|       |-- reg
+|       |   |
+|       |   |-- controllers 模块控制器目录 其下无子目录
+|       |   |   |
+|       |   |   |-- IndexController.js
+|       |   |
+|       |   |-- views 模块模板目录
+|       |   |   |
+|       |   |   |-- index.html
+|       |   |
+|       |   |-- 其他目录
+|       |
 |   -- runtime 缓存目录
 |
 </pre>

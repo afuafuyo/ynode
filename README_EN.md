@@ -160,47 +160,47 @@ __  ___   __          __
 |- public
 |
 |- app
-|  |
-|  |-- apis
-|  |
-|  |-- controllers
-|      |
-|      |-- user
-|      |   |
-|      |   |-- IndexController.js
-|      |   |-- OtherController.js
-|      |
-|      |-- goods
-|      |   |
-|      |   |-- IndexController.js
-|      |   |-- OtherController.js
-|      |
+|   |
+|   |-- apis
+|   |
+|   |-- controllers
+|       |
+|       |-- user
+|       |   |
+|       |   |-- IndexController.js
+|       |   |-- OtherController.js
+|       |
+|       |-- goods
+|       |   |
+|       |   |-- IndexController.js
+|       |   |-- OtherController.js
+|       |
 |   -- views
-|      |
-|      |-- user
-|      |   |
-|      |   |-- index.html
-|      |   |-- other.html
-|      |
+|       |
+|       |-- user
+|       |   |
+|       |   |-- index.html
+|       |   |-- other.html
+|       |
 |   -- goods
-|      |   |
-|      |   |-- index.html
-|      |   |-- other.html
-|      |
+|       |   |
+|       |   |-- index.html
+|       |   |-- other.html
+|       |
 |   -- modules
-|      |
-|      |-- reg
-|      |   |
-|      |   |-- controllers
-|      |   |   |
-|      |   |   |-- IndexController.js
-|      |   |
-|      |   |-- views
-|      |   |   |
-|      |   |   |-- index.html
-|      |   |
-|      |   |-- otherdir
-|      |
+|       |
+|       |-- reg
+|       |   |
+|       |   |-- controllers
+|       |   |   |
+|       |   |   |-- IndexController.js
+|       |   |
+|       |   |-- views
+|       |   |   |
+|       |   |   |-- index.html
+|       |   |
+|       |   |-- otherdir
+|       |
 |   -- runtime
 |
 </pre>
