@@ -82,25 +82,25 @@ __  ___   __          __
 
             <p>这样就会创建一个简单的应用如下</p>
 <p>
-    <pre><code>
+<pre><code>
 PROJECT_NAME
 |
 |- index.js
 |
 |- app
-|  |
-|  |-- controllers 普通控制器目录
-|      |
-|      |-- index
-|      |   |
-|      |   |-- IndexController.js
-|      |
+|   |
+|   |-- controllers
+|       |
+|       |-- index
+|       |   |
+|       |   |-- IndexController.js
+|       |
 |   -- views
-|      |
-|      |-- index
-|      |   |
-|      |   |-- index.html
-    </code></pre>
+|       |
+|       |-- index
+|       |   |
+|       |   |-- index.html
+</code></pre>
 </p>
 
             <p>进入应用目录启动程序</p>
@@ -122,45 +122,45 @@ PROJECT_NAME
 |- public 目录 一般存放静态文件
 |
 |- app 项目目录
-|  |
-|  |-- controllers 普通控制器目录
-|      |
-|      |-- user 用户组目录
-|      |   |
-|      |   |-- IndexController.js  - host:port/user/index 可以访问到该类
-|      |   |-- OtherController.js  - host:port/user/other 可以访问到该类
-|      |
-|      |-- goods 商品组目录
-|      |   |
-|      |   |-- IndexController.js  - host:port/goods/index 可以访问到该类
-|      |   |-- OtherController.js  - host:port/goods/other 可以访问到该类
-|      |
-|   -- views 普通控制器模板目录
-|      |
-|      |-- user 用户组模板 对应上面用户组
-|      |   |
-|      |   |-- index.html
-|      |   |-- other.html
-|      |
-|   -- goods 商品组模板
-|      |   |
-|      |   |-- index.html
-|      |   |-- other.html
-|      |
-|   -- modules 模块
-|      |
-|      |-- reg
-|      |   |
-|      |   |-- controllers 模块控制器目录 其下无子目录
-|      |   |   |
-|      |   |   |-- IndexController.js
-|      |   |
-|      |   |-- views 模块模板目录
-|      |   |   |
-|      |   |   |-- index.html
-|      |   |
-|      |   |-- 其他目录
-|      |
+|   |
+|   |-- controllers
+|       |
+|       |-- user
+|       |   |
+|       |   |-- IndexController.js  - host:port/user/index 可以访问到该类
+|       |   |-- OtherController.js  - host:port/user/other 可以访问到该类
+|       |
+|       |-- goods
+|       |   |
+|       |   |-- IndexController.js  - host:port/goods/index 可以访问到该类
+|       |   |-- OtherController.js  - host:port/goods/other 可以访问到该类
+|       |
+|   -- views
+|       |
+|       |-- user 用户组模板 对应上面用户组
+|       |   |
+|       |   |-- index.html
+|       |   |-- other.html
+|       |
+|   -- goods
+|       |   |
+|       |   |-- index.html
+|       |   |-- other.html
+|       |
+|   -- modules
+|       |
+|       |-- reg
+|       |   |
+|       |   |-- controllers 模块控制器目录 其下无子目录
+|       |   |   |
+|       |   |   |-- IndexController.js
+|       |   |
+|       |   |-- views 模块模板目录
+|       |   |   |
+|       |   |   |-- index.html
+|       |   |
+|       |   |-- 其他目录
+|       |
 |   -- runtime 缓存目录
 |
 </pre></code>
@@ -412,9 +412,9 @@ module.exports = IndexController;
 
             <h1 class="page-header" id="module"><b>模块</b></h1>
             <p>
-                模块是独立的软件单元<code>由模型 视图 控制器</code>和其他组件组成
+                模块是独立的软件单元<code>由模型、视图、控制器</code>和其他组件组成
                 终端用户可以访问在应用主体中已注册的模块的控制器
-                <code>YNode</code>在解析路由时优先查找模块中有没有满足条件的控制器
+                <code>YNode</code>在解析路由时优先查找模块中的控制器
             </p>
             <blockquote class="bg-info">
                 注意 和普通项目目录不同的是 模块中的<code>控制器和视图</code>没有子目录
@@ -425,18 +425,18 @@ module.exports = IndexController;
 <p>
 <pre><code>
 modules 模块目录
-    |
-    |-- bbs 创建 bbs 模块
-    |   |
-    |   |-- controllers 模块控制器目录
-    |   |   |
-    |   |   |-- IndexController.js
-    |   |
-    |   |-- views 模块视图目录
-    |   |   |
-    |   |   |-- index.html
-    |   |
-    |   |-- 其他目录
+   |
+   |-- bbs 创建 bbs 模块
+   |   |
+   |   |-- controllers 模块控制器目录
+   |   |   |
+   |   |   |-- IndexController.js
+   |   |
+   |   |-- views 模块视图目录
+   |   |   |
+   |   |   |-- index.html
+   |   |
+   |   |-- 其他目录
 </code></pre>
 </p>
 
