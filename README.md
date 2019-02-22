@@ -10,19 +10,29 @@ __  ___   __          __
 
 # [English Readme](./README_EN.md)
 
-###### Node 版本
+### Node 版本
 
 + 大于等于 6.0.0
 
-###### 源码 source code
+### 源码 source code
 
 + https://github.com/afuafuyo/ynode
 
-# 说明
+### 说明
 
-ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 ynode 演化而成并采用 MIT 许可的一个与 ynode 保持同步的项目 并且提供了 typescript 版本 可在托管平台搜索 candyjs 了解
+ynode 是一个个人项目，推荐在项目中使用 candyjs ， candyjs 是从 ynode 演化而成并采用 MIT 许可的一个与 ynode 保持同步的项目。可在托管平台搜索 candyjs 了解
 
-###### 版本更新
+### 为什么是 YNode
+
++ YNode 实现了 MVC (Model-View-Controller) 设计模式并基于该模式组织代码
+
++ YNode 实现了自动路由映射
+    
++ YNode 高可扩展和高可配置
+
++ YNode 的代码简洁优雅 这是它的编程哲学
+
+### 版本更新
 
 + 2018-09-27
 
@@ -149,14 +159,14 @@ ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 yn
     * 修改 web/Request::getGetParam() to web/Request::getQueryString()
     * 修改 web/Request::getPostParam() to web/Request::getParameter()
 
-###### 系统内置别名
+### 系统内置别名
 
 + @y  系统目录
 + @app  项目目录 由 appPath 指定 ```YNode.Y.app.getAppPath()``` 可得到该值
 + @runtime  缓存目录 默认指向 @app/runtime ```YNode.Y.app.getRuntimePath()``` 可得到该值
 + @root  网站根目录 ```YNode.Y.app.getRootPath()``` 可得到该值
 
-###### 项目目录示例
+### 项目目录示例
 
 <pre>
 |- index.js
@@ -211,4 +221,4 @@ ynode 是一个个人项目 推荐在项目中使用 candyjs , candyjs 是从 yn
 |
 </pre>
 
-# 已知问题
+### 已知问题

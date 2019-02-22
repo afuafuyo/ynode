@@ -8,15 +8,25 @@ __  ___   __          __
 
 # An Object-Oriented node.js mvc and REST framework
 
-###### Node version
+### Node version
 
 + no less than 6.0.0
 
-###### Source code
+### Source code
 
 + https://github.com/afuafuyo/ynode
 
-###### Version change
+### Why YNode
+
++ YNode implements the MVC (Model-View-Controller) architectural pattern and promotes code organization based on that pattern
+
++ Auto route mapping
+
++ Elegant and concise programming philosophy
+
++ Extremely extensible and configurable
+
+### Version change
 
 + 2018-09-27
 
@@ -143,14 +153,14 @@ __  ___   __          __
     * change web/Request::getGetParam() to web/Request::getQueryString()
     * change web/Request::getPostParam() to web/Request::getParameter()
 
-###### Build in system variable
+### Build in system variable
 
 + @y  system dir
 + @app  app dir ```YNode.Y.app.getAppPath()``` can get the value
 + @runtime  cache dir default to @app/runtime ```YNode.Y.app.getRuntimePath()``` can get the value
 + @root  website root dir ```YNode.Y.app.getRootPath()``` can get the value
 
-###### Application structure demo
+### Application structure demo
 
 <pre>
 |- index.js
