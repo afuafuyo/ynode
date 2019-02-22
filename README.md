@@ -27,7 +27,7 @@ ynode 是一个个人项目，推荐在项目中使用 candyjs ， candyjs 是�
 + YNode 实现了 MVC (Model-View-Controller) 设计模式并基于该模式组织代码
 
 + YNode 实现了自动路由映射
-    
+
 + YNode 高可扩展和高可配置
 
 + YNode 的代码简洁优雅 这是它的编程哲学
