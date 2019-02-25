@@ -28,6 +28,10 @@ __  ___   __          __
 
 ### Version change
 
++ 2019-02-25
+
+    * npm package 3.2.2 optimize system code
+
 + 2018-09-27
 
     * npm package 3.2.0 optimize log system

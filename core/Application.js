@@ -36,6 +36,11 @@ class Application extends Fate {
          */
         this.exceptionHandler = '';
         
+        /**
+         * @property {String} viewHandler 视图类
+         */
+        this.viewHandler = '';
+        
         Y.app = this;
         this.init(config);
         Y.config(this, config);

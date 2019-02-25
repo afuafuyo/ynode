@@ -19,9 +19,9 @@ class Controller extends CoreController {
         super(context);
         
         /**
-         * @property {String} viewHandler
+         * @property {String} defaultViewHandler
          */
-        this.viewHandler = 'y/web/View';
+        this.defaultViewHandler = 'y/web/View';
         
         /**
          * @property {View} view
@@ -34,7 +34,9 @@ class Controller extends CoreController {
      */
     getView() {
         if(null === this.view) {
-            this.view = Y.createObject(this.viewHandler, this.context);
+            this.view = Y.createObject('' === Y.app.viewHandler
+                ? this.defaultViewHandler
+                : Y.app.viewHandler, this.context);
         }
         
         return this.view;
