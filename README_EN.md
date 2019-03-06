@@ -26,6 +26,89 @@ __  ___   __          __
 
 + Extremely extensible and configurable
 
+### Demo
+
+Using YNode only needs to start with an entry file. See the documentation in the doc directory for details.
+
+```javascript
+var YNode = require('../ynode');
+
+new YNode({
+    'id': 1,
+    
+    // 定义调试应用
+    'debug': true,
+    
+    // 定义应用路径
+    'appPath': __dirname + '/app'
+    
+}).listen(8090, function(){
+    console.log('listen on 8090');
+});
+```
+
+### Build in system variable
+
++ @y  system dir
++ @app  app dir ```YNode.Y.app.getAppPath()``` can get the value
++ @runtime  cache dir default to @app/runtime ```YNode.Y.app.getRuntimePath()``` can get the value
++ @root  website root dir ```YNode.Y.app.getRootPath()``` can get the value
+
+### Application structure demo
+
+<pre>
+|- index.js
+|
+|- node_modules
+|
+|- public
+|
+|- app
+|   |
+|   |-- apis
+|   |
+|   |-- controllers
+|       |
+|       |-- user
+|       |   |
+|       |   |-- IndexController.js
+|       |   |-- OtherController.js
+|       |
+|       |-- goods
+|       |   |
+|       |   |-- IndexController.js
+|       |   |-- OtherController.js
+|       |
+|   -- views
+|       |
+|       |-- user
+|       |   |
+|       |   |-- index.html
+|       |   |-- other.html
+|       |
+|   -- goods
+|       |   |
+|       |   |-- index.html
+|       |   |-- other.html
+|       |
+|   -- modules
+|       |
+|       |-- reg
+|       |   |
+|       |   |-- controllers
+|       |   |   |
+|       |   |   |-- IndexController.js
+|       |   |
+|       |   |-- views
+|       |   |   |
+|       |   |   |-- index.html
+|       |   |
+|       |   |-- otherdir
+|       |
+|   -- runtime
+|
+</pre>
+
 ### Version change
 
 + 2019-02-25
@@ -156,65 +239,3 @@ __  ___   __          __
 
     * change web/Request::getGetParam() to web/Request::getQueryString()
     * change web/Request::getPostParam() to web/Request::getParameter()
-
-### Build in system variable
-
-+ @y  system dir
-+ @app  app dir ```YNode.Y.app.getAppPath()``` can get the value
-+ @runtime  cache dir default to @app/runtime ```YNode.Y.app.getRuntimePath()``` can get the value
-+ @root  website root dir ```YNode.Y.app.getRootPath()``` can get the value
-
-### Application structure demo
-
-<pre>
-|- index.js
-|
-|- node_modules
-|
-|- public
-|
-|- app
-|   |
-|   |-- apis
-|   |
-|   |-- controllers
-|       |
-|       |-- user
-|       |   |
-|       |   |-- IndexController.js
-|       |   |-- OtherController.js
-|       |
-|       |-- goods
-|       |   |
-|       |   |-- IndexController.js
-|       |   |-- OtherController.js
-|       |
-|   -- views
-|       |
-|       |-- user
-|       |   |
-|       |   |-- index.html
-|       |   |-- other.html
-|       |
-|   -- goods
-|       |   |
-|       |   |-- index.html
-|       |   |-- other.html
-|       |
-|   -- modules
-|       |
-|       |-- reg
-|       |   |
-|       |   |-- controllers
-|       |   |   |
-|       |   |   |-- IndexController.js
-|       |   |
-|       |   |-- views
-|       |   |   |
-|       |   |   |-- index.html
-|       |   |
-|       |   |-- otherdir
-|       |
-|   -- runtime
-|
-</pre>
