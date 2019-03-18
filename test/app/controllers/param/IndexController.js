@@ -1,6 +1,6 @@
 'use strict';
 
-var YNode = require('ynode');
+var YNode = require('../../../../index');
 var Request = YNode.Y.include('y/web/Request');
 
 class IndexController {
