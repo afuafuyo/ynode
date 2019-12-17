@@ -4,31 +4,31 @@
  */
 'use strict';
 
-var Y = require('../Y');
-var CoreController = require('../core/Controller');
+const Y = require('../Y');
+const CoreController = require('../core/Controller');
 
 /**
  * 控制器
  */
 class Controller extends CoreController {
-    
+
     /**
      * constructor
      */
     constructor(context) {
         super(context);
-        
+
         /**
          * @property {String} defaultViewHandler
          */
         this.defaultViewHandler = 'y/web/View';
-        
+
         /**
          * @property {View} view
          */
         this.view = null;
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -38,10 +38,10 @@ class Controller extends CoreController {
                 ? this.defaultViewHandler
                 : Y.app.viewHandler, this.context);
         }
-        
+
         return this.view;
     }
-    
+
 }
 
 module.exports = Controller;

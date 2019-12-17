@@ -4,13 +4,13 @@
  */
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-var Y = require('../../Y');
-var Logger = require('../Logger');
-var ITarget = require('../ITarget');
-var FileHelper = require('../../helpers/FileHelper');
-var TimeHelper = require('../../helpers/TimeHelper');
+const Y = require('../../Y');
+const Logger = require('../Logger');
+const ITarget = require('../ITarget');
+const FileHelper = require('../../helpers/FileHelper');
+const TimeHelper = require('../../helpers/TimeHelper');
 
 /**
  * 文件日志
@@ -87,7 +87,7 @@ class Target extends ITarget {
      * 格式化内容
      */
     formatMessage(messages) {
-        var msg = '';
+        let msg = '';
         for(let i=0,len=messages.length; i<len; i++) {
             msg += TimeHelper.format('y-m-d h:i:s', messages[i][2])
                 + ' [ '
@@ -104,8 +104,8 @@ class Target extends ITarget {
      * 写日志
      */
     writeLog(messages) {
-        var msg = this.formatMessage(messages);
-        var file = this.logPath + '/' + this.logFile;
+        let msg = this.formatMessage(messages);
+        let file = this.logPath + '/' + this.logFile;
 
         // check file exists
         fs.access(file, fs.constants.F_OK, (err) => {

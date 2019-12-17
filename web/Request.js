@@ -4,24 +4,24 @@
  */
 'use strict';
 
-var url = require('url');
-var querystring = require('querystring');
+const url = require('url');
+const querystring = require('querystring');
 
-var Cookie = require('./Cookie');
-var CoreRequest = require('../core/Request');
+const Cookie = require('./Cookie');
+const CoreRequest = require('../core/Request');
 
 /**
  * 请求
  */
 class Request extends CoreRequest {
-    
+
     /**
      * constructor
      */
     constructor(request) {
         super(request);
     }
-    
+
     /**
      * 解析 request url
      *
@@ -29,8 +29,8 @@ class Request extends CoreRequest {
      * @return {Object}
      */
     static parseUrl(request) {
-        var obj = url.parse(request.url);
-        
+        let obj = url.parse(request.url);
+
         return {
             protocol: obj.protocol,
             host: obj.host,
@@ -41,7 +41,7 @@ class Request extends CoreRequest {
             hash: obj.hash
         };
     }
-    
+
     /**
      * 获取客户端 ip
      *
@@ -49,38 +49,38 @@ class Request extends CoreRequest {
      * @return {String}
      */
     static getClientIp(request) {
-        var forward = request.headers['x-forwarded-for'];
+        let forward = request.headers['x-forwarded-for'];
         if(undefined !== forward) {
             return forward.substring(0, forward.indexOf(','));
         }
-        
+
         return request.connection.remoteAddress;
     }
-    
+
     /**
      * 静态方法 获取 get 参数
-     * 
+     *
      * @param {Object} request 请求对象
      * @param {String} param 参数名
      * @return {String | null}
      */
     static getQueryString(request, param) {
-        var parsed = Request.parseUrl(request);
-        
+        let parsed = Request.parseUrl(request);
+
         if(null === parsed.query) {
             return null;
         }
-        
+
         // 查找参数
         if(0 === parsed.query.indexOf(param + '=')
             || parsed.query.indexOf('&' + param + '=') > 0) {
-            
+
             return querystring.parse(parsed.query)[param];
         }
-        
+
         return null;
     }
-    
+
     /**
      * 静态方法 获取 post 参数
      *
@@ -92,10 +92,10 @@ class Request extends CoreRequest {
         if(undefined === request.body) {
             return null;
         }
-        
+
         return undefined === request.body[param] ? null : request.body[param];
     }
-    
+
     /**
      * 获取 cookie
      *
@@ -106,7 +106,7 @@ class Request extends CoreRequest {
     static getCookie(request, name) {
         return Cookie.getCookie(request, name);
     }
-    
+
     /**
      * 获取 get 参数
      *
@@ -116,7 +116,7 @@ class Request extends CoreRequest {
     getQueryString(param) {
         return Request.getQueryString(this.request, param);
     }
-    
+
     /**
      * 获取 post 参数
      *
@@ -126,7 +126,7 @@ class Request extends CoreRequest {
     getParameter(param) {
         return Request.getParameter(this.request, param);
     }
-    
+
     /**
      * 获取 cookie
      *
@@ -135,7 +135,7 @@ class Request extends CoreRequest {
     getCookie(name) {
         return Request.getCookie(this.request, name);
     }
-    
+
     /**
      * 获取引用网址
      *
@@ -155,16 +155,16 @@ class Request extends CoreRequest {
      * @return {String}
      */
     getHostInfo() {
-        var protocol = undefined !== this.request.socket.encrypted
+        let protocol = undefined !== this.request.socket.encrypted
             || 'https' === this.request.headers['x-forwarded-protocol']
                 ? 'https'
                 : 'http';
 
-        var host = protocol + '://' + this.request.headers.host;
+        let host = protocol + '://' + this.request.headers.host;
 
         return host;
     }
-    
+
     /**
      * 获取当前网址 不包含锚点部分
      *
@@ -173,7 +173,7 @@ class Request extends CoreRequest {
     getCurrent() {
         return this.getHostInfo() + this.request.url;
     }
-    
+
 }
 
 module.exports = Request;

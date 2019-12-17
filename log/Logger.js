@@ -4,9 +4,9 @@
  */
 'use strict';
 
-var Y = require('../Y');
-var InvalidConfigException = require('../core/InvalidConfigException');
-var ITarget = require('./ITarget');
+const Y = require('../Y');
+const InvalidConfigException = require('../core/InvalidConfigException');
+const ITarget = require('./ITarget');
 
 /**
  * 日志
@@ -97,7 +97,7 @@ class Logger {
      * 清空 log 并写入目的地
      */
     flush() {
-        var messages = this.messages;
+        let messages = this.messages;
         this.messages = [];
 
         for(let target of this.targets) {
@@ -148,7 +148,7 @@ class Logger {
      * @return {String}
      */
     static getLevelName(level) {
-        var name = 'unknown';
+        let name = 'unknown';
         switch(level) {
             case Logger.LEVEL_ERROR :
                 name = 'error';

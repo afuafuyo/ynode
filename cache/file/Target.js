@@ -4,12 +4,12 @@
  */
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-var Y = require('../../Y');
-var ITarget = require('../ITarget');
-var FileHelper = require('../../helpers/FileHelper');
-var CacheException = require('../../core/CacheException');
+const Y = require('../../Y');
+const ITarget = require('../ITarget');
+const FileHelper = require('../../helpers/FileHelper');
+const CacheException = require('../../core/CacheException');
 
 /**
  * 文件缓存
@@ -60,9 +60,9 @@ class Target extends ITarget {
      * @inheritdoc
      */
     setSync(key, value, duration = 31536000000/* one year */) {
-        var cacheFile = this.generateFile(key);
+        let cacheFile = this.generateFile(key);
 
-        var life = (Date.now() + duration) / 1000;
+        let life = (Date.now() + duration) / 1000;
 
         // 目录不存在就创建
         if(!fs.existsSync(this.cachePath)) {
@@ -78,9 +78,9 @@ class Target extends ITarget {
      * @inheritdoc
      */
     set(key, value, duration = 31536000000/* one year */, callback = null) {
-        var cacheFile = this.generateFile(key);
+        let cacheFile = this.generateFile(key);
 
-        var life = (Date.now() + duration) / 1000;
+        let life = (Date.now() + duration) / 1000;
 
         // 检查目录
         fs.access(this.cachePath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
@@ -115,8 +115,8 @@ class Target extends ITarget {
      * @inheritdoc
      */
     getSync(key) {
-        var ret = null;
-        var cacheFile = this.generateFile(key);
+        let ret = null;
+        let cacheFile = this.generateFile(key);
 
         if(fs.existsSync(cacheFile) && fs.statSync(cacheFile).mtime.getTime() > Date.now()) {
             ret = fs.readFileSync(cacheFile, Y.app.encoding);
@@ -129,7 +129,7 @@ class Target extends ITarget {
      * @inheritdoc
      */
     get(key, callback) {
-        var cacheFile = this.generateFile(key);
+        let cacheFile = this.generateFile(key);
 
         fs.stat(cacheFile, (err, stats) => {
             if(null !== err) {
@@ -150,7 +150,7 @@ class Target extends ITarget {
      * @inheritdoc
      */
     deleteSync(key) {
-        var cacheFile = this.generateFile(key);
+        let cacheFile = this.generateFile(key);
 
         fs.unlinkSync(cacheFile);
     }
@@ -159,7 +159,7 @@ class Target extends ITarget {
      * @inheritdoc
      */
     delete(key, callback) {
-        var cacheFile = this.generateFile(key);
+        let cacheFile = this.generateFile(key);
 
         fs.unlink(cacheFile, callback);
     }

@@ -4,8 +4,8 @@
  */
 'use strict';
 
-var Request = require('./Request');
-var StringHelper = require('../helpers/StringHelper');
+const Request = require('./Request');
+const StringHelper = require('../helpers/StringHelper');
 
 /**
  * Uniform Resource Location
@@ -13,7 +13,7 @@ var StringHelper = require('../helpers/StringHelper');
  * @see https://tools.ietf.org/html/rfc1738
  */
 class URL {
-    
+
     /**
      * 创建一个 url
      *
@@ -31,23 +31,23 @@ class URL {
      * @return {String}
      */
     static to(request, url, params = null) {
-        var host = new Request(request).getHostInfo();
-        var query = '';
-        var anchor = '';
-        
+        let host = new Request(request).getHostInfo();
+        let query = '';
+        let anchor = '';
+
         url = host + '/' + url;
-        
+
         if(null !== params) {
             if(undefined !== params['#']) {
                 anchor = params['#'];
                 delete params['#'];
             }
-            
+
             for(let k in params) {
                 query = query + k + '=' + params[k] + '&';
             }
             query = StringHelper.rTrimChar(query, '&');
-            
+
             if('' !== query) {
                 url = url + '?' + query;
             }
@@ -55,10 +55,10 @@ class URL {
                 url = url + '#' + anchor;
             }
         }
-        
+
         return url;
     }
-    
+
 }
 
 module.exports = URL;

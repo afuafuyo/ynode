@@ -4,9 +4,9 @@
  */
 'use strict';
 
-var Y = require('../Y');
-var InvalidConfigException = require('../core/InvalidConfigException');
-var InvalidArgumentException = require('../core/InvalidArgumentException');
+const Y = require('../Y');
+const InvalidConfigException = require('../core/InvalidConfigException');
+const InvalidArgumentException = require('../core/InvalidArgumentException');
 
 class Cache {
 

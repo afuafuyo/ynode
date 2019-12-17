@@ -4,15 +4,15 @@
  */
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-var Request = require('../web/Request');
+const Request = require('../web/Request');
 
 /**
  * 静态资源处理
  */
 class Resource {
-    
+
     /**
      * constructor
      *
@@ -29,7 +29,7 @@ class Resource {
         this.root = root;
         this.options = options;
     }
-    
+
     /**
      * 入口
      *
@@ -38,7 +38,7 @@ class Resource {
     serve() {
         return this.handler.bind(this);
     }
-    
+
     /**
      * 是否是静态资源
      *
@@ -46,27 +46,27 @@ class Resource {
      * @return {Boolean}
      */
     isStatic(request) {
-        var ret = false;
-        var pathname = Request.parseUrl(request).pathname;
-        var ext = this.getExtName(pathname).substring(1);
-        var mime = undefined === this.options.mime ?
+        let ret = false;
+        let pathname = Request.parseUrl(request).pathname;
+        let ext = this.getExtName(pathname).substring(1);
+        let mime = undefined === this.options.mime ?
             Resource.mime :
             Object.assign({}, Resource.mime, this.options.mime);
-        
+
         if('' === ext) {
             return false;
         }
-        
+
         for(let key in mime) {
             if(ext === key) {
                 ret = true;
                 break;
             }
         }
-        
+
         return ret;
     }
-    
+
     /**
      * 获取 mimeType
      *
@@ -74,22 +74,22 @@ class Resource {
      * @return {String}
      */
     getMimeType(pathName) {
-        var ret = '';
-        var ext = this.getExtName(pathName).substring(1);
-        var mime = undefined === this.options.mime ?
+        let ret = '';
+        let ext = this.getExtName(pathName).substring(1);
+        let mime = undefined === this.options.mime ?
             Resource.mime :
             Object.assign({}, Resource.mime, this.options.mime);
-        
+
         for(let key in mime) {
             if(ext === key) {
                 ret = mime[key];
                 break;
             }
         }
-        
+
         return ret;
     }
-    
+
     /**
      * 获得扩展名
      *
@@ -99,7 +99,7 @@ class Resource {
     getExtName(pathName) {
         return pathName.substring(pathName.lastIndexOf('.'));
     }
-    
+
     /**
      * 处理静态资源
      *
@@ -112,55 +112,55 @@ class Resource {
             next();
             return;
         }
-        
-        var pathname = Request.parseUrl(request).pathname;
-        var mimeType = this.getMimeType(pathname);
-        
+
+        let pathname = Request.parseUrl(request).pathname;
+        let mimeType = this.getMimeType(pathname);
+
         pathname = (this.root + pathname).replace(/\.\./g, '');
         while(pathname.indexOf('//') >= 0) {
             pathname = pathname.replace('//', '/');
         }
-        
+
         fs.stat(pathname, (err, stats) => {
             if(null !== err) {
                 response.writeHead(404);
                 response.end();
                 return;
             }
-            
+
             if(stats.isDirectory()) {
                 response.writeHead(403);
                 response.end();
                 return;
             }
-            
+
             // headers
             response.setHeader('Content-Type', '' === mimeType ? 'text/plain' : mimeType);
             response.setHeader('Last-Modified', stats.mtime.toUTCString());
-            
+
             // 设置缓存
             let extName = this.getExtName(pathname);
             let cacheConfig = undefined === this.options.cache ?
                 Resource.cache : this.options.cache;
-            
+
             if(cacheConfig.regExp.test(extName)) {
                 response.setHeader('Expires', new Date(Date.now() + cacheConfig.maxAge).toUTCString());
                 response.setHeader('Cache-Control', 'max-age=' + cacheConfig.maxAge / 1000);
             }
-            
+
             // 有缓存直接返回
             if(stats.mtime.toUTCString() === request.headers['if-modified-since']) {
                 response.writeHead(304);
                 response.end();
                 return;
             }
-            
+
             let rs = fs.createReadStream(pathname);
             response.writeHead(200);
             rs.pipe(response);
         });
     }
-    
+
 }
 
 /**

@@ -4,27 +4,27 @@
  */
 'use strict';
 
-var Event = require('../core/Event');
+const Event = require('../core/Event');
 
 /**
  * base target
  */
 class ITarget extends Event {
-    
+
     /**
      * constructor
      */
     constructor() {
         super();
     }
-    
+
     /**
      * flush log
      *
      * @param {Array} message the message to be logged
      */
     flush(messages) {}
-    
+
     /**
      * 触发事件
      *
@@ -35,12 +35,12 @@ class ITarget extends Event {
         if(undefined === this.handlers[eventName]) {
             return;
         }
-        
+
         for(let handler of this.handlers[eventName]) {
             handler.flush(param);
         }
     }
-    
+
 }
 
 /**

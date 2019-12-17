@@ -4,15 +4,15 @@
  */
 'use strict';
 
-var Y = require('../Y');
-var Fate = require('./Fate');
-var InvalidConfigException = require('./InvalidConfigException');
+const Y = require('../Y');
+const Fate = require('./Fate');
+const InvalidConfigException = require('./InvalidConfigException');
 
 /**
  * 应用基类
  */
 class Application extends Fate {
-    
+
     /**
      * constructor
      *
@@ -20,32 +20,32 @@ class Application extends Fate {
      */
     constructor(config) {
         super();
-        
+
         /**
          * @property {String} encoding 编码
          */
         this.encoding = 'UTF-8';
-        
+
         /**
          * @property {Boolean} debug 调试
          */
         this.debug = false;
-        
+
         /**
          * @property {String} exceptionHandler 异常处理类
          */
         this.exceptionHandler = '';
-        
+
         /**
          * @property {String} viewHandler 视图类
          */
         this.viewHandler = '';
-        
+
         Y.app = this;
         this.init(config);
         Y.config(this, config);
     }
-    
+
     /**
      * 初始化应用
      *
@@ -56,33 +56,33 @@ class Application extends Fate {
         if(undefined === config.id) {
             throw new InvalidConfigException('The "id" configuration is required');
         }
-        
+
         if(undefined !== config.appPath) {
             this.setAppPath(config.appPath);
             delete config.appPath;
-            
+
         } else {
             throw new InvalidConfigException('The "appPath" configuration is required');
         }
-        
+
         if(undefined !== config.runtimePath) {
             this.setRuntimePath(config.runtimePath);
             delete config.runtimePath;
-            
+
         } else {
             // set "app/runtime"
             this.setRuntimePath( this.getAppPath() + '/runtime');
         }
-        
+
         if(undefined !== config.rootPath) {
             this.setRootPath(config.rootPath);
             delete config.rootPath;
-            
+
         } else {
             this.setRootPath(process.env.PWD);
         }
     }
-    
+
     /**
      * 设置应用路径
      *
@@ -91,7 +91,7 @@ class Application extends Fate {
     setAppPath(path) {
         Y.setPathAlias('@app', path);
     }
-    
+
     /**
      * 得到应用目录
      *
@@ -100,7 +100,7 @@ class Application extends Fate {
     getAppPath() {
         return Y.getPathAlias('@app');
     }
-    
+
     /**
      * 设置 runtime 路径
      *
@@ -109,7 +109,7 @@ class Application extends Fate {
     setRuntimePath(path) {
         Y.setPathAlias('@runtime', path);
     }
-    
+
     /**
      * 得到 runtime 目录
      *
@@ -118,7 +118,7 @@ class Application extends Fate {
     getRuntimePath() {
         return Y.getPathAlias('@runtime');
     }
-    
+
     /**
      * 设置 root 路径
      *
@@ -127,7 +127,7 @@ class Application extends Fate {
     setRootPath(path) {
         Y.setPathAlias('@root', path);
     }
-    
+
     /**
      * 得到 root 目录
      *
@@ -136,7 +136,7 @@ class Application extends Fate {
     getRootPath() {
         return Y.getPathAlias('@root');
     }
-    
+
     /**
      * handler request
      *
@@ -144,7 +144,7 @@ class Application extends Fate {
      * @param {Object} response
      */
     requestListener(request, response) {}
-    
+
     /**
      * 异常处理
      *
@@ -152,7 +152,7 @@ class Application extends Fate {
      * @param {Exception} exception 异常类
      */
     handlerException(response, exception) {}
-    
+
 }
 
 module.exports = Application;

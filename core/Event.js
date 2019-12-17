@@ -8,7 +8,7 @@
  * 简单 Event
  */
 class Event {
-    
+
     /**
      * constructor
      */
@@ -24,7 +24,7 @@ class Event {
          */
         this.handlers = {};
     }
-    
+
     /**
      * 注册事件处理
      *
@@ -35,10 +35,10 @@ class Event {
         if(undefined === this.handlers[eventName]) {
             this.handlers[eventName] = [];
         }
-        
+
         this.handlers[eventName].push(handler);
     }
-    
+
     /**
      * 注销事件处理
      *
@@ -49,10 +49,10 @@ class Event {
         if(undefined === this.handlers[eventName]) {
             return;
         }
-        
+
         if(undefined === handler) {
             delete this.handlers[eventName];
-            
+
         } else {
             for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
                 if(handler === this.handlers[eventName][i]) {
@@ -61,7 +61,7 @@ class Event {
             }
         }
     }
-    
+
     /**
      * 触发
      *
@@ -72,13 +72,13 @@ class Event {
         if(undefined === this.handlers[eventName]) {
             return;
         }
-        
+
         for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
             undefined === param ? this.handlers[eventName][i]() :
                 this.handlers[eventName][i].apply(null, param);
         }
     }
-    
+
     /**
      * 触发
      *
@@ -89,12 +89,12 @@ class Event {
         if(undefined === this.handlers[eventName]) {
             return;
         }
-        
+
         for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
             this.handlers[eventName][i](...params);
         }
     }
-    
+
 }
 
 module.exports = Event;

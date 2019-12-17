@@ -4,25 +4,25 @@
  */
 'use strict';
 
-var Component = require('./Component');
+const Component = require('./Component');
 
 /**
  * 控制器基类
  */
 class Controller extends Component {
-    
+
     /**
      * constructor
      */
     constructor(context) {
         super();
-        
+
         /**
          * @property {Object} context 上下文环境 用于保存当前请求相关的信息
          */
         this.context = context;
     }
-    
+
     /**
      * 控制器方法执行前
      *
@@ -32,7 +32,7 @@ class Controller extends Component {
     beforeActionCall(request, response) {
         this.triggerWithRestParams(Controller.EVENT_BEFORE_ACTIONCALL, request, response);
     }
-    
+
     /**
      * 控制器方法执行后
      *
@@ -42,7 +42,7 @@ class Controller extends Component {
     afterActionCall(request, response) {
         this.triggerWithRestParams(Controller.EVENT_AFTER_ACTIONCALL, request, response);
     }
-    
+
     /**
      * 执行控制器的方法
      *
@@ -51,19 +51,19 @@ class Controller extends Component {
      */
     runControllerAction(request, response) {
         this.beforeActionCall(request, response);
-        
+
         this.run(request, response);
-        
+
         this.afterActionCall(request, response);
     }
-    
+
     /**
      * 获取视图类
      *
      * @return {Object}
      */
     getView() {}
-    
+
 }
 
 /**

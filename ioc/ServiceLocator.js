@@ -4,14 +4,14 @@
  */
 'use strict';
 
-var Y = require('../Y');
-var InvalidConfigException = require('../core/InvalidConfigException');
+const Y = require('../Y');
+const InvalidConfigException = require('../core/InvalidConfigException');
 
 /**
  * 服务定位器 [service locator](//en.wikipedia.org/wiki/Service_locator_pattern)
  *
  * eg.
- * var serviceLocator = new ServiceLocator();
+ * const serviceLocator = new ServiceLocator();
  * serviceLocator.setServicesAsDefinition({
  *     service1: {
  *         "class": "somePath/Service1",
@@ -23,7 +23,7 @@ var InvalidConfigException = require('../core/InvalidConfigException');
  *     }
  * });
  *
- * var instanceService1 = serviceLocator.getService('service1');
+ * const instanceService1 = serviceLocator.getService('service1');
  *
  */
 class ServiceLocator {

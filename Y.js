@@ -4,7 +4,7 @@
  */
 'use strict';
 
-var StringHelper = require('./helpers/StringHelper');
+const StringHelper = require('./helpers/StringHelper');
 
 /**
  * 辅助类
@@ -23,8 +23,8 @@ class Y {
         }
 
         // 截取开头作为别名
-        var pos = alias.indexOf('/');
-        var root = -1 === pos ? alias : alias.substring(0, pos);
+        let pos = alias.indexOf('/');
+        let root = -1 === pos ? alias : alias.substring(0, pos);
         if(undefined !== Y.pathAliases[root]) {
             return -1 === pos ?
                 Y.pathAliases[root] :
@@ -68,8 +68,8 @@ class Y {
      * @return {Object} 类实例
      */
     static createObject(clazz, ...params) {
-        var file = '';
-        var properties = null;
+        let file = '';
+        let properties = null;
 
         if('string' === typeof clazz) {
             file = Y.getPathAlias('@' + clazz);
@@ -84,8 +84,8 @@ class Y {
         // 文件不存在抛出异常
         // todo
 
-        var ClassName = require(file + Y.fileExtention);
-        var instance = new ClassName(...params);
+        let ClassName = require(file + Y.fileExtention);
+        let instance = new ClassName(...params);
 
         if(null !== properties) {
             Y.config(instance, properties);
@@ -100,7 +100,7 @@ class Y {
      * @param {String} clazz 类全名
      */
     static include(clazz) {
-        var file = Y.getPathAlias('@' + clazz);
+        let file = Y.getPathAlias('@' + clazz);
 
         // 文件不存在抛出异常
         // todo

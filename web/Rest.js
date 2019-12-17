@@ -4,20 +4,20 @@
  */
 'use strict';
 
-var Y = require('../Y');
-var StringHelper = require('../helpers/StringHelper');
-var Router = require('../core/Router');
-var CoreRest = require('../core/Rest');
-var InvalidCallException = require('../core/InvalidCallException');
-var Request = require('./Request');
+const Y = require('../Y');
+const StringHelper = require('../helpers/StringHelper');
+const Router = require('../core/Router');
+const CoreRest = require('../core/Rest');
+const InvalidCallException = require('../core/InvalidCallException');
+const Request = require('./Request');
 
 class Rest extends CoreRest {
-    
+
     constructor(config) {
         super(config);
-        
+
         this.defaultExceptionHandler = 'y/web/ExceptionHandler';
-        
+
         /**
          * 请求方法
          *
@@ -35,11 +35,11 @@ class Rest extends CoreRest {
             HEAD: [],
             OPTIONS: []
         };
-        
+
         this.server = null;
         this.config = config;
     }
-    
+
     /**
      * 请求处理
      *
@@ -47,31 +47,31 @@ class Rest extends CoreRest {
      * @param {Object} response
      */
     requestListener(request, response) {
-        var route = Request.parseUrl(request).pathname;
-        
+        let route = Request.parseUrl(request).pathname;
+
         // {paramValues, handler}
-        var ret = this.resolveRoutesCombine(route, request.method);
-        
+        let ret = this.resolveRoutesCombine(route, request.method);
+
         if(null === ret) {
             throw new InvalidCallException('The REST route: ' + route + ' not found');
         }
-        
-        var args = null === ret.paramValues ? [null] : ret.paramValues;
-        
+
+        let args = null === ret.paramValues ? [null] : ret.paramValues;
+
         // handler is function
         if('function' === typeof ret.handler) {
             ret.handler(request, response, ...args);
-            
-            return;    
+
+            return;
         }
-        
+
         // handler is string
-        var pos = ret.handler.indexOf(Rest.separator);
-        var obj = null;
+        let pos = ret.handler.indexOf(Rest.separator);
+        let obj = null;
         if(-1 === pos) {
             obj = Y.createObject(ret.handler);
             obj.index(request, response, ...args);
-            
+
         } else {
             obj = Y.createObject( ret.handler.substring(0, pos) );
             obj[ ret.handler.substring(pos + 1) ](
@@ -80,7 +80,7 @@ class Rest extends CoreRest {
                 ...args);
         }
     }
-    
+
     /**
      * 合并解析路由
      *
@@ -89,24 +89,24 @@ class Rest extends CoreRest {
      * @return {Object | null}
      */
     resolveRoutesCombine(route, httpMethod) {
-        var ret = null;
-        
+        let ret = null;
+
         // [ {pattern, handler} ... ]
-        var handlers = this.methods[httpMethod];
-        var tmp = {};
+        let handlers = this.methods[httpMethod];
+        let tmp = {};
         for(let i=0,len=handlers.length; i<len; i++) {
             tmp[handlers[i].pattern] = handlers[i].handler;
         }
         // {pattern, params, handler}
-        var combinedRoute = this.combineRoutes(tmp);
-        
-        var matches = route.match( new RegExp('(?:' + combinedRoute.pattern + ')$') );
-        
+        let combinedRoute = this.combineRoutes(tmp);
+
+        let matches = route.match( new RegExp('(?:' + combinedRoute.pattern + ')$') );
+
         // 路由成功匹配
         if(null !== matches) {
             ret = {};
-            
-            var subPatternPosition = -1;
+
+            let subPatternPosition = -1;
             // matches: [ 'xyz/other', undefined, undefined, undefined, 'xyz/other']
             for(let i=1,len=matches.length; i<len; i++) {
                 if(undefined !== matches[i]) {
@@ -114,13 +114,13 @@ class Rest extends CoreRest {
                     break;
                 }
             }
-            
-            var matchedRouteSegment = this.getMatchedSegmentBySubPatternPosition(
+
+            let matchedRouteSegment = this.getMatchedSegmentBySubPatternPosition(
                 combinedRoute, subPatternPosition);
-            
+
             ret.handler = combinedRoute.handler[matchedRouteSegment];
             ret.paramValues = null;
-            
+
             // 有参数
             if(null !== combinedRoute.params[matchedRouteSegment]) {
                 // ret.paramValues = new Array(combinedRoute.params[matchedRouteSegment].length);
@@ -131,10 +131,10 @@ class Rest extends CoreRest {
                 }
             }
         }
-        
+
         return ret;
     }
-    
+
     /**
      * 合并路由
      *
@@ -154,28 +154,28 @@ class Rest extends CoreRest {
      *
      */
     combineRoutes(routes) {
-        var ret = {};
-        var patternArray = [];
-        var paramArray = [];
-        var handler = [];  // 路由配置
-        
-        var parsedRoute = null;
+        let ret = {};
+        let patternArray = [];
+        let paramArray = [];
+        let handler = [];  // 路由配置
+
+        let parsedRoute = null;
         for(let reg in routes) {
             parsedRoute = Router.parse(reg);
-            
+
             // 为每个模式添加一个括号 用于定位匹配到的是哪一个模式
             patternArray.push( '(' + parsedRoute.pattern + ')' );
             paramArray.push(parsedRoute.params);
             handler.push(routes[reg]);
         }
-        
+
         ret.pattern = patternArray.join('|');
         ret.params = paramArray;
         ret.handler = handler;
-        
+
         return ret;
     }
-    
+
     /**
      * 查找匹配的路由的位置
      *
@@ -186,14 +186,14 @@ class Rest extends CoreRest {
     getMatchedSegmentBySubPatternPosition(combinedRoute, subPatternPosition) {
         // '(' 在 pattern 中第 subPatternPosition 次出现的位置
         // 用于确定当前路由匹配的是第几部分
-        var segment = StringHelper.nIndexOf(combinedRoute.pattern, '(', subPatternPosition);
-        var tmpLine = combinedRoute.pattern.substring(0, segment).match(/\|/g);
+        let segment = StringHelper.nIndexOf(combinedRoute.pattern, '(', subPatternPosition);
+        let tmpLine = combinedRoute.pattern.substring(0, segment).match(/\|/g);
         // 没有匹配到竖线 说明匹配的是第一部分
         segment = null === tmpLine ? 0 : tmpLine.length;
-        
+
         return segment;
     }
-    
+
     /**
      * Adds a route to the collection
      *
@@ -204,10 +204,10 @@ class Rest extends CoreRest {
     addRoute(httpMethod, pattern, handler) {
         if('string' === typeof httpMethod) {
             this.methods[httpMethod].push( {pattern: pattern, handler: handler} );
-            
+
             return;
         }
-        
+
         for(let i=0,len=httpMethod.length; i<len; i++) {
             this.methods[httpMethod[i]].push( {pattern: pattern, handler: handler} );
         }
@@ -217,13 +217,13 @@ class Rest extends CoreRest {
      * @inheritdoc
      */
     handlerException(response, exception) {
-        var handler = Y.createObject('' === this.exceptionHandler
+        let handler = Y.createObject('' === this.exceptionHandler
             ? this.defaultExceptionHandler
             : this.exceptionHandler);
-        
+
         handler.handlerException(response, exception);
     }
-    
+
 }
 
 /**
