@@ -39,8 +39,15 @@ class Logger {
          */
         this.targets = [];
 
-        // init
-        if(undefined === settings || undefined === settings.targets) {
+        this.init();
+    }
+
+    init(settings) {
+        if(undefined === settings) {
+            return;
+        }
+
+        if(undefined === settings.targets) {
             throw new InvalidConfigException('No log targets found');
         }
         if(undefined !== settings.flushInterval) {
@@ -100,8 +107,8 @@ class Logger {
         let messages = this.messages;
         this.messages = [];
 
-        for(let target of this.targets) {
-            target.trigger(ITarget.EVENT_FLUSH, messages);
+        for(let i=0; i<this.targets.length; i++) {
+            this.targets[i].trigger(ITarget.EVENT_FLUSH, messages);
         }
     }
 
@@ -138,7 +145,9 @@ class Logger {
      * @param {String} message the message to be logged
      */
     trace(message) {
-        this.log(message, Logger.LEVEL_TRACE);
+        if(Y.app.debug) {
+            this.log(message, Logger.LEVEL_TRACE);
+        }
     }
 
     /**

@@ -15,7 +15,6 @@ const InvalidConfigException = require('./core/InvalidConfigException');
  * 入口
  */
 class YNode {
-
     /**
      * constructor
      *
@@ -75,7 +74,6 @@ class YNode {
         this.server = this.getServer();
         this.server.listen(port, callback);
     }
-
 }
 
 /**
