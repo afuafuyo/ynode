@@ -279,7 +279,8 @@ new YNode({
 'use strict';
 
 var YNode = require('ynode');
-var Controller = YNode.Y.include('y/web/Controller');
+var Y = require('ynode/Y');
+var Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
@@ -303,7 +304,8 @@ module.exports = IndexController;
 'use strict';
 
 var YNode = require('ynode');
-var Controller = YNode.Y.include('y/web/Controller');
+var Y = require('ynode/Y');
+var Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
@@ -396,7 +398,8 @@ var app = new YNode({
 'use strict';
 
 var YNode = require('ynode');
-var Controller = YNode.Y.include('y/web/Controller');
+var Y = require('ynode/Y');
+var Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
@@ -486,7 +489,8 @@ new YNode({
 'use strict';
 
 var YNode = require('ynode');
-var Controller = YNode.Y.include('y/web/Controller');
+var Y = require('ynode/Y');
+var Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
@@ -519,7 +523,8 @@ module.exports = IndexController;
 'use strict';
 
 var YNode = require('ynode');
-var Behavior = YNode.Y.include('y/core/Behavior');
+var Y = require('ynode/Y');
+var Behavior = Y.include('y/core/Behavior');
 
 class MyBehavior extends Behavior {
     constructor() {
@@ -550,7 +555,8 @@ module.exports = MyBehavior;
 'use strict';
 
 var YNode = require('ynode');
-var Controller = YNode.Y.include('y/web/Controller');
+var Y = require('ynode/Y');
+var Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
@@ -578,7 +584,8 @@ module.exports = IndexController;
 'use strict';
 
 var YNode = require('ynode');
-var Controller = YNode.Y.include('y/web/Controller');
+var Y = require('ynode/Y');
+var Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
@@ -609,7 +616,8 @@ module.exports = IndexController;
 'use strict';
 
 var YNode = require('ynode');
-var Controller = YNode.Y.include('y/web/Controller');
+var Y = require('ynode/Y');
+var Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
@@ -644,7 +652,8 @@ module.exports = IndexController;
 'use strict';
 
 var YNode = require('ynode');
-var Behavior = YNode.Y.include('y/core/Behavior');
+var Y = require('ynode/Y');
+var Behavior = Y.include('y/core/Behavior');
 
 class MyBehavior extends Behavior {
     events() {
@@ -676,9 +685,10 @@ module.exports = MyBehavior;
 <p>
 <pre><code>
 var YNode = require('ynode');
+var Y = require('ynode/Y');
 
-var Hook = YNode.Y.include('y/core/Hook');
-var R = YNode.Y.include('y/midwares/Resource');
+var Hook = Y.include('y/core/Hook');
+var R = Y.include('y/midwares/Resource');
 
 Hook.getInstance().addHook(new R(__dirname + '/public').serve());
 
@@ -703,7 +713,7 @@ new YNode({
             </ul>
 <p>
 <pre><code>
-var URI = YNode.Y.include('y/web/URI');
+var URI = Y.include('y/web/URI');
 
 var uri = new URI();
 
@@ -733,7 +743,7 @@ uri.parseUrl('http://xxx.com:8080/abc?q=1#anchor');
             </ul>
 <p>
 <pre><code>
-var URL = YNode.Y.include('y/web/URL');
+var URL = Y.include('y/web/URL');
 
 var url = new URL(req);
 
@@ -770,7 +780,7 @@ url.to('index/index', {id: 1, '#': 'anchor'})
             </blockquote>
 <p>
 <pre><code>
-var Request = YNode.Y.include('y/web/Request');
+var Request = Y.include('y/web/Request');
 var request = new Request(req);
 var id = request.getQueryString('id');
 ...
@@ -794,7 +804,7 @@ var id = request.getQueryString('id');
             <h6><b>Use the Response to output data</b></h6>
 <p>
 <pre><code>
-var Response = YNode.Y.include('y/web/Response');
+var Response = Y.include('y/web/Response');
 var response = new Response(res);
 response.setContent('some data from server');
 response.send();
@@ -804,7 +814,7 @@ response.send();
             <h6><b>Use the Response to redirection</b></h6>
 <p>
 <pre><code>
-var Response = YNode.Y.include('y/web/Response');
+var Response = Y.include('y/web/Response');
 var response = new Response(res);
 response.redirect('http://foo.com');
 </code></pre>
@@ -839,9 +849,9 @@ response.redirect('http://foo.com');
 
 <p>
 <pre><code>
-var Response = YNode.Y.include('y/helpers/FileHelper');
-var Response = YNode.Y.include('y/helpers/StringHelper');
-var Response = YNode.Y.include('y/helpers/TimeHelper');
+var Response = Y.include('y/helpers/FileHelper');
+var Response = Y.include('y/helpers/StringHelper');
+var Response = Y.include('y/helpers/TimeHelper');
 
 // return /a/c
 var path = FileHelper.normalizePath('/a/./b/../c');
@@ -912,10 +922,10 @@ app.listen(8090, function(){
     console.log(8090)
 });
 
-var Restful = YNode.Y.include('y/web/Restful');
+var Restful = Y.include('y/web/Restful');
 // get route
 Restful.get('/abc/{id:\\d+}', function(req, res, id){
-    var Request = YNode.Y.include('y/web/Request');
+    var Request = Y.include('y/web/Request');
     var r = new Request(req);
 
     console.log(r.getQueryString('id'));
@@ -1011,8 +1021,9 @@ rest.listen('8090', () => {
             </ul>
 <p>
 <pre><code>
-var YNode = require('ynode')
-var Logger = YNode.Y.include('y/log/Logger');
+var YNode = require('ynode');
+var Y = require('ynode/Y');
+var Logger = Y.include('y/log/Logger');
 
 var log = Logger.getLogger();
 log.error('This is a error message');
@@ -1050,7 +1061,8 @@ log.flush();  // flush data to disk
 <p>
 <pre><code>
 var YNode = require('ynode');
-var Cache = YNode.Y.include('y/cache/Cache');
+var Y = require('ynode/Y');
+var Cache = Y.include('y/cache/Cache');
 
 var c = Cache.getCache('file');
 

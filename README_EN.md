@@ -35,13 +35,13 @@ var YNode = require('../ynode');
 
 new YNode({
     'id': 1,
-    
+
     // 定义调试应用
     'debug': true,
-    
+
     // 定义应用路径
     'appPath': __dirname + '/app'
-    
+
 }).listen(8090, function(){
     console.log('listen on 8090');
 });
@@ -50,9 +50,9 @@ new YNode({
 ### Build in system variable
 
 + @y  system dir
-+ @app  app dir ```YNode.Y.app.getAppPath()``` can get the value
-+ @runtime  cache dir default to @app/runtime ```YNode.Y.app.getRuntimePath()``` can get the value
-+ @root  website root dir ```YNode.Y.app.getRootPath()``` can get the value
++ @app  app dir `YNode.Y.app.getAppPath()` can get the value
++ @runtime  cache dir default to @app/runtime `YNode.Y.app.getRuntimePath()` can get the value
++ @root  website root dir `YNode.Y.app.getRootPath()` can get the value
 
 ### Application structure demo
 
@@ -121,7 +121,7 @@ new YNode({
 
 + 2018-08-22
 
-    * npm package 3.1.4 remove method ```setQueryString()``` of class y/web/Request
+    * npm package 3.1.4 remove method `setQueryString()` of class y/web/Request
 
 + 2018-08-02
 
@@ -153,11 +153,11 @@ new YNode({
 
 + 2018-01-12
 
-    * npm package 2.2.9 util/LinkedQueue added ```each()``` method
+    * npm package 2.2.9 util/LinkedQueue added `each()` method
 
 + 2018-01-11
 
-    * npm package 2.2.8 util/LinkedQueue added ```iterator()``` add ```remove(data)``` method
+    * npm package 2.2.8 util/LinkedQueue added `iterator()` add `remove(data)` method
 
 + 2017-08-20
 
@@ -173,11 +173,11 @@ new YNode({
 
 + 2017-05-12
 
-    * since npm package 2.1.0 session methods ```read() change to get() readSync() change to getSync()  write() change to set() writeSync() change to setSync()```
+    * since npm package 2.1.0 session methods `read() change to get() readSync() change to getSync()  write() change to set() writeSync() change to setSync()`
 
 + 2017-05-11
 
-    * since npm package 2.1.0 get template html file change to use ```this.getView().getTemplate(...)```
+    * since npm package 2.1.0 get template html file change to use `this.getView().getTemplate(...)`
 
 + 2017-05-08
 
@@ -189,7 +189,7 @@ new YNode({
 
 + 2017-05-02
 
-    * 1.5.8 change ```TimeHelper.pad(str, length) to TimeHelper.stringLPad(str, pad, length)```
+    * 1.5.8 change `TimeHelper.pad(str, length) to TimeHelper.stringLPad(str, pad, length)`
 
 + 2017-05-01
 
@@ -205,7 +205,7 @@ new YNode({
 
 + 2017-04-07
 
-    * 1.4.1 ```Y``` class add include() method to import a class ```var Logger = YNode.Y.include('y/log/Logger');```
+    * 1.4.1 `Y` class add include() method to import a class `var Logger = YNode.Y.include('y/log/Logger');`
 
 + 2017-04-06
 

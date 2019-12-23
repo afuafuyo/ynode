@@ -1,22 +1,23 @@
 // node >= 6.0.0
 
-var request = require('supertest');
-var assert = require('assert');
+const request = require('supertest');
+const assert = require('assert');
 
-var YNode = require('../index.js');
+const YNode = require('../index.js');
+const Application = require('../web/Application.js');
 
-var app = new YNode({
+const app = new Application({
     'id': 1,
     'appPath': __dirname + '/app',
     'debug': true,
-    
+
     'interceptAll': 'app/Intercept',
-    
+
     'modules': {
         'bbs': 'app/modules/bbs'
     }
 });
-var server = app.getServer();
+const server = new YNode(app).getServer();
 
 // test
 describe('interceptRoutes', function() {
@@ -26,24 +27,24 @@ describe('interceptRoutes', function() {
             .expect(200)
             .end(function(err, res){
                 if (err) return done(err);
-                
+
                 assert.equal(res.text, 'intercepted');
-                
+
                 done();
             });
     });
-    
+
     it('b route', function(done) {
         request(server)
             .get('/broute')
             .expect(200)
             .end(function(err, res){
                 if (err) return done(err);
-                
+
                 assert.equal(res.text, 'intercepted');
-                
+
                 done();
             });
     });
-    
+
 });

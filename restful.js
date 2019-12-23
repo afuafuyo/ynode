@@ -7,24 +7,19 @@
 const http = require('http');
 
 const Hook = require('./core/Hook');
-const Rest = require('./web/Rest');
-const InvalidConfigException = require('./core/InvalidConfigException');
 
+/**
+ * reset 应用
+ */
 class Restful {
-
     /**
      * constructor
      *
-     * @param {Object} config 配置信息
+     * @param {Object} application 应用实例
      */
-    constructor(config) {
-        if(undefined === config) {
-            throw new InvalidConfigException('The rest config is required');
-        }
-
-        this.config = config;
+    constructor(application) {
         this.server = null;
-        this.rest = new Rest(config);
+        this.rest = application;
     }
 
     // web
@@ -112,7 +107,6 @@ class Restful {
         this.server = this.getServer();
         this.server.listen(port, callback);
     }
-
 }
 
 module.exports = Restful;

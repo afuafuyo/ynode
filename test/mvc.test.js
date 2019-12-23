@@ -1,20 +1,23 @@
 // node >= 6.0.0
 
-var request = require('supertest');
-var assert = require('assert');
+const request = require('supertest');
+const assert = require('assert');
 
-var YNode = require('../index.js');
+const YNode = require('../index.js');
+const Application = require('../web/Application.js');
 
-var app = new YNode({
+const app = new Application({
     'id': 1,
     'appPath': __dirname + '/app',
     'debug': true,
-    
+
     'modules': {
         'bbs': 'app/modules/bbs'
     }
 });
-var server = app.getServer();
+
+const yNode = new YNode(app);
+const server = yNode.getServer();
 
 // test
 describe('MVC', function() {
@@ -24,37 +27,37 @@ describe('MVC', function() {
             .expect(200)
             .end(function(err, res){
                 if (err) return done(err);
-                
+
                 assert.equal(res.text.trim(), 'mvc');
-                
+
                 done();
             });
     });
-    
+
     it('module get', function(done) {
         request(server)
             .get('/bbs')
             .expect(200)
             .end(function(err, res){
                 if (err) return done(err);
-                
+
                 assert.equal(res.text.trim(), 'module');
-                
+
                 done();
             });
     });
-    
+
     it('get with params', function(done) {
         request(server)
             .get('/param?name=jack&age=20')
             //.expect(200)
             .end(function(err, res){
                 if (err) {return done(err);}
-                
+
                 assert.equal(res.text.trim(), 'jack');
-                
+
                 done();
             });
     });
-    
+
 });

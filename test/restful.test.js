@@ -1,14 +1,16 @@
 // node >= 6.0.0
 
-var request = require('supertest');
-var assert = require('assert');
+const request = require('supertest');
+const assert = require('assert');
 
-var Rest = require('../restful.js');
+const Restful = require('../restful.js');
+const App = require('../web/RestApplication.js');
 
-var rest = new Rest({
+const app = new App({
     appPath: __dirname + '/app'
 });
-var server = rest.getServer();
+const rest = new Restful(app);
+const server = rest.getServer();
 
 // api
 rest.get('/abc', function(req, res){
@@ -30,35 +32,35 @@ describe('RESTful api', function() {
             .expect(200)
             .end(function(err, res){
                 if (err) return done(err);
-                
+
                 assert.equal(res.text, 'get ok');
-                
+
                 done();
             });
     });
-    
+
     it('get with param', function(done) {
         request(server)
             .get('/abc/123')
             .expect(200)
             .end(function(err, res){
                 if (err) return done(err);
-                
+
                 assert.equal(res.text, '123');
-                
+
                 done();
             });
     });
-    
+
     it('simple post', function(done) {
         request(server)
             .post('/def')
             .expect(200)
             .end(function(err, res){
                 if (err) return done(err);
-                
+
                 assert.equal(res.text, 'post ok');
-                
+
                 done();
             });
     });
@@ -69,11 +71,11 @@ describe('RESTful api', function() {
             .expect(200)
             .end(function(err, res){
                 if (err) return done(err);
-                
+
                 assert.equal(res.text, 'restful class ok');
-                
+
                 done();
             });
     });
-    
+
 });

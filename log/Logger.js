@@ -39,7 +39,7 @@ class Logger {
          */
         this.targets = [];
 
-        this.init();
+        this.init(settings);
     }
 
     init(settings) {

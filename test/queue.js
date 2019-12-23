@@ -1,10 +1,10 @@
-var Q = require('../util/LinkedQueue');
+const Q = require('../util/LinkedQueue');
 
-var q = new Q();
+const q = new Q();
 
-var d1 = {age: 1};
-var d2 = {age: 2};
-var d3 = {age: 3};
+const d1 = {age: 1};
+const d2 = {age: 2};
+const d3 = {age: 3};
 
 q.add(d1);
 q.add(d2);
@@ -21,11 +21,11 @@ q.add(d3);
 
 q.each((data) => {
     console.log('1', data)
-    
+
     if(2 === data.age) {
         return false;
     }
-    
+
 });
 
 q.remove(d2);

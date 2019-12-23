@@ -6,10 +6,7 @@
 
 const http = require('http');
 
-const Y = require('./Y');
 const Hook = require('./core/Hook');
-const Application = require('./web/Application');
-const InvalidConfigException = require('./core/InvalidConfigException');
 
 /**
  * 入口
@@ -18,16 +15,11 @@ class YNode {
     /**
      * constructor
      *
-     * @param {Object} config 配置信息
+     * @param {Object} application 应用实例
      */
-    constructor(config) {
-        if(undefined === config) {
-            throw new InvalidConfigException('The app config is required');
-        }
-
-        this.config = config;
+    constructor(application) {
         this.server = null;
-        this.app = new Application(config);
+        this.app = application;
     }
 
     // web
@@ -75,10 +67,5 @@ class YNode {
         this.server.listen(port, callback);
     }
 }
-
-/**
- * handler
- */
-YNode.Y = Y;
 
 module.exports = YNode;

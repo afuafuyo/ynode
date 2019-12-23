@@ -41,13 +41,13 @@ var YNode = require('../ynode');
 
 new YNode({
     'id': 1,
-    
+
     // 定义调试应用
     'debug': true,
-    
+
     // 定义应用路径
     'appPath': __dirname + '/app'
-    
+
 }).listen(8090, function(){
     console.log('listen on 8090');
 });
@@ -56,9 +56,9 @@ new YNode({
 ### 系统内置别名
 
 + @y  系统目录
-+ @app  项目目录 由 appPath 指定 ```YNode.Y.app.getAppPath()``` 可得到该值
-+ @runtime  缓存目录 默认指向 @app/runtime ```YNode.Y.app.getRuntimePath()``` 可得到该值
-+ @root  网站根目录 ```YNode.Y.app.getRootPath()``` 可得到该值
++ @app  项目目录 由 appPath 指定 `YNode.Y.app.getAppPath()` 可得到该值
++ @runtime  缓存目录 默认指向 @app/runtime `YNode.Y.app.getRuntimePath()` 可得到该值
++ @root  网站根目录 `YNode.Y.app.getRootPath()` 可得到该值
 
 ### 项目目录示例
 
@@ -117,6 +117,10 @@ new YNode({
 
 ### 版本更新
 
++ 2019-12-23
+
+    * npm 包 4.0.0 移除了 `YNode.Y.include()` 快捷方法
+
 + 2019-02-25
 
     * npm 包 3.2.2 优化系统代码
@@ -159,11 +163,11 @@ new YNode({
 
 + 2018-01-12
 
-    * npm 包 2.2.9 util/LinkedQueue 添加 ```each()``` 方法
+    * npm 包 2.2.9 util/LinkedQueue 添加 `each()` 方法
 
 + 2018-01-11
 
-    * npm 包 2.2.8 util/LinkedQueue 添加 ```iterator()``` 和 ```remove(data)``` 方法
+    * npm 包 2.2.8 util/LinkedQueue 添加 `iterator()` 和 `remove(data)` 方法
 
 + 2017-08-20
 
@@ -179,11 +183,11 @@ new YNode({
 
 + 2017-05-12
 
-    * 从 npm 包 2.1.1 开始 session 的 ```read() 改为 get() readSync() 改为 getSync()  write() 改为 set() writeSync() 改为 setSync()```
+    * 从 npm 包 2.1.1 开始 session 的 `read() 改为 get() readSync() 改为 getSync()  write() 改为 set() writeSync() 改为 setSync()`
 
 + 2017-05-11
 
-    * 从 npm 包 2.1.0 开始 controller 中获取模板使用 ```this.getView().getTemplate(...)```
+    * 从 npm 包 2.1.0 开始 controller 中获取模板使用 `this.getView().getTemplate(...)`
 
 + 2017-05-08
 
@@ -195,7 +199,7 @@ new YNode({
 
 + 2017-05-02
 
-    * 1.5.8 修改 ```TimeHelper.pad(str, length) to TimeHelper.stringLPad(str, pad, length)```
+    * 1.5.8 修改 `TimeHelper.pad(str, length) to TimeHelper.stringLPad(str, pad, length)`
 
 + 2017-05-01
 
@@ -211,7 +215,7 @@ new YNode({
 
 + 2017-04-07
 
-    * 1.4.1 ```Y``` 辅助类增加 include 方法以方便加载一个类 ```var Logger = YNode.Y.include('y/log/Logger');```
+    * 1.4.1 `Y` 辅助类增加 include 方法以方便加载一个类 `var Logger = YNode.Y.include('y/log/Logger');`
 
 + 2017-04-06
 

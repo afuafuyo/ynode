@@ -7,11 +7,11 @@
 const Y = require('../Y');
 const StringHelper = require('../helpers/StringHelper');
 const Router = require('../core/Router');
-const CoreRest = require('../core/Rest');
+const CoreRest = require('../core/RestApplication');
 const InvalidCallException = require('../core/InvalidCallException');
 const Request = require('./Request');
 
-class Rest extends CoreRest {
+class RestApplication extends CoreRest {
 
     constructor(config) {
         super(config);
@@ -66,7 +66,7 @@ class Rest extends CoreRest {
         }
 
         // handler is string
-        let pos = ret.handler.indexOf(Rest.separator);
+        let pos = ret.handler.indexOf(RestApplication.separator);
         let obj = null;
         if(-1 === pos) {
             obj = Y.createObject(ret.handler);
@@ -229,6 +229,6 @@ class Rest extends CoreRest {
 /**
  * class and method separate
  */
-Rest.separator = '@';
+RestApplication.separator = '@';
 
-module.exports = Rest;
+module.exports = RestApplication;
