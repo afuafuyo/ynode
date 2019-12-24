@@ -37,9 +37,10 @@ ynode 是一个个人项目，推荐在项目中使用 candyjs ， candyjs 是�
 使用 YNode 你只需要从一个入口文件开始，入口文件的内容可以使用自带的工具来生成，详情参见 doc 目录中的文档
 
 ```javascript
-var YNode = require('../ynode');
+var YNode = require('ynode');
+var App = require('ynode/web/Application');
 
-new YNode({
+var app = new App({
     'id': 1,
 
     // 定义调试应用
@@ -48,7 +49,9 @@ new YNode({
     // 定义应用路径
     'appPath': __dirname + '/app'
 
-}).listen(8090, function(){
+});
+
+new YNode(app).listen(8090, function(){
     console.log('listen on 8090');
 });
 ```
@@ -56,9 +59,9 @@ new YNode({
 ### 系统内置别名
 
 + @y  系统目录
-+ @app  项目目录 由 appPath 指定 `YNode.Y.app.getAppPath()` 可得到该值
-+ @runtime  缓存目录 默认指向 @app/runtime `YNode.Y.app.getRuntimePath()` 可得到该值
-+ @root  网站根目录 `YNode.Y.app.getRootPath()` 可得到该值
++ @app  项目目录 由 appPath 指定 `Y.app.getAppPath()` 可得到该值
++ @runtime  缓存目录 默认指向 @app/runtime `Y.app.getRuntimePath()` 可得到该值
++ @root  网站根目录 `Y.app.getRootPath()` 可得到该值
 
 ### 项目目录示例
 
@@ -119,7 +122,8 @@ new YNode({
 
 + 2019-12-23
 
-    * npm 包 4.0.0 移除了 `YNode.Y.include()` 快捷方法
+    * npm 包 4.0.0 移除了 `Y.include()` 快捷方法
+    * 对系统进行了重构
 
 + 2019-02-25
 
@@ -215,7 +219,7 @@ new YNode({
 
 + 2017-04-07
 
-    * 1.4.1 `Y` 辅助类增加 include 方法以方便加载一个类 `var Logger = YNode.Y.include('y/log/Logger');`
+    * 1.4.1 `Y` 辅助类增加 include 方法以方便加载一个类 `var Logger = Y.include('y/log/Logger');`
 
 + 2017-04-06
 

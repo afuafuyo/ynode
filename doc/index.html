@@ -182,8 +182,9 @@ PROJECT_NAME
 <p>
 <pre><code>
 var YNode = require('ynode');
+var App = require('ynode/web/Application');
 
-new YNode({
+var app = new App({
     'id': 1,
 
     // 定义调试应用
@@ -206,7 +207,9 @@ new YNode({
         }
     }
 
-}).listen(8090, function(){
+});
+
+new YNode(app).listen(8090, function(){
     console.log('listen on 8090');
 });
 </pre></code>
@@ -352,7 +355,9 @@ module.exports = IndexController;
 
 <p>
 <pre><code>
-var app = new YNode({
+var App = require('ynode/web/Application');
+
+var app = new App({
     'id': 1,
     'appPath': __dirname + '/app',
     'debug': true,
@@ -448,8 +453,9 @@ modules 模块目录
 <p>
 <pre><code>
 var YNode = require('ynode');
+var App = require('ynode/web/Application');
 
-new YNode({
+new App({
     ...
 
     // 注册模块
@@ -459,7 +465,9 @@ new YNode({
 
     ...
 
-}).listen(8090, function(){
+});
+
+new YNode(app).listen(8090, function(){
     console.log('listen on 8090');
 });
 </code></pre>
@@ -693,17 +701,18 @@ module.exports = MyBehavior;
 // 入口文件
 var YNode = require('ynode');
 var Y = require('ynode/Y');
+var App = require('ynode/web/Application');
 
 var Hook = Y.include('y/core/Hook');
 var R = Y.include('y/midwares/Resource');
 
 Hook.getInstance().addHook(new R(__dirname + '/public').serve());
 
-new YNode({
+new YNode(new App({
 
     ...
 
-}).listen(8090, function(){
+})).listen(8090, function(){
     console.log('listen on 8090');
 });
 </code></pre>
@@ -888,9 +897,9 @@ var time = TimeHelper.format('y-m-d h:i:s');
             <h4><b>系统内置别名</b></h4>
             <ul>
                 <li><code>@y</code> 指向 YNode 目录</li>
-                <li><code>@app</code> 项目目录 由<code>appPath</code>指定<code>YNode.Y.app.getAppPath()</code>可得到该值</li>
-                <li><code>@runtime</code> 缓存目录 默认指向<code>@app/runtime YNode.Y.app.getRuntimePath()</code>可得到该值</li>
-                <li><code>@root</code> 网站根目录<code>YNode.Y.app.getRootPath()</code>可得到该值</li>
+                <li><code>@app</code> 项目目录 由<code>appPath</code>指定<code>Y.app.getAppPath()</code>可得到该值</li>
+                <li><code>@runtime</code> 缓存目录 默认指向<code>@app/runtime Y.app.getRuntimePath()</code>可得到该值</li>
+                <li><code>@root</code> 网站根目录<code>Y.app.getRootPath()</code>可得到该值</li>
             </ul>
 
             <h4><b>自定义别名</b></h4>
@@ -898,20 +907,20 @@ var time = TimeHelper.format('y-m-d h:i:s');
 <p>
 <pre><code>
 // 注册别名
-YNode.Y.setPathAlias('@lib', '/home/www/library');
+Y.setPathAlias('@lib', '/home/www/library');
 
 // 加载并创建 /home/www/library/MyClass 类
-var obj = YNode.Y.createObject('lib/MyClass');
+var obj = Y.createObject('lib/MyClass');
 </code></pre>
 </p>
 
             <h1 class="page-header" id="restful"><b>RESTful</b></h1>
             <blockquote class="bg-danger">
-                由于设计不够优雅 npm 包从 3.0.0 开始重构了 REST 模式架构 此部分可能还会持续更新
+                这是一个处于实验阶段的特性
             </blockquote>
 
-            <h4><b>npm 包 3.0.0 之前用法</b></h4>
-            <p>在 RESTful 模式中可用的请求方法如下<code>以下方法都是静态的</code></p>
+            <h4><b>npm 包 4.0.0 之后用法</b></h4>
+            <p><code>提供了如下实例方法</code></p>
             <ul>
                 <li><code>get(route, handler)</code></li>
                 <li><code>post(route, handler)</code></li>
@@ -923,68 +932,14 @@ var obj = YNode.Y.createObject('lib/MyClass');
             </ul>
 <p>
 <pre><code>
-// 增加 useRestful 参数启用 RESTful
-var app = new YNode({
-    'id': 1,
-    'debug': true,
-    'appPath': __dirname + '/app',
+var Restful = require('ynode/Restful');
+var App = require('ynode/web/RestApplication');
 
-    'useRestful': true
-});
-app.listen(8090, function(){
-    console.log(8090)
-});
-
-var Restful = Y.include('y/web/Restful');
-// get 路由 并指定 id 参数必须为数字
-Restful.get('/abc/{id:\\d+}', function(req, res, id){
-    var Request = Y.include('y/web/Request');
-    var r = new Request(req);
-
-    console.log(r.getQueryString('id'));
-    console.log(id);
-
-    res.end('api get');
-});
-
-// 多方法路由 id 参数可为字母或数字
-Restful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
-    res.end(id);
-});
-
-// 使用 app/api/User 类的 index 方法处理请求
-Restful.get('/xyz/{id:}', 'app/apis/User@index');
-
-// 其中 User 的定义如下
-'use strict';
-class User {
-    index(req, res, id) {
-        res.end(id);
-    }
-}
-module.exports = User;
-</code></pre>
-</p>
-
-            <h4><b>npm 包 3.0.0 之后用法</b></h4>
-            <p><code>以下方法都改为了实例方法</code></p>
-            <ul>
-                <li><code>get(route, handler)</code></li>
-                <li><code>post(route, handler)</code></li>
-                <li><code>put(route, handler)</code></li>
-                <li><code>delete(route, handler)</code></li>
-                <li><code>patch(route, handler)</code></li>
-                <li><code>head(route, handler)</code></li>
-                <li><code>options(route, handler)</code></li>
-            </ul>
-<p>
-<pre><code>
-var Rest = require('ynode/restful');
-
-var rest = new Rest({
+var app = new App({
     appPath: __dirname + '/app',
     debug: true
 });
+var rest = new Restful(app);
 
 rest.get('/abc/{id:\\d+}', function(req, res, id){
     res.end(String(id));

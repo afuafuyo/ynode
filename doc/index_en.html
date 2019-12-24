@@ -180,21 +180,23 @@ PROJECT_NAME
 <p>
 <pre><code>
 var YNode = require('ynode');
+var App = require('ynode/web/Application');
 
-new YNode({
+var app = new App({
     'id': 1,
 
+    // 定义调试应用
     'debug': true,
 
-    // application path
+    // 定义应用路径
     'appPath': __dirname + '/app',
 
-    // register modules
+    // 注册模块
     'modules': {
         'bbs': 'app/modules/bbs'
     },
 
-    // log setting
+    // 配置日志
     'log': {
         'targets': {
             'file': {
@@ -203,7 +205,9 @@ new YNode({
         }
     }
 
-}).listen(8090, function(){
+});
+
+new YNode(app).listen(8090, function(){
     console.log('listen on 8090');
 });
 </pre></code>
@@ -353,7 +357,9 @@ module.exports = IndexController;
 
 <p>
 <pre><code>
-var app = new YNode({
+var App = require('ynode/web/Application');
+
+var app = new App({
     'id': 1,
     'appPath': __dirname + '/app',
     'debug': true,
@@ -449,18 +455,21 @@ modules
 <p>
 <pre><code>
 var YNode = require('ynode');
+var App = require('ynode/web/Application');
 
-new YNode({
+new App({
     ...
 
-    // register module bbs
+    // 注册模块
     'modules': {
         'bbs': 'app/modules/bbs'
     },
 
     ...
 
-}).listen(8090, function(){
+});
+
+new YNode(app).listen(8090, function(){
     console.log('listen on 8090');
 });
 </code></pre>
@@ -686,17 +695,18 @@ module.exports = MyBehavior;
 <pre><code>
 var YNode = require('ynode');
 var Y = require('ynode/Y');
+var App = require('ynode/web/Application');
 
 var Hook = Y.include('y/core/Hook');
 var R = Y.include('y/midwares/Resource');
 
 Hook.getInstance().addHook(new R(__dirname + '/public').serve());
 
-new YNode({
+new YNode(new App({
 
     ...
 
-}).listen(8090, function(){
+})).listen(8090, function(){
     console.log('listen on 8090');
 });
 </code></pre>
@@ -885,10 +895,10 @@ var time = TimeHelper.format('y-m-d h:i:s');
 <p>
 <pre><code>
 // register alias
-YNode.Y.setPathAlias('@lib', '/home/www/library');
+Y.setPathAlias('@lib', '/home/www/library');
 
 // create /home/www/library/MyClass class instance
-var obj = YNode.Y.createObject('lib/MyClass');
+var obj = Y.createObject('lib/MyClass');
 </code></pre>
 </p>
 
@@ -897,62 +907,7 @@ var obj = YNode.Y.createObject('lib/MyClass');
                 Because the design is not elegant, RESTful model Redesigned since npm package 3.0.0
             </blockquote>
 
-            <h4><b>The usage before npm package 3.0.0</b></h4>
-            <p>The methods available in RESTful mode is as follows</p>
-            <ul>
-                <li><code>get(route, handler)</code></li>
-                <li><code>post(route, handler)</code></li>
-                <li><code>put(route, handler)</code></li>
-                <li><code>delete(route, handler)</code></li>
-                <li><code>patch(route, handler)</code></li>
-                <li><code>head(route, handler)</code></li>
-                <li><code>options(route, handler)</code></li>
-            </ul>
-<p>
-<pre><code>
-// add useRestful configuration to use RESTful
-var app = new YNode({
-    'id': 1,
-    'debug': true,
-    'appPath': __dirname + '/app',
-
-    'useRestful': true
-});
-app.listen(8090, function(){
-    console.log(8090)
-});
-
-var Restful = Y.include('y/web/Restful');
-// get route
-Restful.get('/abc/{id:\\d+}', function(req, res, id){
-    var Request = Y.include('y/web/Request');
-    var r = new Request(req);
-
-    console.log(r.getQueryString('id'));
-    console.log(id);
-
-    res.end('api get');
-});
-
-Restful.addRoute(['GET', 'POST'], '/def/{id:}', function(req, res, id){
-    res.end(id);
-});
-
-// use app/api/User class's index method to handler request
-Restful.get('/xyz/{id:}', 'app/apis/User@index');
-
-// User definition
-'use strict';
-class User {
-    index(req, res, id) {
-        res.end(id);
-    }
-}
-module.exports = User;
-</code></pre>
-</p>
-
-            <h4><b>The usage after npm package 3.0.0</b></h4>
+            <h4><b>The usage after npm package 4.0.0</b></h4>
             <p><code>The methods below changed into instance method</code></p>
             <ul>
                 <li><code>get(route, handler)</code></li>
@@ -965,12 +920,14 @@ module.exports = User;
             </ul>
 <p>
 <pre><code>
-var Rest = require('ynode/restful');
+var Restful = require('ynode/Restful');
+var App = require('ynode/web/RestApplication');
 
-var rest = new Rest({
+var app = new App({
     appPath: __dirname + '/app',
     debug: true
 });
+var rest = new Restful(app);
 
 rest.get('/abc/{id:\\d+}', function(req, res, id){
     res.end(String(id));

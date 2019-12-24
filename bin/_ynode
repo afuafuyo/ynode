@@ -5,11 +5,11 @@
 /**
  * 该文件用来初始化基本的应用框架
  */
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
-var dir = process.cwd();
-var appName = process.argv.slice(2)[0];
+const dir = process.cwd();
+const appName = process.argv.slice(2)[0];
 
 if(undefined === appName) {
     console.log('appName must specified');
@@ -18,15 +18,15 @@ if(undefined === appName) {
 
 function createDirectorySync(dir, mode) {
     undefined === mode && (mode = 0o777);
-    
+
     if(fs.existsSync(dir)) {
         return true;
     }
-        
+
     if(createDirectorySync(path.dirname(dir))) {
         fs.mkdirSync(dir, mode);
     }
-    
+
     return true;
 }
 
@@ -44,9 +44,9 @@ prject
         modules
         runtime
 */
-var controllerPath = dir + '/' + appName + '/app/controllers/index';
-var viewPath = dir + '/' + appName + '/app/views/index';
-var mainFile = dir + '/' + appName + '/index.js';
+const controllerPath = dir + '/' + appName + '/app/controllers/index';
+const viewPath = dir + '/' + appName + '/app/views/index';
+const mainFile = dir + '/' + appName + '/index.js';
 
 createDirectorySync(controllerPath);
 createDirectorySync(viewPath);
@@ -55,8 +55,9 @@ createDirectorySync(viewPath);
 fs.writeFile(controllerPath + '/IndexController.js',
 `'use strict';
 
-var YNode = require('ynode');
-var Controller = YNode.Y.include('y/web/Controller');
+const Y = require('ynode/Y');
+const YNode = require('ynode');
+const Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
@@ -93,14 +94,16 @@ fs.writeFile(viewPath + '/index.html',
 
 // main file
 fs.writeFile(mainFile,
-`var YNode = require('ynode');
+`const YNode = require('ynode');
+const App = require('ynode/web/Application');
 
-new YNode({
+const app = new App({
     'id': 1,
     'debug': true,
     'appPath': __dirname + '/app'
-    
-}).listen(8090, function(){
+});
+
+new YNode(app).listen(8090, function(){
     console.log('listen on 8090');
 });
 `,

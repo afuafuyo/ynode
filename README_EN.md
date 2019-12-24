@@ -31,9 +31,10 @@ __  ___   __          __
 Using YNode only needs to start with an entry file. See the documentation in the doc directory for details.
 
 ```javascript
-var YNode = require('../ynode');
+var YNode = require('ynode');
+var App = require('ynode/web/Application');
 
-new YNode({
+var app = new App({
     'id': 1,
 
     // 定义调试应用
@@ -42,7 +43,9 @@ new YNode({
     // 定义应用路径
     'appPath': __dirname + '/app'
 
-}).listen(8090, function(){
+});
+
+new YNode(app).listen(8090, function(){
     console.log('listen on 8090');
 });
 ```
@@ -50,9 +53,9 @@ new YNode({
 ### Build in system variable
 
 + @y  system dir
-+ @app  app dir `YNode.Y.app.getAppPath()` can get the value
-+ @runtime  cache dir default to @app/runtime `YNode.Y.app.getRuntimePath()` can get the value
-+ @root  website root dir `YNode.Y.app.getRootPath()` can get the value
++ @app  app dir `Y.app.getAppPath()` can get the value
++ @runtime  cache dir default to @app/runtime `Y.app.getRuntimePath()` can get the value
++ @root  website root dir `Y.app.getRootPath()` can get the value
 
 ### Application structure demo
 
@@ -110,6 +113,11 @@ new YNode({
 </pre>
 
 ### Version change
+
++ 2019-12-23
+
+    * delete `Y.include()` method
+    * optimize system
 
 + 2019-02-25
 
@@ -205,7 +213,7 @@ new YNode({
 
 + 2017-04-07
 
-    * 1.4.1 `Y` class add include() method to import a class `var Logger = YNode.Y.include('y/log/Logger');`
+    * 1.4.1 `Y` class add include() method to import a class `var Logger = Y.include('y/log/Logger');`
 
 + 2017-04-06
 
