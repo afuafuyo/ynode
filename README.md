@@ -122,7 +122,7 @@ new YNode(app).listen(8090, function(){
 
 + 2019-12-23
 
-    * npm 包 4.0.0 移除了 `Y.include()` 快捷方法
+    * npm 包 4.0.0 移除了 `YNode.Y` 属性
     * 对系统进行了重构
 
 + 2019-02-25

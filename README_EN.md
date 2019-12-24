@@ -116,7 +116,7 @@ new YNode(app).listen(8090, function(){
 
 + 2019-12-23
 
-    * delete `Y.include()` method
+    * delete `YNode.Y` property
     * optimize system
 
 + 2019-02-25
