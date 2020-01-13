@@ -20,7 +20,7 @@ const yNode = new YNode(app);
 const server = yNode.getServer();
 
 // test
-describe('MVC', function() {
+describe('MVC: ', function() {
     it('simple get', function(done) {
         request(server)
             .get('/')

@@ -920,7 +920,7 @@ var obj = Y.createObject('lib/MyClass');
             </blockquote>
 
             <h4><b>npm 包 4.0.0 之后用法</b></h4>
-            <p><code>提供了如下实例方法</code></p>
+            <p><code>rest app 提供了如下实例方法</code></p>
             <ul>
                 <li><code>get(route, handler)</code></li>
                 <li><code>post(route, handler)</code></li>
@@ -932,20 +932,20 @@ var obj = Y.createObject('lib/MyClass');
             </ul>
 <p>
 <pre><code>
-var Restful = require('ynode/Restful');
+var YNode = require('ynode');
 var App = require('ynode/web/RestApplication');
 
 var app = new App({
+    id: 1,
     appPath: __dirname + '/app',
     debug: true
 });
-var rest = new Restful(app);
-
-rest.get('/abc/{id:\\d+}', function(req, res, id){
+app.get('/abc/{id:\\d+}', function(req, res, id){
     res.end(String(id));
 });
 
-rest.listen('8090', () => {
+var yNode = new YNode(app);
+yNode.listen('8090', () => {
     console.log('listen on 8090')
 });
 </code></pre>

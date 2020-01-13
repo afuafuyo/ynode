@@ -7,16 +7,14 @@
 const Y = require('../Y');
 const StringHelper = require('../helpers/StringHelper');
 const Router = require('../core/Router');
-const CoreRest = require('../core/RestApplication');
+const CoreApp = require('../core/Application');
 const InvalidCallException = require('../core/InvalidCallException');
 const Request = require('./Request');
 
-class RestApplication extends CoreRest {
+class RestApplication extends CoreApp {
 
     constructor(config) {
         super(config);
-
-        this.defaultExceptionHandler = 'y/web/ExceptionHandler';
 
         /**
          * 请求方法
@@ -36,8 +34,7 @@ class RestApplication extends CoreRest {
             OPTIONS: []
         };
 
-        this.server = null;
-        this.config = config;
+        Y.config(this, config);
     }
 
     /**
@@ -50,7 +47,7 @@ class RestApplication extends CoreRest {
         let route = Request.parseUrl(request).pathname;
 
         // {paramValues, handler}
-        let ret = this.resolveRoutesCombine(route, request.method);
+        let ret = this.resolveRoutes(route, request.method);
 
         if(null === ret) {
             throw new InvalidCallException('The REST route: ' + route + ' not found');
@@ -82,13 +79,13 @@ class RestApplication extends CoreRest {
     }
 
     /**
-     * 合并解析路由
+     * 解析路由
      *
      * @param {String} route 路由
      * @param {String} httpMethod 请求方法
      * @return {Object | null}
      */
-    resolveRoutesCombine(route, httpMethod) {
+    resolveRoutes(route, httpMethod) {
         let ret = null;
 
         // [ {pattern, handler} ... ]
@@ -194,6 +191,7 @@ class RestApplication extends CoreRest {
         return segment;
     }
 
+
     /**
      * Adds a route to the collection
      *
@@ -214,12 +212,59 @@ class RestApplication extends CoreRest {
     }
 
     /**
+     * get
+     */
+    get(pattern, handler) {
+        this.addRoute('GET', pattern, handler);
+    }
+
+    /**
+     * post
+     */
+    post(pattern, handler) {
+        this.addRoute('POST', pattern, handler);
+    }
+
+    /**
+     * put
+     */
+    put(pattern, handler) {
+        this.addRoute('PUT', pattern, handler);
+    }
+
+    /**
+     * delete
+     */
+    delete(pattern, handler) {
+        this.addRoute('DELETE', pattern, handler);
+    }
+
+    /**
+     * patch
+     */
+    patch(pattern, handler) {
+        this.addRoute('PATCH', pattern, handler);
+    }
+
+    /**
+     * head
+     */
+    head(pattern, handler) {
+        this.addRoute('HEAD', pattern, handler);
+    }
+
+    /**
+     * options
+     */
+    options(pattern, handler) {
+        this.addRoute('OPTIONS', pattern, handler);
+    }
+
+    /**
      * @inheritdoc
      */
     handlerException(response, exception) {
-        let handler = Y.createObject('' === this.exceptionHandler
-            ? this.defaultExceptionHandler
-            : this.exceptionHandler);
+        let handler = Y.createObject(this.exceptionHandler);
 
         handler.handlerException(response, exception);
     }

@@ -1,7 +1,6 @@
 'use strict';
 
 const Y = require('../../../../../Y');
-const YNode = require('../../../../../index');
 const Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {

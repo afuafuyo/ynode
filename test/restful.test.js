@@ -3,25 +3,28 @@
 const request = require('supertest');
 const assert = require('assert');
 
-const Rest = require('../Restful.js');
+const YNode = require('../index.js');
 const App = require('../web/RestApplication.js');
 
-const rest = new Rest(new App({
+const app = new App({
+    id: 1,
     appPath: __dirname + '/app'
-}));
-const server = rest.getServer();
-
+});
 // api
-rest.get('/abc', function(req, res){
+app.get('/abc', function(req, res){
     res.end('get ok');
 });
-rest.get('/abc/{id:\\d+}', function(req, res, id){
+app.get('/abc/{id:\\d+}', function(req, res, id){
     res.end(String(id));
 });
-rest.post('/def', function(req, res){
+app.post('/def', function(req, res){
     res.end('post ok');
 });
-rest.get('/xyz', 'app/api/Demo@index');
+app.get('/xyz', 'app/api/Demo@index');
+
+const yNode = new YNode(app);
+const server = yNode.getServer();
+
 
 // test restful api
 describe('RESTful api', function() {
