@@ -66,7 +66,7 @@ class Event {
      * 触发
      *
      * @param {String} eventName 事件名称
-     * @param {Array} param 参数
+     * @param {any} param 参数
      */
     trigger(eventName, param) {
         if(undefined === this.handlers[eventName]) {
@@ -74,8 +74,7 @@ class Event {
         }
 
         for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
-            undefined === param ? this.handlers[eventName][i]() :
-                this.handlers[eventName][i].apply(null, param);
+            this.handlers[eventName][i](param);
         }
     }
 

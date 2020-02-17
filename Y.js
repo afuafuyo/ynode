@@ -4,8 +4,6 @@
  */
 'use strict';
 
-const StringHelper = require('./helpers/StringHelper');
-
 /**
  * 辅助类
  */
@@ -51,7 +49,11 @@ class Y {
             return;
         }
 
-        Y.pathAliases[alias] = StringHelper.rTrimChar(path, '/');
+        if('/' === path.charAt(path.length - 1)) {
+            path = path.substring(0, path.length - 1);
+        }
+
+        Y.pathAliases[alias] = path;
     }
 
     /**
@@ -129,11 +131,6 @@ class Y {
  * @property {Application} app 应用实例
  */
 Y.app = null;
-
-/**
- * @property {Rest} rest RESTful 实例
- */
-Y.rest = null;
 
 /**
  * @property {Object} pathAliases 路径别名
