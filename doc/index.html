@@ -364,6 +364,15 @@ var app = new App({
 
     'interceptAll': 'app/Intercept'
 });
+
+
+// app/Intercept.js
+class Intercept {
+    run(req, res) {
+        res.end('intercepted');
+    }
+}
+module.exports = Intercept;
 </code></pre>
 </p>
 

@@ -62,13 +62,14 @@ class Request extends CoreRequest {
      *
      * @param {Object} request 请求对象
      * @param {String} param 参数名
+     * @param {String} defaultValue 默认值
      * @return {String | null}
      */
-    static getQueryString(request, param) {
+    static getQueryString(request, param, defaultValue = null) {
         let parsed = Request.parseUrl(request);
 
         if(null === parsed.query) {
-            return null;
+            return defaultValue;
         }
 
         // 查找参数
@@ -78,7 +79,7 @@ class Request extends CoreRequest {
             return querystring.parse(parsed.query)[param];
         }
 
-        return null;
+        return defaultValue;
     }
 
     /**
@@ -86,14 +87,15 @@ class Request extends CoreRequest {
      *
      * @param {Object} request 请求对象
      * @param {String} param 参数名
+     * @param {String} defaultValue 默认值
      * @return {String | null}
      */
-    static getParameter(request, param) {
+    static getParameter(request, param, defaultValue = null) {
         if(undefined === request.body) {
-            return null;
+            return defaultValue;
         }
 
-        return undefined === request.body[param] ? null : request.body[param];
+        return undefined === request.body[param] ? defaultValue : request.body[param];
     }
 
     /**
