@@ -5,7 +5,7 @@
 'use strict';
 
 /**
- * 简单 Event
+ * Simple Event
  */
 class Event {
 
@@ -14,50 +14,52 @@ class Event {
      */
     constructor() {
         /**
-         * @property {Object} handlers the attached event handlers
+         * @property {Map} eventsMap the attached event handlers
          *
          * {
-         *     'eventName': [fn1, fn2...]
-         *     'eventName2': [fn1, fn2...]
+         *      'eventName1': [fn1, fn2],
+         *      'eventName2': [fn1, fn2]
          * }
          *
          */
-        this.handlers = {};
+        this.eventsMap = new Map();
     }
 
     /**
      * 注册事件处理
      *
      * @param {String} eventName 事件名称
-     * @param {any} handler 事件处理器
+     * @param {Function} handler 事件处理器
      */
     on(eventName, handler) {
-        if(undefined === this.handlers[eventName]) {
-            this.handlers[eventName] = [];
+        if(undefined === this.eventsMap.get(eventName)) {
+            this.eventsMap.set(eventName, []);
         }
 
-        this.handlers[eventName].push(handler);
+        this.eventsMap.get(eventName).push(handler);
     }
 
     /**
      * 注销事件处理
      *
-     * @param {String} eventName 事件名称
-     * @param {any} handler 事件处理器
+     * @param {String} eventName
+     * @param {Function} handler
      */
     off(eventName, handler) {
-        if(undefined === this.handlers[eventName]) {
+        const handlers = this.eventsMap.get(eventName);
+
+        if(undefined === handlers) {
             return;
         }
 
         if(undefined === handler) {
-            delete this.handlers[eventName];
+            this.eventsMap.delete(eventName);
+            return;
+        }
 
-        } else {
-            for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
-                if(handler === this.handlers[eventName][i]) {
-                    this.handlers[eventName].splice(i, 1);
-                }
+        for(let i=0; i<handlers.length; i++) {
+            if(handler === handlers[i]) {
+                handlers.splice(i, 1);
             }
         }
     }
@@ -69,12 +71,14 @@ class Event {
      * @param {any} param 参数
      */
     trigger(eventName, param) {
-        if(undefined === this.handlers[eventName]) {
+        const handlers = this.eventsMap.get(eventName);
+
+        if(undefined === handlers) {
             return;
         }
 
-        for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
-            this.handlers[eventName][i](param);
+        for(let i=0, len=handlers.length; i<len; i++) {
+            handlers[i](param);
         }
     }
 
@@ -85,12 +89,14 @@ class Event {
      * @param {any} params 参数
      */
     triggerWithRestParams(eventName, ...params) {
-        if(undefined === this.handlers[eventName]) {
+        const handlers = this.eventsMap.get(eventName);
+
+        if(undefined === handlers) {
             return;
         }
 
-        for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
-            this.handlers[eventName][i](...params);
+        for(let i=0, len=handlers.length; i<len; i++) {
+            handlers[i](...params);
         }
     }
 

@@ -120,6 +120,11 @@ new YNode(app).listen(8090, function(){
 
 ### 版本更新
 
++ 2020-04-03
+
+    * npm 包 4.1.0 将 `Component` 的 `inject` 方法改名为 `injectBehaviors`
+    * 对 rest 路由系统进行了重构
+
 + 2019-12-23
 
     * npm 包 4.0.0 移除了 `YNode.Y` 属性

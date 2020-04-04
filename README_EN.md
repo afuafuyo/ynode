@@ -114,6 +114,11 @@ new YNode(app).listen(8090, function(){
 
 ### Version change
 
++ 2020-04-03
+
+    * npm package 4.1.0 changed `Component.inject()` method name to `injectBehaviors()`
+    * optimized rest system
+
 + 2019-12-23
 
     * delete `YNode.Y` property

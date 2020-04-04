@@ -10,6 +10,10 @@ class Demo extends Controller {
         res.end('restful class ok');
     }
 
+    testParam(req, res, params) {
+        res.end(params.id);
+    }
+
 }
 
 module.exports = Demo;
