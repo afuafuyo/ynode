@@ -14,7 +14,7 @@ class Event {
      */
     constructor() {
         /**
-         * @property {Map} eventsMap the attached event handlers
+         * @property {Map<String, Array>} eventsMap the attached event handlers
          *
          * {
          *      'eventName1': [fn1, fn2],

@@ -10,28 +10,33 @@ const app = new App({
     id: 1,
     appPath: __dirname + '/app'
 });
+
+
 // api
-app.get('/abc', function(req, res){
+app.get('/abc', (req, res) => {
     res.end('get ok');
 });
-app.get('/user/{id:\\d+}', function(req, res, params){
+app.get('/user/{id:\\d+}', (req, res, params) => {
     res.end( 'number_' + params.id );
 });
-app.get('/user/{name}', function(req, res, params){
+app.get('/user/{name}', (req, res, params) => {
     res.end( 'str_' + params.name );
 });
-app.get('/user/{name}/{page}', function(req, res, params){
+app.get('/user/{name}/{page}', (req, res, params) => {
     res.end( params.name + '_' + params.page );
 });
-app.post('/posts/add', function(req, res){
+app.get('/path/{sub}/path2/{sub2:\\w+}', (req, res, params) => {
+    res.end(params.sub + '_' + params.sub2);
+});
+app.post('/posts/add', (req, res) => {
     res.end('post ok');
 });
 app.get('/xyz', 'app/api/Demo@index');
 app.get('/xyz/{id}', 'app/api/Demo@testParam');
 
+
 const yNode = new YNode(app);
 const server = yNode.getServer();
-
 
 // test restful api
 describe('RESTful api', function() {
@@ -82,6 +87,19 @@ describe('RESTful api', function() {
                 if (err) return done(err);
 
                 assert.equal(res.text, 'zhangsan_1');
+
+                done();
+            });
+    });
+
+    it('get with multi params 2', function(done) {
+        request(server)
+            .get('/path/1/path2/img')
+            //.expect(200)
+            .end(function(err, res){
+                if (err) return done(err);
+
+                assert.equal(res.text, '1_img');
 
                 done();
             });
