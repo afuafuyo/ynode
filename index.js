@@ -34,8 +34,8 @@ class YNode {
 
     // handler
     handler(req, res) {
-        Hook.getInstance().trigger(req, res, () => {
-            this.requestListener(req, res);
+        new Hook().trigger(req, res, (request, response) => {
+            this.requestListener(request, response);
         });
     }
 

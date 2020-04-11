@@ -708,7 +708,7 @@ var App = require('ynode/web/Application');
 var Hook = Y.include('y/core/Hook');
 var R = Y.include('y/midwares/Resource');
 
-Hook.getInstance().addHook(new R(__dirname + '/public').serve());
+Hook.addHook(new R(__dirname + '/public').serve());
 
 new YNode(new App({
 
