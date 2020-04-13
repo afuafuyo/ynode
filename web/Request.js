@@ -29,17 +29,7 @@ class Request extends CoreRequest {
      * @return {Object}
      */
     static parseUrl(request) {
-        let obj = url.parse(request.url);
-
-        return {
-            protocol: obj.protocol,
-            host: obj.host,
-            port: obj.port,
-            path: obj.path,
-            pathname: obj.pathname,
-            query: obj.query,
-            hash: obj.hash
-        };
+        return url.parse(request.url);
     }
 
     /**
