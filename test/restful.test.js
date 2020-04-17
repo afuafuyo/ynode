@@ -31,7 +31,7 @@ app.get('/path/{sub}/path2/{sub2:\\w+}', (req, res, params) => {
 app.post('/posts/add', (req, res) => {
     res.end('post ok');
 });
-app.get('/xyz', 'app/api/Demo@index');
+app.get('/xyz', 'app/api/Demo');
 app.get('/xyz/{id}', 'app/api/Demo@testParam');
 
 

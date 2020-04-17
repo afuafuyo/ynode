@@ -6,7 +6,7 @@ const Controller = Y.include('y/web/Controller');
 
 class Demo extends Controller {
 
-    index(req, res) {
+    run(req, res) {
         res.end('restful class ok');
     }
 
