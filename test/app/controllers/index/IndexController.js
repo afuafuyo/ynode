@@ -7,7 +7,7 @@ const Controller = Y.include('y/web/Controller');
 class IndexController extends Controller {
 
     run(req, res) {
-        this.getView().getTemplate('index', (err, str) => {
+        this.getView().getTemplateContent('index', (err, str) => {
             res.end(str);
         });
     }

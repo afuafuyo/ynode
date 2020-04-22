@@ -66,28 +66,43 @@ class Y {
      * or
      * {classPath: 'some/path/Class', ...}
      *
-     * @param {any} params 构造函数参数
+     * @param {any} parameters 构造函数参数
      * @return {Object} 类实例
      */
-    static createObject(clazz, ...params) {
-        let file = '';
-        let properties = null;
-
+    static createObject(clazz, ...parameters) {
         if('string' === typeof clazz) {
-            file = Y.getPathAlias('@' + clazz);
-
-        } else if('object' === typeof clazz && undefined !== clazz.classPath) {
-            file = Y.getPathAlias('@' + clazz.classPath);
-
-            properties = Y.config({}, clazz);
-            delete properties.classPath;
+            return Y.createObjectAsString(clazz, ...parameters);
         }
 
-        // 文件不存在抛出异常
-        // todo
+        return Y.createObjectAsDefinition(clazz, ...parameters);
+    }
 
-        let ClassName = require(file + Y.fileExtention);
-        let instance = new ClassName(...params);
+    /**
+     * 字符串方式创建对象
+     *
+     * @param {String} classPath
+     */
+    static createObjectAsString(classPath, ...parameters) {
+        let realClass = Y.getPathAlias('@' + classPath);
+
+        let ClassName = require(realClass + Y.defaultExtension);
+
+        return new ClassName(...parameters);
+    }
+
+    /**
+     * 配置方式创建对象
+     *
+     * @param {Object} definition
+     */
+    static createObjectAsDefinition(definition, ...parameters) {
+        let realClass = Y.getPathAlias('@' + definition.classPath);
+        let properties = Y.config({}, definition);
+
+        let ClassName = require(realClass + Y.defaultExtension);
+        let instance = new ClassName(...parameters);
+
+        delete properties.classPath;
 
         if(null !== properties) {
             Y.config(instance, properties);
@@ -107,7 +122,7 @@ class Y {
         // 文件不存在抛出异常
         // todo
 
-        return require(file + Y.fileExtention);
+        return require(file + Y.defaultExtension);
     }
 
     /**
@@ -138,8 +153,8 @@ Y.app = null;
 Y.pathAliases = {'@y': __dirname};
 
 /**
- * @property {String} fileExtention 默认文件扩展名
+ * @property {String} defaultExtension 默认文件扩展名
  */
-Y.fileExtention = '.js';
+Y.defaultExtension = '.js';
 
 module.exports = Y;

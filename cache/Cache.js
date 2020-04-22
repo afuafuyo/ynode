@@ -17,7 +17,7 @@ class Cache {
      */
     static getCache(cacheFlag) {
         if(undefined === cacheFlag) {
-            throw new InvalidArgumentException('Invalid param: cacheFlag');
+            throw new InvalidArgumentException('Invalid parameter: cacheFlag');
         }
 
         if(undefined === Y.app.cache || undefined === Y.app.cache[cacheFlag]) {

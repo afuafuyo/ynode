@@ -30,7 +30,7 @@ class Controller extends Component {
      * @param {Object} response
      */
     beforeActionCall(request, response) {
-        this.triggerWithRestParams(Controller.EVENT_BEFORE_ACTIONCALL, request, response);
+        this.triggerWithRestParameters(Controller.EVENT_BEFORE_ACTIONCALL, request, response);
     }
 
     /**
@@ -40,7 +40,7 @@ class Controller extends Component {
      * @param {Object} response
      */
     afterActionCall(request, response) {
-        this.triggerWithRestParams(Controller.EVENT_AFTER_ACTIONCALL, request, response);
+        this.triggerWithRestParameters(Controller.EVENT_AFTER_ACTIONCALL, request, response);
     }
 
     /**
@@ -58,11 +58,13 @@ class Controller extends Component {
     }
 
     /**
-     * 获取视图类
+     * 渲染文件
      *
-     * @return {Object}
+     * @param {String} view 视图名
+     * @param {Object} parameters 参数
+     * @return string | undefined
      */
-    getView() {}
+    render(view, parameters = null) {}
 
 }
 

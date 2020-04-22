@@ -62,14 +62,14 @@ class Application extends CoreApp {
         this.modules = null;
 
         /**
-         * @property {String} viewHandler 视图类
+         * @property {String} defaultView 视图类
          */
-        this.viewHandler = 'y/web/View';
+        this.defaultView = 'y/web/View';
 
         /**
-         * @property {String} controllerNamespace 默认控制器命名空间
+         * @property {String} defaultControllerNamespace 默认控制器命名空间
          */
-        this.controllerNamespace = 'app/controllers';
+        this.defaultControllerNamespace = 'app/controllers';
 
         /**
          * @property {String} defaultRoute 默认路由
@@ -103,6 +103,8 @@ class Application extends CoreApp {
             return;
         }
 
+        controller.context.request = request;
+        controller.context.response = response;
         controller.runControllerAction(request, response);
     }
 
@@ -209,7 +211,7 @@ class Application extends CoreApp {
             });
         }
 
-        clazz = this.controllerNamespace
+        clazz = this.defaultControllerNamespace
             + '/'
             + viewPath
             + '/'
