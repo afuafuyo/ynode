@@ -57,13 +57,13 @@ class View {
     }
 
     /**
-     * 读取视图文件
+     * 读取视图文件内容
      *
      * @param {String} view 视图文件名
      * @param {Function} callback 回调函数
      * @return {String}
      */
-    getTemplateContent(view, callback) {
+    getViewContent(view, callback) {
         let file = this.findViewFile(view);
 
         fs.readFile(file, Y.app.encoding, callback);
