@@ -103,10 +103,7 @@ class Y {
         let instance = new ClassName(...parameters);
 
         delete properties.classPath;
-
-        if(null !== properties) {
-            Y.config(instance, properties);
-        }
+        Y.config(instance, properties);
 
         return instance;
     }
