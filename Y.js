@@ -57,6 +57,19 @@ class Y {
     }
 
     /**
+     * 删除路径别名
+     *
+     * @param {String} alias 路径别名
+     */
+    static deletePathAlias(alias) {
+        if('@' !== alias.charAt(0)) {
+            alias = '@' + alias;
+        }
+
+        delete Y.pathAliases[alias];
+    }
+
+    /**
      * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
      *
      * @param {String | Object} clazz 以某个已经定义的别名开头的类全名或带 'classPath' 键的配置
