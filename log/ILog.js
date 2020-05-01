@@ -9,7 +9,7 @@ const Event = require('../core/Event');
 /**
  * base target
  */
-class ITarget extends Event {
+class ILog extends Event {
 
     /**
      * constructor
@@ -47,6 +47,6 @@ class ITarget extends Event {
 /**
  * @property {String} EVENT_FLUSH 事件
  */
-ITarget.EVENT_FLUSH = 'flush';
+ILog.EVENT_FLUSH = 'flush';
 
-module.exports = ITarget;
+module.exports = ILog;

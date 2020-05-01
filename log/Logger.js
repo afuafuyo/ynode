@@ -6,7 +6,7 @@
 
 const Y = require('../Y');
 const InvalidConfigException = require('../core/InvalidConfigException');
-const ITarget = require('./ITarget');
+const ILog = require('./ILog');
 
 /**
  * 日志
@@ -57,7 +57,7 @@ class Logger {
             if(undefined !== settings.targets[target].classPath) {
                 let clazz = Y.createObject(settings.targets[target].classPath,
                     settings.targets[target]);
-                clazz.on(ITarget.EVENT_FLUSH, clazz);
+                clazz.on(ILog.EVENT_FLUSH, clazz);
 
                 this.targets.push(clazz);
             }
@@ -108,7 +108,7 @@ class Logger {
         this.messages = [];
 
         for(let i=0; i<this.targets.length; i++) {
-            this.targets[i].trigger(ITarget.EVENT_FLUSH, messages);
+            this.targets[i].trigger(ILog.EVENT_FLUSH, messages);
         }
     }
 

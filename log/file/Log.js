@@ -8,7 +8,7 @@ const fs = require('fs');
 
 const Y = require('../../Y');
 const Logger = require('../Logger');
-const ITarget = require('../ITarget');
+const ILog = require('../ILog');
 const FileHelper = require('../../helpers/FileHelper');
 const TimeHelper = require('../../helpers/TimeHelper');
 
@@ -18,7 +18,7 @@ const TimeHelper = require('../../helpers/TimeHelper');
  * 'log': {
  *     'targets': {
  *         'file': {
- *             'classPath': 'y/log/file/Target',
+ *             'classPath': 'y/log/file/Log',
  *             'logPath': '@runtime/logs',
  *             'logFile': 'system.log',
  *             'maxFileSize': 10240
@@ -28,7 +28,7 @@ const TimeHelper = require('../../helpers/TimeHelper');
  * }
  *
  */
-class Target extends ITarget {
+class Log extends ILog {
 
     /**
      * constructor
@@ -128,4 +128,4 @@ class Target extends ITarget {
 
 }
 
-module.exports = Target;
+module.exports = Log;
