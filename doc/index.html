@@ -55,9 +55,7 @@ __  ___   __          __
             </p>
 
             <h4><b>使用<code>npm</code>安装</b></h4>
-            <p>
-                <pre><code>npm install ynode</code></pre>
-            </p>
+            <pre><code>npm install ynode</code></pre>
 
             <h4><b>下载源代码手动部署</b></h4>
             <p>
@@ -76,12 +74,9 @@ __  ___   __          __
                 如果<code>YNode</code>是通过<code>npm</code>安装的 那么<code>_ynode</code>会被安装到<code>node_modules/.bin</code>目录
                 如果<code>YNode</code>是通过下载源码手动安装的 那么需要到<code>node_modules/ynode/bin</code>目录下找到该工具
             </p>
-            <p>
-                <pre><code>./node_modules/.bin/_ynode PROJECT_NAME 使用自己想用的应用名字替换掉 PROJECT_NAME 变量即可</code></pre>
-            </p>
+            <pre><code>./node_modules/.bin/_ynode PROJECT_NAME 使用自己想用的应用名字替换掉 PROJECT_NAME 变量即可</code></pre>
 
             <p>这样就会创建一个简单的应用如下</p>
-<p>
 <pre><code>
 PROJECT_NAME
 |
@@ -101,17 +96,15 @@ PROJECT_NAME
 |       |   |
 |       |   |-- index.html
 </code></pre>
-</p>
 
             <p>进入应用目录启动程序</p>
-            <p><pre><code>node index.js</code></pre></p>
+            <pre><code>node index.js</code></pre>
             <p>访问程序</p>
-            <p><pre><code><a href="http://localhost:8090" target="_blank">http://localhost:8090</a></code></pre></p>
+            <pre><code><a href="http://localhost:2333" target="_blank">http://localhost:2333</a></code></pre>
 
             <h1 class="page-header" id="appstruct">应用结构</h1>
 
             <h4><b>一个比较完整的应用目录结构如下</b></h4>
-<p>
 <pre><code>
 PROJECT_NAME
 |
@@ -164,7 +157,6 @@ PROJECT_NAME
 |   -- runtime 缓存目录
 |
 </pre></code>
-</p>
 
             <h4><b>入口脚本<code>index.js</code></b></h4>
             <p>
@@ -179,7 +171,6 @@ PROJECT_NAME
                     <li>注册各种需要组件</li>
                 </ul>
             </p>
-<p>
 <pre><code>
 var YNode = require('ynode');
 var App = require('ynode/web/Application');
@@ -209,11 +200,10 @@ var app = new App({
 
 });
 
-new YNode(app).listen(8090, function(){
-    console.log('listen on 8090');
+new YNode(app).listen(2333, function(){
+    console.log('listen on 2333');
 });
 </pre></code>
-</p>
 
             <h4><b>应用</b></h4>
             <p>
@@ -237,7 +227,6 @@ new YNode(app).listen(8090, function(){
             <ul>
                 <li>
                     <p><code>y/web/Application.routesMap</code> 用来自定义路由处理程序</p>
-<p>
 <pre><code>
 // account 路由使用 app/controllers/user/IndexController 做处理 并传入了一个参数 property
 'account': {
@@ -245,18 +234,15 @@ new YNode(app).listen(8090, function(){
     'property': 'value'
 }
 </code></pre>
-</p>
                 </li>
                 <li>
                     <p><code>y/web/Application.modules</code> 用来注册应用模块</p>
-<p>
 <pre><code>
 // 注册一个 bbs 模块
 'modules': {
     'bbs': 'app/modules/bbs'
 }
 </code></pre>
-</p>
                 </li>
                 <li>
                     <p><code>y/web/Application.encoding</code> 项目编码方式</p>
@@ -274,7 +260,6 @@ new YNode(app).listen(8090, function(){
 
             <h4><b>动作</b></h4>
             <p>控制器由<code>动作</code>组成 它是执行终端用户请求的最基础的单元 控制器必须包含一个<code>run</code>动作</p>
-<p>
 <pre><code>
 'use strict';
 
@@ -293,7 +278,6 @@ class IndexController extends Controller {
 
 module.exports = IndexController;
 </pre></code>
-</p>
 
             <h4><b>动作切面</b></h4>
             <p>
@@ -309,7 +293,6 @@ module.exports = IndexController;
                 </ul>
                 <p><code>beforeAction(req, res)</code> 方法必须同步返回一个布尔类型的值，以表明程序是否继续向后执行。<code>true</code>表示告诉程序向下执行，其他返回值则会阻止程序运行</p>
             </blockquote>
-<p>
 <pre><code>
 'use strict';
 
@@ -343,14 +326,13 @@ class IndexController extends Controller {
 
 module.exports = IndexController;
 </pre></code>
-</p>
 
 
             <h1 class="page-header" id="route"><b>路由</b></h1>
             <p>一般一个路由对应一个控制器 路由格式如下</p>
-            <p><pre><code>[route_prefix]/[controllerId]</code></pre></p>
+            <pre><code>[route_prefix]/[controllerId]</code></pre>
             <p>如果属于模块下的控制器 那么路由格式如下</p>
-            <p><pre><code>[moduleId]/[controllerId]</code></pre></p>
+            <pre><code>[moduleId]/[controllerId]</code></pre>
 
             <p>如果用户的请求地址为<code>http://hostname/index</code>会执行<code>index</code>控制器的<code>run</code>入口动作</p>
             <p>如果用户的请求地址为<code>http://hostname/bbs/index</code>会执行<code>bbs</code>模块的<code>index</code>控制器的<code>run</code>入口动作 或者执行普通控制器的<code>bbs</code>目录下的<code>index</code>控制器的<code>run</code>入口动作</p>
@@ -366,7 +348,6 @@ module.exports = IndexController;
                 这样无论访问什么路由 都会被<code>interceptAll</code>指定的类处理
             </p>
 
-<p>
 <pre><code>
 var App = require('ynode/web/Application');
 
@@ -387,7 +368,6 @@ class Intercept {
 }
 module.exports = Intercept;
 </code></pre>
-</p>
 
             <h1 class="page-header" id="model"><b>模型</b></h1>
             <p>模型是<code>MVC</code>模式中的一部分 是代表业务数据的对象</p>
@@ -418,7 +398,6 @@ module.exports = Intercept;
                 <li><code>getTemplate(view, callback)</code> 用于读取一个视图文件的内容</li>
                 <li><code>getTemplateFromPath(path, callback)</code> 用于从指定路径读取视图文件内容</li>
             </ul>
-<p>
 <pre><code>
 'use strict';
 
@@ -438,7 +417,6 @@ class IndexController extends Controller {
 
 module.exports = IndexController;
 </code></pre>
-</p>
 
             <h1 class="page-header" id="module"><b>模块</b></h1>
             <p>
@@ -452,7 +430,6 @@ module.exports = IndexController;
 
             <h4><b>创建模块</b></h4>
             <p>在应用目录的<code>modules</code>目录中建立单独目录创建模块 如下</p>
-<p>
 <pre><code>
 modules 模块目录
    |
@@ -468,11 +445,10 @@ modules 模块目录
    |   |
    |   |-- 其他目录
 </code></pre>
-</p>
+
 
             <h4><b>注册模块</b></h4>
             <p>创建完成的模块还不能被系统识别 需要手动注册一下</p>
-<p>
 <pre><code>
 var YNode = require('ynode');
 var App = require('ynode/web/Application');
@@ -489,11 +465,10 @@ new App({
 
 });
 
-new YNode(app).listen(8090, function(){
-    console.log('listen on 8090');
+new YNode(app).listen(2333, function(){
+    console.log('listen on 2333');
 });
 </code></pre>
-</p>
 
             <h1 class="page-header" id="component"><b>组件 & 行为</b></h1>
 
@@ -518,7 +493,6 @@ new YNode(app).listen(8090, function(){
 
             <h4><b>事件</b></h4>
             <p><code>YNode</code>中实现了一个观察者模式</p>
-<p>
 <pre><code>
 'use strict';
 
@@ -546,13 +520,11 @@ class IndexController extends Controller {
 
 module.exports = IndexController;
 </code></pre>
-</p>
 
             <h4><b>行为的使用</b></h4>
 
             <h6><b>定义行为</b></h6>
             <p>要定义行为 通过继承<code>y/core/Behavior</code>或其子类来建立一个类</p>
-<p>
 <pre><code>
 'use strict';
 
@@ -575,7 +547,6 @@ class MyBehavior extends Behavior {
 
 module.exports = MyBehavior;
 </code></pre>
-</p>
 
             <p>以上代码定义了行为类<code>MyBehavior</code>并为要附加行为的组件提供了两个属性<code>prop1 prop2</code>和一个方法<code>myFun()</code></p>
 
@@ -583,7 +554,6 @@ module.exports = MyBehavior;
             <p>可以通过<code>静态配置</code>或者<code>动态方法</code>形式附加行为到组件</p>
 
             <p>要使用静态配置附加行为 重写组件类的<code>behaviors()</code>方法即可<code>behaviors()</code>方法应该返回行为配置列表</p>
-<p>
 <pre><code>
 'use strict';
 
@@ -610,10 +580,8 @@ class IndexController extends Controller {
 
 module.exports = IndexController;
 </code></pre>
-</p>
 
             <p>要使用动态方法附加行为 在组件里调用<code>attachBehavior()</code>方法即可</p>
-<p>
 <pre><code>
 'use strict';
 
@@ -638,14 +606,12 @@ class IndexController extends Controller {
 
 module.exports = IndexController;
 </code></pre>
-</p>
 
             <h6><b>使用</b></h6>
             <p>一旦行为附加到组件 就可以直接使用它</p>
             <blockquote class="bg-info">
                 为了不必要的性能开销<code>YNode</code>不会真的执行注入操作 要想使用行为类的功能 必须在调用行为类的功能之前手动调用一下<code>injectBehaviors()</code>方法
             </blockquote>
-<p>
 <pre><code>
 'use strict';
 
@@ -677,7 +643,6 @@ class IndexController extends Controller {
 
 module.exports = IndexController;
 </code></pre>
-</p>
 
 
             <h1 class="page-header" id="midware"><b>中间件</b></h1>
@@ -691,7 +656,6 @@ module.exports = IndexController;
             <p>
                 <code>YNode</code>默认是不处理静态资源的 需要使用中间件
             </p>
-<p>
 <pre><code>
 // 入口文件
 var YNode = require('ynode');
@@ -707,11 +671,10 @@ new YNode(new App({
 
     ...
 
-})).listen(8090, function(){
-    console.log('listen on 8090');
+})).listen(2333, function(){
+    console.log('listen on 2333');
 });
 </code></pre>
-</p>
 
             <h1 class="page-header" id="url"><b>URI & URL 类</b></h1>
             <p>
@@ -722,7 +685,6 @@ new YNode(new App({
             <ul>
                 <li><code>parseUrl()</code> 解析 url</li>
             </ul>
-<p>
 <pre><code>
 var URI = Y.include('y/web/URI');
 
@@ -743,7 +705,6 @@ var uri = new URI();
 */
 uri.parseUrl('http://xxx.com:8080/abc?q=1#anchor');
 </code></pre>
-</p>
 
             <h4><b>y/web/URL</b></h4>
             <ul>
@@ -752,7 +713,6 @@ uri.parseUrl('http://xxx.com:8080/abc?q=1#anchor');
                 <li><code>getCurrent()</code> 获取当前网址 不包含锚点部分</li>
                 <li><code>to(url[, params = null])</code> 创建一个 url</li>
             </ul>
-<p>
 <pre><code>
 var URL = Y.include('y/web/URL');
 
@@ -764,7 +724,6 @@ url.to('index/index');
 // return scheme://host/index/index?id=1#anchor
 url.to('index/index', {id: 1, '#': 'anchor'})
 </code></pre>
-</p>
 
             <h1 class="page-header" id="reqres"><b>请求与响应</b></h1>
             <p>
@@ -793,14 +752,12 @@ url.to('index/index', {id: 1, '#': 'anchor'})
             <blockquote class="bg-danger">
                 <code>YNode</code>中使用 getParameter() 获取 POST 参数暂时需要依赖第三方解析 body 的中间件 否则将反回 null
             </blockquote>
-<p>
 <pre><code>
 var Request = Y.include('y/web/Request');
 var request = new Request(req);
 var id = request.getQueryString('id');
 ...
 </code></pre>
-</p>
 
             <h4><b>HTTP 响应 y/web/Response 类</b></h4>
             <p>
@@ -819,23 +776,19 @@ var id = request.getQueryString('id');
             </ul>
 
             <h6><b>使用 response 输出内容</b></h6>
-<p>
 <pre><code>
 var Response = Y.include('y/web/Response');
 var response = new Response(res);
 response.setContent('some data from server');
 response.send();
 </code></pre>
-</p>
 
             <h6><b>使用 response 重定向</b></h6>
-<p>
 <pre><code>
 var Response = Y.include('y/web/Response');
 var response = new Response(res);
 response.redirect('http://foo.com');
 </code></pre>
-</p>
 
             <h1 class="page-header" id="helper"><b>助手类</b></h1>
             <p>助手类封装了一些常用操作</p>
@@ -864,7 +817,6 @@ response.redirect('http://foo.com');
                 <li><code>format(formats[, timestamp = Date.now()])</code> 格式化时间</li>
             </ul>
 
-<p>
 <pre><code>
 var Response = Y.include('y/helpers/FileHelper');
 var Response = Y.include('y/helpers/StringHelper');
@@ -882,7 +834,6 @@ var strTag = StringHelper.filterTags('&lt;a&gt;abc&lt;/a&gt;xyz');
 // 格式化当前时间 return xxxx-xx-xx xx:xx:xx
 var time = TimeHelper.format('y-m-d h:i:s');
 </code></pre>
-</p>
 
             <h1 class="page-header" id="alias"><b>别名系统</b></h1>
             <p>为了方便类的管理 实现自动加载 初始化等<code>YNode</code>提供了一套别名系统</p>
@@ -899,7 +850,6 @@ var time = TimeHelper.format('y-m-d h:i:s');
 
             <h4><b>自定义别名</b></h4>
             <p>用户可以自定义别名</p>
-<p>
 <pre><code>
 // 注册别名
 Y.setPathAlias('@lib', '/home/www/library');
@@ -907,7 +857,6 @@ Y.setPathAlias('@lib', '/home/www/library');
 // 加载并创建 /home/www/library/MyClass 类
 var obj = Y.createObject('lib/MyClass');
 </code></pre>
-</p>
 
             <h1 class="page-header" id="restful"><b>RESTful</b></h1>
             <blockquote class="bg-danger">此功能在 4.0.0 之前是一个处于实验阶段的特性</blockquote>
@@ -923,7 +872,6 @@ var obj = Y.createObject('lib/MyClass');
                 <li><code>head(route, handler)</code></li>
                 <li><code>options(route, handler)</code></li>
             </ul>
-<p>
 <pre><code>
 var YNode = require('ynode');
 var App = require('ynode/web/RestApplication');
@@ -956,11 +904,10 @@ app.get('/user/{id:\\d+}', (req, res, params) => {
 app.get('/xyz', 'app/api/Demo@index');
 
 var yNode = new YNode(app);
-yNode.listen('8090', () => {
-    console.log('listen on 8090')
+yNode.listen('2333', () => {
+    console.log('listen on 2333')
 });
 </code></pre>
-</p>
 
             <h4><b>RESTful 中的路由问题</b></h4>
             <p>
@@ -975,7 +922,6 @@ yNode.listen('8090', () => {
 
             <h4><b>使用日志</b></h4>
             <p>使用日志功能前 需要在入口文件注册</p>
-<p>
 <pre><code>
 'log': {
     'targets': {
@@ -989,7 +935,6 @@ yNode.listen('8090', () => {
     'flushInterval': 10
 }
 </code></pre>
-</p>
 
             <p>
                 <code>targets</code>用于配置日志处理程序
@@ -1006,7 +951,6 @@ yNode.listen('8090', () => {
                 <li><code>trace(message)</code> 记录追踪日志</li>
                 <li><code>flush()</code> 输出日志</li>
             </ul>
-<p>
 <pre><code>
 var YNode = require('ynode');
 var Y = require('ynode/Y');
@@ -1016,7 +960,6 @@ var log = Logger.getLogger();
 log.error('This is a error message');
 log.flush();  // 写入硬盘
 </code></pre>
-</p>
 
             <blockquote class="bg-info">
                 <code>YNode</code>暂时只提供了文件日志功能 如果想实现诸如数据库日志等的功能必须自己进行日志扩展
@@ -1030,7 +973,6 @@ log.flush();  // 写入硬盘
 
             <h4><b>使用缓存</b></h4>
             <p>使用缓存功能前 需要在入口文件注册</p>
-<p>
 <pre><code>
 'cache': {
     'file': {
@@ -1039,7 +981,6 @@ log.flush();  // 写入硬盘
     }
 }
 </code></pre>
-</p>
 
             <p><code>file</code>用于指定使用文件缓存</p>
 
@@ -1052,7 +993,6 @@ log.flush();  // 写入硬盘
                 <li><code>deleteSync(key)</code> 同步删除缓存</li>
                 <li><code>delete(key, callback)</code> 异步删除缓存</li>
             </ul>
-<p>
 <pre><code>
 var YNode = require('ynode');
 var Y = require('ynode/Y');
@@ -1071,7 +1011,6 @@ c.set('key2', 'value2', undefined, (err) => {
     });
 });
 </code></pre>
-</p>
 
             <blockquote class="bg-info">
                 <code>YNode</code>暂时只提供了文件缓存功能 如果想实现诸如数据库缓存等的功能必须自己进行缓存扩展

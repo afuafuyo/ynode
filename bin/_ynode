@@ -103,8 +103,8 @@ const app = new App({
     'appPath': __dirname + '/app'
 });
 
-new YNode(app).listen(8090, function(){
-    console.log('listen on 8090');
+new YNode(app).listen(2333, function(){
+    console.log('listen on 2333');
 });
 `,
     function(err){
