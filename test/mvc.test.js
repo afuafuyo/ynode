@@ -34,6 +34,19 @@ describe('MVC: ', function() {
             });
     });
 
+    it('beforeaction get', function(done) {
+        request(server)
+            .get('/before')
+            .expect(200)
+            .end(function(err, res){
+                if (err) return done(err);
+
+                assert.equal(res.text.trim(), 'before action call');
+
+                done();
+            });
+    });
+
     it('module get', function(done) {
         request(server)
             .get('/bbs')
