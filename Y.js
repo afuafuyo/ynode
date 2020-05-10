@@ -70,12 +70,12 @@ class Y {
     }
 
     /**
-     * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
+     * 创建对象
      *
-     * @param {String | Object} clazz 以某个已经定义的别名开头的类全名或带 'classPath' 键的配置
+     * @param {String | Object} 以某个别名开头的类全名或带 'classPath' 键的配置
      *
      * eg.
-     * 'some/path/Class'
+     * 'alias/path/Class'
      * or
      * {classPath: 'some/path/Class', ...}
      *
