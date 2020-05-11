@@ -63,6 +63,11 @@ class Controller extends Component {
     }
 
     /**
+     * 执行控制器
+     */
+    run(request, response) {}
+
+    /**
      * 渲染文件
      *
      * @param {String} view 视图名
