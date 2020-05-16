@@ -5,6 +5,7 @@
 'use strict';
 
 const Component = require('./Component');
+const ActionEvent = require('./ActionEvent');
 
 /**
  * 控制器基类
@@ -31,9 +32,11 @@ class Controller extends Component {
      * @return {Boolean}
      */
     beforeAction(request, response) {
-        this.trigger(Controller.EVENT_BEFORE_ACTION, this.context);
+        let actionEvent = new ActionEvent(request, response);
 
-        return true;
+        this.trigger(Controller.EVENT_BEFORE_ACTION, actionEvent);
+
+        return actionEvent.valid;;
     }
 
     /**
@@ -43,7 +46,7 @@ class Controller extends Component {
      * @param {Object} response
      */
     afterAction(request, response) {
-        this.trigger(Controller.EVENT_AFTER_ACTION, this.context);
+        this.trigger(Controller.EVENT_AFTER_ACTION, null);
     }
 
     /**
