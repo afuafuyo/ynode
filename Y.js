@@ -158,7 +158,7 @@ class Y {
 Y.app = null;
 
 /**
- * @property {Object} pathAliases 路径别名
+ * @property {Map<String, String>} pathAliases 路径别名
  */
 Y.pathAliases = {'@y': __dirname};
 

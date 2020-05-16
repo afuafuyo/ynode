@@ -1,6 +1,4 @@
-const fs = require('fs');
-
-const Y = require('../Y.js');
+const Logger = require('../log/Logger');
 
 const config = {
     'targets': {
@@ -13,7 +11,6 @@ const config = {
     },
     'flushInterval': 1
 };
-const Logger = Y.include('y/log/Logger');
 const log = Logger.newInstance(config);
 
 // 写日志

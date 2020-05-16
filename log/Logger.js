@@ -67,7 +67,7 @@ class Logger {
     /**
      * 获取日志类实例
      *
-     * @return {Object}
+     * @return {Logger}
      */
     static getLogger() {
         if(null === Logger._logger) {
@@ -81,6 +81,7 @@ class Logger {
      * 创建新日志对象
      *
      * @param {Object} settings
+     * @return {Logger}
      */
     static newInstance(settings) {
         return new Logger(settings);
