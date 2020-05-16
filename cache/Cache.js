@@ -7,6 +7,7 @@
 const Y = require('../Y');
 const InvalidConfigException = require('../core/InvalidConfigException');
 const InvalidArgumentException = require('../core/InvalidArgumentException');
+const ICache = require('./ICache');
 
 class Cache {
 
@@ -14,6 +15,7 @@ class Cache {
      * 获取缓存实例
      *
      * @param {Object} cacheFlag
+     * @return {ICache}
      */
     static getCache(cacheFlag) {
         if(undefined === cacheFlag) {
@@ -41,7 +43,7 @@ class Cache {
 }
 
 /**
- * @var {Map<String, Object>} _caches
+ * @var {Map<String, ICache>} _caches
  */
 Cache._caches = {};
 
