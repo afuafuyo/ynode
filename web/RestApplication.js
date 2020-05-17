@@ -8,7 +8,6 @@ const Y = require('../Y');
 const Request = require('./Request');
 const RegExpRouter = require('../utils/RegExpRouter');
 const CoreApp = require('../core/Application');
-const StringHelper = require('../helpers/StringHelper');
 const InvalidCallException = require('../core/InvalidCallException');
 
 class RestApplication extends CoreApp {
