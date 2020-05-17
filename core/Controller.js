@@ -36,7 +36,7 @@ class Controller extends Component {
 
         this.trigger(Controller.EVENT_BEFORE_ACTION, actionEvent);
 
-        return actionEvent.valid;;
+        return actionEvent.valid;
     }
 
     /**

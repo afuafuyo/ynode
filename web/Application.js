@@ -89,7 +89,6 @@ class Application extends CoreApp {
      */
     requestListener(request, response) {
         let route = Request.parseUrl(request).pathname;
-
         let controller = this.createController(route);
 
         if(null === controller) {
@@ -99,7 +98,6 @@ class Application extends CoreApp {
         // 是否继承自框架控制器
         if( !(controller instanceof WebController) ) {
             controller.run(request, response);
-
             return;
         }
 
@@ -179,9 +177,9 @@ class Application extends CoreApp {
         // 保存当前控制器标识
         if( -1 !== (pos = route.lastIndexOf('/')) ) {
             viewPath = viewPath + '/' + route.substring(0, pos);
-
             controllerId = route.substring(pos + 1);
         }
+
         if('' === controllerId) {
             controllerId = this.defaultControllerId;
         }
@@ -199,7 +197,6 @@ class Application extends CoreApp {
 
         if(null !== this.modules && undefined !== this.modules[id]) {
             moduleId = id;
-
             clazz = StringHelper.trimChar(this.modules[id], '/')
                 + '/controllers/'
                 + StringHelper.ucFirst(controllerId) + 'Controller';
