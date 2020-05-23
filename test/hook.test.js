@@ -3,7 +3,7 @@
 const request = require('supertest');
 const assert = require('assert');
 
-const CandyJs = require('../index');
+const YNode = require('../index');
 const Hook = require('../core/Hook');
 const App = require('../web/RestApplication');
 
@@ -32,9 +32,8 @@ app.get('/path2', function(req, res){
 });
 
 
-const candyJs = new CandyJs(app);
-// candyJs.listen( 2333, () => {console.log('listened on 2333');} );
-const server = candyJs.getServer();
+const yNode = new YNode(app);
+const server = yNode.getServer();
 
 
 // test
