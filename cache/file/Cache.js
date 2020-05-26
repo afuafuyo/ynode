@@ -17,7 +17,7 @@ const CacheException = require('../../core/CacheException');
  * 'cache': {
  *      'file': {
  *          'classPath': 'y/cache/file/Cache',
- *          'cachePath': '...'
+ *          'cachePath': 'some/path'
  *      }
  * }
  *
@@ -52,7 +52,7 @@ class Cache extends ICache {
      *
      * @param {String} key
      */
-    generateFile(key) {
+    getCacheFile(key) {
         return this.cachePath + '/' + key + this.fileExtension;
     }
 
@@ -60,7 +60,7 @@ class Cache extends ICache {
      * @inheritdoc
      */
     setSync(key, value, duration = 31536000000/* one year */) {
-        let cacheFile = this.generateFile(key);
+        let cacheFile = this.getCacheFile(key);
 
         let life = (Date.now() + duration) / 1000;
 
@@ -77,35 +77,40 @@ class Cache extends ICache {
     /**
      * @inheritdoc
      */
-    set(key, value, duration = 31536000000/* one year */, callback = null) {
-        let cacheFile = this.generateFile(key);
+    set(key, value, duration = 31536000000/* one year */) {
+        return new Promise((resolve, reject) => {
+            let cacheFile = this.getCacheFile(key);
+            let life = (Date.now() + duration) / 1000;
 
-        let life = (Date.now() + duration) / 1000;
+            // 检查目录
+            fs.access(this.cachePath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
+                if(null === err) {
+                    fs.writeFile(cacheFile, value, Y.app.encoding, (err) => {
+                        if(null !== err) {
+                            reject(err);
+                            return;
+                        }
 
-        // 检查目录
-        fs.access(this.cachePath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
-            if(null === err) {
-                fs.writeFile(cacheFile, value, Y.app.encoding, (err) => {
-                    if(null !== err) {
-                        callback(err);
-                        return;
-                    }
+                        fs.utimes(cacheFile, life, life, () => {
+                            resolve();
+                        });
+                    });
 
-                    fs.utimes(cacheFile, life, life, callback);
-                });
+                    return;
+                }
 
-                return;
-            }
+                // 目录不存在就创建
+                FileHelper.createDirectory(this.cachePath, 0o777, (err) => {
+                    fs.writeFile(cacheFile, value, Y.app.encoding, (err) => {
+                        if(null !== err) {
+                            reject(err);
+                            return;
+                        }
 
-            // 目录不存在就创建
-            FileHelper.createDirectory(this.cachePath, 0o777, (err) => {
-                fs.writeFile(cacheFile, value, Y.app.encoding, (err) => {
-                    if(null !== err) {
-                        callback(err);
-                        return;
-                    }
-
-                    fs.utimes(cacheFile, life, life, callback);
+                        fs.utimes(cacheFile, life, life, () => {
+                            resolve();
+                        });
+                    });
                 });
             });
         });
@@ -116,7 +121,7 @@ class Cache extends ICache {
      */
     getSync(key) {
         let ret = null;
-        let cacheFile = this.generateFile(key);
+        let cacheFile = this.getCacheFile(key);
 
         if(fs.existsSync(cacheFile) && fs.statSync(cacheFile).mtime.getTime() > Date.now()) {
             ret = fs.readFileSync(cacheFile, Y.app.encoding);
@@ -128,21 +133,30 @@ class Cache extends ICache {
     /**
      * @inheritdoc
      */
-    get(key, callback) {
-        let cacheFile = this.generateFile(key);
+    get(key) {
+        return new Promise((resolve, reject) => {
+            let cacheFile = this.getCacheFile(key);
 
-        fs.stat(cacheFile, (err, stats) => {
-            if(null !== err) {
-                callback(err, null);
-                return;
-            }
+            fs.stat(cacheFile, (err, stats) => {
+                if(null !== err) {
+                    reject(err);
+                    return;
+                }
 
-            if(stats.mtime.getTime() < Date.now()) {
-                callback(new CacheException('The cache: '+ key +' has expired'), null);
-                return;
-            }
+                if(stats.mtime.getTime() < Date.now()) {
+                    resolve(null);
+                    return;
+                }
 
-            fs.readFile(cacheFile, Y.app.encoding, callback);
+                fs.readFile(cacheFile, Y.app.encoding, (err, data) => {
+                    if(null !== err) {
+                        reject(err);
+                        return;
+                    }
+
+                    resolve(data);
+                });
+            });
         });
     }
 
@@ -150,7 +164,7 @@ class Cache extends ICache {
      * @inheritdoc
      */
     deleteSync(key) {
-        let cacheFile = this.generateFile(key);
+        let cacheFile = this.getCacheFile(key);
 
         fs.unlinkSync(cacheFile);
     }
@@ -158,10 +172,19 @@ class Cache extends ICache {
     /**
      * @inheritdoc
      */
-    delete(key, callback) {
-        let cacheFile = this.generateFile(key);
+    delete(key) {
+        return new Promise((resolve, reject) => {
+            let cacheFile = this.getCacheFile(key);
 
-        fs.unlink(cacheFile, callback);
+            fs.unlink(cacheFile, (err) => {
+                if(null !== err) {
+                    reject(err);
+                    return;
+                }
+
+                resolve();
+            });
+        });
     }
 
 }

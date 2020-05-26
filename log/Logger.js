@@ -161,19 +161,19 @@ class Logger {
     static getLevelName(level) {
         let name = 'unknown';
         switch(level) {
-            case Logger.LEVEL_ERROR :
+            case Logger.LEVEL_ERROR:
                 name = 'error';
                 break;
-            case Logger.LEVEL_WARNING :
+            case Logger.LEVEL_WARNING:
                 name = 'warning';
                 break;
-            case Logger.LEVEL_INFO :
+            case Logger.LEVEL_INFO:
                 name = 'info';
                 break;
-            case Logger.LEVEL_TRACE :
+            case Logger.LEVEL_TRACE:
                 name = 'trace';
                 break;
-            default :
+            default:
                 break;
         }
 

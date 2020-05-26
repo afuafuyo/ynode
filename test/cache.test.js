@@ -18,13 +18,13 @@ const app = new App({
 
 // api
 const msg = 'hello cache';
-app.get('/cache', (req, res) => {
+app.get('/cache', async (req, res) => {
     let c = Cache.getCache('file');
-    c.setSync('mykey', msg);
 
-    c.get('mykey', (err, data) => {
-        res.end(data);
-    });
+    await c.set('mykey', msg);
+    let data = await c.get('mykey');
+
+    res.end(data);
 });
 
 const yNode = new YNode(app);
