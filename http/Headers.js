@@ -12,6 +12,8 @@ class Headers {
     constructor() {
         /**
          * @property Map<String, String[]> headers the headers in this collection
+         *
+         * header 头可能重复出现 所以这里以数组形式保存
          */
         this.headers = new Map();
     }
@@ -19,29 +21,39 @@ class Headers {
     /**
      * 获取一条 header
      *
-     * 由于某些 header 头可能重复出现 所以这里以数组形式返回
-     *
      * @param {String} name the name of the header
      * @param {any} defaultValue
-     * @return {String[] | null}
+     * @return {String | null}
      */
-    getHeader(name, defaultValue = null) {
+    get(name, defaultValue = null) {
         name = name.toLowerCase();
 
         if(this.headers.has(name)) {
-            return this.headers.get(name);
+            return this.headers.get(name).join(', ');
         }
 
         return defaultValue;
     }
 
     /**
-     * 添加一条 header
+     * 添加一条 header 如果有重名则覆盖
      *
      * @param {String} name the name of the header
      * @param {String} value the value of the header
      */
-    addHeader(name, value) {
+    set(name, value) {
+        name = name.toLowerCase();
+
+        this.headers.set(name, [value]);
+    }
+
+    /**
+     * 添加一条 header 如果有重名则追加
+     *
+     * @param {String} name the name of the header
+     * @param {String} value the value of the header
+     */
+    add(name, value) {
         name = name.toLowerCase();
 
         if(this.headers.has(name)) {
@@ -49,8 +61,7 @@ class Headers {
             return;
         }
 
-        let list = [value];
-        this.headers.set(name, list);
+        this.headers.set(name, [value]);
     }
 
     /**
@@ -59,7 +70,7 @@ class Headers {
      * @param {String} name the name of the header
      * @return {Boolean}
      */
-    removeHeader(name) {
+    remove(name) {
         name = name.toLowerCase();
 
         return this.headers.delete(name);
@@ -68,7 +79,7 @@ class Headers {
     /**
      * 删除所有 header
      */
-    clearHeaders() {
+    clear() {
         this.headers.clear();
     }
 

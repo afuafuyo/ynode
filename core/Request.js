@@ -5,7 +5,7 @@
 'use strict';
 
 /**
- * server request
+ * Request
  */
 class Request {
 

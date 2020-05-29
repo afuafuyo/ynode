@@ -5,7 +5,7 @@
 'use strict';
 
 /**
- * server response
+ * Response
  */
 class Response {
 
