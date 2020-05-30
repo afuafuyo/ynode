@@ -22,7 +22,7 @@ class Cookie {
      * @param {Boolean} secure cookie secure
      * @param {Boolean} httpOnly cookie httpOnly
      */
-    constructor(name, value, expires = 0, path = '/', domain = '', secure = false, httpOnly = false) {
+    constructor(name, value, expires = 0, path = '', domain = '', secure = false, httpOnly = false) {
         this.name = name;
         this.value = value;
         this.expires = expires;

@@ -7,6 +7,7 @@
 const Y = require('../Y');
 const CoreResponse = require('../core/Response');
 const Cookie = require('./Cookie');
+const Headers = require('./Headers');
 const HttpException = require('../core/HttpException');
 
 /**
@@ -52,17 +53,17 @@ class Response extends CoreResponse {
         this.statusText = 'OK';
 
         /**
-         * @property {Map<String, String>} headers HTTP headers
+         * @property {Headers} headers HTTP headers
          */
-        this.headers = new Map();
+        this.headers = new Headers();
 
         /**
-         * @property {String | Buffer} content HTTP content
+         * @property {String} content HTTP content
          */
         this.content = '';
 
         /**
-         * @property {Array} cookies HTTP cookies
+         * @property {String[]} cookies HTTP cookies
          */
         this.cookies = [];
     }
@@ -82,16 +83,17 @@ class Response extends CoreResponse {
      * @param {Number} value the status code
      * @param {String} text the status text
      */
-    setStatusCode(value, text) {
+    setStatusCode(value, text = '') {
         if(value < 100 || value >= 600) {
-            throw new HttpException('The HTTP status code is invalid');
+            throw new HttpException('HTTP status code is invalid');
         }
 
         this.statusCode = value;
 
-        if(undefined === text) {
-            this.statusText = undefined !== Response.httpStatuses[String(value)] ?
-                Response.httpStatuses[String(value)] : '';
+        if('' === text) {
+            this.statusText = undefined !== Response.httpStatuses[String(value)]
+                ? Response.httpStatuses[String(value)]
+                : '';
 
         } else {
             this.statusText = text;
@@ -103,25 +105,21 @@ class Response extends CoreResponse {
     /**
      * 获取 header
      *
-     * @param {String} name header name
+     * @param {String} name the name of the header
      * @return {String | null}
      */
     getHeader(name) {
-        if(this.headers.has(name)) {
-            return this.headers.get(name);
-        }
-
-        return null;
+        return this.headers.get(name);
     }
 
     /**
      * 设置 header
      *
-     * @param {String} name header name
-     * @param {String | Array} value of header
+     * @param {String} name the name of the header
+     * @param {String} value the value of the header
      */
     setHeader(name, value) {
-        this.headers.set(name, value);
+        this.headers.add(name, value);
 
         return this;
     }
@@ -129,7 +127,7 @@ class Response extends CoreResponse {
     /**
      * 获取实体内容
      *
-     * @return {String | Buffer}
+     * @return {String}
      */
     getContent() {
         return this.content;
@@ -138,7 +136,7 @@ class Response extends CoreResponse {
     /**
      * 设置实体内容
      *
-     * @param {String | Buffer} content 实体内容
+     * @param {String} content 实体内容
      */
     setContent(content) {
         this.content = content;
@@ -153,36 +151,19 @@ class Response extends CoreResponse {
      * @param {String} value cookie value
      * @param {Object} options other config
      */
-    setCookie(name, value, options) {
-        if(undefined === options) {
-            options = {};
-        }
-
-        let cookie = new Cookie(name,
-            encodeURIComponent(value),
-            options.expires,
-            options.path,
-            options.domain,
-            options.secure,
-            options.httpOnly);
+    setCookie(name, value, expires = 0, path = '', domain = '', secure = false, httpOnly = false) {
+        let cookie = new Cookie(
+            name,
+            value,
+            expires,
+            path,
+            domain,
+            secure,
+            httpOnly);
 
         this.cookies.push(cookie.toString());
 
         return this;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    send(content) {
-        if(undefined !== content) {
-            this.setContent(content);
-        }
-
-        this.sendHeaders();
-        this.sendContent();
-
-        this.response.end();
     }
 
     /**
@@ -193,12 +174,12 @@ class Response extends CoreResponse {
             return;
         }
 
-        this.headers.forEach((v, k) => {
-            this.response.setHeader(k, v);
-        });
+        for(let [name, value] of this.headers) {
+            this.response.setHeader(name, value);
+        }
 
         if(this.cookies.length > 0) {
-            Cookie.setCookie(this.response, this.cookies);
+            this.response.setHeader('Set-Cookie', this.cookies);
         }
 
         this.response.writeHead(this.statusCode, this.statusText);
@@ -209,6 +190,20 @@ class Response extends CoreResponse {
      */
     sendContent() {
         this.response.write(this.content, this.encoding);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    send(content = '') {
+        if('' !== content) {
+            this.setContent(content);
+        }
+
+        this.sendHeaders();
+        this.sendContent();
+
+        this.response.end();
     }
 
     /**

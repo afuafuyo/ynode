@@ -86,9 +86,9 @@ class Request extends CoreRequest {
      * @return {String | null}
      */
     getCookie(name) {
-        let cookie = this.getHeaders().get('Cookie');
+        let cookie = this.request.headers.cookie;
 
-        if(null === cookie) {
+        if(undefined === cookie) {
             return null;
         }
 
@@ -101,11 +101,11 @@ class Request extends CoreRequest {
                 continue;
             }
 
-            key = list[i].substring(0, equalIndex).trim();
-            value = list[i].substring(equalIndex + 1).trim();
+            key = list[i].substring(0, equalIndex);
+            value = list[i].substring(equalIndex + 1);
 
             if(name === key) {
-                ret = decodeURIComponent(value);
+                ret = value;
                 break;
             }
         }
@@ -120,6 +120,7 @@ class Request extends CoreRequest {
      */
     getClientIp() {
         let forward = this.request.headers['x-forwarded-for'];
+
         if(undefined !== forward) {
             return forward.indexOf(',') > 0
                 ? forward.substring(0, forward.indexOf(','))
@@ -134,12 +135,14 @@ class Request extends CoreRequest {
      *
      * @return {String | null}
      */
-    getReferer(request) {
-        if(undefined !== this.request.headers.referer) {
-            return this.request.headers.referer;
+    getReferer() {
+        let referer = this.request.headers.referer;
+
+        if(undefined === referer) {
+            return null;
         }
 
-        return null;
+        return referer;
     }
 
     /**

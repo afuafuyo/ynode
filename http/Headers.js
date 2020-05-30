@@ -18,6 +18,26 @@ class Headers {
         this.headers = new Map();
     }
 
+    [Symbol.iterator]() {
+        let index = 0;
+        let keysIterator = this.headers.keys();
+
+        return {
+            next: () => {
+                if(index++ < this.headers.size) {
+                    let key = keysIterator.next().value;
+
+                    return {
+                        value: [key, this.get(key)],
+                        done: false
+                    };
+                }
+
+                return {done: true};
+            }
+        }
+    }
+
     /**
      * 获取一条 header
      *
@@ -62,6 +82,15 @@ class Headers {
         }
 
         this.headers.set(name, [value]);
+    }
+
+    /**
+     * 是否存在 header
+     *
+     * @return {Boolean}
+     */
+    has(name) {
+        return this.headers.has(name);
     }
 
     /**

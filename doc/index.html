@@ -728,43 +728,38 @@ url.to('index/index', {id: 1, '#': 'anchor'})
             <h1 class="page-header" id="reqres"><b>请求与响应</b></h1>
             <p>
                 <code>YNode</code>提供了处理请求和响应的类
-                <code>y/web/Request</code>和<code>y/web/Response</code>
+                <code>y/http/Request</code>和<code>y/http/Response</code>
             </p>
 
-            <h4><b>HTTP 请求 y/web/Request 类</b></h4>
+            <h4><b>HTTP 请求 y/http/Request 类</b></h4>
             <p>
                 用于处理 http 请求
                 该对象提供了对诸如<code>请求参数 HTTP头 cookies</code>等信息的访问方法
             </p>
             <p>
-                <code>y/web/Request</code>类提供了一组实例和静态方法来操作需要的数据
+                <code>y/http/Request</code>类提供了一组实例和静态方法来操作需要的数据
             </p>
             <ul>
-                <li><code>static parseUrl(request)</code> 简单解析 url</li>
-                <li><code>static getClientIp(request)</code> 获取客户端 IP</li>
-                <li><code>static getQueryString(request, param)</code> 获取 GET 请求参数</li>
-                <li><code>static getParameter(request, param)</code> 获取 POST 请求参数</li>
-                <li><code>static getCookie(request, name)</code> 获取 COOKIE</li>
-                <li><code>getQueryString(param)</code> 实例方法获取 GET 请求参数</li>
-                <li><code>getParameter(param)</code> 实例方法获取 POST 请求参数</li>
+                <li><code>getQueryString(param, defaultValue = null)</code> 实例方法获取 GET 请求参数</li>
+                <li><code>getParameter(param, defaultValue = null)</code> 实例方法获取 POST 请求参数</li>
                 <li><code>getCookie(name)</code> 实例方法获取 COOKIE</li>
             </ul>
             <blockquote class="bg-danger">
                 <code>YNode</code>中使用 getParameter() 获取 POST 参数暂时需要依赖第三方解析 body 的中间件 否则将反回 null
             </blockquote>
 <pre><code>
-var Request = Y.include('y/web/Request');
+var Request = Y.include('y/http/Request');
 var request = new Request(req);
 var id = request.getQueryString('id');
 ...
 </code></pre>
 
-            <h4><b>HTTP 响应 y/web/Response 类</b></h4>
+            <h4><b>HTTP 响应 y/http/Response 类</b></h4>
             <p>
                 主要用户向客户端输出响应消息
             </p>
             <p>
-                <code>y/web/Response</code>类提供了一组实例和静态方法来操作响应数据
+                <code>y/http/Response</code>类提供了一组实例和静态方法来操作响应数据
             </p>
             <ul>
                 <li><code>setStatusCode(value[, text])</code> 设置 http status code</li>
@@ -777,7 +772,7 @@ var id = request.getQueryString('id');
 
             <h6><b>使用 response 输出内容</b></h6>
 <pre><code>
-var Response = Y.include('y/web/Response');
+var Response = Y.include('y/http/Response');
 var response = new Response(res);
 response.setContent('some data from server');
 response.send();
@@ -785,7 +780,7 @@ response.send();
 
             <h6><b>使用 response 重定向</b></h6>
 <pre><code>
-var Response = Y.include('y/web/Response');
+var Response = Y.include('y/http/Response');
 var response = new Response(res);
 response.redirect('http://foo.com');
 </code></pre>
