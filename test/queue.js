@@ -1,4 +1,4 @@
-const Q = require('../util/LinkedQueue');
+const Q = require('../utils/LinkedQueue');
 
 const q = new Q();
 
@@ -10,28 +10,7 @@ q.add(d1);
 q.add(d2);
 q.add(d3);
 
-//var data = null;
-//while(null !== (data = q.iterator())) {
-//    console.log('1', data);
-//}
+for(let data of q) {
+    console.log(data)
+}
 
-//while(null !== (data = q.iterator())) {
-//    console.log('1', data);
-//}
-
-q.each((data) => {
-    console.log('1', data)
-
-    if(2 === data.age) {
-        return false;
-    }
-
-});
-
-q.remove(d2);
-
-q.each((data) => {
-    console.log('2', data)
-});
-
-console.log(q.toString());
