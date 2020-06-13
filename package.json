@@ -1,6 +1,6 @@
 {
   "name": "ynode",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "description": "An Object-Oriented node mvc and REST framework",
   "main": "index.js",
   "scripts": {
@@ -15,8 +15,11 @@
   ],
   "author": "afu",
   "bin": {
-      "_ynode": "./bin/_ynode"
+    "_ynode": "./bin/_ynode"
   },
   "license": "Apache-2.0",
-  "homepage": "https://github.com/afuafuyo/ynode"
+  "homepage": "https://github.com/afuafuyo/ynode",
+  "dependencies": {
+    "fast-regexp-router": "^1.1.1"
+  }
 }

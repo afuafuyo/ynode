@@ -4,7 +4,7 @@ const request = require('supertest');
 const assert = require('assert');
 
 const YNode = require('../index.js');
-const App = require('../web/RestApplication.js');
+const App = require('../rest/Application.js');
 
 const app = new App({
     id: 1,

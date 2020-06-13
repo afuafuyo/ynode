@@ -6,12 +6,16 @@
 
 const url = require('url');
 
+const FastRegExpRouter = require('fast-regexp-router');
+
 const Y = require('../Y');
-const RegExpRouter = require('../utils/RegExpRouter');
 const CoreApp = require('../core/Application');
 const InvalidCallException = require('../core/InvalidCallException');
 
-class RestApplication extends CoreApp {
+/**
+ * rest application
+ */
+class Application extends CoreApp {
 
     constructor(config) {
         super(config);
@@ -62,7 +66,7 @@ class RestApplication extends CoreApp {
         }
 
         // handler is string
-        let pos = ret.handler.indexOf(RestApplication.separator);
+        let pos = ret.handler.indexOf(Application.separator);
         let obj = null;
         if(-1 === pos) {
             obj = Y.createObject(ret.handler);
@@ -87,10 +91,10 @@ class RestApplication extends CoreApp {
             return null;
         }
 
-        let regExpRouter = new RegExpRouter(routesMap);
-        regExpRouter.combineRoutes();
+        let regExpRouter = new FastRegExpRouter();
+        regExpRouter.setRoutes(routesMap);
 
-        return regExpRouter.exec(route);
+        return regExpRouter.execInOrder(route);
     }
 
     /**
@@ -181,6 +185,6 @@ class RestApplication extends CoreApp {
 /**
  * class and method separate
  */
-RestApplication.separator = '@';
+Application.separator = '@';
 
-module.exports = RestApplication;
+module.exports = Application;
