@@ -94,7 +94,7 @@ class Application extends CoreApp {
         let regExpRouter = new FastRegExpRouter();
         regExpRouter.setRoutes(routesMap);
 
-        return regExpRouter.execInOrder(route);
+        return regExpRouter.exec(route);
     }
 
     /**
