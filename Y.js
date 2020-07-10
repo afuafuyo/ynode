@@ -72,7 +72,7 @@ class Y {
     /**
      * 创建对象
      *
-     * @param {String | Object} 以某个别名开头的类全名或带 'classPath' 键的配置
+     * @param {String | Map} 以某个别名开头的类全名或带 'classPath' 键的配置
      *
      * eg.
      * 'alias/path/Class'
@@ -80,7 +80,7 @@ class Y {
      * {classPath: 'some/path/Class', ...}
      *
      * @param {any} parameters 构造函数参数
-     * @return {Object} 类实例
+     * @return {any} 类实例
      */
     static createObject(clazz, ...parameters) {
         if('string' === typeof clazz) {
@@ -106,7 +106,7 @@ class Y {
     /**
      * 配置方式创建对象
      *
-     * @param {Object} definition
+     * @param {Map} definition
      */
     static createObjectAsDefinition(definition, ...parameters) {
         let realClass = Y.getPathAlias('@' + definition.classPath);
@@ -138,9 +138,9 @@ class Y {
     /**
      * 对象配置
      *
-     * @param {Object} object 需要配置的对象
-     * @param {Object} properties 配置项
-     * @return {Object} 源对象
+     * @param {any} object 需要配置的对象
+     * @param {any} properties 配置项
+     * @return {any} 源对象
      */
     static config(object, properties) {
         for(let key in properties) {

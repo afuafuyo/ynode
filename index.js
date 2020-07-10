@@ -15,7 +15,7 @@ class YNode {
     /**
      * constructor
      *
-     * @param {Object} application 应用实例
+     * @param {any} application 应用实例
      */
     constructor(application) {
         this.server = null;

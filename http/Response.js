@@ -149,7 +149,7 @@ class Response extends CoreResponse {
      *
      * @param {String} name cookie name
      * @param {String} value cookie value
-     * @param {Object} options other config
+     * @param {any} options other config
      */
     setCookie(name, value, expires = 0, path = '', domain = '', secure = false, httpOnly = false) {
         let cookie = new Cookie(

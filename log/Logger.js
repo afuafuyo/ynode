@@ -81,7 +81,7 @@ class Logger {
     /**
      * 创建新日志对象
      *
-     * @param {Object} settings
+     * @param {any} settings
      * @return {Logger}
      */
     static newInstance(settings) {

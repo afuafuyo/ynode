@@ -16,7 +16,7 @@ class Resource {
      * constructor
      *
      * @param {String} root 静态资源目录
-     * @param {Object} options 配置参数
+     * @param {any} options 配置参数
      *
      * {
      *    mime: { ... },
@@ -41,7 +41,7 @@ class Resource {
     /**
      * 是否是静态资源
      *
-     * @param {Object} request 请求对象
+     * @param {any} request 请求对象
      * @return {Boolean}
      */
     isStatic(request) {
@@ -102,8 +102,8 @@ class Resource {
     /**
      * 处理静态资源
      *
-     * @param {Object} request
-     * @param {Object} response
+     * @param {any} request
+     * @param {any} response
      * @param {Function} next
      */
     handler(request, response, next) {

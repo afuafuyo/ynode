@@ -12,7 +12,8 @@ const Event = require('./Event');
 class ActionEvent extends Event {
 
     /**
-     * constructor
+     * @param {any} request
+     * @param {any} response
      */
     constructor(request, response) {
         super();

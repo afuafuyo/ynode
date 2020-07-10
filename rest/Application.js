@@ -47,8 +47,8 @@ class Application extends CoreApp {
     /**
      * 请求处理
      *
-     * @param {Object} request
-     * @param {Object} response
+     * @param {any} request
+     * @param {any} response
      */
     requestListener(request, response) {
         let route = url.parse(request.url).pathname;
@@ -83,7 +83,7 @@ class Application extends CoreApp {
      *
      * @param {String} route 路由
      * @param {String} httpMethod 请求方法
-     * @return {Object | null}
+     * @return {any | null}
      */
     resolveRoutes(route, httpMethod) {
         let routesMap = this.methods[httpMethod];

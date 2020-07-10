@@ -13,7 +13,7 @@ class Behavior {
 
     constructor() {
         /**
-         * @property {Component} component 拥有行为的组件
+         * @property {any} component 拥有行为的组件
          */
         this.component = null;
     }
@@ -34,7 +34,7 @@ class Behavior {
     /**
      * 监听组件的事件
      *
-     * @param {Component} component 组件
+     * @param {any} component 组件
      */
     listen(component) {
         this.component = component;

@@ -12,7 +12,7 @@ class Response {
     /**
      * constructor
      *
-     * @param {Object} response
+     * @param {any} response
      */
     constructor(response) {
         this.response = response;

@@ -33,12 +33,12 @@ class ServiceLocator {
      */
     constructor() {
         /**
-         * @property {Map<String, Object>} services
+         * @property {Map<String, any>} services
          */
         this.services = new Map();
 
         /**
-         * @property {Map<String, Object>} definitions
+         * @property {Map<String, any>} definitions
          */
         this.definitions = new Map();
     }
@@ -47,7 +47,7 @@ class ServiceLocator {
      * 设置服务
      *
      * @param {String} key
-     * @param {Object} service
+     * @param {any} service
      */
     setService(key, service) {
         if(null === service) {
@@ -62,7 +62,7 @@ class ServiceLocator {
     /**
      * 以定义方式设置服务
      *
-     * @param {Object} definition
+     * @param {any} definition
      *
      * {
      *     'service1': {...},
@@ -100,7 +100,7 @@ class ServiceLocator {
      * 获取服务
      *
      * @param {String} key
-     * @return {Object | null}
+     * @return {any | null}
      */
     getService(key) {
         if(this.services.has(key)) {

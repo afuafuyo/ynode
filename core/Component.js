@@ -66,7 +66,7 @@ class Component extends Event {
      * 向组件附加一个行为
      *
      * @param {String} name 行为的名称
-     * @param {String | Object} behavior
+     * @param {String | Map} behavior
      */
     attachBehavior(name, behavior) {
         this.attachBehaviorInternal(name, behavior);
@@ -87,7 +87,7 @@ class Component extends Event {
      * 删除组件的行为
      *
      * @param {String} name 行为的名称
-     * @return {Object | null}
+     * @return {any | null}
      */
     detachBehavior(name) {
         if(!this.behaviorsMap.has(name)) {
@@ -115,7 +115,7 @@ class Component extends Event {
      * 保存行为类到组件
      *
      * @param {String} name 行为的名称
-     * @param {String | Object} behavior
+     * @param {String | Map} behavior
      */
     attachBehaviorInternal(name, behavior) {
         if(!(behavior instanceof Behavior)) {

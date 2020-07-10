@@ -19,7 +19,7 @@ class Controller extends Component {
         super();
 
         /**
-         * @property {Object} context 上下文环境 用于保存当前请求相关的信息
+         * @property {any} context 上下文环境 用于保存当前请求相关的信息
          */
         this.context = context;
     }
@@ -27,8 +27,8 @@ class Controller extends Component {
     /**
      * 控制器方法执行前
      *
-     * @param {Object} request
-     * @param {Object} response
+     * @param {any} request
+     * @param {any} response
      * @return {Boolean} 决定了控制器的动作是否会接续执行
      */
     beforeAction(request, response) {
@@ -41,8 +41,8 @@ class Controller extends Component {
     /**
      * 控制器方法执行后
      *
-     * @param {Object} request
-     * @param {Object} response
+     * @param {any} request
+     * @param {any} response
      */
     afterAction(request, response) {
         this.trigger(Controller.EVENT_AFTER_ACTION, null);
@@ -51,8 +51,8 @@ class Controller extends Component {
     /**
      * 执行控制器的方法
      *
-     * @param {Object} request
-     * @param {Object} response
+     * @param {any} request
+     * @param {any} response
      */
     runControllerAction(request, response) {
         if( true !== this.beforeAction(request, response) ) {
@@ -66,6 +66,9 @@ class Controller extends Component {
 
     /**
      * 执行控制器入口
+     *
+     * @param {any} request
+     * @param {any} response
      */
     run(request, response) {}
 
@@ -73,8 +76,7 @@ class Controller extends Component {
      * 渲染文件
      *
      * @param {String} view 视图名
-     * @param {Object} parameters 参数
-     * @return string | undefined
+     * @param {any} parameters 参数
      */
     render(view, parameters = null) {}
 

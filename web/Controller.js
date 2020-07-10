@@ -27,7 +27,7 @@ class Controller extends CoreController {
     /**
      * 获取视图类
      *
-     * @return {Object}
+     * @return {any}
      */
     getView() {
         if(null === this.view) {
@@ -40,7 +40,7 @@ class Controller extends CoreController {
     /**
      * 设置视图类
      *
-     * @param  {Object} view
+     * @param {any} view
      */
     setView(view) {
         this.view = view;
