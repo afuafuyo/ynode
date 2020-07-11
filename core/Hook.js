@@ -9,9 +9,6 @@
  */
 class Hook {
 
-    /**
-     * constructor
-     */
     constructor() {
         this.index = 0;
 

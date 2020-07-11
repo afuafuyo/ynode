@@ -10,7 +10,7 @@ const FastRegExpRouter = require('fast-regexp-router');
 
 const Y = require('../Y');
 const CoreApp = require('../core/Application');
-const InvalidCallException = require('../core/InvalidCallException');
+const InvalidRouteException = require('../core/InvalidRouteException');
 
 /**
  * rest application
@@ -55,7 +55,7 @@ class Application extends CoreApp {
         let ret = this.resolveRoutes(route, request.method);
 
         if(null === ret) {
-            throw new InvalidCallException('The REST route: ' + route + ' not found');
+            throw new InvalidRouteException('The REST route requested is invalid ' + route);
         }
 
         // handler is function

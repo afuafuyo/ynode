@@ -28,9 +28,6 @@ const InvalidConfigException = require('../core/InvalidConfigException');
  */
 class ServiceLocator {
 
-    /**
-     * constructor
-     */
     constructor() {
         /**
          * @property {Map<String, any>} services

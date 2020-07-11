@@ -15,6 +15,8 @@ class View {
 
     /**
      * constructor
+     *
+     * @param {any} context
      */
     constructor(context) {
         /**

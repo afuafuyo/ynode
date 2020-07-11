@@ -14,6 +14,8 @@ class Controller extends Component {
 
     /**
      * constructor
+     *
+     * @param {any} context
      */
     constructor(context) {
         super();

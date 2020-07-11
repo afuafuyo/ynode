@@ -28,6 +28,8 @@ class Response extends CoreResponse {
 
     /**
      * constructor
+     *
+     * @param {any} response
      */
     constructor(response) {
         super(response);

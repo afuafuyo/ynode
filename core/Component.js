@@ -13,9 +13,6 @@ const Behavior = require('./Behavior');
  */
 class Component extends Event {
 
-    /**
-     * constructor
-     */
     constructor() {
         super();
 

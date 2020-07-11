@@ -17,6 +17,8 @@ class Request extends CoreRequest {
 
     /**
      * constructor
+     *
+     * @param {any} request
      */
     constructor(request) {
         super(request);

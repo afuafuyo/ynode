@@ -14,6 +14,8 @@ class Controller extends CoreController {
 
     /**
      * constructor
+     *
+     * @param {any} context
      */
     constructor(context) {
         super(context);

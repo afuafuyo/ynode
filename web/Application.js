@@ -8,8 +8,8 @@ const url = require('url');
 
 const Y = require('../Y');
 const CoreApp = require('../core/Application');
+const Controller = require('./Controller');
 const StringHelper = require('../helpers/StringHelper');
-const WebController = require('./Controller');
 const InvalidRouteException = require('../core/InvalidRouteException');
 
 /**
@@ -17,9 +17,6 @@ const InvalidRouteException = require('../core/InvalidRouteException');
  */
 class Application extends CoreApp {
 
-    /**
-     * @inheritdoc
-     */
     constructor(config) {
         super(config);
 
@@ -93,11 +90,11 @@ class Application extends CoreApp {
         let controller = this.createController(route);
 
         if(null === controller) {
-            throw new InvalidRouteException('The route requested is invalid');
+            throw new InvalidRouteException('The route requested is invalid ' + route);
         }
 
         // 是否继承自框架控制器
-        if( !(controller instanceof WebController) ) {
+        if( !(controller instanceof Controller) ) {
             controller.run(request, response);
             return;
         }

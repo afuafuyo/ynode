@@ -13,6 +13,8 @@ class View extends CoreView {
 
     /**
      * constructor
+     *
+     * @param {any} context
      */
     constructor(context) {
         super(context);
