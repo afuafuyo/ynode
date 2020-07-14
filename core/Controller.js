@@ -29,12 +29,10 @@ class Controller extends Component {
     /**
      * 控制器方法执行前
      *
-     * @param {any} request
-     * @param {any} response
+     * @param {ActionEvent} actionEvent
      * @return {Boolean} 决定了控制器的动作是否会接续执行
      */
-    beforeAction(request, response) {
-        let actionEvent = new ActionEvent(request, response);
+    beforeAction(actionEvent) {
         this.trigger(Controller.EVENT_BEFORE_ACTION, actionEvent);
 
         return actionEvent.valid;
@@ -43,11 +41,10 @@ class Controller extends Component {
     /**
      * 控制器方法执行后
      *
-     * @param {any} request
-     * @param {any} response
+     * @param {ActionEvent} actionEvent
      */
-    afterAction(request, response) {
-        this.trigger(Controller.EVENT_AFTER_ACTION, null);
+    afterAction(actionEvent) {
+        this.trigger(Controller.EVENT_AFTER_ACTION, actionEvent);
     }
 
     /**
@@ -57,13 +54,15 @@ class Controller extends Component {
      * @param {any} response
      */
     runControllerAction(request, response) {
-        if( true !== this.beforeAction(request, response) ) {
+        let actionEvent = new ActionEvent(request, response);
+
+        if( true !== this.beforeAction(actionEvent) ) {
             return;
         }
 
         this.run(request, response);
 
-        this.afterAction(request, response);
+        this.afterAction(actionEvent);
     }
 
     /**

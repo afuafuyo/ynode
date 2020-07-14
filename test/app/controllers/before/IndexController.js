@@ -5,9 +5,9 @@ var Controller = Y.include('y/web/Controller');
 
 class IndexController extends Controller {
 
-    beforeAction(req, res) {
+    beforeAction(actionEvent) {
         setTimeout(() => {
-            this.run(req, res);
+            this.run(actionEvent.request, actionEvent.response);
         }, 1000);
 
         return false;
