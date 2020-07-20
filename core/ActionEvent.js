@@ -11,24 +11,23 @@ const Event = require('./Event');
  */
 class ActionEvent extends Event {
 
-    /**
-     * constructor
-     *
-     * @param {any} request
-     * @param {any} response
-     */
-    constructor(request, response) {
+    constructor() {
         super();
 
         /**
          * @property {any} request
          */
-        this.request = request;
+        this.request = null;
 
         /**
          * @property {any} response
          */
-        this.response = response;
+        this.response = null;
+
+        /**
+         * @property {any} data
+         */
+        this.data = null;
 
         /**
          * @property {Boolean} 状态

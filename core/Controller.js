@@ -54,7 +54,9 @@ class Controller extends Component {
      * @param {any} response
      */
     runControllerAction(request, response) {
-        let actionEvent = new ActionEvent(request, response);
+        let actionEvent = new ActionEvent();
+        actionEvent.request = request;
+        actionEvent.response = response;
 
         if( true !== this.beforeAction(actionEvent) ) {
             return;
