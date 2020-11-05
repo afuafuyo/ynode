@@ -19,7 +19,7 @@ class Cache {
      */
     static getCache(cacheFlag) {
         if(undefined === cacheFlag) {
-            throw new InvalidArgumentException('Argument must be provide for getCache()');
+            throw new InvalidArgumentException('An argument must be provide for getCache()');
         }
 
         if(undefined === Y.app.cache || undefined === Y.app.cache[cacheFlag]) {
