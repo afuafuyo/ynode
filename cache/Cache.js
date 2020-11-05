@@ -19,15 +19,15 @@ class Cache {
      */
     static getCache(cacheFlag) {
         if(undefined === cacheFlag) {
-            throw new InvalidArgumentException('Invalid parameter: cacheFlag');
+            throw new InvalidArgumentException('Argument must be provide for getCache()');
         }
 
         if(undefined === Y.app.cache || undefined === Y.app.cache[cacheFlag]) {
-            throw new InvalidConfigException('No cache config found');
+            throw new InvalidConfigException('The cache configuration is not found');
         }
 
         if(undefined === Y.app.cache[cacheFlag].classPath) {
-            throw new InvalidConfigException('The cache config lost key: class');
+            throw new InvalidConfigException('The classPath of cache configuration is not found');
         }
 
         if(undefined === Cache._caches[cacheFlag] || null === Cache._caches[cacheFlag]) {
