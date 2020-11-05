@@ -55,9 +55,7 @@ createDirectorySync(viewPath);
 fs.writeFile(controllerPath + '/IndexController.js',
 `'use strict';
 
-const Y = require('ynode/Y');
-const YNode = require('ynode');
-const Controller = Y.include('y/web/Controller');
+const Controller = require('ynode/web/Controller');
 
 class IndexController extends Controller {
 
