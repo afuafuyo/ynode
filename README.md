@@ -6,6 +6,8 @@ __  ___   __          __
 /_/_/ |_/\____/\__,_/\___/
 </pre>
 
+# 该项目已经重命名为 ifate 请使用 ifate
+
 # 一个面向对象的高效 node.js mvc and REST 框架
 
 # [English Readme](./README_EN.md)
